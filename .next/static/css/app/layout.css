@@ -1,0 +1,72 @@
+/*!***************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./src/app/style.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************/
+@font-face {
+  font-family: "TTHoves";
+  font-weight: 700;
+  src:
+    url(/_next/static/media/TTHoves-Bold.959a90e6.woff2) format("woff2"),
+    url(/_next/static/media/TTHoves-Bold.d92f13e9.woff) format("woff");
+}
+
+@font-face {
+  font-family: "TTHoves";
+  font-weight: 600;
+  src:
+    url(/_next/static/media/TTHoves-DemiBold.66a35706.woff2) format("woff2"),
+    url(/_next/static/media/TTHoves-DemiBold.0c7f69b6.woff) format("woff");
+}
+
+@font-face {
+  font-family: "TTHoves";
+  font-weight: 500;
+  src:
+    url(/_next/static/media/TTHoves-Medium.4abe38fa.woff2) format("woff2"),
+    url(/_next/static/media/TTHoves-Medium.6a0e3ebf.woff) format("woff");
+}
+
+@font-face {
+  font-family: "TTHoves";
+  font-weight: 400;
+  src:
+    url(/_next/static/media/TTHoves-Regular.cce19915.woff2) format("woff2"),
+    url(/_next/static/media/TTHoves-Regular.8b853bdd.woff) format("woff");
+}
+
+@font-face {
+  font-family: "TTHoves";
+  font-weight: 300;
+  src:
+    url(/_next/static/media/TTHoves-Light.f2330261.woff2) format("woff2"),
+    url(/_next/static/media/TTHoves-Light.00ff1104.woff) format("woff");
+}
+
+body {
+  font-family: "TTHoves", sans-serif;
+}
+
+/* scroll-bar */
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: #ffffff;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid #ffffff;
+  background-color: #777;
+  border-radius: 8px;
+}
+
+* {
+  font-feature-settings:
+    "ss04" on,
+    "ss05" on;
+}
+
+@media (max-width: 769px) {
+  ::-webkit-scrollbar {
+    width: 0px; /* Further adjusted width for even smaller screens */
+  }
+}
+
