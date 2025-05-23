@@ -1,6 +1,4 @@
-const author = ({
-  person
-}: any) => {
+const author = ({ person }: any) => {
   return (
     <div className="author flex items-center gap-2 py-2">
       <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#d6d6d6]">
@@ -30,7 +28,7 @@ const author = ({
       <a className="text-md truncate font-[300] text-[#414141] md-xl:w-24">
         <div className="flex items-center justify-center gap-1">
           <svg
-            class="fill-current text-[#666]"
+            className="fill-current text-[#666]"
             viewBox="0 0 16 16"
             version="1.1"
             width="16"

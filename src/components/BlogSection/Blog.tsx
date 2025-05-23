@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import ReactQuill from "react-quill";
 import Author from "./_Child/Author";
 import Tags from "./_Child/Tags";
 import Articles from "./Articles";
@@ -10,10 +9,10 @@ import { BACKEND_URL } from "../../constants";
 import { formatDate, ReadTime } from "../../services/date";
 import MinuteReadLikes from "../MinuteReadLikes/MinuteReadLikes";
 import Giscus from "@giscus/react";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.bubble.css"; // Import theme CSS
 
-const LazyLoad = ({
-  children
-}: any) => {
+const LazyLoad = ({ children }: any) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
 
@@ -45,11 +44,11 @@ const LazyLoad = ({
 
 const Blog = () => {
   const { id } = useParams();
-  const [blogData, setBlogData] = useState([]);
-  const [similarArticles, setSimilarArticles] = useState(null);
-  const [timeStamp, setTimeStamp] = useState("");
-  const [readingTime, setReadingTime] = useState(1);
-  const [loading, setLoading] = useState(true);
+  const [blogData, setBlogData] = useState<any>([]);
+  const [similarArticles, setSimilarArticles] = useState<any>(null);
+  const [timeStamp, setTimeStamp] = useState<string>("");
+  const [readingTime, setReadingTime] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchBlogData = async () => {
     try {
@@ -73,9 +72,9 @@ const Blog = () => {
 
   const fetchSimilarBlogs = async (
     title: any,
-    articleTags,
-    companyName,
-    articleID,
+    articleTags: any,
+    companyName: any,
+    articleID: any,
   ) => {
     try {
       const params = { q: title, company: companyName, tags: articleTags };
@@ -139,7 +138,7 @@ const Blog = () => {
               {MemoizedTags}
               {MemoizedMinuteReadLikes}
               {blogData.imageUrl !== "your_image_url_here" && (
-                <div className="relative h-[250px] w-full border overflow-hidden rounded-xl lg:h-[300px] x-sm:h-[200px]">
+                <div className="relative h-[250px] w-full overflow-hidden rounded-xl border lg:h-[300px] x-sm:h-[200px]">
                   <img
                     src={blogData?.imageUrl}
                     className="absolute inset-0 h-full w-full object-cover"
@@ -151,7 +150,7 @@ const Blog = () => {
               <div className="lorem-container flex flex-col items-center justify-center py-3 text-black">
                 <div className="w-full rounded-lg bg-white text-[18px] shadow-none">
                   <ReactQuill
-                    value={blogData?.description}
+                    value={blogData?.description || ""} // Fallback to empty string
                     theme="bubble"
                     readOnly
                     className="h-full w-full"

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import "react-quill/dist/quill.bubble.css";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
+import "react-quill-new/dist/quill.bubble.css";
 import "../Editor/Index.css";
 
 const modules = {
@@ -20,16 +20,14 @@ const modules = {
   ],
 };
 
-const TextEditor = ({
-  article,
-  setArticle
-}: any) => {
+const TextEditor = ({ article, setArticle }: any) => {
   // create a reference for the Quill editor
-  const quillRef = useRef(null);
+  const quillRef = useRef<ReactQuill>(null);
 
   useEffect(() => {
     // function to handle the scroll event
     const handleWheel = (e: any) => {
+      if (!quillRef.current) return;
       const quill = quillRef.current.getEditor();
       const { scrollTop, scrollHeight, clientHeight } = quill.root;
 
@@ -47,6 +45,7 @@ const TextEditor = ({
     };
 
     // getting quill root element to add event listener
+    if (!quillRef.current) return;
     const quillRoot = quillRef.current.getEditor().root;
     // add event listener to the Quill root element
     quillRoot.addEventListener("wheel", handleWheel, { passive: false });

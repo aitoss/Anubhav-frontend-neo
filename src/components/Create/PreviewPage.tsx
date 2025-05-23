@@ -4,14 +4,10 @@ import Author from "../BlogSection/_Child/Author";
 import Tag from "../InputTag/Tag";
 import MinuteReadLikes from "../MinuteReadLikes/MinuteReadLikes";
 import { formatDate, ReadTime } from "../../services/date";
-import ReactQuill from "react-quill";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.bubble.css"; // Import theme CSS
 
-const PreviewPage = ({
-  value,
-  article,
-  bannerImage,
-  tags
-}: any) => {
+const PreviewPage = ({ value, article, bannerImage, tags }: any) => {
   const MemoizedAuthor = useMemo(() => {
     return (
       <Author
@@ -40,7 +36,7 @@ const PreviewPage = ({
   }, [readingTime, currentTimestamp]);
 
   // Ref to handle scroll locking
-  const scrollContainerRef = useRef(null);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   // Prevent body from scrolling when mouse is over scrollable div
   useEffect(() => {
@@ -72,7 +68,7 @@ const PreviewPage = ({
               <h1 className="text-3xl font-bold">{value.title}</h1>
               {MemoizedAuthor}
               <div className="pointer-events-auto flex flex-wrap gap-2">
-                {tags.map((tag: any, index) => (
+                {tags.map((tag: any, index: number) => (
                   <Tag key={index} name={tag} />
                 ))}
               </div>

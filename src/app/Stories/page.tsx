@@ -11,7 +11,7 @@ import FilterPopUp from "../../components/Filter/FilterPopUp";
 import companyLogo from "public/assets/images/company.png";
 
 const Stories = () => {
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("Recent");
   const [company, setCompany] = useState([]);
@@ -36,7 +36,7 @@ const Stories = () => {
     countCompany();
   }, []);
 
-  const fetchLatestArticles = async (endPoint: any, page) => {
+  const fetchLatestArticles = async (endPoint: any, page: any) => {
     setLoading(true);
     try {
       const res = await axios.get(`${BACKEND_URL}${endPoint}?page=${page}`);

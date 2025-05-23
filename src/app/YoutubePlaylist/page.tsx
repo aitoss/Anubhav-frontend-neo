@@ -5,8 +5,8 @@ import Tag from "../../components/InputTag/Tag";
 import YoutubeCard from "../../components/Video/YoutubeCard";
 import YoutubeCardLoading from "../../components/Video/YoutubeCardLoading";
 
-const API_KEY = "ABCD";
-const PLAYLIST_ID = "124";
+const API_KEY = process.env.VITE_YOUTUBE_API_KEY;
+const PLAYLIST_ID = process.env.VITE_PLAYLIST_ID;
 
 type YoutubeSnippet = {
   title: string;

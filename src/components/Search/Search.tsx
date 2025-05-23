@@ -1,38 +1,38 @@
 import { AnimatePresence, motion } from "framer-motion";
-import debounce from "lodash/debounce";
-import throttle from "lodash/throttle";
+import debounce from "lodash.debounce";
+import throttle from "lodash.throttle";
 import { X } from "lucide-react";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../../constants";
 import ShortcutIcon from "./ShortcutIcon";
 
-const Search = ({
-  mode,
-  focus,
-  full
-}: any) => {
+const Search = ({ mode, focus, full }: any) => {
   const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(full);
   const [searchText, setSearchText] = useState("");
-  const [recentSearches, setRecentSearches] = useState([]);
-  const inputRef = useRef(null);
-  const [popularSearches, setPopularSearches] = useState([]);
+  const [recentSearches, setRecentSearches] = useState<string[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [popularSearches, setPopularSearches] = useState<string[]>([]);
 
   useEffect(() => {
-    const storedSearches =
-      JSON.parse(localStorage.getItem("recentSearches")) || [];
+    const stored = localStorage.getItem("recentSearches");
+    const storedSearches = stored ? JSON.parse(stored) : [];
     setRecentSearches(storedSearches);
   }, []);
 
   useEffect(() => {
     if (focus) {
-      inputRef.current.focus();
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
     }
     const handleKeyDown = (event: any) => {
       if ((event.metaKey || event.ctrlKey) && event.key === "k") {
         event.preventDefault();
-        inputRef.current.focus();
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
         setIsExpanded(true);
       }
     };
@@ -60,7 +60,9 @@ const Search = ({
     if (searchText.trim() !== "") {
       let updatedSearches;
       if (recentSearches.includes(searchText)) {
-        updatedSearches = recentSearches.filter((item: any) => item !== searchText);
+        updatedSearches = recentSearches.filter(
+          (item: any) => item !== searchText,
+        );
         updatedSearches.push(searchText);
       } else {
         updatedSearches = [...recentSearches, searchText];
@@ -71,8 +73,10 @@ const Search = ({
 
       localStorage.setItem("recentSearches", JSON.stringify(limitedSearches));
 
-      inputRef.current.value = searchText;
-      inputRef.current.blur();
+      if (inputRef.current) {
+        inputRef.current.value = searchText;
+        inputRef.current.blur();
+      }
       navigate("/search?query=" + searchText);
     }
   };
@@ -84,8 +88,10 @@ const Search = ({
       setRecentSearches(limitedSearches);
       // setSearchText("");
       // focus out
-      inputRef.current.value = company;
-      inputRef.current.blur();
+      if (inputRef.current) {
+        inputRef.current.value = company;
+        inputRef.current.blur();
+      }
       navigate("/search?query=" + company);
       setIsExpanded(false);
     }
@@ -94,7 +100,7 @@ const Search = ({
   const handleClose = (event: any) => {
     if (event.key === "Enter") {
       setIsExpanded(false);
-      handleSearchSubmit();
+      handleSearchSubmit(event);
     } else if (
       // TODO: what is this for ?
       inputRef.current &&
