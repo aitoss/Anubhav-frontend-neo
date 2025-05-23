@@ -5,16 +5,16 @@ const Filter = ({
   closeFilterPopUp,
   company,
   fetchArticles,
-  setHeaderName
+  setHeaderName,
 }: any) => {
-  const [currentCompany, setCurrentCompany] = useState("");
-  const [show, setShow] = useState(false);
-  const [sortBy, setSortBy] = useState("");
+  const [currentCompany, setCurrentCompany] = useState<string>("");
+  const [show, setShow] = useState<boolean>(false);
+  const [sortBy, setSortBy] = useState<string>("");
 
-  company.sort((a: any, b) => b.count - a.count);
+  company.sort((a: any, b: any) => b.count - a.count);
 
   const handleClickApply = () => {
-    closeFilterPopUp();
+    closeFilterPopUp;
   };
 
   const stopScrollPropagation = (e: any) => {
@@ -24,9 +24,9 @@ const Filter = ({
   return (
     <>
       <div className="category1">
-        <h5 className="font-[500] mb-2 text-xl">Filter by Company</h5>
+        <h5 className="mb-2 text-xl font-[500]">Filter by Company</h5>
         <div
-          className="flex relative flex-col gap-1 max-h-[40rem] overflow-y-scroll z-50"
+          className="relative z-50 flex max-h-[40rem] flex-col gap-1 overflow-y-scroll"
           onWheel={(e: any) => e.stopPropagation()}
         >
           {company.map((item: any) => (
@@ -38,15 +38,17 @@ const Filter = ({
                 setHeaderName(item.company);
                 handleClickApply();
               }}
-              className={`relative flex cursor-pointer items-center justify-between rounded-md px-2 py-1 transition-all hover:bg-white ${currentCompany === item.company ? "bg-white" : ""
-                }`}
+              className={`relative flex cursor-pointer items-center justify-between rounded-md px-2 py-1 transition-all hover:bg-white ${
+                currentCompany === item.company ? "bg-white" : ""
+              }`}
             >
               <div className="flex items-center gap-3">
                 <div
                   className="h-5 w-5 rounded bg-cover bg-center bg-no-repeat"
                   style={{
-                    backgroundImage: `url(${item.domainName ? item.domainName : companyLogo
-                      })`,
+                    backgroundImage: `url(${
+                      item.domainName ? item.domainName : companyLogo
+                    })`,
                   }}
                 ></div>
                 <h5>{item.company}</h5>

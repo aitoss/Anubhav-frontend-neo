@@ -10,11 +10,11 @@ import { formatDate, ReadTime } from "../../services/date";
 import MinuteReadLikes from "../MinuteReadLikes/MinuteReadLikes";
 import Giscus from "@giscus/react";
 import ReactQuill from "react-quill-new";
-import "react-quill-new/dist/quill.bubble.css"; // Import theme CSS
+import "react-quill-new/dist/quill.bubble.css";
 
 const LazyLoad = ({ children }: any) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -154,6 +154,9 @@ const Blog = () => {
                     theme="bubble"
                     readOnly
                     className="h-full w-full"
+                    modules={{
+                      toolbar: false,
+                    }}
                   />
                 </div>
               </div>

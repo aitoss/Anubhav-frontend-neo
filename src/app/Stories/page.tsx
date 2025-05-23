@@ -8,17 +8,17 @@ import { ReadTime, formatDate } from "../../services/date";
 import { Flag } from "lucide-react";
 import Filter from "../../components/Filter/Filter";
 import FilterPopUp from "../../components/Filter/FilterPopUp";
-import companyLogo from "public/assets/images/company.png";
+import companyLogo from "../../../public/assets/images/company.png";
 
 const Stories = () => {
   const [articles, setArticles] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState("Recent");
-  const [company, setCompany] = useState([]);
-  const [filterPopUp, setFilterPopUp] = useState(false);
-  const [headerName, setHeaderName] = useState("");
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<string>("Recent");
+  const [company, setCompany] = useState<any[]>([]);
+  const [filterPopUp, setFilterPopUp] = useState<boolean>(false);
+  const [headerName, setHeaderName] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
   const openFilterPopup = () => setFilterPopUp(true);
   const closeFilterPopUp = () => setFilterPopUp(false);

@@ -9,8 +9,8 @@ import ShortcutIcon from "./ShortcutIcon";
 
 const Search = ({ mode, focus, full }: any) => {
   const navigate = useNavigate();
-  const [isExpanded, setIsExpanded] = useState(full);
-  const [searchText, setSearchText] = useState("");
+  const [isExpanded, setIsExpanded] = useState<boolean>(full);
+  const [searchText, setSearchText] = useState<string>("");
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const [popularSearches, setPopularSearches] = useState<string[]>([]);

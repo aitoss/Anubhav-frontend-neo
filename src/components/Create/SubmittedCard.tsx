@@ -6,14 +6,14 @@ import { motion } from "framer-motion";
 
 const SubmittedCard = () => {
   const navigate = useNavigate();
-  const [isConfettiActive, setIsConfettiActive] = useState(true);
-  const [fadeOut, setFadeOut] = useState(false);
-  const [timer, setTimer] = useState(5);
+  const [isConfettiActive, setIsConfettiActive] = useState<boolean>(true);
+  const [fadeOut, setFadeOut] = useState<boolean>(false);
+  const [timer, setTimer] = useState<number>(5);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
     const timerInterval = setInterval(() => {
-      setTimer((prev: any) => {
+      setTimer((prev: number) => {
         if (prev <= 1) {
           clearInterval(timerInterval);
           return 0;

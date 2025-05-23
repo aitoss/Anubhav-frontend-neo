@@ -19,7 +19,7 @@ const ButtonV5: React.FC<ButtonV5Props> = ({
   borderRadius,
   children,
 }) => {
-  const [hovered, setHovered] = useState(false);
+  const [hovered, setHovered] = useState<boolean>(false);
 
   // Default background color
   const bgColor = color ? color : "#212121";

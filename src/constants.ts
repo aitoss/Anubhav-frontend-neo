@@ -1,4 +1,4 @@
-const fallbackURL = "https://oss-backend-staging.vercel.app/api/anubhav";
+const fallbackURL = "https://oss-backend.vercel.app/api/anubhav";
 
 export const BACKEND_URL = fallbackURL;
 export const YOUTUBE_PLAYLIST =

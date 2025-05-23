@@ -6,7 +6,7 @@ import Videos from "../Videos/page";
 const VideosPage = () => {
   return (
     <div className="flex h-screen flex-col">
-      <Navbar className="sticky top-0 z-50 bg-white" />
+      <Navbar />
       <div className="flex-grow">
         <Videos />
       </div>

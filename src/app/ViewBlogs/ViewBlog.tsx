@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import ReactQuill from "react-quill";
+import ReactQuill from "react-quill-new";
 import { useParams } from "react-router-dom";
 import { BACKEND_URL } from "../../constants";
+import "react-quill-new/dist/quill.bubble.css";
 
 const ViewBlog = () => {
   const { id } = useParams();
@@ -66,12 +67,15 @@ const ViewBlog = () => {
   }, []);
 
   return (
-      <ReactQuill
-        value={data}
-        theme="bubble"
-        readOnly
-        className="w-full h-full"
-      />
+    <ReactQuill
+      value={data}
+      theme="bubble"
+      readOnly
+      modules={{
+        toolbar: false,
+      }}
+      className="h-full w-full"
+    />
   );
 };
 

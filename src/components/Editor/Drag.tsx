@@ -2,8 +2,8 @@ import { useState, useRef } from "react";
 import upload from "../../assets/images/upload.svg";
 
 const DragDropFiles = () => {
-  const [files, setFiles] = useState(null);
-  const inputRef = useRef();
+  const [files, setFiles] = useState<FileList | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleDragOver = (event: any) => {
     event.preventDefault();
@@ -16,8 +16,12 @@ const DragDropFiles = () => {
 
   const handleUpload = () => {
     const formData = new FormData();
-    formData.append("Files", files);
-    console.log(formData.getAll());
+    if (files) {
+      Array.from(files).forEach((file) => {
+        formData.append("Files", file);
+      });
+    }
+    console.log(formData.getAll("Files"));
     // fetch(
     //   "link", {
     //     method: "POST",
@@ -47,10 +51,10 @@ const DragDropFiles = () => {
           onDrop={handleDrop}
         >
           {files ? (
-            <img src={URL.createObjectURL.files} />
+            <img src={URL.createObjectURL(files[0])} />
           ) : (
             <img
-              onClick={() => inputRef.current.click()}
+              onClick={() => inputRef.current && inputRef.current.click()}
               className="cursor-pointer"
               src={upload}
             />

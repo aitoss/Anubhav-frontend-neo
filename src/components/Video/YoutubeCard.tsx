@@ -1,14 +1,8 @@
 import { useState } from "react";
 import Tag from "../InputTag/Tag";
 
-const YoutubeCard = ({
-  title,
-  img,
-  link,
-  description,
-  tags
-}: any) => {
-  const [isLoaded, setIsLoaded] = useState(false);
+const YoutubeCard = ({ title, img, link, description, tags }: any) => {
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   return (
     <>
       <div className="w-[20rem] rounded-2xl bg-white p-1 transition-all duration-300 x-sm:w-full">
@@ -28,7 +22,7 @@ const YoutubeCard = ({
             {title}
           </h2>
           <div className="flex flex-wrap gap-2 pt-[3px]">
-            {tags.map((tag: any, index) => {
+            {tags.map((tag: any, index: number) => {
               return <Tag key={index} name={tag} />;
             })}
           </div>

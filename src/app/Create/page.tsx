@@ -222,7 +222,7 @@ const Create = () => {
               onClick={handleBack}
               className="w-full p-0 font-[400] outline-none focus:outline-none"
             >
-              <ButtonV5 className="w-full" icon={false} color="#f8f8f8">
+              <ButtonV5 icon={false} color="#f8f8f8">
                 <h5 className="flex w-full gap-1 text-[16px] font-[500] -tracking-[0.2px] text-[#212121]">
                   Previous
                 </h5>
@@ -235,9 +235,7 @@ const Create = () => {
               onClick={handleNext}
               className="ml-auto w-full p-0 font-[400] outline-none focus:outline-none"
             >
-              <ButtonV5 className="w-full" icon={true}>
-                Next
-              </ButtonV5>
+              <ButtonV5 icon={true}>Next</ButtonV5>
             </button>
           ) : (
             <button
@@ -245,7 +243,7 @@ const Create = () => {
               disabled={isLoading}
               className="ml-auto w-full p-0 font-[400] outline-none focus:outline-none"
             >
-              <ButtonV5 className="w-full" disabled={isLoading} icon={false}>
+              <ButtonV5 disabled={isLoading} icon={false}>
                 {isLoading ? (
                   <div className="flex items-center justify-center gap-1 font-[300]">
                     &nbsp; Processing <Spinner color="#fff" />

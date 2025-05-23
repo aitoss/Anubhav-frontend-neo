@@ -10,13 +10,16 @@ export const FollowerPointerCard = ({
   children,
   className,
   title,
-  cursorColor
+  cursorColor,
 }: any) => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const ref = React.useRef(null);
-  const [isInside, setIsInside] = useState(false);
+  const [position, setPosition] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  });
+  const ref = React.useRef<HTMLDivElement | null>(null);
+  const [isInside, setIsInside] = useState<boolean>(false);
 
-  const handleMouseMove = (e: any) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
 
     const rect = ref.current.getBoundingClientRect();
@@ -57,12 +60,7 @@ export const FollowerPointerCard = ({
   );
 };
 
-export const FollowPointer = ({
-  x,
-  y,
-  title,
-  cursorColor
-}: any) => {
+export const FollowPointer = ({ x, y, title, cursorColor }: any) => {
   const colors = [
     "var(--sky-500)",
     "var(--neutral-500)",

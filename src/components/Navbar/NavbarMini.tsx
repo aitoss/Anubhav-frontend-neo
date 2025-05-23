@@ -12,11 +12,11 @@ import SearchModal from "../Search/SearchModal";
 import ButtonV5 from "../ui/buttonv5";
 
 const NavbarMini = () => {
-  const [isOpen, setIsOpen] = useState(false); // for hamburger menu
-  const [MobileNavOpen, setMobileNavOpen] = useState(false); // for mobile nav
-  const [prevScrollPos, setPrevScrollPos] = useState(0); // for navbar hide on scroll
-  const [visible, setVisible] = useState(true); // for navbar hide on scroll
-  const [searchMobile, setSearchMobile] = useState(false); // for search modal
+  const [isOpen, setIsOpen] = useState<boolean>(false); // for hamburger menu
+  const [MobileNavOpen, setMobileNavOpen] = useState<boolean>(false); // for mobile nav
+  const [prevScrollPos, setPrevScrollPos] = useState<number>(0); // for navbar hide on scroll
+  const [visible, setVisible] = useState<boolean>(true); // for navbar hide on scroll
+  const [searchMobile, setSearchMobile] = useState<boolean>(false); // for search modal
 
   const closeSearchModal = () => {
     setSearchMobile(false);
@@ -30,7 +30,7 @@ const NavbarMini = () => {
   const scrollToBlog = () => {
     const blogSection = document.getElementById("blog-section");
     if (blogSection) {
-      blogSection.scrollIntoView({ behavior: "mdooth" });
+      blogSection.scrollIntoView({ behavior: "smooth" });
     }
   };
 

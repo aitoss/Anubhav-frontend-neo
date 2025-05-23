@@ -3,13 +3,10 @@ import axios from "axios";
 import { RxCross1 } from "react-icons/rx";
 import { BACKEND_URL } from "../../constants";
 
-const InputTag = ({
-  setTags,
-  tags
-}: any) => {
-  const [tagSuggestions, setTagSuggestions] = useState([]);
-  const [tag, setTag] = useState("");
-  const [error, setError] = useState("");
+const InputTag = ({ setTags, tags }: any) => {
+  const [tagSuggestions, setTagSuggestions] = useState<any[]>([]);
+  const [tag, setTag] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     const fetchTagSuggestions = async () => {
@@ -67,7 +64,7 @@ const InputTag = ({
         <div className="text-md flex w-full flex-col gap-2 rounded-lg border-[1px] border-[#78788033] bg-white py-1 text-[#3C3C43] ring ring-transparent placeholder:text-[#3C3C4399] focus:outline-none focus:placeholder:text-[#3c3c4350] sm:p-2 sm:text-[13px] md:w-full">
           {tags.length !== 0 && (
             <div className="-mb-2 flex flex-wrap gap-2 p-2 pb-0">
-              {tags.map((tagItem: any, index) => (
+              {tags.map((tagItem: any, index: number) => (
                 <div
                   key={index}
                   className="flex size-fit items-center justify-center rounded-full border bg-[#f0f0f0] px-2 transition-all hover:bg-[#e9e9e9]"
@@ -102,9 +99,7 @@ const InputTag = ({
             Add Tag
           </button> */}
         </div>
-            {error && (
-              <p className="text-red-500 text-sm mt-1">{error}</p>
-            )}
+        {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
       </div>
     </div>
   );

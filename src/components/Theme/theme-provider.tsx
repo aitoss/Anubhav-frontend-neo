@@ -1,11 +1,19 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-const ThemeContext = createContext();
+interface ThemeContextType {
+  theme: string;
+  setTheme: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const ThemeContext = createContext<ThemeContextType>({
+  theme: "light",
+  setTheme: () => {},
+});
 
 export function ThemeProvider({
   children,
   defaultTheme = "light",
-  storageKey = "vite-ui-theme"
+  storageKey = "vite-ui-theme",
 }: any) {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem(storageKey) || defaultTheme;

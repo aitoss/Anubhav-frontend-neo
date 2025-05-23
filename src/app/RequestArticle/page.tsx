@@ -21,11 +21,11 @@ const RequestArticle = () => {
     note: "",
   };
 
-  const [error, setError] = useState(null);
-  const [value, setValue] = useState(initialState);
-  const [isLoading, setIsLoading] = useState(false);
-  const [requestSend, setRequestSend] = useState(null);
-  const [companySuggestions, setCompanySuggestions] = useState([]);
+  const [error, setError] = useState<string | null>(null);
+  const [value, setValue] = useState<typeof initialState>(initialState);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [requestSend, setRequestSend] = useState<string | null>(null);
+  const [companySuggestions, setCompanySuggestions] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchCompanySuggestions = async () => {
@@ -53,7 +53,9 @@ const RequestArticle = () => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    const lastRequestTime = localStorage.getItem("lastRequestTime");
+    const lastRequestTime = parseInt(
+      localStorage.getItem("lastRequestTime") || "0",
+    );
     const currentTime = new Date().getTime();
     if (lastRequestTime && currentTime - lastRequestTime < 3 * 60 * 60 * 1000) {
       addError("You can only submit a request once every 3 hours.");
@@ -262,7 +264,7 @@ const RequestArticle = () => {
                         >
                           <textarea
                             required
-                            rows="4"
+                            rows={4}
                             name="note"
                             id="email"
                             placeholder="Personal note"

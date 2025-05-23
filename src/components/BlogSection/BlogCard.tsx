@@ -11,28 +11,26 @@ const BlogCard = ({
   author,
   company,
   readingTime,
-  date
+  date,
 }: any) => {
   return (
     <>
-      <div className="pb-2 border-b max-w-5xl">
-        <div className="flex flex-row md:flex-col md:gap-1 w-full h-full justify-center items-center gap-4 p-1 ">
+      <div className="max-w-5xl border-b pb-2">
+        <div className="flex h-full w-full flex-row items-center justify-center gap-4 p-1 md:flex-col md:gap-1">
           <Link
-            className="container md:w-full md:h-[280px] x-sm:h-[180px] w-[280px] h-[180px] rounded-lg banner-image"
+            className="banner-image container h-[180px] w-[280px] rounded-lg md:h-[280px] md:w-full x-sm:h-[180px]"
             to={link}
           >
             <div
-              className="container md:w-full md:h-[280px] x-sm:h-[180px] w-[280px] h-[180px] rounded-lg banner-image "
-              style={{ backgroundImage: `url(${imagesrc})` }}
+              className="banner-image container h-[180px] w-[280px] rounded-lg md:h-[280px] md:w-full x-sm:h-[180px]"
+              style={{
+                backgroundImage: `url(${typeof imagesrc === "string" ? imagesrc : imagesrc?.src})`,
+              }}
             ></div>
           </Link>
-          <div
-            className="md-2xl:w-min w-full data flex items-start lg:justify-start justify-between h-full flex-col grow lg:gap-2 x-sm:gap-0 p-1 sm:self-start"
-          >
-            <Link
-              to={link}
-            >
-              <h1 className="text-[24px] sm:text-[20px] font-[500] x-sm:text-[16px] text-gray-700 hover:text-gray-800 ">
+          <div className="data flex h-full w-full grow flex-col items-start justify-between p-1 sm:self-start lg:justify-start lg:gap-2 md-2xl:w-min x-sm:gap-0">
+            <Link to={link}>
+              <h1 className="text-[24px] font-[500] text-gray-700 hover:text-gray-800 sm:text-[20px] x-sm:text-[16px]">
                 {Title}
               </h1>
             </Link>

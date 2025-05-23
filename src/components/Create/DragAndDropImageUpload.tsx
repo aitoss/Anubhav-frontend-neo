@@ -112,7 +112,7 @@ const DragAndDropImageUpload: React.FC<DragAndDropImageUploadProps> = ({
           )}
         </div>
       </div>
-      <p className="text-gray-300">
+      <div className="text-gray-300">
         {file ? null : (
           <>
             <h1 className="text-center text-sm font-[400] text-[#777] selection:text-[#121212]">
@@ -123,7 +123,7 @@ const DragAndDropImageUpload: React.FC<DragAndDropImageUploadProps> = ({
             </h1> */}
           </>
         )}
-      </p>
+      </div>
       {file && (
         <div
           className="flex h-[20px] w-fit cursor-pointer items-center justify-center gap-1 border-b-2 border-white text-[#717171] transition duration-200 ease-in-out hover:border-[#777]"

@@ -12,8 +12,8 @@ import FadeWrapper from "../../ui/fadeWrapper";
 import MaskWrapper from "../../ui/maskWrapper";
 
 export default function HomeScreen() {
-  const [OpenSearchModal, setOpenSearchModal] = useState(false);
-  const inputRef = useRef(null);
+  const [OpenSearchModal, setOpenSearchModal] = useState<boolean>(false);
+  const inputRef = useRef<HTMLInputElement>(null);
   const people = [
     {
       id: 1,

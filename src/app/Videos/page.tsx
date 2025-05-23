@@ -6,8 +6,8 @@ import Tag from "../../components/InputTag/Tag";
 import YoutubeCard from "../../components/Video/YoutubeCard";
 import YoutubeCardLoading from "../../components/Video/YoutubeCardLoading";
 const Videos = () => {
-  const [youtubeData, setYoutubeData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [youtubeData, setYoutubeData] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });

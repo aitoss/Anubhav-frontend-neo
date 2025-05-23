@@ -13,18 +13,18 @@ import SearchCardLoading from "./SearchCardLoading";
 
 const SearchPage = () => {
   const [searchParams] = useSearchParams();
-  const [searchValue, setSearchValue] = useState("");
-  const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [company, setCompany] = useState([]);
-  const [headerName, setHeaderName] = useState("");
-  const [isSearching, setIsSearching] = useState(false);
-  const [totalArticles, setTotalArticles] = useState(0);
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [articles, setArticles] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [company, setCompany] = useState<any[]>([]);
+  const [headerName, setHeaderName] = useState<string>("");
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+  const [totalArticles, setTotalArticles] = useState<number>(0);
 
-  const [filterPopUp, setFilterPopUp] = useState(false);
-  const loadMoreRef = useRef(null);
+  const [filterPopUp, setFilterPopUp] = useState<boolean>(false);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
   const openFilterPopup = () => {
     setFilterPopUp(true);
@@ -55,7 +55,7 @@ const SearchPage = () => {
     }
   };
 
-  const fetchArticles = async (query: any, page) => {
+  const fetchArticles = async (query: any, page: number) => {
     setLoading(true);
     const params = { q: query, page, limit: 10 };
     console.log("params", params);
