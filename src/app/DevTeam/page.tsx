@@ -100,6 +100,13 @@ const DevTeam = () => {
         },
         {
           id: 6,
+          name: "Akhilesh Patidar",
+          platform: "GitHub",
+          imageSrc: "/dev/akhilesh.jpg",
+          githubId: "Akhileshait",
+        },
+        {
+          id: 7,
           name: "Darshan Garad",
           platform: "GitHub",
           imageSrc: "/dev/darshan.jpeg",
