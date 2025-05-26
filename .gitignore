@@ -10,9 +10,19 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
-.next
 *.local
 .env
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
 
 # Editor directories and files
 .vscode/*
