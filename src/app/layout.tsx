@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next/types";
-import "./style.css";
+import "./globals.css";
+import "./fonts.css";
 
 export const metadata: Metadata = {
   title: "Anubhav",

@@ -1,6 +1,5 @@
 import { Github, Star } from "lucide-react";
-import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import ButtonV5 from "../../ui/buttonv5";
 import FadeWrapper from "../../ui/fadeWrapper";
 import Background from "./background";
@@ -33,7 +32,7 @@ const AnubhavIsOS = () => {
           delay={0.2}
         >
           <Link
-            to="https://github.com/aitoss/Anubhav-frontend-23/issues"
+            href="https://github.com/aitoss/Anubhav-frontend-23/issues"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -48,7 +47,7 @@ const AnubhavIsOS = () => {
             </ButtonV5>
           </Link>
           <Link
-            to="https://github.com/aitoss/Anubhav-frontend-23"
+            href="https://github.com/aitoss/Anubhav-frontend-23"
             target="_blank"
             rel="noopener noreferrer"
           >

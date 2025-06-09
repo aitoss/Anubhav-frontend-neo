@@ -1,8 +1,8 @@
 "use client";
 import { AnimatePresence } from "framer-motion";
 import { ArrowRightIcon } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import BackgroundDots from "../../../app/assets/Background";
 import SearchModal from "../../Search/SearchModal";
 import ShortcutIcon from "../../Search/ShortcutIcon";
@@ -152,7 +152,7 @@ export default function HomeScreen() {
         <section className="flex flex-col items-center justify-center gap-4 py-12">
           <FadeWrapper>
             <Link
-              to="/videos"
+              href="/videos"
               className="overflowhidden group relative flex cursor-pointer items-center justify-center rounded-full border border-[#ddd] bg-white p-1 pl-2 transition-colors duration-200"
             >
               <span className="spark mask-gradient overflowhidden absolute inset-0 h-[100%] w-[100%] animate-flip rounded-full [mask:linear-gradient(black,_transparent_50%)] before:absolute before:aspect-square before:w-[200%] before:rotate-[-90deg] before:animate-rotate before:bg-[conic-gradient(from_0deg,transparent_0_340deg,#00a6ed_360deg)] before:content-[''] before:[translate:0%_-15%]" />
@@ -190,7 +190,7 @@ export default function HomeScreen() {
             <DummySearch />
           </FadeWrapper>
           <FadeWrapper delay={0.25}>
-            <Link to="/search">
+            <Link href="/search">
               <h3 className="group flex items-center justify-center border-b border-[#f9f9f9] pt-4 leading-3 hover:border-[#777]">
                 Read Articles{" "}
                 <div className="relative flex h-4 w-4 items-center">

@@ -1,14 +1,13 @@
+import Link from "next/link";
 import React from "react";
-import { Link } from "react-router-dom";
-import SuccessStories from "../../../app/assets/images/SuccessStories.png";
-import Emoji from "../../../app/assets/images/Emoji.png";
 import Emoji1 from "../../../app/assets/images/Emoji-1.png";
 import Emoji2 from "../../../app/assets/images/Emoji-2.png";
+import Emoji from "../../../app/assets/images/Emoji.png";
 import ButtonV5 from "../../ui/buttonv5";
-import MaskText from "../../ui/maskText";
 import FadeText from "../../ui/fadeText";
-import MaskWrapper from "../../ui/maskWrapper";
 import FadeWrapper from "../../ui/fadeWrapper";
+import MaskText from "../../ui/maskText";
+import MaskWrapper from "../../ui/maskWrapper";
 
 type CardProps = {
   title: string;
@@ -24,7 +23,7 @@ const Card = ({ title, description }: CardProps) => (
       </div>
       <div className="relative z-10 flex items-center">
         <div className="absolute -left-[0px] z-20 h-[150%] w-[20px] bg-[#fcfcfc] blur-[8px]" />
-        <Link to="/create" className="z-50 mr-4">
+        <Link href="/create" className="z-50 mr-4">
           <ButtonV5 icon={false}>
             <div className="flex items-center justify-center gap-1">
               <h5 className="flex gap-1 font-[300] -tracking-[0.2px]">
@@ -144,7 +143,7 @@ const Card2: React.FC<Card2Props> = () => (
     />
     <div className="absolute bottom-[-2%] left-[20%] z-[100] inline-flex rotate-6 select-none flex-col x-sm:bottom-[-5%] x-sm:left-[10%]">
       <Link
-        to="/blog/6482c7f31efe8f6914eefe2e"
+        href="/blog/6482c7f31efe8f6914eefe2e"
         className="-mb-2 inline-flex cursor-pointer flex-col rounded-lg border border-[#d2d2d6] bg-[#f9f9f9] p-2 text-[#212121] shadow-md backdrop-blur-[12px] transition-all duration-200 hover:z-[999] hover:scale-105 hover:bg-[#fcfcfc]"
       >
         <p className="font-[400] text-[#212121]/60">
@@ -153,21 +152,21 @@ const Card2: React.FC<Card2Props> = () => (
         <h3>CRED Interview Experience ( On Campus SDE - Backend )</h3>
       </Link>
       <Link
-        to="/blog/63a30bd3fa72a20c75f513e3"
+        href="/blog/63a30bd3fa72a20c75f513e3"
         className="z-[99] -mb-2 inline-flex scale-[102%] cursor-pointer flex-col rounded-lg border border-[#d2d2d6] bg-[#f9f9f9] p-2 text-[#212121] shadow-md backdrop-blur-[12px] transition-all duration-200 hover:scale-105 hover:bg-[#fcfcfc]"
       >
         <p className="font-[400] text-[#212121]/60">5 mins read • 21-12-2022</p>
         <h3>Google STEP Internship Decoded</h3>
       </Link>
       <Link
-        to="/blog/639f77bcfa72a20c75f5106a"
+        href="/blog/639f77bcfa72a20c75f5106a"
         className="z-[20] -mb-2 inline-flex cursor-pointer flex-col rounded-lg border border-[#d2d2d6] bg-[#f9f9f9] p-2 text-[#212121] shadow-md backdrop-blur-[12px] transition-all duration-200 hover:z-[99] hover:scale-105 hover:bg-[#fcfcfc]"
       >
         <p className="font-[400] text-[#212121]/60">5 mins read • 19-12-2022</p>
         <h3>Deutsche bank: Internship | Summer Intern 2023</h3>
       </Link>
       <Link
-        to="/blog/61e1433251a2879b50add90e"
+        href="/blog/61e1433251a2879b50add90e"
         className="z-[10] inline-flex cursor-pointer flex-col rounded-lg border border-[#d2d2d6] bg-[#f9f9f9] p-2 text-[#212121] shadow-md backdrop-blur-[12px] transition-all duration-200 hover:z-[99] hover:scale-105 hover:bg-[#fcfcfc]"
       >
         <p className="font-[400] text-[#212121]/60">
@@ -206,7 +205,7 @@ const WhatIsAnubhav = () => {
                 ]}
               />
               <MaskWrapper>
-                <Link className="underline" to="/search">
+                <Link className="underline" href="/search">
                   Dive into Stories
                 </Link>
               </MaskWrapper>

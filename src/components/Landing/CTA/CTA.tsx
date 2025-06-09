@@ -1,10 +1,10 @@
 import React from "react";
 import ButtonV5 from "../../ui/buttonv5";
 import AnubhavIcon from "../../../app/assets/AnubhavIcon.tsx";
-import { Link } from "react-router-dom";
 import MaskWrapper from "../../ui/maskWrapper";
 import MaskText from "../../ui/maskText";
 import FadeWrapper from "../../ui/fadeWrapper";
+import Link from "next/link";
 
 const CTA = () => {
   return (
@@ -26,7 +26,7 @@ const CTA = () => {
             with our latest posts.
           </MaskWrapper>
         </div>
-        <Link to="/search">
+        <Link href="/search">
           <ButtonV5 icon={false}>
             <FadeWrapper>
               <div className="flex items-center justify-center gap-1">

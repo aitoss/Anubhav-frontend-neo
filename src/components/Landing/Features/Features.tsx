@@ -7,7 +7,7 @@ import VideoPage from "../../../app/assets/images/VideoPage.png";
 import { FollowerPointerCard } from "../../../components/ui/following-pointer";
 import MaskWrapper from "../../ui/maskWrapper";
 import FadeWrapper from "../../ui/fadeWrapper";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 type CardProps = {
   title: string;
@@ -37,7 +37,7 @@ const Card: React.FC<CardProps> = ({
       <MaskWrapper>
         <p className="text-[20px] leading-[100%] tracking-tight text-[#a1a1a1]">
           <Link
-            to={href}
+            href={href}
             className={`font-[600] text-[#212121] ${href != "" ? "underline" : ""}`}
           >
             {bold}

@@ -1,5 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import Anubhav from "../../../app/assets/images/Anubhav-3d.png";
 import "./Footer.css";
 import Social from "./Social";
@@ -254,7 +253,7 @@ const Footer = () => {
                 </div>
 
                 <Link
-                  to="/create"
+                  href="/create"
                   onClick={scrollToTop}
                   className="underline-none pl-1 text-[16px] font-[300] tracking-wide text-[#a0a0a0] hover:text-[#e0e0e0] hover:underline"
                 >
@@ -262,7 +261,7 @@ const Footer = () => {
                 </Link>
 
                 <Link
-                  to="/request"
+                  href="/request"
                   onClick={scrollToTop}
                   className="underline-none pl-1 text-[16px] font-[300] tracking-wide text-[#a0a0a0] hover:text-[#e0e0e0] hover:underline"
                 >
@@ -270,21 +269,21 @@ const Footer = () => {
                 </Link>
 
                 <Link
-                  to="/videos"
+                  href="/videos"
                   onClick={scrollToTop}
                   className="underline-none pl-1 text-[16px] font-[300] tracking-wide text-[#a0a0a0] hover:text-[#e0e0e0] hover:underline"
                 >
                   Videos
                 </Link>
                 <Link
-                  to="/story"
+                  href="/story"
                   onClick={scrollToTop}
                   className="underline-none pl-1 text-[16px] font-[300] tracking-wide text-[#a0a0a0] hover:text-[#e0e0e0] hover:underline"
                 >
                   Our story
                 </Link>
                 <Link
-                  to="/team"
+                  href="/team"
                   onClick={scrollToTop}
                   className="underline-none pl-1 text-[16px] font-[300] tracking-wide text-[#a0a0a0] hover:text-[#e0e0e0] hover:underline"
                 >
@@ -314,7 +313,7 @@ const Footer = () => {
             </div>
 
             <Link
-              to="/terms"
+              href="/terms"
               onClick={scrollToTop}
               className="font-[400] transition-all hover:text-[#a0a0a0] hover:underline"
             >

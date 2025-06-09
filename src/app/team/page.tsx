@@ -1,3 +1,4 @@
+"use client";
 import React, { useMemo, useState } from "react";
 import Footer from "../../components/Landing/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";

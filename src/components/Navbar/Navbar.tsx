@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import logo from "../../app/assets/images/logo.svg";
-import "./Navbar.css";
 import ButtonV5 from "../ui/buttonv5";
+import "./Navbar.css";
 
 const Navbar = () => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -23,9 +23,8 @@ const Navbar = () => {
     };
   }, [prevScrollPos]);
 
-  const navClasses = `bg-[#ffffffcc] bg-blur border-b fixed item-center justify-center h-[60px] p-3 flex w-screen text-[#212121] z-[9999] transition-transform transform ${
-    visible ? "translate-y-0" : "-translate-y-full"
-  }`;
+  const navClasses = `bg-[#ffffffcc] bg-blur border-b fixed item-center justify-center h-[60px] p-3 flex w-screen text-[#212121] z-[9999] transition-transform transform ${visible ? "translate-y-0" : "-translate-y-full"
+    }`;
 
   return (
     <>
@@ -35,40 +34,40 @@ const Navbar = () => {
         <div className="m-auto flex h-full w-full max-w-[1400px] items-center justify-between">
           <div className="flex w-full items-center justify-between px-1 lg:px-8">
             <div className="flex items-center justify-center gap-12">
-              <Link to="/" className="flex items-center justify-center gap-1">
+              <Link href="/" className="flex items-center justify-center gap-1">
                 <img className="w-10" src={logo.src} alt="" />
                 <h4 className="text-3xl font-[600] tracking-tighter">
                   anubhav
                 </h4>
               </Link>
               <div className="flex items-center justify-center gap-1 md:hidden">
-                <NavLink to="/videos">
+                <Link href="/videos">
                   <div className="flex rounded-lg px-2 py-0 text-base font-[500] text-[#212121] transition-all hover:bg-[#efefef] hover:py-1">
                     Videos
                   </div>
-                </NavLink>
-                <NavLink to="/team">
+                </Link>
+                <Link href="/team">
                   <div className="flex rounded-lg px-2 py-0 text-base font-[500] text-[#212121] transition-all hover:bg-[#efefef] hover:py-1">
                     Team
                   </div>
-                </NavLink>
-                <NavLink to="/story">
+                </Link>
+                <Link href="/story">
                   <div className="flex rounded-lg px-2 py-0 text-base font-[500] text-[#212121] transition-all hover:bg-[#efefef] hover:py-1">
                     About
                   </div>
-                </NavLink>
-                <NavLink
-                  to="https://github.com/aitoss/Anubhav-frontend-23"
+                </Link>
+                <Link
+                  href="https://github.com/aitoss/Anubhav-frontend-23"
                   target="_blank"
                 >
                   <div className="flex rounded-lg px-2 py-0 text-base font-[500] text-[#212121] transition-all hover:bg-[#efefef] hover:py-1">
                     GitHub
                   </div>
-                </NavLink>
+                </Link>
               </div>
             </div>
             <div className="flex items-center justify-center gap-2">
-              <NavLink to="/request">
+              <Link href="/request">
                 <ButtonV5
                   title="Request Article"
                   icon={false}
@@ -81,9 +80,9 @@ const Navbar = () => {
                     Request <span className="block x-sm:hidden">Article</span>
                   </h5>
                 </ButtonV5>
-              </NavLink>
+              </Link>
               <Link
-                to="/create"
+                href="/create"
                 className="cursor-pointer hover:text-[#313131]"
               >
                 {/* <div className="flex gap-2 p-1 justify-center items-center text-[16px] bg-[#212121] border border-[#121212] rounded-lg text-[#fff] font-[300] cursor-pointer hover:bg-[#313131] hover:focus:outline:none hover:focus:border:none transition-all"> */}

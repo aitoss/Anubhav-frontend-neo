@@ -1,6 +1,5 @@
 // HowItWorks.js
 import React from "react";
-import { Link } from "react-router-dom";
 import Editor from "../../../app/assets/images/Editor.png";
 import Form from "../../../app/assets/images/Form.png";
 import Publish from "../../../app/assets/images/Publish.png";
@@ -8,6 +7,7 @@ import MaskWrapper from "../../ui/maskWrapper";
 import FadeWrapper from "../../ui/fadeWrapper";
 import MaskText from "../../ui/maskText";
 import BasicInformation from "../../Create/BasicInformation";
+import Link from "next/link";
 
 const Card = ({ title, description, imageURL }: any) => (
   <div className="group relative h-full w-full overflow-hidden rounded-2xl border shadow-md">
@@ -49,7 +49,7 @@ const HowItWorks = () => {
         <div className="mb-8 w-[60%] text-[#5e5f6e] md:w-[90%]">
           <MaskWrapper>
             Go&nbsp;
-            <Link className="underline" to="/create">
+            <Link className="underline" href="/create">
               here
             </Link>
             &nbsp; and follow these simple steps to create and publish your blog
