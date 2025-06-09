@@ -14,7 +14,7 @@ const ShortcutIcon = () => {
 
   return (
     <div
-      className={`flex h-[32px] items-center justify-center text-nowrap rounded-md p-1 font-[400] text-[#b9b9b9]`}
+      className={`flex h-[32px] items-center justify-center text-nowrap rounded-md p-1 text-sm font-[400] text-[#b9b9b9]`}
     >
       {osShortcut}
     </div>

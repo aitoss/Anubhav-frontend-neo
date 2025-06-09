@@ -1,47 +1,47 @@
+"use client";
+
+import { BACKEND_URL } from "@/constants";
 import { AnimatePresence, motion } from "framer-motion";
 import debounce from "lodash.debounce";
 import throttle from "lodash.throttle";
-import { X } from "lucide-react";
+import { SearchIcon, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { BACKEND_URL } from "../../constants";
 import ShortcutIcon from "./ShortcutIcon";
 
 const Search = ({ mode, focus, full }: any) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [isExpanded, setIsExpanded] = useState<boolean>(full);
   const [searchText, setSearchText] = useState<string>("");
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
-  const inputRef = useRef<HTMLInputElement>(null);
   const [popularSearches, setPopularSearches] = useState<string[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
 
+  // ✅ Load recent searches from localStorage safely on client
   useEffect(() => {
-    const stored = localStorage.getItem("recentSearches");
-    const storedSearches = stored ? JSON.parse(stored) : [];
-    setRecentSearches(storedSearches);
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("recentSearches");
+      const storedSearches = stored ? JSON.parse(stored) : [];
+      setRecentSearches(storedSearches);
+    }
   }, []);
 
   useEffect(() => {
-    if (focus) {
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
-    }
+    if (focus && inputRef.current) inputRef.current.focus();
+
     const handleKeyDown = (event: any) => {
       if ((event.metaKey || event.ctrlKey) && event.key === "k") {
         event.preventDefault();
-        if (inputRef.current) {
-          inputRef.current.focus();
-        }
         setIsExpanded(true);
+        inputRef.current?.focus();
       }
     };
 
-    const handleClickOutside = (event: any) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         inputRef.current &&
-        !inputRef.current.contains(event.target) &&
-        !event.target.closest(".recent-searches")
+        !inputRef.current.contains(event.target as Node) &&
+        !(event.target as HTMLElement).closest(".recent-searches")
       ) {
         setIsExpanded(false);
       }
@@ -54,85 +54,56 @@ const Search = ({ mode, focus, full }: any) => {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [focus]);
 
-  const handleSearchSubmit = (event: any) => {
-    if (searchText.trim() !== "") {
-      let updatedSearches;
-      if (recentSearches.includes(searchText)) {
-        updatedSearches = recentSearches.filter(
-          (item: any) => item !== searchText,
-        );
-        updatedSearches.push(searchText);
-      } else {
-        updatedSearches = [...recentSearches, searchText];
-      }
+  const handleSearchSubmit = (event?: React.FormEvent | KeyboardEvent) => {
+    event?.preventDefault();
+    if (searchText.trim() === "") return;
 
-      const limitedSearches = updatedSearches.slice(-10);
-      setRecentSearches(limitedSearches);
+    let updatedSearches = recentSearches.filter(item => item !== searchText);
+    updatedSearches.push(searchText);
+    const limitedSearches = updatedSearches.slice(-10);
+    setRecentSearches(limitedSearches);
+    localStorage.setItem("recentSearches", JSON.stringify(limitedSearches));
 
-      localStorage.setItem("recentSearches", JSON.stringify(limitedSearches));
-
-      if (inputRef.current) {
-        inputRef.current.value = searchText;
-        inputRef.current.blur();
-      }
-      navigate("/search?query=" + searchText);
-    }
+    inputRef.current?.blur();
+    router.push(`/search?query=${encodeURIComponent(searchText)}`);
+    setIsExpanded(false);
   };
 
-  const directSearchFunction = (company: any) => {
-    if (company.trim() !== "") {
-      const updatedSearches = [...recentSearches, company];
-      const limitedSearches = updatedSearches.slice(-10);
-      setRecentSearches(limitedSearches);
-      // setSearchText("");
-      // focus out
-      if (inputRef.current) {
-        inputRef.current.value = company;
-        inputRef.current.blur();
-      }
-      navigate("/search?query=" + company);
-      setIsExpanded(false);
-    }
+  const directSearchFunction = (term: string) => {
+    if (!term.trim()) return;
+    const updatedSearches = [...recentSearches, term].slice(-10);
+    setRecentSearches(updatedSearches);
+    localStorage.setItem("recentSearches", JSON.stringify(updatedSearches));
+    inputRef.current!.value = term;
+    inputRef.current!.blur();
+    router.push(`/search?query=${encodeURIComponent(term)}`);
+    setIsExpanded(false);
   };
 
-  const handleClose = (event: any) => {
-    if (event.key === "Enter") {
-      setIsExpanded(false);
-      handleSearchSubmit(event);
-    } else if (
-      // TODO: what is this for ?
-      inputRef.current &&
-      !inputRef.current.contains(event.target) &&
-      !event.target.closest(".recent-searches")
-    ) {
-      setIsExpanded(false);
-    }
+  const handleRemove = (index: number) => {
+    const updatedSearches = recentSearches.filter((_, i) => i !== index);
+    setRecentSearches(updatedSearches);
+    localStorage.setItem("recentSearches", JSON.stringify(updatedSearches));
   };
 
   const fetchSuggestions = useCallback(
-    throttle(async (searchText: any) => {
+    throttle(async (text: string) => {
       try {
-        const response = await fetch(
-          BACKEND_URL + `/similarBlogs?q=${searchText}`,
-        );
-        const data = await response.json();
-        const suggestionTitles = data.map((item: any) => {
-          return item.title;
-        });
-        setPopularSearches(suggestionTitles);
-      } catch (err) {
+        const res = await fetch(`${BACKEND_URL}/similarBlogs?q=${text}`);
+        const data = await res.json();
+        const titles = data.map((item: any) => item.title);
+        setPopularSearches(titles);
+      } catch {
         console.log("Failed to fetch suggestions");
       }
-    }, 1000), // Throttle the API call to once per second
+    }, 1000),
     [],
   );
 
   const debouncedFetchSuggestions = useCallback(
-    debounce((searchText: any) => {
-      fetchSuggestions(searchText);
-    }, 300), // Debounce the input by 300ms
+    debounce((text: string) => fetchSuggestions(text), 300),
     [fetchSuggestions],
   );
 
@@ -144,27 +115,35 @@ const Search = ({ mode, focus, full }: any) => {
     }
   }, [searchText, debouncedFetchSuggestions]);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
   };
+
+  const handleClose = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleSearchSubmit(event);
+    }
+  };
+
+  useEffect(() => {
+    if (searchText.length > 2) {
+      debouncedFetchSuggestions(searchText);
+    } else {
+      setPopularSearches(["Google", "Microsoft"]);
+    }
+  }, [searchText, debouncedFetchSuggestions]);
 
   const handleSuggestionClick = (company: any) => {
     directSearchFunction(company);
   };
 
-  const handleRemove = (index: any) => {
-    const updatedSearches = recentSearches.filter((_: any, i) => i !== index);
-    setRecentSearches(updatedSearches);
-    localStorage.setItem("recentSearches", JSON.stringify(updatedSearches));
-  };
-
   const containerClass =
     mode === "dark"
-      ? "bg-[#121212] text-[#ffffffcc]"
-      : "bg-[#fff] text-[#212121]";
+      ? "bg-[#121212] text-[#ffffffcc] rounded-xl"
+      : "bg-[#fff] text-[#212121] h-8 rounded-lg";
   const borderClass = mode === "dark" ? "border-[#27272a]" : "border-[#d9d9d9]";
-  const inputBgClass = mode === "dark" ? "bg-[#121212]" : "bg-[#fff]";
-  const bgClass = mode === "dark" ? "bg-[#212121]" : "bg-[#f8f8f8]";
+  const inputBgClass = mode === "dark" ? "bg-[#121212] h-[2.5rem]" : "bg-[#fff] h-full";
+  const bgClass = mode === "dark" ? "bg-[#212121] size-8 rounded-lg" : "bg-[#f8f8f8] size-6 rounded-sm";
   const inputTextClass =
     mode === "dark"
       ? "text-[#ffffffcc] placeholder:text-[rgba(255,255,255,0.6)]"
@@ -178,47 +157,26 @@ const Search = ({ mode, focus, full }: any) => {
   const textClass = mode === "dark" ? "text-[#a1a1aa]/50" : "text-[#a1a1aa]";
   const popularSearchClass =
     mode === "dark"
-      ? "bg-[#121212] text-[#ffffffbb]"
-      : "bg-[#fff] text-[#212121]";
+      ? "bg-[#121212] text-[#ffffffbb] top-[43px]"
+      : "bg-[#fff] text-[#212121] top-[31px]";
 
   return (
     <>
       <div className="relative flex flex-col">
         <div
-          className={`search flex border-[1.5px] px-[4px] py-[1px] ${containerClass} ${borderClass} items-center justify-center gap-1 rounded-xl`}
+          className={`search flex border-[1.5px] px-[4px] py-[1px] ${containerClass} ${borderClass} items-center justify-center gap-1`}
         >
           <div
             onClick={handleSearchSubmit}
-            className={`h-[32px] w-[32px] border-[1.5px] ${borderClass} ${bgClass} flex cursor-pointer items-center justify-center rounded-lg p-1`}
+            className={`border-[1.5px] ${borderClass} ${bgClass} flex cursor-pointer items-center justify-center p-1`}
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 33 33"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15.8333 28.6509C22.8289 28.6509 28.5 22.9798 28.5 15.9842C28.5 8.9886 22.8289 3.31754 15.8333 3.31754C8.83769 3.31754 3.16663 8.9886 3.16663 15.9842C3.16663 22.9798 8.83769 28.6509 15.8333 28.6509Z"
-                stroke="#b9b9b9"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M29.8333 29.9842L27.1666 27.3175"
-                stroke="#b9b9b9"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <SearchIcon className="size-4" />
           </div>
           <form onSubmit={handleSearchSubmit}>
             <input
               ref={inputRef}
               id="search-input"
-              className={`${inputBgClass} ${inputTextClass} h-[2.5rem] w-[400px] border-none px-3 font-[300] outline-none placeholder:font-[300] focus:outline-none placeholder:focus:border-none placeholder:focus:text-[rgba(255,255,255,0.8)] placeholder:focus:outline-none lg:w-[500px] x-sm:w-[300px] ${placeholderClass}`}
+              className={`${inputBgClass} ${inputTextClass} w-[300px] border-none px-3 font-[300] outline-none placeholder:font-[400] focus:outline-none placeholder:focus:border-none placeholder:focus:text-[rgba(255,255,255,0.8)] placeholder:focus:outline-none placeholder:text-sm lg:w-[500px] ${placeholderClass}`}
               type=""
               placeholder="Search for your Dreams.."
               value={searchText}
@@ -228,7 +186,7 @@ const Search = ({ mode, focus, full }: any) => {
             />
           </form>
           <div
-            className={`border-[1.5px] ${borderClass} ${bgClass} flex h-[32px] items-center justify-center rounded-md p-1 px-0.5 font-[400] text-[#b9b9b9]`}
+            className={`border-[1.5px] ${borderClass} ${bgClass} w-12 flex cursor-pointer items-center justify-center p-1`}
           >
             <ShortcutIcon />
           </div>
@@ -240,7 +198,7 @@ const Search = ({ mode, focus, full }: any) => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.1 }}
-              className={`absolute top-[43px] z-50 flex flex-col overflow-hidden text-sm font-[300] ${popularSearchClass} recent-searches w-full border-[1.5px] ${borderClass} items-center justify-start rounded-xl shadow-md shadow-[rgba(0,0,0,0.05)]`}
+              className={`absolute z-50 flex flex-col overflow-hidden text-sm font-[300] ${popularSearchClass} recent-searches w-full border-[1.5px] ${borderClass} items-center justify-start rounded-xl shadow-md shadow-[rgba(0,0,0,0.05)]`}
             >
               <div className="flex w-full flex-col items-center justify-center">
                 <div

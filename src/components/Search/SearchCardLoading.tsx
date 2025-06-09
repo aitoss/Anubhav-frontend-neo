@@ -1,6 +1,6 @@
 import React from "react";
 
-const SearchCard = () => {
+const SearchCardLoading = () => {
   return (
     <>
       <div className="flex flex-row x-sm:flex-col  w-full h-full justify-center items-center gap-4 p-1 animate-pulse">
@@ -39,4 +39,4 @@ const SearchCard = () => {
   );
 };
 
-export default SearchCard;
+export default SearchCardLoading;

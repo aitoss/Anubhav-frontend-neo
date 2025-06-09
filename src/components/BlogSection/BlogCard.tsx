@@ -1,7 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Author from "./_Child/Author";
+import Link from "next/link";
 import MinuteReadLikes from "../MinuteReadLikes/MinuteReadLikes";
+import Author from "./_Child/Author";
 
 const BlogCard = ({
   id,
@@ -19,7 +18,7 @@ const BlogCard = ({
         <div className="flex h-full w-full flex-row items-center justify-center gap-4 p-1 md:flex-col md:gap-1">
           <Link
             className="banner-image container h-[180px] w-[280px] rounded-lg md:h-[280px] md:w-full x-sm:h-[180px]"
-            to={link}
+            href={link}
           >
             <div
               className="banner-image container h-[180px] w-[280px] rounded-lg md:h-[280px] md:w-full x-sm:h-[180px]"
@@ -29,7 +28,7 @@ const BlogCard = ({
             ></div>
           </Link>
           <div className="data flex h-full w-full grow flex-col items-start justify-between p-1 sm:self-start lg:justify-start lg:gap-2 md-2xl:w-min x-sm:gap-0">
-            <Link to={link}>
+            <Link href={link}>
               <h1 className="text-[24px] font-[500] text-gray-700 hover:text-gray-800 sm:text-[20px] x-sm:text-[16px]">
                 {Title}
               </h1>
