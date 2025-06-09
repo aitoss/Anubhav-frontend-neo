@@ -138,7 +138,7 @@ const SearchPage = () => {
                             </h3>
                             <svg
                                 onClick={openFilterPopup}
-                                className="hidden h-7 w-7 cursor-pointer rounded-lg border border-[#c1c1c1] p-[2px] transition-all hover:border-[#919191] md:block"
+                                className="md:hidden h-7 w-7 cursor-pointer rounded-md border border-[#c1c1c1] p-[2px] transition-all hover:border-[#919191] block"
                                 viewBox="0 0 24 24"
                                 fill="none"
                             >
@@ -175,7 +175,7 @@ const SearchPage = () => {
                                     }
                                     author={item.author?.name}
                                     company={item.companyName}
-                                    data={item.description}
+                                    description={item.description}
                                     readingTime={ReadTime(item.description)}
                                     date={formatDate(item.createdAt)}
                                 />
@@ -196,7 +196,7 @@ const SearchPage = () => {
                         <br />
                     </div>
 
-                    <div className="section-right flex w-1/5 flex-col gap-2 md:hidden">
+                    <div className="section-right md:flex w-1/5 flex-col gap-2 hidden">
                         <Filter
                             company={company}
                             fetchArticles={fetchArticles}

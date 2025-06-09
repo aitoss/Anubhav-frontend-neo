@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import React from "react";
 import Search from "./Search";
 
 const SearchModal = ({
@@ -20,7 +19,7 @@ const SearchModal = ({
         onClick={(e: any) => {
           handleClose(e);
         }}
-        className="fixed inset-0 -top-[480px] z-50 flex items-center justify-center bg-white bg-opacity-70"
+        className="fixed inset-0 -top-[480px] z-[99999999999] flex items-center justify-center bg-white/70"
       >
         <motion.div
           initial={{ opacity: 0, translateY: 10 }}

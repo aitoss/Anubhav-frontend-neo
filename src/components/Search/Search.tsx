@@ -176,7 +176,7 @@ const Search = ({ mode, focus, full }: any) => {
             <input
               ref={inputRef}
               id="search-input"
-              className={`${inputBgClass} ${inputTextClass} w-[300px] border-none px-3 font-[300] outline-none placeholder:font-[400] focus:outline-none placeholder:focus:border-none placeholder:focus:text-[rgba(255,255,255,0.8)] placeholder:focus:outline-none placeholder:text-sm lg:w-[500px] ${placeholderClass}`}
+              className={`${inputBgClass} ${inputTextClass} w-[300px] border-none px-3 font-[300] outline-none placeholder:font-[400] focus:outline-none placeholder:focus:border-none placeholder:focus:text-[rgba(255,255,255,0.8)] placeholder:focus:outline-none placeholder:text-sm lg:w-[400px] ${placeholderClass}`}
               type=""
               placeholder="Search for your Dreams.."
               value={searchText}
