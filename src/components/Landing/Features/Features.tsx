@@ -2,7 +2,7 @@ import React from "react";
 import Comment from "../../../app/assets/svg/Comment";
 import World from "../../../app/assets/images/world.png";
 import VideoIcon from "../../../app/assets/svg/VideoIcon";
-import Videos from "../../../app/Videos/page";
+import Videos from "../../../app/videos/page";
 import VideoPage from "../../../app/assets/images/VideoPage.png";
 import { FollowerPointerCard } from "../../../components/ui/following-pointer";
 import MaskWrapper from "../../ui/maskWrapper";

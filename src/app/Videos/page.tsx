@@ -1,10 +1,12 @@
+"use client";
+import Navbar from "@/components/Navbar/Navbar";
 import { motion, useAnimation } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import BackgroundDots from "../assets/Background";
 import Tag from "../../components/InputTag/Tag";
 import YoutubeCard from "../../components/Video/YoutubeCard";
 import YoutubeCardLoading from "../../components/Video/YoutubeCardLoading";
+import BackgroundDots from "../assets/Background";
 const Videos = () => {
   const [youtubeData, setYoutubeData] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -36,6 +38,7 @@ const Videos = () => {
 
   return (
     <>
+      <Navbar />
       <BackgroundDots
         dotSize={1.8}
         dotColor="#cbcbcc"

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import logo from "../../app/assets/images/logo.svg";
+import { Button } from "../ui/button";
 import ButtonV5 from "../ui/buttonv5";
 import "./Navbar.css";
 
@@ -86,7 +87,20 @@ const Navbar = () => {
                 className="cursor-pointer hover:text-[#313131]"
               >
                 {/* <div className="flex gap-2 p-1 justify-center items-center text-[16px] bg-[#212121] border border-[#121212] rounded-lg text-[#fff] font-[300] cursor-pointer hover:bg-[#313131] hover:focus:outline:none hover:focus:border:none transition-all"> */}
-                <ButtonV5
+                <Button
+                  // className="text-[16px] font-[400] text-[#fff] bg-[#212121] border border-[#121212] rounded-lg hover:bg-[#313131]"
+                  variant="default"
+                  size="default"
+                  asChild
+                >
+                  <h5 className="flex gap-1">
+                    Create <span className="block x-sm:hidden">Article</span>
+                  </h5>
+                </Button>
+
+                {/* </div> */}
+              </Link>
+              <ButtonV5
                   title="Write Article"
                   icon={false}
                   color="#212121"
@@ -171,9 +185,6 @@ const Navbar = () => {
                     </div>
                   </div>
                 </ButtonV5>
-
-                {/* </div> */}
-              </Link>
             </div>
           </div>
         </div>

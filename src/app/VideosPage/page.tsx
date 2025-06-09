@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "../../components/Landing/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
-import Videos from "../Videos/page";
+import Videos from "../videos/page";
 
 const VideosPage = () => {
   return (
