@@ -1,9 +1,9 @@
 "use client";
+import BackgroundDots from "@/components/assets/Background";
 import { AnimatePresence } from "framer-motion";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import BackgroundDots from "../../../app/assets/Background";
 import SearchModal from "../../Search/SearchModal";
 import ShortcutIcon from "../../Search/ShortcutIcon";
 import Slider from "../../Slider/Slider";

@@ -1,19 +1,21 @@
-import React, { useState } from "react";
-import Navbar from "../../components/Navbar/Navbar";
-import Footer from "../../components/Landing/Footer/Footer";
-import SuccessMessage from "../../components/notification/SuccessMessage";
+"use client";
+import AnimateIcon from "@/components/ui/animate-icon";
+import { Button } from "@/components/ui/button";
 import axios from "axios";
-import { BACKEND_URL } from "../../constants";
-import ButtonV5 from "../../components/ui/buttonv5";
-import { Link } from "react-router-dom";
-import Spinner from "../../components/ui/Spinner";
+import { ChevronLeft, ChevronRight, Plane } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 import BasicInformation from "../../components/Create/BasicInformation";
-import WriteHere from "../../components/Create/WriteHere";
-import SubmittedCard from "../../components/Create/SubmittedCard";
-import PreviewPage from "../../components/Create/PreviewPage";
-import useErrorToast from "../../hooks/useErrorToast";
 import DragAndDropImageUpload from "../../components/Create/DragAndDropImageUpload";
-import BackgroundDots from "../assets/Background";
+import PreviewPage from "../../components/Create/PreviewPage";
+import SubmittedCard from "../../components/Create/SubmittedCard";
+import WriteHere from "../../components/Create/WriteHere";
+import Footer from "../../components/Landing/Footer/Footer";
+import Navbar from "../../components/Navbar/Navbar";
+import BackgroundDots from "../../components/assets/Background";
+import SuccessMessage from "../../components/notification/SuccessMessage";
+import { BACKEND_URL } from "../../constants";
+import useErrorToast from "../../hooks/useErrorToast";
 
 const Create = () => {
   const initialState = {
@@ -114,8 +116,7 @@ const Create = () => {
   const progressPercentage = ((step - 1) / 3) * 100;
 
   return (
-    <>
-      <Navbar />
+    <div className="relative flex min-h-screen flex-col items-center justify-between bg-[#f9f9f9]">
       <BackgroundDots
         dotSize={1.8}
         dotColor="#cbcbcc"
@@ -127,16 +128,16 @@ const Create = () => {
       />
       {isSubmitted && <SubmittedCard />}
       {isVisible && (
-        <p className="relative flex w-full items-center justify-center bg-white/40 pb-1 pt-16 text-[#212121] x-sm:text-sm">
+        <p className="relative flex w-full items-center justify-center bg-white/40 pb-1 pt-16 text-[#212121]">
           Before writing an article, please read the &nbsp;
-          <Link to="/guidelines" target="_blank" className="underline">
+          <Link href="/guidelines" target="_blank" className="underline">
             Guidelines
           </Link>
           .
         </p>
       )}
 
-      <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-3 pt-4">
+      <div className="mx-auto flex max-w-7xl w-full flex-col items-center gap-3 pt-4">
         {/* Progress Bar */}
         <div className="relative z-0 mt-4 h-12 w-[90%] border border-[#d3ddeb] bg-[#f9f9f9] md:w-[90%] md:text-[14px] lg:w-[70%] xl:w-[50%]">
           <div className="absolute inset-0 left-1/3 z-[99] w-3">
@@ -218,96 +219,42 @@ const Create = () => {
         )}
         <div className="flex w-[90%] justify-between gap-4 pb-4 lg:w-[70%]">
           {step > 1 && (
-            <div
+            <Button
               onClick={handleBack}
-              className="w-full p-0 font-[400] outline-none focus:outline-none"
+              className="group px-2.5"
+              variant="outline"
+              asChild
             >
-              <ButtonV5 icon={false} color="#f8f8f8">
-                <h5 className="flex w-full gap-1 text-[16px] font-[500] -tracking-[0.2px] text-[#212121]">
-                  Previous
-                </h5>
-              </ButtonV5>
-            </div>
+              <span className="flex items-center">
+                Previous
+                <AnimateIcon><ChevronLeft /></AnimateIcon>
+              </span>
+            </Button>
           )}
 
           {step < 3 ? (
-            <button
+            <Button
               onClick={handleNext}
-              className="ml-auto w-full p-0 font-[400] outline-none focus:outline-none"
+              className="group px-2.5"
+              asChild
             >
-              <ButtonV5 icon={true}>Next</ButtonV5>
-            </button>
+              <span className="flex items-center">
+                Next
+                <AnimateIcon><ChevronRight /></AnimateIcon>
+              </span>
+            </Button>
           ) : (
-            <button
+            <Button
               onClick={publishPost}
               disabled={isLoading}
-              className="ml-auto w-full p-0 font-[400] outline-none focus:outline-none"
+              className="group px-2.5"
+              asChild
             >
-              <ButtonV5 disabled={isLoading} icon={false}>
-                {isLoading ? (
-                  <div className="flex items-center justify-center gap-1 font-[300]">
-                    &nbsp; Processing <Spinner color="#fff" />
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center gap-1">
-                    Publish
-                    {/* airplane svg */}
-                    <div className="flex w-5 items-center justify-end overflow-hidden">
-                      <div className="w-5">
-                        <svg
-                          className={`h-5 w-5 translate-x-[0%] translate-y-[66%] text-[#ffffff80] opacity-0 transition-all duration-0 group-hover:translate-x-[100%] group-hover:translate-y-[0%] group-hover:text-[#ffffff] group-hover:opacity-100 group-hover:duration-300`}
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M7.39993 6.31991L15.8899 3.48991C19.6999 2.21991 21.7699 4.29991 20.5099 8.10991L17.6799 16.5999C15.7799 22.3099 12.6599 22.3099 10.7599 16.5999L9.91993 14.0799L7.39993 13.2399C1.68993 11.3399 1.68993 8.22991 7.39993 6.31991Z"
-                            stroke="#f0f0f0"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M10.1101 13.6501L13.6901 10.0601"
-                            stroke="#f0f0f0"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                      <div className="w-5">
-                        <svg
-                          className={`h-5 w-5 translate-x-[0%] translate-y-[0%] text-[#ffffff80] opacity-100 transition-all duration-0 group-hover:-translate-y-[66%] group-hover:translate-x-[100%] group-hover:text-[#ffffff] group-hover:opacity-0 group-hover:duration-300`}
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M7.39993 6.31991L15.8899 3.48991C19.6999 2.21991 21.7699 4.29991 20.5099 8.10991L17.6799 16.5999C15.7799 22.3099 12.6599 22.3099 10.7599 16.5999L9.91993 14.0799L7.39993 13.2399C1.68993 11.3399 1.68993 8.22991 7.39993 6.31991Z"
-                            stroke="#f0f0f0"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M10.1101 13.6501L13.6901 10.0601"
-                            stroke="#f0f0f0"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </ButtonV5>
-            </button>
+              <span className="flex items-center">
+                Publish
+                <AnimateIcon><Plane /></AnimateIcon>
+              </span>
+            </Button>
           )}
         </div>
 
@@ -318,9 +265,8 @@ const Create = () => {
           />
         )}
       </div>
-
       <Footer />
-    </>
+    </div>
   );
 };
 

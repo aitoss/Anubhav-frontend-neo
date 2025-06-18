@@ -1,16 +1,16 @@
-import { useEffect, useState, useRef, useMemo } from "react";
-import { useParams } from "react-router-dom";
+"use client";
+import Giscus from "@giscus/react";
 import axios from "axios";
+import { useEffect, useMemo, useRef, useState } from "react";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.bubble.css";
+import { BACKEND_URL } from "../../constants";
+import { formatDate, ReadTime } from "../../services/date";
+import MinuteReadLikes from "../MinuteReadLikes/MinuteReadLikes";
 import Author from "./_Child/Author";
 import Tags from "./_Child/Tags";
 import Articles from "./Articles";
 import BlogLoading from "./BlogLoading";
-import { BACKEND_URL } from "../../constants";
-import { formatDate, ReadTime } from "../../services/date";
-import MinuteReadLikes from "../MinuteReadLikes/MinuteReadLikes";
-import Giscus from "@giscus/react";
-import ReactQuill from "react-quill-new";
-import "react-quill-new/dist/quill.bubble.css";
 
 const LazyLoad = ({ children }: any) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -41,9 +41,7 @@ const LazyLoad = ({ children }: any) => {
 
   return <div ref={ref}>{isVisible ? children : null}</div>;
 };
-
-const Blog = () => {
-  const { id } = useParams();
+const Blog = ({ id }: { id: string }) => {
   const [blogData, setBlogData] = useState<any>([]);
   const [similarArticles, setSimilarArticles] = useState<any>(null);
   const [timeStamp, setTimeStamp] = useState<string>("");

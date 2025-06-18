@@ -4,7 +4,7 @@ import Footer from "../../components/Landing/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import { WobbleCard } from "../../components/Tooltip/wobble";
 import { AnimatePresence, motion } from "framer-motion"; // Import motion from framer-motion
-import BackgroundDots from "../assets/Background";
+import BackgroundDots from "../../components/assets/Background";
 
 type DevTeamMemberProps = {
   name: string;

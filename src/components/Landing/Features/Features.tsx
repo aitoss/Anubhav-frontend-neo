@@ -1,13 +1,13 @@
-import React from "react";
-import Comment from "../../../app/assets/svg/Comment";
-import World from "../../../app/assets/images/world.png";
-import VideoIcon from "../../../app/assets/svg/VideoIcon";
-import Videos from "../../../app/videos/page";
-import VideoPage from "../../../app/assets/images/VideoPage.png";
-import { FollowerPointerCard } from "../../../components/ui/following-pointer";
-import MaskWrapper from "../../ui/maskWrapper";
-import FadeWrapper from "../../ui/fadeWrapper";
 import Link from "next/link";
+import VideoPage from "public/assets/images/VideoPage.png";
+import World from "public/assets/images/world.png";
+import Comment from "public/assets/svg/Comment";
+import VideoIcon from "public/assets/svg/VideoIcon";
+import React from "react";
+import Videos from "../../../app/videos/page";
+import { FollowerPointerCard } from "../../../components/ui/following-pointer";
+import FadeWrapper from "../../ui/fadeWrapper";
+import MaskWrapper from "../../ui/maskWrapper";
 
 type CardProps = {
   title: string;
@@ -102,9 +102,9 @@ const Avatar = ({ Name, borderColor, src, className }: any) => (
 
 const Features = () => {
   return (
-    <section className="flex flex-col items-center justify-center bg-[#f9f9f9] px-4 pb-32 pt-20">
-      <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center text-left">
-        <div className="mx-auto flex h-[500px] w-full flex-row items-center justify-center border-b border-t border-[#d2d2d6] md:h-[1000px] md:flex-col">
+    <section className="flex items-center justify-center px-4 pb-32 pt-20">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-center text-left">
+        <div className="mx-auto flex md:h-[500px] w-full md:flex-row items-center justify-center border-b border-t border-[#d2d2d6] h-[1000px] flex-col">
           <Card
             title="Collaborate with other writers"
             bold="Sign in with GitHub on "
@@ -185,7 +185,7 @@ const Features = () => {
               </div>
             </FollowerPointerCard>
           </Card>
-          <div className="z-[60] h-full w-[1px] bg-[#d2d2d6] md:h-[1px] md:w-full" />
+          <div className="z-[60] md:h-full md:w-[1px] bg-[#d2d2d6] h-[1px] w-full" />
           <Card
             title="Video Collection"
             bold="Prefer Videos Over Blogs? "
@@ -193,10 +193,10 @@ const Features = () => {
             description="No worries! We've got an exciting collection of videos that bring the same inspiring stories and useful insights right to your screen."
             icon={<VideoIcon />}
           >
-            <div className="pointer-events-none absolute bottom-0 left-0 block w-[800px] -translate-x-[30%] translate-y-[43%] scale-50 select-text rounded-3xl border border-[#d2d2d6] bg-[#fff9] shadow-2xl md:bottom-[-40%] md:left-[30%] md:hidden md:w-full lg:w-[1050px] lg:translate-y-[40%] xl:w-[1200px] x-sm:bottom-[-50%] x-sm:left-[20%] x-sm:w-[500px]">
+            <div className="pointer-events-none absolute md:bottom-0 md:left-20 md:block w-[800px] -translate-x-[30%] translate-y-[43%] scale-50 select-text rounded-3xl overflow-hidden border border-[#d2d2d6] bg-[#fff] shadow-2xl top-[-40%] left-[30%] hidden lg:w-[1050px] xl:w-[1200px] x-sm:bottom-[-50%] x-sm:left-[20%] x-sm:w-[500px]">
               <Videos />
             </div>
-            <div className="absolute -bottom-[25%] left-[60%] hidden h-[347px] w-[420px] -translate-x-1/2 scale-[140%] select-none md:block x-sm:scale-[100%]">
+            <div className="absolute -bottom-[25%] left-[60%] md:hidden h-[347px] w-[420px] -translate-x-1/2 scale-[140%] select-none block x-sm:scale-[100%]">
               <img
                 src={VideoPage.src}
                 alt="VideoPage"

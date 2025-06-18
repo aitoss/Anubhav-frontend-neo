@@ -3,7 +3,7 @@ import { Pen, SearchIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
-import logo from "../../app/assets/images/logo.svg";
+import logo from "public/assets/images/logo.svg";
 import Search from "../Search/Search";
 import SearchModal from "../Search/SearchModal";
 import { Button } from "../ui/button";

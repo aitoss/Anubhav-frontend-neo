@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import InputTag from "../InputTag/Usertag";
+import { Input } from "../ui/input";
 
 const BasicInformation = ({
   value,
@@ -42,21 +43,21 @@ const BasicInformation = ({
   };
 
   return (
-    <div className="flex w-[100%] max-w-[100%] justify-center pt-4 md:h-[70%] md:w-[90%]">
-      <div className="relative flex w-[90%] flex-col gap-3 rounded-xl pb-4 md:w-full md:gap-1 md:p-5 lg:w-[70%] x-sm:p-0">
+    <div className="flex w-full justify-center pt-4 md:h-[70%]">
+      <div className="relative flex flex-col gap-3 rounded-xl pb-4 md:w-full md:gap-1 md:p-5 xs:p-0">
         <div className="w-full">
           <h2 className="text-2xl font-[500] text-[#212121]">
             Basic Information
           </h2>
         </div>
 
-        <div className="flex gap-2 md:flex-col">
+        <div className="flex gap-2 md:flex-row flex-col">
           <div className="flex w-1/2 flex-col gap-3 md:w-full md:gap-2">
             <div className="flex flex-col gap-3 md:gap-1">
               <div className="flex flex-col gap-2">
                 <div className="relative flex flex-col">
                   <h4 className="text-[#212121]">Name</h4>
-                  <input
+                  <Input
                     required
                     type="text"
                     name="name"
@@ -73,7 +74,7 @@ const BasicInformation = ({
 
                 <div className="relative flex flex-col">
                   <h4 className="text-[#212121]">Email</h4>
-                  <input
+                  <Input
                     required
                     type="email"
                     name="email"
@@ -94,7 +95,7 @@ const BasicInformation = ({
               <div className="flex flex-col gap-2">
                 <div className="relative flex flex-col">
                   <h4 className="text-[#212121]">Company Name</h4>
-                  <input
+                  <Input
                     required
                     type="text"
                     name="company"
@@ -142,7 +143,7 @@ const BasicInformation = ({
                 <div className="relative flex flex-col gap-1">
                   <div className="relative flex flex-col">
                     <h4 className="text-[#212121]">Title</h4>
-                    <input
+                    <Input
                       required
                       type="text"
                       name="title"

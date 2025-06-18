@@ -1,15 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
-import Navbar from "../../components/Navbar/Navbar";
-import background2 from "../assets/dots-pattern.svg";
-import Footer from "../../components/Landing/Footer/Footer";
+"use client";
 import axios from "axios";
-import { BACKEND_URL } from "../../constants";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import BackgroundDots from "../../components/assets/Background";
+import Spinner from "../../components/assets/Spinner";
+import Footer from "../../components/Landing/Footer/Footer";
+import Navbar from "../../components/Navbar/Navbar";
 import ErrorMessage from "../../components/notification/ErrorMessage";
 import SuccessMessage from "../../components/notification/SuccessMessage";
 import ButtonV5 from "../../components/ui/buttonv5";
-import Spinner from "../assets/Spinner";
-import BackgroundDots from "../assets/Background";
+import { BACKEND_URL } from "../../constants";
 
 const RequestArticle = () => {
   const initialState = {
@@ -101,7 +101,7 @@ const RequestArticle = () => {
       <div className="flex h-screen flex-col items-center justify-start">
         <div
           className="mx-auto flex flex-col items-center justify-center gap-3 pt-32"
-          // style={{ backgroundImage: `url(${background2})` }}
+        // style={{ backgroundImage: `url(${background2})` }}
         >
           {/* basic info */}
           <div className="flex w-[100%] justify-center">

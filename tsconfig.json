@@ -42,7 +42,7 @@
     "./next-env.d.ts",
     "./src",
     ".next/types/**/*.ts"
-  ],
+, "public/assets/svg"  ],
   "exclude": [
     "./node_modules"
   ]

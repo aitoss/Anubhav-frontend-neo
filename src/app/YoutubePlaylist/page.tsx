@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import BackgroundDots from "../assets/Background";
+import BackgroundDots from "../../components/assets/Background";
 import Tag from "../../components/InputTag/Tag";
 import YoutubeCard from "../../components/Video/YoutubeCard";
 import YoutubeCardLoading from "../../components/Video/YoutubeCardLoading";

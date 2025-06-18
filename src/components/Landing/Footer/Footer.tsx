@@ -1,13 +1,13 @@
 import Link from "next/link";
-import Anubhav from "../../../app/assets/images/Anubhav-3d.png";
+import Anubhav from "public/assets/images/Anubhav-3d.png";
 import "./Footer.css";
 import Social from "./Social";
 import { SparklesCore } from "./Sparkles";
 
 const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  // const scrollToTop = () => {
+  //   window.scrollTo({ top: 0, behavior: "smooth" });
+  // };
 
   const Glow = () => {
     return (
@@ -254,7 +254,7 @@ const Footer = () => {
 
                 <Link
                   href="/create"
-                  onClick={scrollToTop}
+                  // onClick={scrollToTop}
                   className="underline-none pl-1 text-[16px] font-[300] tracking-wide text-[#a0a0a0] hover:text-[#e0e0e0] hover:underline"
                 >
                   Write article
@@ -262,7 +262,7 @@ const Footer = () => {
 
                 <Link
                   href="/request"
-                  onClick={scrollToTop}
+                  // onClick={scrollToTop}
                   className="underline-none pl-1 text-[16px] font-[300] tracking-wide text-[#a0a0a0] hover:text-[#e0e0e0] hover:underline"
                 >
                   Request article
@@ -270,21 +270,21 @@ const Footer = () => {
 
                 <Link
                   href="/videos"
-                  onClick={scrollToTop}
+                  // onClick={scrollToTop}
                   className="underline-none pl-1 text-[16px] font-[300] tracking-wide text-[#a0a0a0] hover:text-[#e0e0e0] hover:underline"
                 >
                   Videos
                 </Link>
                 <Link
                   href="/story"
-                  onClick={scrollToTop}
+                  // onClick={scrollToTop}
                   className="underline-none pl-1 text-[16px] font-[300] tracking-wide text-[#a0a0a0] hover:text-[#e0e0e0] hover:underline"
                 >
                   Our story
                 </Link>
                 <Link
                   href="/team"
-                  onClick={scrollToTop}
+                  // onClick={scrollToTop}
                   className="underline-none pl-1 text-[16px] font-[300] tracking-wide text-[#a0a0a0] hover:text-[#e0e0e0] hover:underline"
                 >
                   Dev team
@@ -314,7 +314,7 @@ const Footer = () => {
 
             <Link
               href="/terms"
-              onClick={scrollToTop}
+              // onClick={scrollToTop}
               className="font-[400] transition-all hover:text-[#a0a0a0] hover:underline"
             >
               Terms of Service

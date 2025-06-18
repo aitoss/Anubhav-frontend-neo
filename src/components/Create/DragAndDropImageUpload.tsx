@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Upload from "../../app/assets/images/upload.svg";
+import Upload from "public/assets/images/upload.svg";
 
 const MAX_FILE_SIZE = 73 * 1024;
 

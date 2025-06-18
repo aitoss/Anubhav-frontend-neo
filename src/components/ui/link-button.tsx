@@ -34,7 +34,7 @@ export function LinkButton({
         size={size}
         asChild
       >
-        <span className="flex items-center gap-2">
+        <span className="flex items-center">
           {iconPosition === "left" && icon && (
             <AnimateIcon>{icon}</AnimateIcon>
           )}

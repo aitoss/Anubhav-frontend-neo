@@ -1,9 +1,9 @@
 "use client"
 import Navbar from "@/components/Navbar/Navbar";
-import ButtonV5 from "@/components/ui/buttonv5";
+import { LinkButton } from "@/components/ui/link-button";
 import { motion } from "framer-motion";
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function NotFound() {
     return (
@@ -54,13 +54,9 @@ export default function NotFound() {
                         exit={{ opacity: 0, translateY: 100 }}
                         transition={{ duration: 0.15, delay: 0.08 }}
                     >
-                        <Link href="/">
-                            <ButtonV5 textColor="#212121" color="#f8f8f8">
-                                <h5 className="flex gap-1 text-[16px] font-[400] -tracking-[0.2px] text-[#212121]">
-                                    Home
-                                </h5>
-                            </ButtonV5>
-                        </Link>
+                        <LinkButton href="/" variant="outline" icon={<ChevronRight />}>
+                            Home
+                        </LinkButton>
                     </motion.div>
                 </div>
             </section>

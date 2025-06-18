@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import "./Style.css";
-import adobe from "../../app/assets/company-logo/adobe.svg";
-import amazon from "../../app/assets/company-logo/amazon.svg";
-import atlassian from "../../app/assets/company-logo/atlassian.svg";
-import DeutscheBank from "../../app/assets/company-logo/Deutsche_Bank.png";
-import cisco from "../../app/assets/company-logo/cisco.svg";
-import google from "../../app/assets/company-logo/google.svg";
-import masterCard from "../../app/assets/company-logo/masterCard.svg";
-import microsoft from "../../app/assets/company-logo/microsoft.svg";
-import uber from "../../app/assets/company-logo/uber.svg";
+import adobe from "public/assets/company-logo/adobe.svg";
+import amazon from "public/assets/company-logo/amazon.svg";
+import atlassian from "public/assets/company-logo/atlassian.svg";
+import DeutscheBank from "public/assets/company-logo/Deutsche_Bank.png";
+import cisco from "public/assets/company-logo/cisco.svg";
+import google from "public/assets/company-logo/google.svg";
+import masterCard from "public/assets/company-logo/masterCard.svg";
+import microsoft from "public/assets/company-logo/microsoft.svg";
+import uber from "public/assets/company-logo/uber.svg";
 
 const logos = [
   adobe,

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AnubhaverIcon from "../../app/assets/AnubhavIcon.tsx";
+import AnubhaverIcon from "../assets/AnubhavIcon.tsx";
 import Confetti from "react-confetti";
 import { motion } from "framer-motion";
 

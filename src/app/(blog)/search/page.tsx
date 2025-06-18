@@ -9,8 +9,8 @@ import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import companyLogo from "public/assets/images/company.png";
 import { useEffect, useRef, useState } from "react";
-import { BACKEND_URL } from "../../constants";
-import { ReadTime, formatDate } from "../../services/date";
+import { BACKEND_URL } from "../../../constants";
+import { ReadTime, formatDate } from "../../../services/date";
 
 const SearchPage = () => {
     const searchParams = useSearchParams();
