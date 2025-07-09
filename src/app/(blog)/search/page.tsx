@@ -127,7 +127,7 @@ const SearchPage = () => {
                 />
             )}
             <NavbarMini />
-            <div className="h-full px-8 pt-24 md:px-4 lg:px-14 2xl:px-28">
+            <div className="h-full max-w-7xl mx-auto px-4 md:px-8 pt-24">
                 <div className="flex h-full w-full gap-10">
                     <div className="flex h-full w-full max-w-5xl flex-col gap-2">
                         <div className="flex justify-between items-center">

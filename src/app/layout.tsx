@@ -1,6 +1,6 @@
+import { geistMono, inter } from "@/lib/fonts";
 import type { Metadata, Viewport } from "next/types";
 import "./globals.css";
-import "./fonts.css";
 
 export const metadata: Metadata = {
   title: "Anubhav",
@@ -50,7 +50,9 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body>{children}</body>
+      <body
+        className={`${inter.variable} ${geistMono.variable} font-sans antialiased`}
+      >{children}</body>
     </html>
   );
 }

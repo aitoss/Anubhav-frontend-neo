@@ -63,7 +63,7 @@ const NavbarMini = () => {
         <SearchModal closeSearchModal={closeSearchModal} focus={1} full={1} />
       )}
       <nav className={navClasses} aria-label="Global">
-        <div className="m-auto flex h-full w-full max-w-[1400px] items-center justify-between">
+        <div className="m-auto flex h-full w-full max-w-7xl items-center justify-between">
           <div className="flex w-full items-center justify-between px-1 lg:px-8">
             <div className="flex items-center justify-center gap-2">
               <Link href="/" className="">
