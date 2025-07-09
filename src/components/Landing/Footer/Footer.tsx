@@ -304,21 +304,13 @@ const Footer = () => {
             </span>{" "}
             by OSS Club
           </div>
-          <div className="flex select-none flex-row items-center justify-center gap-4 text-[#6b6b6b] sm:flex-col sm:gap-1">
+          <div className="flex select-none flex-row items-center justify-center pb-8 gap-4 text-[#6b6b6b] sm:flex-col sm:gap-1">
             <div className="flex justify-center text-[#d9dd9d9cc] sm:text-start">
               ©2025 O<span className="block x-sm:hidden">pen&nbsp;</span>S
               <span className="block x-sm:hidden">ource&nbsp;</span>S
               <span className="block x-sm:hidden">oftware&nbsp;</span> Club All
               rights reserved
             </div>
-
-            <Link
-              href="/terms"
-              // onClick={scrollToTop}
-              className="font-[400] transition-all hover:text-[#a0a0a0] hover:underline"
-            >
-              Terms of Service
-            </Link>
           </div>
         </div>
       </div>
