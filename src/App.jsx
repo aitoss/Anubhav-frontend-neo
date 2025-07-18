@@ -21,6 +21,10 @@ import TermsService from "./pages/TermsService";
 import VideosPage from "./pages/VideosPage";
 import ViewBlog from "./pages/ViewBlog";
 import YouTubePlaylist from "./pages/YouTubePlaylist";
+import { getSuperTokensRoutesForReactRouterDom } from "supertokens-auth-react/ui";
+import { SessionAuth } from "supertokens-auth-react/recipe/session";
+import { EmailPasswordPreBuiltUI } from "supertokens-auth-react/recipe/emailpassword/prebuiltui";
+import * as reactRouterDom from "react-router-dom";
 
 const App = () => {
   useEffect(() => {
@@ -36,6 +40,7 @@ const App = () => {
 
   return (
     <Routes>
+      {getSuperTokensRoutesForReactRouterDom(reactRouterDom, [EmailPasswordPreBuiltUI])}
       <Route
         path="/"
         element={
@@ -55,10 +60,18 @@ const App = () => {
           </>
         }
       />
-      <Route path="/Create" element={<Create />} />
+      <Route path="/Create" element={
+        <SessionAuth>
+          <Create />
+        </SessionAuth>
+      } />
       <Route path="/blog/:id" element={<ViewBlog />} />
       <Route path="/guidelines" element={<Guidelines />} />
-      <Route path="/request" element={<RequestArticle />} />
+      <Route path="/request" element={
+        <SessionAuth>
+          <RequestArticle />
+        </SessionAuth>
+       } />
       <Route path="/legal/terms/" element={<TermsService />} />
       <Route path="/videos" element={<VideosPage />} />
       <Route path="/search" element={<SearchPage />} />

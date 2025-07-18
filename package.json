@@ -48,6 +48,7 @@
     "react-simple-wysiwyg": "^2.2.5",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
+    "supertokens-auth-react": "^0.49.1",
     "tailwind-merge": "^2.5.2"
   },
   "devDependencies": {

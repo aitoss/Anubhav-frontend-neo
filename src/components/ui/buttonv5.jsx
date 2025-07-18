@@ -8,6 +8,7 @@ const ButtonV5 = ({
   disabled,
   borderRadius,
   children,
+  onClick,
 }) => {
   const [hovered, setHovered] = useState(false);
 
@@ -35,6 +36,11 @@ const ButtonV5 = ({
     <div
       className={`relative ${disabledStyles} overflow-hidden transition-all hover:brightness-[101%]`}
       onMouseEnter={handleMouseEnter}
+      onClick={() => {
+        if (!disabled && typeof onClick === "function") {
+          onClick();
+        }
+      }}
     >
       <div
         style={{

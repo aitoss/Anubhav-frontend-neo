@@ -1,17 +1,20 @@
 import React from "react";
-import { Analytics } from '@vercel/analytics/react';
-import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
+import { BrowserRouter } from "react-router-dom";
 import "./index.css";
-import { Toaster } from '@pheralb/toast';
+
+import { SuperTokensWrapper } from "supertokens-auth-react";
+import { initSuperTokens } from "./supertokens.js";
+
+initSuperTokens();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <React.StrictMode>
-      <App />
-      <Toaster />
-      <Analytics />
-    </React.StrictMode>
-  </BrowserRouter>,
+    <SuperTokensWrapper>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </SuperTokensWrapper>
+  </BrowserRouter>
 );
