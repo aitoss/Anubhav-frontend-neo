@@ -1,5 +1,4 @@
 "use client";
-import axios from "axios";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import BackgroundDots from "../../components/assets/Background";
@@ -9,7 +8,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import ErrorMessage from "../../components/notification/ErrorMessage";
 import SuccessMessage from "../../components/notification/SuccessMessage";
 import ButtonV5 from "../../components/ui/buttonv5";
-import { BACKEND_URL } from "../../constants";
+import { apiService } from "../../lib/api";
 
 const RequestArticle = () => {
   const initialState = {
@@ -30,8 +29,8 @@ const RequestArticle = () => {
   useEffect(() => {
     const fetchCompanySuggestions = async () => {
       try {
-        const response = await axios.get(BACKEND_URL + "/companies");
-        setCompanySuggestions(response.data);
+        const response = await apiService.getAllCompanies();
+        setCompanySuggestions(response);
       } catch (error) {
         console.error("Error fetching company suggestions:", error);
       }
@@ -70,7 +69,7 @@ const RequestArticle = () => {
         note: value.note,
         requesterEmailId: value.email,
       };
-      await axios.post(BACKEND_URL + "/reqarticle", requestData);
+      await apiService.createArticleRequest(requestData);
       setIsLoading(false);
       setRequestSend("Request Sent Successfully");
       localStorage.setItem("lastRequestTime", currentTime.toString());

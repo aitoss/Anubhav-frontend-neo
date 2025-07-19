@@ -1,10 +1,9 @@
 "use client";
 import Giscus from "@giscus/react";
-import axios from "axios";
 import { useEffect, useMemo, useRef, useState } from "react";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.bubble.css";
-import { BACKEND_URL } from "../../constants";
+import { apiService } from "../../lib/api";
 import { formatDate, ReadTime } from "../../services/date";
 import MinuteReadLikes from "../MinuteReadLikes/MinuteReadLikes";
 import Author from "./_Child/Author";
@@ -50,7 +49,7 @@ const Blog = ({ id }: { id: string }) => {
 
   const fetchBlogData = async () => {
     try {
-      const response = await axios.get(BACKEND_URL + "/blog/" + id);
+      const response = await apiService.getBlogById(id);
       setBlogData(response.data);
       setTimeStamp(formatDate(response.data.createdAt));
       const article = response.data;
@@ -76,10 +75,8 @@ const Blog = ({ id }: { id: string }) => {
   ) => {
     try {
       const params = { q: title, company: companyName, tags: articleTags };
-      const response = await axios.get(BACKEND_URL + "/similarBlogs", {
-        params: params,
-      });
-      const filteredData = response.data.filter(
+      const response = await apiService.getSimilarBlogs(params);
+      const filteredData = response.filter(
         (item: any) => item._id !== articleID,
       );
       setSimilarArticles(filteredData);

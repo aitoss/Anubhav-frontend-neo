@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import BlogCard from "./BlogCard";
 import BlogCardLoading from "./BlogCardLoading";
 import company from "public/assets/images/company.png";
 
-import { BACKEND_URL } from "../../constants";
+import { apiService } from "../../lib/api";
 import { ReadTime, formatDate } from "../../services/date";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -15,8 +14,8 @@ const BlogSection = () => {
 
   const fetchBlogData = async () => {
     try {
-      const response = await axios.get(BACKEND_URL + "/blogs?useLatest=true");
-      setBlogData(response.data);
+      const response = await apiService.getLatestBlogs();
+      setBlogData(response);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching blog data:", error);

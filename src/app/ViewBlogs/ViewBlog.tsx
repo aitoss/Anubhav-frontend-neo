@@ -1,8 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill-new";
 import { useParams } from "react-router-dom";
-import { BACKEND_URL } from "../../constants";
+import { apiService } from "../../lib/api";
 import "react-quill-new/dist/quill.bubble.css";
 
 const ViewBlog = () => {
@@ -54,17 +53,18 @@ const ViewBlog = () => {
 
   useEffect(() => {
     const fetchBlog = async () => {
+      if (!id) return;
       try {
-        const response = await axios.get(`${BACKEND_URL}/blog/${id}`);
-        console.log(response.data.description);
-        setBlog(response.data);
+        const response = await apiService.getBlogById(id);
+        console.log(response.description);
+        setBlog(response);
       } catch (error) {
         console.error("Error getting blog:", error);
       }
     };
 
     fetchBlog();
-  }, []);
+  }, [id]);
 
   return (
     <ReactQuill

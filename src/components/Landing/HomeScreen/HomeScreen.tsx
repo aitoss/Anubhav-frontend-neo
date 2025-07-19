@@ -109,7 +109,7 @@ export default function HomeScreen() {
           <input
             ref={inputRef}
             onClick={handleClick}
-            className="search h-[2.5rem] w-[350px] border-none bg-[#121212] px-3 font-[300] text-[#ffffffcc] outline-none placeholder:font-[300] placeholder:text-[rgba(255,255,255,0.6)] focus:outline-none placeholder:focus:border-none placeholder:focus:text-[rgba(255,255,255,0.8)] placeholder:focus:outline-none md:w-[280px] lg:w-[400px]"
+            className="search h-[2.5rem] w-full border-none bg-[#121212] px-3 font-[300] text-[#ffffffcc] outline-none placeholder:font-[300] placeholder:text-[rgba(255,255,255,0.6)] focus:outline-none placeholder:focus:border-none placeholder:focus:text-[rgba(255,255,255,0.8)] placeholder:focus:outline-none md:w-[280px] lg:w-[400px]"
             type=""
             placeholder="Search for your Dreams.."
           />
@@ -142,14 +142,14 @@ export default function HomeScreen() {
         }
       >
         <BackgroundDots
-          dotSize={1.8}
-          dotColor="#cbcbcc"
+          dotSize={1.25}
+          dotColor="#cbcbcb"
           backgroundColor=""
-          gap={15}
+          gap={10}
           className="custom-class"
           fade={true}
         />
-        <section className="flex flex-col items-center justify-center gap-4 py-12">
+        <section className="flex flex-col items-center justify-center gap-4 py-12 px-4">
           <FadeWrapper>
             <Link
               href="/videos"
@@ -167,7 +167,7 @@ export default function HomeScreen() {
               </span>
             </Link>
           </FadeWrapper>
-          <h1 className="flex justify-center text-6xl font-[600] tracking-tighter text-[#212121] sm:text-[3rem] lg:text-7xl">
+          <h1 className="flex justify-center text-[3rem] font-[600] tracking-tighter text-[#212121] sm:text-6xl lg:text-7xl">
             <FadeWrapper delay={0.05}>Success Stories</FadeWrapper>
           </h1>
           <p className="flex justify-center text-lg font-[500] text-[#444] lg:text-xl">
@@ -227,7 +227,7 @@ export default function HomeScreen() {
         </section>
         <section className="flex w-full flex-col items-center pt-16">
           <MaskWrapper>
-            <h1 className="text-[30px] text-black x-sm:text-[20px]">
+            <h1 className="text-base text-black x-sm:text-[20px]">
               Exploring <span className="font-[500]">The Interview Safari</span>
             </h1>
           </MaskWrapper>

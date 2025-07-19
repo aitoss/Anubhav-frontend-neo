@@ -4,10 +4,9 @@ import BlogCard from "../BlogSection/BlogCard";
 import "./SearchPage.css";
 import FilterPopUp from "../Filter/FilterPopUp";
 import Filter from "../Filter/Filter";
-import axios from "axios";
-import { BACKEND_URL } from "../../constants";
 import { useSearchParams } from "react-router-dom";
 import companyLogo from "public/assets/images/company.png";
+import { apiService } from "../../lib/api";
 import { ReadTime, formatDate } from "../../services/date";
 import SearchCardLoading from "./SearchCardLoading";
 
@@ -37,9 +36,9 @@ const SearchPage = () => {
   const fetchLatestArticles = async (endPoint: any, page = 1) => {
     setLoading(true);
     try {
-      const res = await axios.get(`${BACKEND_URL}${endPoint}?page=${page}`);
-      const data = res.data.articles;
-      setTotalArticles(res.data.totalArticles);
+      const res = await apiService.getBlogs(page);
+      const data = res.articles;
+      setTotalArticles(res.totalArticles);
 
       if (page === 1) {
         setArticles(data);
@@ -47,7 +46,7 @@ const SearchPage = () => {
         setArticles((prevArticles: any) => [...prevArticles, ...data]);
       }
 
-      setHasMore(res.data.hasMore);
+      setHasMore(res.hasMore);
     } catch (error) {
       console.log("Failed to fetch articles", error);
     } finally {
@@ -57,13 +56,12 @@ const SearchPage = () => {
 
   const fetchArticles = async (query: any, page: number) => {
     setLoading(true);
-    const params = { q: query, page, limit: 10 };
-    console.log("params", params);
+    console.log("params", { q: query, page, limit: 10 });
 
     try {
-      const response = await axios.get(BACKEND_URL + "/search", { params });
-      const newArticles = response.data.articles;
-      setTotalArticles(response.data.totalArticles);
+      const response = await apiService.searchBlogs(query, page, 10);
+      const newArticles = response.articles;
+      setTotalArticles(response.totalArticles);
 
       if (page === 1) {
         setArticles([...newArticles]);
@@ -81,8 +79,8 @@ const SearchPage = () => {
 
   const countCompany = async () => {
     try {
-      const res = await axios.get(BACKEND_URL + "/countCompanies");
-      setCompany(res.data.data);
+      const res = await apiService.getCompanies();
+      setCompany(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -213,7 +211,6 @@ const SearchPage = () => {
                   }
                   author={item.author?.name}
                   company={item.companyName}
-                  data={item.description}
                   readingTime={ReadTime(item.description)}
                   date={formatDate(item.createdAt)}
                 />

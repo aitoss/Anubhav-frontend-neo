@@ -1,12 +1,12 @@
 "use client";
 
-import { BACKEND_URL } from "@/constants";
 import { AnimatePresence, motion } from "framer-motion";
 import debounce from "lodash.debounce";
 import throttle from "lodash.throttle";
 import { SearchIcon, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { apiService } from "../../lib/api";
 import ShortcutIcon from "./ShortcutIcon";
 
 const Search = ({ mode, focus, full }: any) => {
@@ -91,9 +91,8 @@ const Search = ({ mode, focus, full }: any) => {
   const fetchSuggestions = useCallback(
     throttle(async (text: string) => {
       try {
-        const res = await fetch(`${BACKEND_URL}/similarBlogs?q=${text}`);
-        const data = await res.json();
-        const titles = data.map((item: any) => item.title);
+        const res = await apiService.getSimilarBlogs({ q: text });
+        const titles = res.map((item: any) => item.title);
         setPopularSearches(titles);
       } catch {
         console.log("Failed to fetch suggestions");
@@ -176,7 +175,7 @@ const Search = ({ mode, focus, full }: any) => {
             <input
               ref={inputRef}
               id="search-input"
-              className={`${inputBgClass} ${inputTextClass} w-[300px] border-none px-3 font-[300] outline-none placeholder:font-[400] focus:outline-none placeholder:focus:border-none placeholder:focus:text-[rgba(255,255,255,0.8)] placeholder:focus:outline-none placeholder:text-sm lg:w-[400px] ${placeholderClass}`}
+              className={`${inputBgClass} ${inputTextClass} w-full border-none px-3 font-[300] outline-none placeholder:font-[400] focus:outline-none placeholder:focus:border-none placeholder:focus:text-[rgba(255,255,255,0.8)] placeholder:focus:outline-none placeholder:text-sm lg:w-[400px] ${placeholderClass}`}
               type=""
               placeholder="Search for your Dreams.."
               value={searchText}

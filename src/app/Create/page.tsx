@@ -1,7 +1,6 @@
 "use client";
 import AnimateIcon from "@/components/ui/animate-icon";
 import { Button } from "@/components/ui/button";
-import axios from "axios";
 import { ChevronLeft, ChevronRight, Plane } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -11,11 +10,10 @@ import PreviewPage from "../../components/Create/PreviewPage";
 import SubmittedCard from "../../components/Create/SubmittedCard";
 import WriteHere from "../../components/Create/WriteHere";
 import Footer from "../../components/Landing/Footer/Footer";
-import Navbar from "../../components/Navbar/Navbar";
 import BackgroundDots from "../../components/assets/Background";
 import SuccessMessage from "../../components/notification/SuccessMessage";
-import { BACKEND_URL } from "../../constants";
 import useErrorToast from "../../hooks/useErrorToast";
+import { apiService } from "../../lib/api";
 
 const Create = () => {
   const initialState = {
@@ -54,7 +52,7 @@ const Create = () => {
   const publishPost = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.post(BACKEND_URL + "/blogs", {
+      const response = await apiService.createBlog({
         title: value.title,
         authorName: value.name,
         authorEmailId: value.email,

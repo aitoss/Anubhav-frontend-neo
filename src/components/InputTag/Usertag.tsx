@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { RxCross1 } from "react-icons/rx";
-import { BACKEND_URL } from "../../constants";
+import { apiService } from "../../lib/api";
 
 const InputTag = ({ setTags, tags }: any) => {
   const [tagSuggestions, setTagSuggestions] = useState<any[]>([]);
@@ -11,8 +10,8 @@ const InputTag = ({ setTags, tags }: any) => {
   useEffect(() => {
     const fetchTagSuggestions = async () => {
       try {
-        const response = await axios.get(BACKEND_URL + "/tags");
-        setTagSuggestions(response.data);
+        const response = await apiService.getTags();
+        setTagSuggestions(response);
       } catch (error) {
         console.error("Error fetching tag suggestions:", error);
       }

@@ -5,11 +5,10 @@ import Filter from "@/components/Filter/Filter";
 import FilterPopUp from "@/components/Filter/FilterPopUp";
 import NavbarMini from "@/components/Navbar/NavbarMini";
 import SearchCardLoading from "@/components/Search/SearchCardLoading";
-import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import companyLogo from "public/assets/images/company.png";
 import { useEffect, useRef, useState } from "react";
-import { BACKEND_URL } from "../../../constants";
+import { apiService } from "../../../lib/api";
 import { ReadTime, formatDate } from "../../../services/date";
 
 const SearchPage = () => {
@@ -35,14 +34,14 @@ const SearchPage = () => {
     const fetchLatestArticles = async (page = 1) => {
         setLoading(true);
         try {
-            const res = await axios.get(`${BACKEND_URL}/blogs?page=${page}`);
-            const data = res.data.articles;
-            setTotalArticles(res.data.totalArticles);
+            const res = await apiService.getBlogs(page);
+            const data = res.articles;
+            setTotalArticles(res.totalArticles);
 
             if (page === 1) setArticles(data);
             else setArticles((prev) => [...prev, ...data]);
 
-            setHasMore(res.data.hasMore);
+            setHasMore(res.hasMore);
         } catch (error) {
             console.error("Failed to fetch articles", error);
         } finally {
@@ -53,12 +52,10 @@ const SearchPage = () => {
     const fetchArticles = async (query: string, page: number) => {
         setLoading(true);
         try {
-            const res = await axios.get(`${BACKEND_URL}/search`, {
-                params: { q: query, page, limit: 10 },
-            });
+            const res = await apiService.searchBlogs(query, page, 10);
 
-            const newArticles = res.data.articles;
-            setTotalArticles(res.data.totalArticles);
+            const newArticles = res.articles;
+            setTotalArticles(res.totalArticles);
 
             if (page === 1) setArticles(newArticles);
             else setArticles((prev) => [...prev, ...newArticles]);
@@ -73,8 +70,8 @@ const SearchPage = () => {
 
     const countCompany = async () => {
         try {
-            const res = await axios.get(`${BACKEND_URL}/countCompanies`);
-            setCompany(res.data.data);
+            const res = await apiService.getCompanies();
+            setCompany(res.data);
         } catch (error) {
             console.error("Failed to count companies", error);
         }
