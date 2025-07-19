@@ -6,6 +6,7 @@ import MinuteReadLikes from "../MinuteReadLikes/MinuteReadLikes";
 import { formatDate, ReadTime } from "../../services/date";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.bubble.css"; // Import theme CSS
+import Image from "next/image"; // Import the Image component
 
 const PreviewPage = ({ value, article, bannerImage, tags }: any) => {
   const MemoizedAuthor = useMemo(() => {
@@ -76,11 +77,17 @@ const PreviewPage = ({ value, article, bannerImage, tags }: any) => {
                 {MemoizedMinuteReadLikes}
               </div>
               {bannerImage ? (
-                <img
-                  src={bannerImage}
-                  alt="Banner"
-                  className="mb-4 h-40 w-full rounded-lg border object-cover"
-                />
+                <div className="relative mb-4 h-40 w-full rounded-lg border">
+                  {" "}
+                  {/* Added relative positioning to parent div */}
+                  <Image // Replaced <img> with Image
+                    src={bannerImage}
+                    alt="Article Banner Preview" // Meaningful alt text
+                    fill // Makes the image fill its parent container
+                    className="object-cover rounded-lg" // object-cover applied to Image
+                    unoptimized={true} // Recommended for local/data URLs
+                  />
+                </div>
               ) : (
                 <div className="mb-4 flex h-40 w-full items-center justify-center rounded-lg bg-gray-300">
                   <Camera size={48} className="text-gray-400" />
@@ -93,6 +100,9 @@ const PreviewPage = ({ value, article, bannerImage, tags }: any) => {
                     theme="bubble"
                     readOnly
                     className="h-full w-full"
+                    modules={{
+                      toolbar: false, // Ensure toolbar is false if you're not using it
+                    }}
                   />
                 </div>
               </div>

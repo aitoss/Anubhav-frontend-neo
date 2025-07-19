@@ -3,8 +3,9 @@ import React, { useMemo, useState } from "react";
 import Footer from "../../components/Landing/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import { WobbleCard } from "../../components/Tooltip/wobble";
-import { AnimatePresence, motion } from "framer-motion"; // Import motion from framer-motion
+import { AnimatePresence, motion } from "framer-motion";
 import BackgroundDots from "../../components/assets/Background";
+import Image from "next/image"; // Import the Image component
 
 type DevTeamMemberProps = {
   name: string;
@@ -28,9 +29,11 @@ const DevTeamMember = React.memo(
     >
       <WobbleCard containerClassName="min-h-[300px]" className="">
         <div className="flex flex-col items-start">
-          <img
+          <Image // Replaced <img> with Image
             src={imageSrc}
             alt={`${name}'s avatar`}
+            width={300} // Added width prop
+            height={300} // Added height prop
             className="h-[300px] w-[300px] min-w-[150px] select-none rounded-[8px] object-cover"
             loading="lazy"
           />
@@ -54,7 +57,7 @@ const DevTeamMember = React.memo(
 type TeamKey = "current" | "firstGen";
 
 const DevTeam = () => {
-  const [activeTeam, setActiveTeam] = useState<TeamKey>("current"); // Holds 'current' or 'firstGen'
+  const [activeTeam, setActiveTeam] = useState<TeamKey>("current");
 
   const teamSection: { label: string; key: TeamKey }[] = [
     { label: "Current Team", key: "current" },

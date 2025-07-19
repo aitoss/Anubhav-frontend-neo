@@ -9,7 +9,7 @@ import FadeText from "../../ui/fadeText";
 import FadeWrapper from "../../ui/fadeWrapper";
 import MaskText from "../../ui/maskText";
 import MaskWrapper from "../../ui/maskWrapper";
-
+import Image from "next/image";
 type CardProps = {
   title: string;
   description: string;
@@ -44,23 +44,26 @@ const Card2: React.FC<Card2Props> = () => (
     <p className="absolute right-12 top-12 inline-flex rotate-12 rounded-md border bg-[#f9f9f9] px-2 py-1">
       Latest Insights
     </p>
-    <img
+    <Image
       className="absolute left-[30%] top-[20%] scale-[33%] select-none object-cover"
-      src={Emoji.src}
-      alt="Emoji"
-      draggable="false"
+      src={Emoji} // Pass the imported image object directly
+      alt="Happy emoji"
+      width={300}
+      height={300}
     />
-    <img
+    <Image 
       className="absolute -bottom-8 left-[1%] scale-[33%] select-none object-cover"
-      src={Emoji1.src}
-      alt="Emoji 1"
-      draggable="false"
+      src={Emoji1} 
+      alt="Confused emoji" 
+      width={300}
+      height={300}
     />
-    <img
+    <Image 
       className="absolute bottom-0 right-[4%] scale-[33%] select-none object-cover"
-      src={Emoji2.src}
-      alt="Emoji 2"
-      draggable="false"
+      src={Emoji2} 
+      alt="Thinking emoji" 
+      width={300}
+      height={300}
     />
     <div className="absolute bottom-[-2%] left-[20%] z-[100] inline-flex rotate-6 select-none flex-col x-sm:bottom-[-5%] x-sm:left-[10%]">
       <Link

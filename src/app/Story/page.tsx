@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Footer from "../../components/Landing/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import { Timeline } from "../../components/Timeline/timeline";
+import Image from "next/image"; // Import the Image component
 
 const Story = () => {
   const data = [
@@ -26,7 +27,7 @@ const Story = () => {
             By this time the basic portal was ready as per the expected design. Anubhav was launched by director sir and then shared with all through AIT Alumni page. The project received lots of compliments from everyone.
           </p>
           <div className="">
-            <img
+            <Image // Replaced <img> with Image
               src="/dev/story1.png"
               alt="hero template"
               width={500}
@@ -46,7 +47,7 @@ const Story = () => {
             Due to pandemic juniors were unable to properly connect with seniors to seek guidance. So Arpit sir along with Abhishek sir started the Anubhav-video Interview series. In which seniors shared their college life, tech-non tech journey, along with tips for juniors. All the videos are available on OSS YouTube channel.
           </p>
           <div className="">
-            <img
+            <Image // Replaced <img> with Image
               src="/dev/story2.png"
               alt="hero template"
               width={500}
@@ -90,7 +91,7 @@ const Story = () => {
             The brand-new version of Anubhav has been released, featuring a sleek design, enhanced functionality, and several new features to support students and alumni in networking, learning, and sharing their experiences. The launch marked a new milestone for the platform and its users.
           </p>
           <div className="">
-            <img
+            <Image // Replaced <img> with Image
               src="/dev/Anubhav2024.png"
               alt="hero template"
               width={500}

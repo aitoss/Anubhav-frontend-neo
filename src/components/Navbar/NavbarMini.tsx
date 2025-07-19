@@ -3,6 +3,7 @@ import { Pen, SearchIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
+import Image from "next/image"; // Import the Image component
 import logo from "public/assets/images/logo.svg";
 import Search from "../Search/Search";
 import SearchModal from "../Search/SearchModal";
@@ -96,7 +97,13 @@ const NavbarMini = () => {
         <div>{/* {click && content} */}</div>
         <div className="hidden w-full items-center justify-between px-0">
           <Link href="/" className="p-2">
-            <img className="w-10" src={logo} alt="" />
+            <Image // Replaced <img> with Image
+              className="w-10"
+              src={logo}
+              alt="Anubhav Logo" // Added meaningful alt text
+              width={40} // Provide explicit width (w-10 = 40px)
+              height={40} // Provide explicit height (assuming square logo)
+            />
           </Link>
           <div className="flex items-center justify-center gap-2">
             <div
