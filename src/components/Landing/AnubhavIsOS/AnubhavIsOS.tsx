@@ -2,6 +2,7 @@ import { LinkButton } from "@/components/ui/link-button";
 import { StarIcon } from "lucide-react";
 import FadeWrapper from "../../ui/fadeWrapper";
 import Background from "./background";
+import Image from "next/image"; // Import the Image component
 
 const AnubhavIsOS = () => {
   return (
@@ -14,10 +15,15 @@ const AnubhavIsOS = () => {
           </h2>
         </FadeWrapper>
         <FadeWrapper>
-          <img
+          <Image // Replaced <img> with Image
             src="/assets/Anubhav.svg"
+            alt="Anubhav Logo" // Added meaningful alt text
+            width={400} // Provide a suitable width for the SVG
+            height={100} // Provide a suitable height for the SVG
             className="select-none"
-            draggable={false}
+            // draggable={false} is not a direct prop on next/image;
+            // drag behavior is often handled by browser or CSS `user-drag` if needed.
+            // For SVGs, it's generally not an issue as they are vectors.
           />
         </FadeWrapper>
         <FadeWrapper delay={0.1}>
@@ -30,10 +36,17 @@ const AnubhavIsOS = () => {
           className="flex items-center justify-center gap-2"
           delay={0.2}
         >
-          <LinkButton href="https://github.com/aitoss/Anubhav-frontend-23/issues" variant="outline">
+          <LinkButton
+            href="https://github.com/aitoss/Anubhav-frontend-23/issues"
+            variant="outline"
+          >
             Contribute Now
           </LinkButton>
-          <LinkButton href="https://github.com/aitoss/Anubhav-frontend-23" variant="default" icon={<StarIcon />}>
+          <LinkButton
+            href="https://github.com/aitoss/Anubhav-frontend-23"
+            variant="default"
+            icon={<StarIcon />}
+          >
             Star On Github
           </LinkButton>
         </FadeWrapper>

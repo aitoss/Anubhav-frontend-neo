@@ -6,6 +6,7 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion";
+import Image from "next/image"; // Import the Image component
 
 export const AnimatedTooltip = ({ items }: any) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -68,10 +69,10 @@ export const AnimatedTooltip = ({ items }: any) => {
             )}
           </AnimatePresence>
           <div className="items-centers flex h-12 w-12 justify-center rounded-full border-4 border-white bg-white shadow-lg shadow-[#0000001d] transition-all duration-500 group-hover:scale-[110%]">
-            <img
+            <Image // Replaced <img> with Image
               onMouseMove={handleMouseMove}
-              height={100}
-              width={100}
+              height={100} // Keep existing height
+              width={100} // Keep existing width
               src={item.image}
               alt={item.name}
               className="scale-75 select-none object-contain transition-all duration-500"

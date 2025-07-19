@@ -11,6 +11,7 @@ import Author from "./_Child/Author";
 import Tags from "./_Child/Tags";
 import Articles from "./Articles";
 import BlogLoading from "./BlogLoading";
+import Image from "next/image"; // Import the Image component
 
 const LazyLoad = ({ children }: any) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -41,8 +42,9 @@ const LazyLoad = ({ children }: any) => {
 
   return <div ref={ref}>{isVisible ? children : null}</div>;
 };
+
 const Blog = ({ id }: { id: string }) => {
-  const [blogData, setBlogData] = useState<any>([]);
+  const [blogData, setBlogData] = useState<any>(null); // Initialize with null
   const [similarArticles, setSimilarArticles] = useState<any>(null);
   const [timeStamp, setTimeStamp] = useState<string>("");
   const [readingTime, setReadingTime] = useState<number>(1);
@@ -69,10 +71,10 @@ const Blog = ({ id }: { id: string }) => {
   };
 
   const fetchSimilarBlogs = async (
-    title: any,
-    articleTags: any,
-    companyName: any,
-    articleID: any,
+    title: string, // Stronger typing
+    articleTags: string, // Stronger typing
+    companyName: string, // Stronger typing
+    articleID: string, // Stronger typing
   ) => {
     try {
       const params = { q: title, company: companyName, tags: articleTags };
@@ -94,6 +96,7 @@ const Blog = ({ id }: { id: string }) => {
   }, [id]);
 
   const MemoizedAuthor = useMemo(() => {
+    if (!blogData) return null; // Handle loading state for memoized components
     return (
       <Author
         person={{
@@ -105,10 +108,12 @@ const Blog = ({ id }: { id: string }) => {
   }, [blogData]);
 
   const MemoizedTags = useMemo(() => {
+    if (!blogData) return null; // Handle loading state
     return <Tags data={blogData?.articleTags} />;
   }, [blogData]);
 
   const MemoizedMinuteReadLikes = useMemo(() => {
+    if (!blogData) return null; // Handle loading state
     return (
       <MinuteReadLikes
         id={id}
@@ -116,7 +121,7 @@ const Blog = ({ id }: { id: string }) => {
         timeStamp={timeStamp}
       />
     );
-  }, [id, readingTime, timeStamp]);
+  }, [id, readingTime, timeStamp, blogData]); // Added blogData dependency for safety
 
   return (
     <>
@@ -135,20 +140,23 @@ const Blog = ({ id }: { id: string }) => {
               {MemoizedAuthor}
               {MemoizedTags}
               {MemoizedMinuteReadLikes}
-              {blogData.imageUrl !== "your_image_url_here" && (
+              {/* Using next/image here */}
+              {blogData.imageUrl && blogData.imageUrl !== "your_image_url_here" && (
                 <div className="relative h-[250px] w-full overflow-hidden rounded-xl border lg:h-[300px] x-sm:h-[200px]">
-                  <img
-                    src={blogData?.imageUrl}
-                    className="absolute inset-0 h-full w-full object-cover"
-                    alt=""
-                    loading="lazy"
+                  <Image 
+                    src={blogData.imageUrl}
+                    alt={blogData.title || "Blog Image"} // Added meaningful alt text
+                    fill // Use 'fill' to make the image cover the parent div
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 65vw" // Adjust sizes for better optimization based on your layout
+                    className="object-cover" // object-cover applied directly to Image
+                    // No need for loading="lazy" as next/image handles it by default
                   />
                 </div>
               )}
               <div className="lorem-container flex flex-col items-center justify-center py-3 text-black">
                 <div className="w-full rounded-lg bg-white text-[18px] shadow-none">
                   <ReactQuill
-                    value={blogData?.description || ""} // Fallback to empty string
+                    value={blogData?.description || ""}
                     theme="bubble"
                     readOnly
                     className="h-full w-full"

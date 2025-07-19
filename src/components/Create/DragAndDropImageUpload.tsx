@@ -1,5 +1,7 @@
+"use client";
 import React, { useState } from "react";
-import Upload from "public/assets/images/upload.svg";
+import Image from "next/image"; // Import Image component
+import Upload from "public/assets/images/upload.svg"; // This is likely already an optimized SVG import
 
 const MAX_FILE_SIZE = 73 * 1024;
 
@@ -90,24 +92,28 @@ const DragAndDropImageUpload: React.FC<DragAndDropImageUploadProps> = ({
       onDrop={handleDrop}
     >
       <div className="flex w-full items-center justify-center">
-        <div className="flex h-[150px] w-full items-center justify-center overflow-hidden rounded-lg px-4 sm:h-24">
+        <div className="relative flex h-[150px] w-full items-center justify-center overflow-hidden rounded-lg px-4 sm:h-24">
           {file ? (
-            <img
+            <Image // Use Next.js Image component
               src={URL.createObjectURL(file)}
               alt="Preview"
-              draggable="false"
-              className="h-full w-[500px] select-none rounded-lg border object-cover"
+              fill // Image fills the parent container
+              className="select-none rounded-lg border object-cover" // object-cover on Image
+              // Since this is a local file preview, optimization might be limited
+              // You can add unoptimized={true} if you encounter issues or warnings
+              // unoptimized={true}
             />
           ) : (
-            <img
+            <Image // Use Next.js Image component for the SVG
               className="h-[150px] w-[150px] cursor-pointer select-none sm:h-24"
-              src={Upload.src}
-              draggable="false"
+              src={Upload} // Direct import of SVG works here
+              alt="Upload"
+              width={150} // Explicit width for SVG
+              height={150} // Explicit height for SVG
               onClick={(e) => {
                 inputRef.current?.click();
                 e.preventDefault();
               }}
-              alt="Upload"
             />
           )}
         </div>
