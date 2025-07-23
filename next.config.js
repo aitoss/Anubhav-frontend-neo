@@ -5,7 +5,15 @@ const nextConfig = {
     ignoreBuildErrors: false,
   },
   images: {
-    domains: ['i.ibb.co'],
+    domains: ['i.ibb.co', 'i.ygtm.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 }
 

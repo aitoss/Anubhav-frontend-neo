@@ -10,6 +10,7 @@ import Author from "./_Child/Author";
 import Tags from "./_Child/Tags";
 import Articles from "./Articles";
 import BlogLoading from "./BlogLoading";
+import Image from "next/image";
 
 const LazyLoad = ({ children }: any) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -134,12 +135,13 @@ const Blog = ({ id }: { id: string }) => {
               {MemoizedMinuteReadLikes}
               {blogData.imageUrl !== "your_image_url_here" && (
                 <div className="relative h-[250px] w-full overflow-hidden rounded-xl border lg:h-[300px] x-sm:h-[200px]">
-                  <img
-                    src={blogData?.imageUrl}
-                    className="absolute inset-0 h-full w-full object-cover"
-                    alt=""
-                    loading="lazy"
-                  />
+                <Image
+                  src={blogData?.imageUrl}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  alt={blogData?.title || "Blog image"}
+                  fill
+                  // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
                 </div>
               )}
               <div className="lorem-container flex flex-col items-center justify-center py-3 text-black">

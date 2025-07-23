@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Image from "next/image";
 import "./Style.css";
 import adobe from "public/assets/company-logo/adobe.svg";
 import amazon from "public/assets/company-logo/amazon.svg";
@@ -14,7 +15,7 @@ const logos = [
   adobe,
   amazon,
   atlassian,
-  DeutscheBank,
+  // DeutscheBank,
   cisco,
   google,
   masterCard,
@@ -38,12 +39,15 @@ const Slider = () => {
       <div className="logos">
         <div className="logos-slide">
           {logos.concat(logos).map((logo: any, index: number) => (
-            <img
+            <Image
               key={index}
-              src={logo.src}
+              src={logo}
               alt={`Logo ${index}`}
               draggable="false"
               className="select-none"
+              width={120}
+              height={120}
+              priority={index < 9}
             />
           ))}
         </div>

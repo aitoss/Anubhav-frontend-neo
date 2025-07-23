@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Editor from "public/assets/images/Editor.png";
 import Form from "public/assets/images/Form.png";
 import Publish from "public/assets/images/Publish.png";
@@ -6,20 +7,24 @@ import FadeWrapper from "../../ui/fadeWrapper";
 import MaskText from "../../ui/maskText";
 import MaskWrapper from "../../ui/maskWrapper";
 
-const Card = ({ title, description, imageURL }: {
+const Card = ({ title, description, imageURL, priority = false }: {
   title: string;
   description: string;
-  imageURL: string;
+  imageURL: any;
+  priority?: boolean;
 }) => (
   <div className="group relative h-full w-full overflow-hidden rounded-3xl border shadow-md">
     <div className="z-40 h-full bg-[#fff5] p-3 backdrop-blur-[36px]">
       <div className="relative z-10 w-full overflow-hidden">
         <div className="absolute -bottom-[12px] left-0 z-20 h-[40px] w-[150%] bg-[#fcfcfc] blur-[8px]"></div>
-        <img
+        <Image
           className="bottom-0 right-0 scale-95 select-none rounded-xl border transition-all duration-300 group-hover:translate-y-[10%] md:scale-100"
           src={imageURL}
-          alt={imageURL}
+          alt={title}
           draggable="false"
+          width={400}
+          height={300}
+          priority={priority}
         />
       </div>
       <h3 className="z-50 mb-2 text-left text-xl font-[500] x-sm:text-lg">
@@ -34,6 +39,7 @@ const Card = ({ title, description, imageURL }: {
     </div>
   </div>
 );
+
 const HowItWorks = () => {
   return (
     <section className="flex flex-col items-center justify-center px-4 pb-32 pt-20">
@@ -63,21 +69,22 @@ const HowItWorks = () => {
             <Card
               title="Enter info about you"
               description="Enter basic information like your name, company name, offered position, and email address."
-              imageURL={Form.src}
+              imageURL={Form}
+              priority={true}
             />
           </FadeWrapper>
           <FadeWrapper delay={0.15}>
             <Card
               title="Write Your Article"
               description="Use our intuitive editor to craft your blog post. Add headings, format text, and include images or links to make your content engaging and informative."
-              imageURL={Editor.src}
+              imageURL={Editor}
             />
           </FadeWrapper>
           <FadeWrapper delay={0.25}>
             <Card
               title="Preview and Publish"
               description="Once you&rsquo;re satisfied with your post, hit the publish button to make it live. Share it with your audience via social media or email newsletters."
-              imageURL={Publish.src}
+              imageURL={Publish}
             />
           </FadeWrapper>
         </div>

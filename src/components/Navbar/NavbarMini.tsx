@@ -9,6 +9,7 @@ import SearchModal from "../Search/SearchModal";
 import { Button } from "../ui/button";
 import { AnubhavIcon } from "../ui/icon";
 import { LinkButton } from "../ui/link-button";
+import Image from "next/image";
 import "./Navbar.css";
 
 const NavbarMini = () => {
@@ -96,7 +97,14 @@ const NavbarMini = () => {
         <div>{/* {click && content} */}</div>
         <div className="hidden w-full items-center justify-between px-0">
           <Link href="/" className="p-2">
-            <img className="w-10" src={logo} alt="" />
+          <Image 
+              className="w-10" 
+              src={logo} 
+              alt="Anubhav logo" 
+              width={40}
+              height={40}
+              priority
+            />
           </Link>
           <div className="flex items-center justify-center gap-2">
             <div

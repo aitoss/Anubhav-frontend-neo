@@ -1,4 +1,7 @@
+"use client";
+
 import React, { useState } from "react";
+import Image from "next/image";
 import {
   motion,
   useTransform,
@@ -67,16 +70,19 @@ export const AnimatedTooltip = ({ items }: any) => {
               </motion.div>
             )}
           </AnimatePresence>
-          <div className="items-centers flex h-12 w-12 justify-center rounded-full border-4 border-white bg-white shadow-lg shadow-[#0000001d] transition-all duration-500 group-hover:scale-[110%]">
-            <img
-              onMouseMove={handleMouseMove}
-              height={100}
-              width={100}
+          <div className="flex items-center justify-center h-12 w-12 rounded-full border-4 border-white bg-white shadow-lg shadow-[#0000001d] transition-all duration-500 group-hover:scale-[110%]">
+          <div
+            onMouseMove={handleMouseMove}
+            className="relative h-12 w-12 scale-75 select-none object-contain transition-all duration-500"
+          >
+            <Image
               src={item.image}
               alt={item.name}
-              className="scale-75 select-none object-contain transition-all duration-500"
+              layout="fill"
+              objectFit="contain"
             />
           </div>
+        </div>
         </div>
       ))}
     </>

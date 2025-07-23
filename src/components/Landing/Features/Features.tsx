@@ -4,11 +4,11 @@ import World from "public/assets/images/world.png";
 import Comment from "public/assets/svg/Comment";
 import VideoIcon from "public/assets/svg/VideoIcon";
 import React from "react";
-import Videos from "../../../app/videos/page";
+import Videos from "../../../app/Videos/page";
 import { FollowerPointerCard } from "../../../components/ui/following-pointer";
 import FadeWrapper from "../../ui/fadeWrapper";
 import MaskWrapper from "../../ui/maskWrapper";
-
+import Image from "next/image";
 type CardProps = {
   title: string;
   bold: string;
@@ -91,11 +91,13 @@ const Avatar = ({ Name, borderColor, src, className }: any) => (
   <div
     className={`${borderColor} -ml-3 rounded-full border-2 bg-white p-1 ${className}`}
   >
-    <img
+     <Image
       src={src}
       alt={Name}
       className={`h-20 w-20 select-none rounded-full sm:h-16 sm:w-16 x-sm:h-12 x-sm:w-12`}
       draggable="false"
+      width={80}
+      height={80}
     />
   </div>
 );
@@ -176,11 +178,13 @@ const Features = () => {
                 />
               </div>
               <div className="bottom-0 right-0 select-none">
-                <img
+              <Image
                   className="select-none"
-                  src={World.src}
-                  alt=""
+                  src={World}
+                  alt="World background"
                   draggable="false"
+                  width={600}
+                  height={400}
                 />
               </div>
             </FollowerPointerCard>
@@ -197,11 +201,14 @@ const Features = () => {
               <Videos />
             </div>
             <div className="absolute -bottom-[25%] left-[60%] md:hidden h-[347px] w-[420px] -translate-x-1/2 scale-[140%] select-none block x-sm:scale-[100%]">
-              <img
-                src={VideoPage.src}
+            <Image
+                src={VideoPage}
                 alt="VideoPage"
                 className="select-none"
                 draggable="false"
+                width={420}
+                height={347}
+                priority
               />
             </div>
           </Card>

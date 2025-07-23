@@ -6,7 +6,7 @@ import MinuteReadLikes from "../MinuteReadLikes/MinuteReadLikes";
 import { formatDate, ReadTime } from "../../services/date";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.bubble.css"; // Import theme CSS
-
+import Image from "next/image";
 const PreviewPage = ({ value, article, bannerImage, tags }: any) => {
   const MemoizedAuthor = useMemo(() => {
     return (
@@ -76,10 +76,13 @@ const PreviewPage = ({ value, article, bannerImage, tags }: any) => {
                 {MemoizedMinuteReadLikes}
               </div>
               {bannerImage ? (
-                <img
+               <Image
                   src={bannerImage}
                   alt="Banner"
                   className="mb-4 h-40 w-full rounded-lg border object-cover"
+                  // width={800}
+                  // height={160}
+                  priority
                 />
               ) : (
                 <div className="mb-4 flex h-40 w-full items-center justify-center rounded-lg bg-gray-300">

@@ -2,6 +2,7 @@ import { LinkButton } from "@/components/ui/link-button";
 import { StarIcon } from "lucide-react";
 import FadeWrapper from "../../ui/fadeWrapper";
 import Background from "./background";
+import Image from "next/image";
 
 const AnubhavIsOS = () => {
   return (
@@ -14,10 +15,14 @@ const AnubhavIsOS = () => {
           </h2>
         </FadeWrapper>
         <FadeWrapper>
-          <img
+        <Image
             src="/assets/Anubhav.svg"
             className="select-none"
             draggable={false}
+            alt="Anubhav logo"
+            width={200}
+            height={200}
+            priority
           />
         </FadeWrapper>
         <FadeWrapper delay={0.1}>
