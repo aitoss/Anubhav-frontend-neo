@@ -4,19 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import MinuteReadLikes from "../MinuteReadLikes/MinuteReadLikes";
 import Author from "./_Child/Author";
-
-interface BlogCardProps {
-  id: string;
-  link: string;
-  Title: string;
-  imagesrc: string | { src: string };
-  author: string;
-  company: string;
-  description?: string;
-  readingTime: number;
-  date: string;
-}
-
+import { BlogCardProps } from "@/types/interface";
 const BlogCard = ({
   id,
   link,
@@ -24,7 +12,7 @@ const BlogCard = ({
   imagesrc,
   author,
   company,
-  description,
+  // description,
   readingTime,
   date,
 }: BlogCardProps) => {

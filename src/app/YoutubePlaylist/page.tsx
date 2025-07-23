@@ -4,26 +4,11 @@ import BackgroundDots from "../../components/assets/Background";
 import Tag from "../../components/InputTag/Tag";
 import YoutubeCard from "../../components/Video/YoutubeCard";
 import YoutubeCardLoading from "../../components/Video/YoutubeCardLoading";
+import {YoutubeItem } from "@/types/types";
 
 const API_KEY = process.env.VITE_YOUTUBE_API_KEY;
 const PLAYLIST_ID = process.env.VITE_PLAYLIST_ID;
 
-type YoutubeSnippet = {
-  title: string;
-  description: string;
-  tags?: string[];
-  thumbnails: {
-    medium: { url: string };
-    maxres?: { url: string };
-  };
-  resourceId: {
-    videoId: string;
-  };
-};
-
-type YoutubeItem = {
-  snippet: YoutubeSnippet;
-};
 
 const YouTubePlaylist = () => {
   const [youtubeData, setYoutubeData] = useState<YoutubeItem[]>([]);

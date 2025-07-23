@@ -10,13 +10,9 @@ import FadeText from "../../ui/fadeText";
 import FadeWrapper from "../../ui/fadeWrapper";
 import MaskText from "../../ui/maskText";
 import MaskWrapper from "../../ui/maskWrapper";
+import { CardPropsNew } from "@/types/types";
 
-type CardProps = {
-  title: string;
-  description: string;
-};
-
-const Card = ({ title, description }: CardProps) => (
+const Card = ({ title, description }: CardPropsNew) => (
   <div className="relative w-full overflow-hidden rounded-2xl bg-background border shadow-sm p-4">
     <div className="z-10 flex w-full items-center justify-between p-0">
       <div className="flex flex-1 flex-col">

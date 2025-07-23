@@ -1,11 +1,10 @@
-import React, { RefObject, useEffect, useState } from "react";
+import React from "react";
+import { LogoProps } from "@/types/interface";
+// Or adjust the path based on your project structure:
+// import { LogoProps } from "../types/logo.types";
+// import { LogoProps } from "./types";
 
-interface Props {
-  cursor: { x: number; y: number };
-  cardRef: RefObject<HTMLElement>;
-}
-
-const Logo: React.FC<Props> = () => {
+const Logo: React.FC<LogoProps> = () => {
   return (
     <svg
       className="logo"
@@ -46,10 +45,10 @@ const Logo: React.FC<Props> = () => {
           <animateTransform
             attributeName="gradientTransform"
             type="rotate"
-            from="0 50 50" // Start rotation angle (0 degrees)
-            to="360 50 50" // End rotation angle (360 degrees, full circle)
-            dur="1.5s" // Duration of the animation (5 seconds)
-            repeatCount="indefinite" // Loop the animation indefinitely
+            from="0 50 50"
+            to="360 50 50"
+            dur="1.5s"
+            repeatCount="indefinite"
           />
         </linearGradient>
       </defs>

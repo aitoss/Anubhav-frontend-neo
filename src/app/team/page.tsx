@@ -6,14 +6,7 @@ import { WobbleCard } from "../../components/Tooltip/wobble";
 import { AnimatePresence, motion } from "framer-motion"; // Import motion from framer-motion
 import BackgroundDots from "../../components/assets/Background";
 import Image from "next/image";
-
-type DevTeamMemberProps = {
-  name: string;
-  platform: string;
-  imageSrc: string;
-  githubId: string;
-  index: number;
-};
+import { DevTeamMemberProps } from "@/types/types";
 
 const DevTeamMember = React.memo(
   ({ name, platform, imageSrc, githubId, index }: DevTeamMemberProps) => (

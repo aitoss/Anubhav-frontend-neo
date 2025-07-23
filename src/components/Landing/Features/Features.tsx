@@ -9,14 +9,7 @@ import { FollowerPointerCard } from "../../../components/ui/following-pointer";
 import FadeWrapper from "../../ui/fadeWrapper";
 import MaskWrapper from "../../ui/maskWrapper";
 import Image from "next/image";
-type CardProps = {
-  title: string;
-  bold: string;
-  href: string;
-  description: string;
-  icon: React.ReactNode;
-  children?: React.ReactNode;
-};
+import { CardProps } from "@/types/types";
 
 const Card: React.FC<CardProps> = ({
   title,

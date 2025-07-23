@@ -1,9 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-
-interface ThemeContextType {
-  theme: string;
-  setTheme: React.Dispatch<React.SetStateAction<string>>;
-}
+import { ThemeContextType } from "@/types/interface";
 
 const ThemeContext = createContext<ThemeContextType>({
   theme: "light",

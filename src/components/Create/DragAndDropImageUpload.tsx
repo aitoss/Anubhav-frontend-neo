@@ -1,14 +1,9 @@
 import React, { useState } from "react";
 import Upload from "public/assets/images/upload.svg";
 import Image from "next/image";
+import { DragAndDropImageUploadProps } from "@/types/interface";
 
 const MAX_FILE_SIZE = 73 * 1024;
-
-interface DragAndDropImageUploadProps {
-  file: File | null;
-  setFile: (file: File | null) => void;
-  setbannerImage: (image: string | ArrayBuffer | null) => void;
-}
 
 const DragAndDropImageUpload: React.FC<DragAndDropImageUploadProps> = ({
   file,

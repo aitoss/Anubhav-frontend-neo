@@ -14,7 +14,7 @@ import BackgroundDots from "../../components/assets/Background";
 import SuccessMessage from "../../components/notification/SuccessMessage";
 import useErrorToast from "../../hooks/useErrorToast";
 import { apiService } from "../../lib/api";
-
+import { ErrorFields } from "@/types/types";
 const Create = () => {
   const initialState = {
     name: "",
@@ -36,16 +36,6 @@ const Create = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const showError = useErrorToast();
-  type ErrorFields = {
-    name?: string;
-    email?: string;
-    company?: string;
-    position?: string;
-    title?: string;
-    file?: string;
-    tags?: string;
-    article?: string;
-  };
 
   const [errors, setErrors] = useState<ErrorFields>({});
 

@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-
-interface ButtonV5Props {
-  title?: string;
-  color?: string;
-  icon?: boolean;
-  textColor?: string;
-  disabled?: boolean;
-  borderRadius?: string;
-  children?: React.ReactNode;
-}
+import { ButtonV5Props } from "@/types/interface";
 
 const ButtonV5: React.FC<ButtonV5Props> = ({
   title,

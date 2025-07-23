@@ -1,24 +1,7 @@
 import BlogCard from "./BlogCard";
 import company from "public/assets/images/company.png";
 import { ReadTime } from "../../services/date";
-
-interface ArticleAuthor {
-  name: string;
-}
-
-interface Article {
-  _id: string;
-  title: string;
-  imageUrl: string;
-  author?: ArticleAuthor;
-  companyName?: string;
-  description: string;
-  createdAt: string;
-}
-
-interface ArticlesProps {
-  similarArticles: Article[];
-}
+import { ArticlesProps } from "@/types/interface";
 
 const Articles: React.FC<ArticlesProps> = (props) => {
   const { similarArticles } = props;
@@ -43,8 +26,10 @@ const Articles: React.FC<ArticlesProps> = (props) => {
             imagesrc={
               item.imageUrl === "your_image_url_here" ? company : item.imageUrl
             }
-            author={item.author?.name}
-            company={item.companyName}
+            // Solution 1: Provide default values
+            author={item.author?.name || "Unknown Author"}
+            company={item.companyName || "Unknown Company"}
+         
             readingTime={ReadTime(item.description)}
             date={item.createdAt}
           />
