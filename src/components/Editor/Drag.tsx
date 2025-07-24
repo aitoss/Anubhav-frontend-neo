@@ -55,8 +55,8 @@ const DragDropFiles = () => {
             <Image
               src={URL.createObjectURL(files[0])}
               alt="Uploaded file preview"
-              // width={300}
-              // height={200}
+              width={300}
+              height={200}
               className="rounded-lg object-cover"
             />
           ) : (
@@ -65,8 +65,8 @@ const DragDropFiles = () => {
               className="cursor-pointer"
               src={upload}
               alt="Upload icon"
-              // width={100}
-              // height={100}
+              width={100}
+              height={100}
             />
           )}
           <h1 className="text-[#414141] text-base pb-2 font-normal">

@@ -80,8 +80,8 @@ const PreviewPage = ({ value, article, bannerImage, tags }: any) => {
                   src={bannerImage}
                   alt="Banner"
                   className="mb-4 h-40 w-full rounded-lg border object-cover"
-                  // width={800}
-                  // height={160}
+                  width={800}
+                  height={160}
                   priority
                 />
               ) : (

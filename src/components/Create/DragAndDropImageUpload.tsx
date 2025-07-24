@@ -93,8 +93,8 @@ const DragAndDropImageUpload: React.FC<DragAndDropImageUploadProps> = ({
             alt="Preview"
             draggable="false"
             className="h-full w-[500px] select-none rounded-lg border object-cover"
-            // width={500}
-            // height={300}
+            width={500}
+            height={300}
           />
           ) : (
           <Image
@@ -106,8 +106,8 @@ const DragAndDropImageUpload: React.FC<DragAndDropImageUploadProps> = ({
               e.preventDefault();
             }}
             alt="Upload"
-            // width={150}
-            // height={150}
+            width={150}
+            height={150}
           />
           )}
         </div>
