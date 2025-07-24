@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import Upload from "public/assets/images/upload.svg";
+import Image from "next/image";
+import { DragAndDropImageUploadProps } from "@/types/interface";
 
 const MAX_FILE_SIZE = 73 * 1024;
-
-interface DragAndDropImageUploadProps {
-  file: File | null;
-  setFile: (file: File | null) => void;
-  setbannerImage: (image: string | ArrayBuffer | null) => void;
-}
 
 const DragAndDropImageUpload: React.FC<DragAndDropImageUploadProps> = ({
   file,
@@ -92,23 +88,27 @@ const DragAndDropImageUpload: React.FC<DragAndDropImageUploadProps> = ({
       <div className="flex w-full items-center justify-center">
         <div className="flex h-[150px] w-full items-center justify-center overflow-hidden rounded-lg px-4 sm:h-24">
           {file ? (
-            <img
-              src={URL.createObjectURL(file)}
-              alt="Preview"
-              draggable="false"
-              className="h-full w-[500px] select-none rounded-lg border object-cover"
-            />
+            <Image
+            src={URL.createObjectURL(file)}
+            alt="Preview"
+            draggable="false"
+            className="h-full w-[500px] select-none rounded-lg border object-cover"
+            width={500}
+            height={300}
+          />
           ) : (
-            <img
-              className="h-[150px] w-[150px] cursor-pointer select-none sm:h-24"
-              src={Upload.src}
-              draggable="false"
-              onClick={(e) => {
-                inputRef.current?.click();
-                e.preventDefault();
-              }}
-              alt="Upload"
-            />
+          <Image
+            className="h-[150px] w-[150px] cursor-pointer select-none sm:h-24"
+            src={Upload}
+            draggable="false"
+            onClick={(e) => {
+              inputRef.current?.click();
+              e.preventDefault();
+            }}
+            alt="Upload"
+            width={150}
+            height={150}
+          />
           )}
         </div>
       </div>

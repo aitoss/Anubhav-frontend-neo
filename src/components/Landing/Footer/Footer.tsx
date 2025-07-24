@@ -3,7 +3,7 @@ import Anubhav from "public/assets/images/Anubhav-3d.png";
 import "./Footer.css";
 import Social from "./Social";
 import { SparklesCore } from "./Sparkles";
-
+import Image from "next/image";
 const Footer = () => {
   // const scrollToTop = () => {
   //   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -229,13 +229,14 @@ const Footer = () => {
               />
             </div>
             <div className="flex flex-row items-center justify-center md:flex-col">
-              <img
-                className="h-[246px] w-[278px] select-none overflow-visible md:h-[150px] md:object-cover"
-                draggable="false"
-                src={Anubhav.src}
-                alt=""
-                srcSet=""
-              />
+            <Image
+              className="h-[246px] w-[278px] select-none overflow-visible md:h-[150px] md:object-cover"
+              draggable="false"
+              src={Anubhav}
+              alt="Anubhav"
+              width={278}
+              height={246}
+            />
               <div className="flex flex-col items-start md:items-center md:justify-center">
                 <div className="bg-gradient-to-t from-[#A0A0A0] to-[#e0e0e0] bg-clip-text text-7xl font-[500] text-transparent">
                   Anubhav

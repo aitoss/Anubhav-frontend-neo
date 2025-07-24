@@ -1,6 +1,7 @@
 import { LinkButton } from "@/components/ui/link-button";
 import { Pen } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 import Emoji1 from "public/assets/images/Emoji-1.png";
 import Emoji2 from "public/assets/images/Emoji-2.png";
@@ -9,13 +10,9 @@ import FadeText from "../../ui/fadeText";
 import FadeWrapper from "../../ui/fadeWrapper";
 import MaskText from "../../ui/maskText";
 import MaskWrapper from "../../ui/maskWrapper";
+import { CardPropsNew } from "@/types/types";
 
-type CardProps = {
-  title: string;
-  description: string;
-};
-
-const Card = ({ title, description }: CardProps) => (
+const Card = ({ title, description }: CardPropsNew) => (
   <div className="relative w-full overflow-hidden rounded-2xl bg-background border shadow-sm p-4">
     <div className="z-10 flex w-full items-center justify-between p-0">
       <div className="flex flex-1 flex-col">
@@ -44,23 +41,30 @@ const Card2: React.FC<Card2Props> = () => (
     <p className="absolute right-12 top-12 inline-flex rotate-12 rounded-md border bg-[#f9f9f9] px-2 py-1">
       Latest Insights
     </p>
-    <img
+    <Image
       className="absolute left-[30%] top-[20%] scale-[33%] select-none object-cover"
-      src={Emoji.src}
+      src={Emoji}
       alt="Emoji"
       draggable="false"
+      width={190}
+      height={190}
+      priority
     />
-    <img
+    <Image
       className="absolute -bottom-8 left-[1%] scale-[33%] select-none object-cover"
-      src={Emoji1.src}
+      src={Emoji1}
       alt="Emoji 1"
       draggable="false"
+      width={190}
+      height={190}
     />
-    <img
+    <Image
       className="absolute bottom-0 right-[4%] scale-[33%] select-none object-cover"
-      src={Emoji2.src}
+      src={Emoji2}
       alt="Emoji 2"
       draggable="false"
+      width={190}
+      height={190}
     />
     <div className="absolute bottom-[-2%] left-[20%] z-[100] inline-flex rotate-6 select-none flex-col x-sm:bottom-[-5%] x-sm:left-[10%]">
       <Link

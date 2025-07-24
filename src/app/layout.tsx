@@ -52,7 +52,10 @@ export default function RootLayout({
       </head>
       <body
         className={`${inter.variable} ${geistMono.variable} font-sans antialiased`}
-      >{children}</body>
+        suppressHydrationWarning={true}
+      >
+        {children}
+      </body>
     </html>
   );
 }

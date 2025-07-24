@@ -6,18 +6,8 @@ import type { Container, SingleOrMultiple } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
 import { cn } from "../../../../utils/cn";
 import { motion, useAnimation } from "framer-motion";
+import { ParticlesProps } from "@/types/types";
 
-type ParticlesProps = {
-    id?: string;
-    className?: string;
-    background?: string;
-    particleSize?: number;
-    minSize?: number;
-    maxSize?: number;
-    speed?: number;
-    particleColor?: string;
-    particleDensity?: number;
-};
 export const SparklesCore = (props: ParticlesProps) => {
     const {
         id,

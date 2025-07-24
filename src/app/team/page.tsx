@@ -5,14 +5,8 @@ import Navbar from "../../components/Navbar/Navbar";
 import { WobbleCard } from "../../components/Tooltip/wobble";
 import { AnimatePresence, motion } from "framer-motion"; // Import motion from framer-motion
 import BackgroundDots from "../../components/assets/Background";
-
-type DevTeamMemberProps = {
-  name: string;
-  platform: string;
-  imageSrc: string;
-  githubId: string;
-  index: number;
-};
+import Image from "next/image";
+import { DevTeamMemberProps } from "@/types/types";
 
 const DevTeamMember = React.memo(
   ({ name, platform, imageSrc, githubId, index }: DevTeamMemberProps) => (
@@ -28,12 +22,13 @@ const DevTeamMember = React.memo(
     >
       <WobbleCard containerClassName="min-h-[300px]" className="">
         <div className="flex flex-col items-start">
-          <img
-            src={imageSrc}
-            alt={`${name}'s avatar`}
-            className="h-[300px] w-[300px] min-w-[150px] select-none rounded-[8px] object-cover"
-            loading="lazy"
-          />
+        <Image
+          src={imageSrc}
+          alt={`${name}'s avatar`}
+          className="h-[300px] w-[300px] min-w-[150px] select-none rounded-[8px] object-cover"
+          width={300}
+          height={300}
+        />
           <h3 className="text-left text-[24px] font-medium leading-[125%] text-[#212121]">
             {name}
           </h3>
