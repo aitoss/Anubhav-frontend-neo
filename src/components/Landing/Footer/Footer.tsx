@@ -213,7 +213,7 @@ const Footer = () => {
     <>
       <div className="flex w-full items-center justify-center bg-[#121212] px-3">
         <div className="bottom-0 mt-1 w-full max-w-[1540px] space-y-6 p-3 text-center text-[#D9D9D9] lg:text-left">
-          <div className="main-footer relative flex items-start justify-between px-1 text-left text-[#D9D9D9] sm:flex-row lg:flex-row lg:justify-between lg:px-20 x-sm:flex-col x-sm:items-center x-sm:justify-center x-sm:gap-6 x-sm:px-0">
+          <div className="main-footer relative flex items-start justify-between px-1 text-left text-[#D9D9D9] lg:justify-between lg:px-20 xs:flex-col flex-row xs:items-center xs:justify-center xs:gap-6 xs:px-0">
             <div className="pointer-events-none absolute -bottom-[25px] left-[10%] w-1/2 overflow-hidden blur-[30px] md:w-[90%]">
               <Glow />
             </div>
@@ -228,7 +228,7 @@ const Footer = () => {
                 particleColor="#d9d9d9"
               />
             </div>
-            <div className="flex flex-row items-center justify-center md:flex-col">
+            <div className="flex flex-col items-center justify-center sm:flex-row">
               <img
                 className="h-[246px] w-[278px] select-none overflow-visible md:h-[150px] md:object-cover"
                 draggable="false"
@@ -236,7 +236,7 @@ const Footer = () => {
                 alt=""
                 srcSet=""
               />
-              <div className="flex flex-col items-start md:items-center md:justify-center">
+              <div className="flex flex-col items-start xs:items-center xs:justify-center">
                 <div className="bg-gradient-to-t from-[#A0A0A0] to-[#e0e0e0] bg-clip-text text-7xl font-[500] text-transparent">
                   Anubhav
                 </div>
@@ -246,8 +246,8 @@ const Footer = () => {
                 <Social />
               </div>
             </div>
-            <div className="my-auto flex flex-col gap-[5px] lg:flex-row lg:gap-[90px]">
-              <div className="flex flex-col">
+            <div className="my-auto flex flex-col xs:items-center gap-[5px] lg:flex-row lg:gap-[90px]">
+              <div className="flex flex-col xs:items-center">
                 <div className="text-[20px] font-[400] tracking-wide text-[#e0e0e0]">
                   Quick links
                 </div>
@@ -292,23 +292,23 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="h-[1px] w-full rounded-full bg-[#515151]"></div>
-          <div className="flex select-none justify-center text-[#d9dd9d9cc] sm:text-start">
-            Made with{" "}
+          <div className="h-[1px] w-full rounded-full bg-[#313131]"/>
+          <div className="flex text-nowrap select-none justify-center text-[#d9dd9d9cc] sm:text-start">
+            Made with
             <span className="bg-gradient-to-t from-[#717171] to-[#d9d9d9] bg-clip-text leading-[24px] text-transparent">
               &nbsp;Love&nbsp;
-            </span>{" "}
-            and{" "}
+            </span>
+            and
             <span className="bg-gradient-to-t from-[#717171] to-[#d9d9d9] bg-clip-text leading-[24px] text-transparent">
               &nbsp;Anubhav&nbsp;
-            </span>{" "}
+            </span>
             by OSS Club
           </div>
           <div className="flex select-none flex-row items-center justify-center pb-8 gap-4 text-[#6b6b6b] sm:flex-col sm:gap-1">
             <div className="flex justify-center text-[#d9dd9d9cc] sm:text-start">
-              ©2025 O<span className="block x-sm:hidden">pen&nbsp;</span>S
-              <span className="block x-sm:hidden">ource&nbsp;</span>S
-              <span className="block x-sm:hidden">oftware&nbsp;</span> Club All
+              ©2025 O<span className="block xs:hidden">pen&nbsp;</span>S
+              <span className="block xs:hidden">ource&nbsp;</span>S
+              <span className="block xs:hidden">oftware&nbsp;</span> Club All
               rights reserved
             </div>
           </div>

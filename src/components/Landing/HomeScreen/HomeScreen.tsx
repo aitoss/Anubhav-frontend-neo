@@ -170,7 +170,7 @@ export default function HomeScreen() {
           <h1 className="flex justify-center text-[3rem] font-[600] tracking-tighter text-[#212121] sm:text-6xl lg:text-7xl">
             <FadeWrapper delay={0.05}>Success Stories</FadeWrapper>
           </h1>
-          <p className="flex justify-center text-lg font-[500] text-[#444] lg:text-xl">
+          <p className="flex justify-center items-center text-center text-lg font-[500] text-[#444] lg:text-xl">
             <FadeWrapper delay={0.1}>
               Discover Inspiring Interview Experiences
             </FadeWrapper>

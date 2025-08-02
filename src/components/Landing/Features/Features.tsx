@@ -27,7 +27,7 @@ const Card: React.FC<CardProps> = ({
   children,
 }) => (
   <div className="relative h-full w-full overflow-hidden">
-    <div className="flex flex-col gap-3 p-8">
+    <div className="flex flex-col gap-3 p-4 sm:p-8">
       <MaskWrapper>
         <div className="flex items-center justify-start gap-2">
           {icon}
@@ -94,7 +94,7 @@ const Avatar = ({ Name, borderColor, src, className }: any) => (
     <img
       src={src}
       alt={Name}
-      className={`h-20 w-20 select-none rounded-full sm:h-16 sm:w-16 x-sm:h-12 x-sm:w-12`}
+      className={`h-20 w-20 select-none rounded-full sm:h-16 sm:w-16 xs:h-12 xs:w-12`}
       draggable="false"
     />
   </div>
@@ -123,7 +123,7 @@ const Features = () => {
                 />
               }
             >
-              <div className="absolute bottom-[20%] flex h-full w-full items-center justify-center md-2xl:bottom-[10%] x-sm:bottom-[10%]">
+              <div className="absolute bottom-[20%] flex h-full w-full items-center justify-center md-2xl:bottom-[10%] xs:bottom-[10%]">
                 <FadeWrapper>
                   <Avatar
                     Name="Nikhil Dhariwal"
@@ -151,7 +151,7 @@ const Features = () => {
               </div>
               <div className="h-full w-full">
                 <Pointer
-                  className="absolute left-[20%] top-[6%] translate-x-0 transition-all duration-500 group-hover:translate-x-[20%] md-2xl:left-[10%] x-sm:top-[0%]"
+                  className="absolute left-[20%] top-[6%] translate-x-0 transition-all duration-500 group-hover:translate-x-[20%] md-2xl:left-[10%] xs:top-[0%]"
                   title="Lokendra Kushwah"
                   cursorColor="text-[#313131]"
                   strokeColor="stroke-[#121212]"
@@ -159,7 +159,7 @@ const Features = () => {
                   borderColor="border-[#121212]"
                 />
                 <Pointer
-                  className="absolute bottom-[40%] left-[10%] translate-x-0 transition-all duration-[400ms] group-hover:-translate-y-[40%] md-2xl:bottom-[25%] x-sm:bottom-[20%]"
+                  className="absolute bottom-[40%] left-[10%] translate-x-0 transition-all duration-[400ms] group-hover:-translate-y-[40%] md-2xl:bottom-[25%] xs:bottom-[20%]"
                   title="Nikhil Dhariwal"
                   cursorColor="text-[#2E90FA]"
                   strokeColor="stroke-[#1570EF]"
@@ -167,7 +167,7 @@ const Features = () => {
                   borderColor="border-[#1570EF]"
                 />
                 <Pointer
-                  className="absolute right-[20%] top-[10%] translate-x-0 transition-all duration-500 group-hover:translate-x-[20%] group-hover:translate-y-[20%] sm:right-[10%] md-2xl:right-[10%] md-2xl:top-[1%] x-sm:right-[0%]"
+                  className="absolute right-[20%] top-[10%] translate-x-0 transition-all duration-500 group-hover:translate-x-[20%] group-hover:translate-y-[20%] sm:right-[10%] md-2xl:right-[10%] md-2xl:top-[1%] xs:right-[0%]"
                   title="Harshal patil"
                   cursorColor="text-[#FF479F]"
                   strokeColor="stroke-[#B11C64]"
@@ -193,10 +193,10 @@ const Features = () => {
             description="No worries! We've got an exciting collection of videos that bring the same inspiring stories and useful insights right to your screen."
             icon={<VideoIcon />}
           >
-            <div className="pointer-events-none absolute md:bottom-0 md:left-20 md:block w-[800px] -translate-x-[30%] translate-y-[43%] scale-50 select-text rounded-3xl overflow-hidden border border-[#d2d2d6] bg-[#fff] shadow-2xl top-[-40%] left-[30%] hidden lg:w-[1050px] xl:w-[1200px] x-sm:bottom-[-50%] x-sm:left-[20%] x-sm:w-[500px]">
+            <div className="pointer-events-none absolute md:bottom-0 md:left-20 md:block w-[800px] -translate-x-[30%] translate-y-[43%] scale-50 select-text rounded-3xl overflow-hidden border border-[#d2d2d6] bg-[#fff] shadow-2xl top-[-40%] left-[30%] hidden lg:w-[1050px] xl:w-[1200px] xs:bottom-[-50%] xs:left-[20%] xs:w-[500px]">
               <Videos />
             </div>
-            <div className="absolute -bottom-[25%] left-[60%] md:hidden h-[347px] w-[420px] -translate-x-1/2 scale-[140%] select-none block x-sm:scale-[100%]">
+            <div className="absolute -bottom-[25%] left-[60%] md:hidden h-[347px] w-[420px] -translate-x-1/2 scale-[140%] select-none block xs:scale-[100%]">
               <img
                 src={VideoPage.src}
                 alt="VideoPage"

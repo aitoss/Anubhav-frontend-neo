@@ -17,7 +17,7 @@ type CardProps = {
 
 const Card = ({ title, description }: CardProps) => (
   <div className="relative w-full overflow-hidden rounded-2xl bg-background border shadow-sm p-4">
-    <div className="z-10 flex w-full items-center justify-between p-0">
+    <div className="z-10 flex w-full sm:items-center items-start justify-start gap-2 sm:justify-center sm:flex-row flex-col p-0">
       <div className="flex flex-1 flex-col">
         <h3 className="z-50 mb-2 text-xl font-[500]">{title}</h3>
         <p className="z-50 text-[#5e5f6e]">{description}</p>

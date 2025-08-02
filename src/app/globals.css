@@ -2,6 +2,9 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Custom xs breakpoint - for screens smaller than 475px */
+@variant xs (@media (max-width: 475px));
+
 @theme inline {
   --font-sans: var(--font-inter);
   --font-mono: var(--font-mono);
@@ -16,6 +19,9 @@
 
   --color-surface: var(--surface);
   --color-site-background: var(--site-background);
+
+  /* Custom breakpoints */
+  --breakpoint-xs: 475px;
 }
 
 :root {

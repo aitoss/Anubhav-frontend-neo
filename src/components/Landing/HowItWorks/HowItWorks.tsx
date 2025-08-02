@@ -11,12 +11,12 @@ const Card = ({ title, description, imageURL }: {
   description: string;
   imageURL: string;
 }) => (
-  <div className="group relative h-full w-full overflow-hidden rounded-3xl border shadow-md">
+  <div className="group relative h-full w-full overflow-hidden rounded-2xl border shadow-md">
     <div className="z-40 h-full bg-[#fff5] p-3 backdrop-blur-[36px]">
       <div className="relative z-10 w-full overflow-hidden">
         <div className="absolute -bottom-[12px] left-0 z-20 h-[40px] w-[150%] bg-[#fcfcfc] blur-[8px]"></div>
         <img
-          className="bottom-0 right-0 scale-95 select-none rounded-xl border transition-all duration-300 group-hover:translate-y-[10%] md:scale-100"
+          className="bottom-0 right-0 select-none rounded-lg border transition-all duration-300 group-hover:translate-y-[10%] md:scale-100"
           src={imageURL}
           alt={imageURL}
           draggable="false"
@@ -42,12 +42,12 @@ const HowItWorks = () => {
           <h2 className="-mb-2 text-sm font-[500] text-[#212121]">
             <MaskText textPhrase={["How It Works"]} />
           </h2>
-          <h1 className="text-[2.6rem] font-[500] text-[#212121] x-sm:text-4xl">
+          <h1 className="text-[2.6rem] text-[#212121]  tracking-tight font-medium xs:text-4xl">
             <MaskText textPhrase={["Get Started with Our Platform"]} />
           </h1>
         </div>
 
-        <div className="mb-8 w-[60%] text-[#5e5f6e] md:w-[90%]">
+        <div className="mb-8 text-[#5e5f6e] text=sm md:w-[90%]">
           <MaskWrapper>
             Go&nbsp;
             <Link className="underline" href="/create">

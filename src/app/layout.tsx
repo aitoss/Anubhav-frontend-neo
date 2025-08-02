@@ -1,6 +1,7 @@
 import { geistMono, inter } from "@/lib/fonts";
 import type { Metadata, Viewport } from "next/types";
 import "./globals.css";
+import { QueryProvider } from '../providers';
 
 export const metadata: Metadata = {
   title: "Anubhav",
@@ -52,7 +53,11 @@ export default function RootLayout({
       </head>
       <body
         className={`${inter.variable} ${geistMono.variable} font-sans antialiased`}
-      >{children}</body>
+      >
+        <QueryProvider>
+          {children}
+        </QueryProvider>
+      </body>
     </html>
   );
 }

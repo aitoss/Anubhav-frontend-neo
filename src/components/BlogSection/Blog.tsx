@@ -1,9 +1,10 @@
 "use client";
 import Giscus from "@giscus/react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useCallback } from "react";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.bubble.css";
-import { apiService } from "../../lib/api";
+import { useBlogById } from "../../hooks/useBlogs";
+import { useSimilarBlogs } from "../../hooks/useSearch";
 import { formatDate, ReadTime } from "../../services/date";
 import MinuteReadLikes from "../MinuteReadLikes/MinuteReadLikes";
 import Author from "./_Child/Author";
@@ -15,171 +16,170 @@ const LazyLoad = ({ children }: any) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries: any) => {
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 },
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
+  const handleIntersection = useCallback((entries: any) => {
+    const entry = entries[0];
+    if (entry.isIntersecting) {
+      setIsVisible(true);
     }
-
-    return () => {
-      if (ref.current && observer) {
-        observer.disconnect();
-      }
-    };
   }, []);
 
-  return <div ref={ref}>{isVisible ? children : null}</div>;
+  const observer = useMemo(() => new IntersectionObserver(handleIntersection, { threshold: 0.1 }), [handleIntersection]);
+
+  const setRef = useCallback((node: HTMLDivElement | null) => {
+    if (ref.current) {
+      observer.unobserve(ref.current);
+    }
+    if (node) {
+      observer.observe(node);
+    }
+    ref.current = node;
+  }, [observer]);
+
+  return <div ref={setRef}>{isVisible ? children : null}</div>;
 };
+
 const Blog = ({ id }: { id: string }) => {
-  const [blogData, setBlogData] = useState<any>([]);
-  const [similarArticles, setSimilarArticles] = useState<any>(null);
-  const [timeStamp, setTimeStamp] = useState<string>("");
-  const [readingTime, setReadingTime] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { data: blogData, isLoading, error } = useBlogById(id);
 
-  const fetchBlogData = async () => {
-    try {
-      const response = await apiService.getBlogById(id);
-      setBlogData(response.data);
-      setTimeStamp(formatDate(response.data.createdAt));
-      const article = response.data;
-      setReadingTime(ReadTime(article.description));
-      await fetchSimilarBlogs(
-        article.title,
-        article.articleTags.join(","),
-        article.companyName,
-        article._id,
-      );
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching blog data:", error);
-      setLoading(false);
-    }
-  };
+  // Memoize processed blog data
+  const processedBlogData = useMemo(() => {
+    if (!blogData) return null;
+    
+    return {
+      ...blogData,
+      timeStamp: formatDate(blogData.createdAt),
+      readingTime: ReadTime(blogData.description),
+    };
+  }, [blogData]);
 
-  const fetchSimilarBlogs = async (
-    title: any,
-    articleTags: any,
-    companyName: any,
-    articleID: any,
-  ) => {
-    try {
-      const params = { q: title, company: companyName, tags: articleTags };
-      const response = await apiService.getSimilarBlogs(params);
-      const filteredData = response.filter(
-        (item: any) => item._id !== articleID,
-      );
-      setSimilarArticles(filteredData);
-    } catch (error) {
-      console.error("Error fetching similar blogs:", error);
-    }
-  };
+  // Memoize similar blogs query
+  const similarBlogsQuery = useMemo(() => {
+    if (!processedBlogData) return null;
+    
+    const params = {
+      q: processedBlogData.title,
+      company: processedBlogData.companyName,
+      tags: processedBlogData.articleTags?.join(","),
+    };
+    
+    return params;
+  }, [processedBlogData]);
 
-  useEffect(() => {
-    fetchBlogData();
-    window.scrollTo(0, 0);
-  }, [id]);
+  const { data: similarArticles } = useSimilarBlogs(similarBlogsQuery || undefined);
 
+  // Memoize filtered similar articles
+  const filteredSimilarArticles = useMemo(() => {
+    if (!similarArticles || !processedBlogData) return null;
+    return similarArticles.filter((item: any) => item._id !== processedBlogData._id);
+  }, [similarArticles, processedBlogData]);
+
+  // Memoize Author component
   const MemoizedAuthor = useMemo(() => {
+    if (!processedBlogData) return null;
     return (
       <Author
         person={{
-          name: blogData?.author?.name,
-          company: blogData?.companyName,
+          name: processedBlogData.author?.name,
+          company: processedBlogData.companyName,
         }}
       />
     );
-  }, [blogData]);
+  }, [processedBlogData]);
 
+  // Memoize Tags component
   const MemoizedTags = useMemo(() => {
-    return <Tags data={blogData?.articleTags} />;
-  }, [blogData]);
+    if (!processedBlogData) return null;
+    return <Tags data={processedBlogData.articleTags} />;
+  }, [processedBlogData]);
 
+  // Memoize MinuteReadLikes component
   const MemoizedMinuteReadLikes = useMemo(() => {
+    if (!processedBlogData) return null;
     return (
       <MinuteReadLikes
         id={id}
-        readingTime={readingTime}
-        timeStamp={timeStamp}
+        readingTime={processedBlogData.readingTime}
+        timeStamp={processedBlogData.timeStamp}
       />
     );
-  }, [id, readingTime, timeStamp]);
+  }, [id, processedBlogData]);
+
+  // Memoize ReactQuill modules
+  const quillModules = useMemo(() => ({
+    toolbar: false,
+  }), []);
+
+  if (isLoading) {
+    return <BlogLoading />;
+  }
+
+  if (error || !processedBlogData) {
+    return (
+      <div className="max-w-7xl mx-auto items-center bg-white p-5 lg:mx-auto lg:w-[65%] lg:p-6 lg:px-20">
+        <div className="text-center text-red-500">
+          Failed to load blog. Please try again later.
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
-      {loading ? (
-        <BlogLoading />
-      ) : (
-        <>
-          <div className="max-w-7xl mx-auto items-center bg-white p-5 lg:mx-auto lg:w-[65%] lg:p-6 lg:px-20">
-            <div className="h-10"></div>
-            <div className="data w- flex-col items-start justify-center space-y-2 md:mt-0 lg:justify-start lg:p-4">
-              <div className="heading">
-                <a className="text-4xl font-bold tracking-tighter text-[#212121] lg:text-5xl x-sm:text-3xl">
-                  {blogData?.title}
-                </a>
-              </div>
-              {MemoizedAuthor}
-              {MemoizedTags}
-              {MemoizedMinuteReadLikes}
-              {blogData.imageUrl !== "your_image_url_here" && (
-                <div className="relative h-[250px] w-full overflow-hidden rounded-xl border lg:h-[300px] x-sm:h-[200px]">
-                  <img
-                    src={blogData?.imageUrl}
-                    className="absolute inset-0 h-full w-full object-cover"
-                    alt=""
-                    loading="lazy"
-                  />
-                </div>
-              )}
-              <div className="lorem-container flex flex-col items-center justify-center py-3 text-black">
-                <div className="w-full rounded-lg bg-white text-[18px] shadow-none">
-                  <ReactQuill
-                    value={blogData?.description || ""} // Fallback to empty string
-                    theme="bubble"
-                    readOnly
-                    className="h-full w-full"
-                    modules={{
-                      toolbar: false,
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-            <h1 className="items-center justify-center text-center text-4xl font-medium text-slate-900 lg:ml-10 lg:text-left lg:text-4xl">
-              Comments
-            </h1>
-            <Giscus
-              repo="aitoss/Anubhav-frontend-23"
-              repoId="R_kgDOKijwFQ"
-              category="General"
-              categoryId="DIC_kwDOKijwFc4CeLfX"
-              mapping="pathname"
-              term="Welcome to @giscus/react component!"
-              reactionsEnabled="1"
-              emitMetadata="0"
-              inputPosition="top"
-              theme="light"
-              lang="en"
-            />
-            <LazyLoad>
-              {similarArticles && similarArticles.length > 0 && (
-                <Articles similarArticles={similarArticles} />
-              )}
-            </LazyLoad>
+      <div className="max-w-7xl mx-auto items-center bg-white p-5 lg:mx-auto lg:w-[65%] lg:p-6 lg:px-20">
+        <div className="h-10"></div>
+        <div className="data w- flex-col items-start justify-center space-y-2 md:mt-0 lg:justify-start lg:p-4">
+          <div className="heading">
+            <a className="text-4xl font-bold tracking-tighter text-[#212121] lg:text-5xl x-sm:text-3xl">
+              {processedBlogData.title}
+            </a>
           </div>
-        </>
-      )}
+          {MemoizedAuthor}
+          {MemoizedTags}
+          {MemoizedMinuteReadLikes}
+          {processedBlogData.imageUrl !== "your_image_url_here" && (
+            <div className="relative h-[250px] w-full overflow-hidden rounded-xl border lg:h-[300px] x-sm:h-[200px]">
+              <img
+                src={processedBlogData.imageUrl}
+                className="absolute inset-0 h-full w-full object-cover"
+                alt=""
+                loading="lazy"
+              />
+            </div>
+          )}
+          <div className="lorem-container flex flex-col items-center justify-center py-3 text-black">
+            <div className="w-full rounded-lg bg-white text-[18px] shadow-none">
+              <ReactQuill
+                value={processedBlogData.description || ""}
+                theme="bubble"
+                readOnly
+                className="h-full w-full"
+                modules={quillModules}
+              />
+            </div>
+          </div>
+        </div>
+        <h1 className="items-center justify-center text-center text-4xl font-medium text-slate-900 lg:ml-10 lg:text-left lg:text-4xl">
+          Comments
+        </h1>
+        <Giscus
+          repo="aitoss/Anubhav-frontend-23"
+          repoId="R_kgDOKijwFQ"
+          category="General"
+          categoryId="DIC_kwDOKijwFc4CeLfX"
+          mapping="pathname"
+          term="Welcome to @giscus/react component!"
+          reactionsEnabled="1"
+          emitMetadata="0"
+          inputPosition="top"
+          theme="light"
+          lang="en"
+        />
+        <LazyLoad>
+          {filteredSimilarArticles && filteredSimilarArticles.length > 0 && (
+            <Articles similarArticles={filteredSimilarArticles} />
+          )}
+        </LazyLoad>
+      </div>
     </>
   );
 };

@@ -1,58 +1,76 @@
-import React, { useState, useEffect } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { RxCross1 } from "react-icons/rx";
-import { apiService } from "../../lib/api";
+import { useTags } from "../../hooks/useTags";
 
 const InputTag = ({ setTags, tags }: any) => {
-  const [tagSuggestions, setTagSuggestions] = useState<any[]>([]);
   const [tag, setTag] = useState<string>("");
   const [error, setError] = useState<string>("");
 
-  useEffect(() => {
-    const fetchTagSuggestions = async () => {
-      try {
-        const response = await apiService.getTags();
-        setTagSuggestions(response);
-      } catch (error) {
-        console.error("Error fetching tag suggestions:", error);
-      }
-    };
+  // Use React Query for tags
+  const { data: tagSuggestions = [] } = useTags();
 
-    fetchTagSuggestions();
-  }, []);
-
-  const handleChange = (e: any) => {
+  const handleChange = useCallback((e: any) => {
     setTag(e.target.value);
     setError("");
-  };
+  }, []);
 
-  const handleKeyDown = (e: any) => {
+  const handleKeyDown = useCallback((e: any) => {
     if (e.key === "Enter" && tag.trim() !== "") {
       e.preventDefault();
       addTag();
     }
-  };
+  }, [tag]);
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     if (tag.trim() !== "") {
       addTag();
     }
-  };
+  }, [tag]);
 
-  const addTag = () => {
+  const addTag = useCallback(() => {
     if (tags.includes(tag.trim())) {
-      setError("This tag is already added!"); // Set error message
+      setError("This tag is already added!");
     } else {
       setTags([...tags, tag.trim()]);
       setTag("");
-      setError(""); // Clear error on successful addition
+      setError("");
     }
-  };
+  }, [tag, tags, setTags]);
 
-  const handleTagDelete = (index: any) => {
+  const handleTagDelete = useCallback((index: any) => {
     const updatedTags = [...tags];
     updatedTags.splice(index, 1);
     setTags(updatedTags);
-  };
+  }, [tags, setTags]);
+
+  // Memoize tag suggestions
+  const tagSuggestionsList = useMemo(() => (
+    <datalist id="tagSuggestions">
+      {tagSuggestions.map((suggestion: string, index: number) => (
+        <option key={index} value={suggestion} />
+      ))}
+    </datalist>
+  ), [tagSuggestions]);
+
+  // Memoize tag items
+  const tagItems = useMemo(() => (
+    tags.map((tagItem: any, index: number) => (
+      <div
+        key={index}
+        className="flex size-fit items-center justify-center rounded-full border bg-[#f0f0f0] px-2 transition-all hover:bg-[#e9e9e9]"
+      >
+        <span className="text-center text-[20px] text-base font-light text-[#212121]">
+          {tagItem}
+        </span>
+        <span
+          onClick={() => handleTagDelete(index)}
+          className="ml-1 cursor-pointer text-2xl"
+        >
+          <RxCross1 className="h-[14px] items-center text-[#919191]" />
+        </span>
+      </div>
+    ))
+  ), [tags, handleTagDelete]);
 
   return (
     <div>
@@ -63,22 +81,7 @@ const InputTag = ({ setTags, tags }: any) => {
         <div className="text-md flex w-full flex-col gap-2 rounded-lg border-[1px] border-[#78788033] bg-white py-1 text-[#3C3C43] ring ring-transparent placeholder:text-[#3C3C4399] focus:outline-none focus:placeholder:text-[#3c3c4350] sm:p-2 sm:text-[13px] md:w-full">
           {tags.length !== 0 && (
             <div className="-mb-2 flex flex-wrap gap-2 p-2 pb-0">
-              {tags.map((tagItem: any, index: number) => (
-                <div
-                  key={index}
-                  className="flex size-fit items-center justify-center rounded-full border bg-[#f0f0f0] px-2 transition-all hover:bg-[#e9e9e9]"
-                >
-                  <span className="text-center text-[20px] text-base font-light text-[#212121]">
-                    {tagItem}
-                  </span>
-                  <span
-                    onClick={() => handleTagDelete(index)}
-                    className="ml-1 cursor-pointer text-2xl"
-                  >
-                    <RxCross1 className="h-[14px] items-center text-[#919191]" />
-                  </span>
-                </div>
-              ))}
+              {tagItems}
             </div>
           )}
           <input
@@ -91,12 +94,7 @@ const InputTag = ({ setTags, tags }: any) => {
             onChange={handleChange}
             onKeyDown={handleKeyDown}
           />
-          {/* <button
-            onClick={handleClick}
-            className="mt-2 self-start rounded-lg bg-blue-500 px-3 py-1 text-white hover:bg-blue-600"
-            >
-            Add Tag
-          </button> */}
+          {tagSuggestionsList}
         </div>
         {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
       </div>
