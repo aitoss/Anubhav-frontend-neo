@@ -161,7 +161,7 @@ const Blog = () => {
               Comments
             </h1>
             <Giscus
-              repo="aitoss/Anubhav-frontend-23"
+              repo="aitoss/Anubhav-frontend-neo"
               repoId="R_kgDOKijwFQ"
               category="General"
               categoryId="DIC_kwDOKijwFc4CeLfX"
