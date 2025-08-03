@@ -1,11 +1,11 @@
-import React, { useState } from "react";
 import {
-  motion,
-  useTransform,
   AnimatePresence,
+  motion,
   useMotionValue,
   useSpring,
+  useTransform,
 } from "framer-motion";
+import React, { useState } from "react";
 
 export const AnimatedTooltip = ({ items }: any) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);

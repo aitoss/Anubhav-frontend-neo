@@ -99,7 +99,7 @@ const Guidelines = () => {
               transition={{ duration: 0.15, delay: 0.2 }}
             >
               <p className="py-2">
-                We've created a user-friendly and straightforward article
+                We&apos;ve created a user-friendly and straightforward article
                 writing section. To ensure a clear understanding of how to use
                 it, please refer to the following points:
               </p>

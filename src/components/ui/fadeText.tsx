@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-export function fadeText({ textPhrase }: any) {
+export function FadeText({ textPhrase }: any) {
   const animation = {
     initial: { y: "25%", opacity: 0, filter: "blur(2px)" },
     enter: (i: any) => ({
@@ -40,4 +40,4 @@ export function fadeText({ textPhrase }: any) {
   );
 }
 
-export default fadeText;
+export default FadeText;

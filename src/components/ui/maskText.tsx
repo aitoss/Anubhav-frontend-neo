@@ -14,7 +14,7 @@ export function MaskText({ textPhrase }: any) {
     }),
   };
 
-  const { ref, inView, entry } = useInView({
+  const { ref, inView } = useInView({
     threshold: 0.75,
     triggerOnce: true,
   });

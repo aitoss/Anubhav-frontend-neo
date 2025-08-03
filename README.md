@@ -5,7 +5,7 @@ Welcome to the Anubhav Frontend repository! This project is part of the Anubhav 
 
 ## About Anubhav
 
-![image](https://github.com/aitoss/Anubhav-frontend-23/assets/91362856/884ea575-8477-41c3-aa95-6a88504259a3)
+![image](https://github.com/aitoss/Anubhav-frontend-neo/assets/91362856/884ea575-8477-41c3-aa95-6a88504259a3)
 
 Anubhav: Experience Sharing Point (A-ESP) is a platform developed for AITians to read & share encounters of various interviews.
 
@@ -30,13 +30,13 @@ To get started with the Anubhav Frontend, follow these steps:
 1. Clone the repository to your local machine :
 
 ```bash
-git clone https://github.com/aitoss/Anubhav-frontend-23.git
+git clone https://github.com/aitoss/Anubhav-frontend-neo.git
 ```
 
 2. Navigate to the project directory:
 
 ```bash
-cd Anubhav-frontend-23
+cd Anubhav-frontend-neo
 ```
 
 3. Install project dependencies:

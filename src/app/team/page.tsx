@@ -51,6 +51,8 @@ const DevTeamMember = React.memo(
   ),
 );
 
+DevTeamMember.displayName = 'DevTeamMember';
+
 type TeamKey = "current" | "firstGen";
 
 const DevTeam = () => {

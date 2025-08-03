@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 const MobileNav = ({ isOpen }: any) => {

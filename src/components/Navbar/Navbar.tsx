@@ -11,7 +11,7 @@ const NAV_LINKS = [
   { label: "Videos", href: "/videos" },
   { label: "Team", href: "/team" },
   { label: "About", href: "/story" },
-  { label: "GitHub", href: "https://github.com/aitoss/Anubhav-frontend-23", external: true },
+  { label: "GitHub", href: "https://github.com/aitoss/Anubhav-frontend-neo", external: true },
 ];
 
 const Navbar = () => {
@@ -29,7 +29,7 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [prevScrollPos]);
-  
+
 
   const navClasses = `bg-[#ffffffcc] bg-blur border-b fixed w-full h-[60px] mx-auto px-0 lg:px-8 flex items-center justify-between text-[#212121] z-50 transition-transform transform ${visible ? "translate-y-0" : "-translate-y-full"}`;
 

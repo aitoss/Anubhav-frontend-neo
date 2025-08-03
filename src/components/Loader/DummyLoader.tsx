@@ -1,4 +1,4 @@
-import React, { RefObject, useEffect, useState } from "react";
+import React, { RefObject } from "react";
 
 interface Props {
   cursor: { x: number; y: number };

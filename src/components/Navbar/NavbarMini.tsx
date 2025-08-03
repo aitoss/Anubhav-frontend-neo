@@ -1,9 +1,9 @@
 // import { Cross as Hamburger } from "hamburger-react";
 import { Pen, SearchIcon } from "lucide-react";
 import Link from "next/link";
+import logo from "public/assets/images/logo.svg";
 import { useEffect, useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
-import logo from "public/assets/images/logo.svg";
 import Search from "../Search/Search";
 import SearchModal from "../Search/SearchModal";
 import { Button } from "../ui/button";
@@ -25,13 +25,6 @@ const NavbarMini = () => {
   const handleClick = () => {
     setMobileNavOpen(!MobileNavOpen);
     setIsOpen(!isOpen);
-  };
-
-  const scrollToBlog = () => {
-    const blogSection = document.getElementById("blog-section");
-    if (blogSection) {
-      blogSection.scrollIntoView({ behavior: "smooth" });
-    }
   };
 
   const handleScroll = () => {

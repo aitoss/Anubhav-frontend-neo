@@ -13,10 +13,9 @@ import {
 } from "lucide-react";
 import { EditorBubbleItem, useEditor } from "novel";
 
-import { Button } from "@/components/ui/button";
+import { NoButton } from "@/components/ui/no-button";
 import { PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Popover } from "@radix-ui/react-popover";
-import { NoButton } from "@/components/ui/no-button";
 
 export type SelectorItem = {
   name: string;

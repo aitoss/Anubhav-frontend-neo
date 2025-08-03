@@ -19,7 +19,7 @@ Now that , I think you got what's needed , lets get to the point ....
 ## How do I setup the Project?
 
 ### **Step 1: Fork the Repository**
-1. Go to the [Anubhav-frontend-23 repository](https://github.com/aitoss/Anubhav-frontend-23).
+1. Go to the [Anubhav-frontend-neo repository](https://github.com/aitoss/Anubhav-frontend-neo).
 2. Click the "Fork" button at the top right of the page to create a copy of the repository in your GitHub account.
 
 ### **Step 2: Clone the Forked Repository**
@@ -28,7 +28,7 @@ Now that , I think you got what's needed , lets get to the point ....
 3. Run the following command to clone the forked repository:
 
 ```bash
-git clone https://github.com/your-username/Anubhav-frontend-23.git
+git clone https://github.com/your-username/Anubhav-frontend-neo.git
   ```
 
 ### **Step 3: Navigate to the Project Directory**

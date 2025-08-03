@@ -3,7 +3,6 @@
 import BlogCard from "@/components/BlogSection/BlogCard";
 import Filter from "@/components/Filter/Filter";
 import FilterPopUp from "@/components/Filter/FilterPopUp";
-import NavbarMini from "@/components/Navbar/NavbarMini";
 import SearchCardLoading from "@/components/Search/SearchCardLoading";
 import { useSearchParams } from "next/navigation";
 import companyLogo from "public/assets/images/company.png";

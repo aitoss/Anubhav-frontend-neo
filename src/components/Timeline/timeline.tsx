@@ -1,11 +1,10 @@
 "use client";
 import {
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
   motion,
+  useScroll,
+  useTransform
 } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const Timeline = ({ data }: any) => {
   const ref = useRef<HTMLDivElement | null>(null);

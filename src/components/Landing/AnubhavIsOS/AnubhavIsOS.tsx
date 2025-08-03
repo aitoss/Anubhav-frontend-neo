@@ -30,10 +30,10 @@ const AnubhavIsOS = () => {
           className="flex items-center justify-center gap-2"
           delay={0.2}
         >
-          <LinkButton href="https://github.com/aitoss/Anubhav-frontend-23/issues" variant="outline">
+          <LinkButton href="https://github.com/aitoss/Anubhav-frontend-neo/issues" variant="outline">
             Contribute Now
           </LinkButton>
-          <LinkButton href="https://github.com/aitoss/Anubhav-frontend-23" variant="default" icon={<StarIcon />}>
+          <LinkButton href="https://github.com/aitoss/Anubhav-frontend-neo" variant="default" icon={<StarIcon />}>
             Star On Github
           </LinkButton>
         </FadeWrapper>

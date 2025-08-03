@@ -161,7 +161,7 @@ export default function HomeScreen() {
               <span className="z-10 flex items-center justify-center gap-1 py-0.5 text-sm font-[500] text-[#212121]">
                 🎉 Video collection{" "}
                 <span className="flex size-full h-full w-fit items-center justify-center rounded-full bg-neutral-200/50 px-2 py-0.5 transition-all group-hover:bg-neutral-200">
-                  What's new
+                  What&apos;s new
                   <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
                 </span>
               </span>

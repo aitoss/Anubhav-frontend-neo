@@ -1,5 +1,4 @@
 import {
-  CheckSquare,
   Code,
   Heading1,
   Heading2,
@@ -7,11 +6,10 @@ import {
   ImageIcon,
   List,
   ListOrdered,
-  MessageSquarePlus,
   Text,
   TextQuote,
   Twitter,
-  Youtube,
+  Youtube
 } from "lucide-react";
 import { Command, createSuggestionItems, renderItems } from "novel";
 import { uploadFn } from "./image-upload";

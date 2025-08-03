@@ -1,9 +1,8 @@
-import { Button } from "@/components/ui/button";
+import { NoButton } from "@/components/ui/no-button";
 import { cn } from "@/lib/utils";
 import { BoldIcon, CodeIcon, ItalicIcon, StrikethroughIcon, UnderlineIcon } from "lucide-react";
 import { EditorBubbleItem, useEditor } from "novel";
 import type { SelectorItem } from "./node-selector";
-import { NoButton } from "@/components/ui/no-button";
 
 export const TextButtons = () => {
   const { editor } = useEditor();

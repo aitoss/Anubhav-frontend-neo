@@ -1,9 +1,8 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { apiService } from '../lib/api';
 
 // Hook for creating article requests
 export const useCreateArticleRequest = () => {
-  const queryClient = useQueryClient();
   
   return useMutation({
     mutationFn: (requestData: any) => apiService.createArticleRequest(requestData),

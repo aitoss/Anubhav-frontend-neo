@@ -1,18 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
-import NavbarMini from "../Navbar/NavbarMini";
-import BlogCard from "../BlogSection/BlogCard";
-import "./SearchPage.css";
-import FilterPopUp from "../Filter/FilterPopUp";
-import Filter from "../Filter/Filter";
-import { useSearchParams } from "react-router-dom";
 import companyLogo from "public/assets/images/company.png";
+import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { apiService } from "../../lib/api";
 import { ReadTime, formatDate } from "../../services/date";
+import BlogCard from "../BlogSection/BlogCard";
+import Filter from "../Filter/Filter";
+import FilterPopUp from "../Filter/FilterPopUp";
+import NavbarMini from "../Navbar/NavbarMini";
 import SearchCardLoading from "./SearchCardLoading";
+import "./SearchPage.css";
 
 const SearchPage = () => {
   const [searchParams] = useSearchParams();
-  const [searchValue, setSearchValue] = useState<string>("");
   const [articles, setArticles] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
@@ -150,16 +149,15 @@ const SearchPage = () => {
               <h3 className="text-2xl font-[500]">
                 {!isSearching
                   ? "Recent Stories"
-                  : `${totalArticles} Articles found for ${
-                      headerName
-                        ? headerName
-                        : decodeURIComponent(
-                            searchParams
-                              .toString()
-                              .substring(6)
-                              .replace(/\+/g, " "),
-                          )
-                    }`}
+                  : `${totalArticles} Articles found for ${headerName
+                    ? headerName
+                    : decodeURIComponent(
+                      searchParams
+                        .toString()
+                        .substring(6)
+                        .replace(/\+/g, " "),
+                    )
+                  }`}
               </h3>
               <svg
                 onClick={() => openFilterPopup()}
