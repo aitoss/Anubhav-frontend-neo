@@ -1,14 +1,16 @@
 "use client";
+import AnimateIcon from "@/components/ui/animate-icon";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
+import { ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
-import BackgroundDots from "../../components/assets/Background";
-import Spinner from "../../components/assets/Spinner";
-import Footer from "../../components/Landing/Footer/Footer";
-import Navbar from "../../components/Navbar/Navbar";
-import ErrorMessage from "../../components/notification/ErrorMessage";
-import SuccessMessage from "../../components/notification/SuccessMessage";
-import ButtonV5 from "../../components/ui/buttonv5";
-import { apiService } from "../../lib/api";
+import BackgroundDots from "../../../components/assets/Background";
+import Navbar from "../../../components/Navbar/Navbar";
+import ErrorMessage from "../../../components/notification/ErrorMessage";
+import SuccessMessage from "../../../components/notification/SuccessMessage";
+import { apiService } from "../../../lib/api";
 
 const RequestArticle = () => {
   const initialState = {
@@ -97,19 +99,19 @@ const RequestArticle = () => {
         className="custom-class"
         fade={true}
       />
-      <div className="flex h-screen flex-col items-center justify-start">
+      <div className="flex h-screen w-full flex-col items-center justify-start">
         <div
-          className="mx-auto flex flex-col items-center justify-center gap-3 pt-32"
+          className="mx-auto flex w-full flex-col items-center justify-center gap-3 pt-32"
         // style={{ backgroundImage: `url(${background2})` }}
         >
           {/* basic info */}
-          <div className="flex w-[100%] justify-center">
+          <div className="flex w-full justify-center">
             <form
               onSubmit={(e: any) => {
                 e.preventDefault();
                 handleSubmit();
               }}
-              className="flex w-[650px] max-w-[1600px] flex-col gap-3 md:w-full md:gap-1 md:px-3"
+              className="flex w-full max-w-2xl flex-col gap-3 md:w-full md:gap-1 px-4 md:px-3"
             >
               <div className="w-full">
                 <motion.div
@@ -125,7 +127,7 @@ const RequestArticle = () => {
               </div>
 
               <div className="flex gap-4 md:flex-col">
-                <div className="flex w-[100%] flex-col gap-3 md:w-full md:gap-2">
+                <div className="flex w-full flex-col gap-3 md:w-full md:gap-2">
                   <div className="flex flex-col gap-3 md:gap-1">
                     <motion.div
                       initial={{ opacity: 0, translateY: 10 }}
@@ -144,7 +146,7 @@ const RequestArticle = () => {
                           exit={{ opacity: 0, translateY: 100 }}
                           transition={{ duration: 0.15, delay: 0.09 }}
                         >
-                          <input
+                          <Input
                             required
                             type="text"
                             name="name"
@@ -152,7 +154,7 @@ const RequestArticle = () => {
                             placeholder="Name"
                             value={value.name}
                             onChange={handleChange}
-                            className="text-md w-full rounded-lg border-[1px] border-[#78788033] bg-white p-3 text-[#3C3C43] ring ring-transparent placeholder:text-[#3C3C4399] focus:outline-none focus:placeholder:text-[#3c3c4350] sm:p-2 sm:text-[13px] md:w-full"
+                            className="w-full bg-white p-3 text-[#3C3C43] placeholder:text-[#3C3C4399] focus:placeholder:text-[#3c3c4350] md:w-full"
                           />
                         </motion.div>
                       </div>
@@ -164,7 +166,7 @@ const RequestArticle = () => {
                           exit={{ opacity: 0, translateY: 100 }}
                           transition={{ duration: 0.15, delay: 0.11 }}
                         >
-                          <input
+                          <Input
                             required
                             type="email"
                             name="email"
@@ -172,7 +174,7 @@ const RequestArticle = () => {
                             placeholder="College mail ID"
                             value={value.email}
                             onChange={handleChange}
-                            className="text-md w-full rounded-lg border-[1px] border-[#78788033] bg-white p-3 text-[#3C3C43] ring ring-transparent placeholder:text-[#3C3C4399] focus:outline-none focus:placeholder:text-[#3c3c4350] sm:p-2 sm:text-[13px] md:w-full"
+                            className="w-full bg-white p-3 text-[#3C3C43] placeholder:text-[#3C3C4399] focus:placeholder:text-[#3c3c4350] md:w-full"
                           />
                         </motion.div>
                       </div>
@@ -196,7 +198,7 @@ const RequestArticle = () => {
                           exit={{ opacity: 0, translateY: 100 }}
                           transition={{ duration: 0.15, delay: 0.15 }}
                         >
-                          <input
+                          <Input
                             required
                             type="text"
                             name="seniorName"
@@ -204,7 +206,7 @@ const RequestArticle = () => {
                             placeholder="Senior’s name"
                             value={value.seniorName}
                             onChange={handleChange}
-                            className="text-md w-full rounded-lg border-[1px] border-[#78788033] bg-white p-3 text-[#3C3C43] ring ring-transparent placeholder:text-[#3C3C4399] focus:outline-none focus:placeholder:text-[#3c3c4350] sm:p-2 sm:text-[13px] md:w-full"
+                            className="w-full bg-white p-3 text-[#3C3C43] placeholder:text-[#3C3C4399] focus:placeholder:text-[#3c3c4350] md:w-full"
                           />
                         </motion.div>
                       </div>
@@ -216,7 +218,7 @@ const RequestArticle = () => {
                           exit={{ opacity: 0, translateY: 100 }}
                           transition={{ duration: 0.15, delay: 0.16 }}
                         >
-                          <input
+                          <Input
                             required
                             type="text"
                             name="link"
@@ -224,7 +226,7 @@ const RequestArticle = () => {
                             placeholder="Senior’s any social media link"
                             value={value.link}
                             onChange={handleChange}
-                            className="text-md w-full rounded-lg border-[1px] border-[#78788033] bg-white p-3 text-[#3C3C43] ring ring-transparent placeholder:text-[#3C3C4399] focus:outline-none focus:placeholder:text-[#3c3c4350] sm:p-2 sm:text-[13px] md:w-full"
+                            className="w-full bg-white p-3 text-[#3C3C43] placeholder:text-[#3C3C4399] focus:placeholder:text-[#3c3c4350] md:w-full"
                           />
                         </motion.div>
                       </div>
@@ -235,7 +237,7 @@ const RequestArticle = () => {
                           exit={{ opacity: 0, translateY: 100 }}
                           transition={{ duration: 0.15, delay: 0.17 }}
                         >
-                          <input
+                          <Input
                             required
                             type="text"
                             name="company"
@@ -244,7 +246,7 @@ const RequestArticle = () => {
                             list="companySuggestions"
                             value={value.company}
                             onChange={handleChange}
-                            className="text-md w-full rounded-lg border-[1px] border-[#78788033] bg-white p-3 text-[#3C3C43] ring ring-transparent placeholder:text-[#3C3C4399] focus:outline-none focus:placeholder:text-[#3c3c4350] sm:p-2 sm:text-[13px] md:w-full"
+                            className="w-full bg-white p-3 text-[#3C3C43] placeholder:text-[#3C3C4399] focus:placeholder:text-[#3c3c4350] md:w-full"
                           />
                         </motion.div>
                         {/* <datalist id="companySuggestions">
@@ -261,7 +263,7 @@ const RequestArticle = () => {
                           exit={{ opacity: 0, translateY: 100 }}
                           transition={{ duration: 0.15, delay: 0.18 }}
                         >
-                          <textarea
+                          <Textarea
                             required
                             rows={4}
                             name="note"
@@ -269,7 +271,7 @@ const RequestArticle = () => {
                             placeholder="Personal note"
                             value={value.note}
                             onChange={handleChange}
-                            className="text-md w-full rounded-lg border-[1px] border-[#78788033] bg-white p-3 text-[#3C3C43] ring ring-transparent placeholder:text-[#3C3C4399] focus:outline-none focus:placeholder:text-[#3c3c4350] sm:p-2 sm:text-[13px] md:w-full"
+                            className="w-full bg-white p-3 text-[#3C3C43] placeholder:text-[#3C3C4399] focus:placeholder:text-[#3c3c4350] md:w-full"
                           />
                         </motion.div>
                       </div>
@@ -284,78 +286,24 @@ const RequestArticle = () => {
                 exit={{ opacity: 0, translateY: 100 }}
                 transition={{ duration: 0.15, delay: 0.2 }}
               >
-                <div className="flex flex-col justify-center gap-3">
-                  <button
+                <div className="flex flex-col justify-center gap-3 mt-4">
+                  <Button
                     type="submit"
+                    className="group px-2.5"
                     disabled={isLoading}
-                    className="p-0 font-[400] outline-none focus:outline-none"
+                    asChild
                   >
-                    <ButtonV5 icon={false}>
-                      {isLoading ? (
-                        <div className="flex items-center justify-center gap-1">
-                          &nbsp; Processing <Spinner />
-                        </div>
-                      ) : (
-                        <div className="flex items-center justify-center gap-1">
-                          Send Request
-                          {/* airplane svg */}
-                          <div className="flex w-5 items-center justify-end">
-                            <div className="w-5">
-                              <svg
-                                className={`h-5 w-5 translate-x-[0%] translate-y-[66%] text-[#ffffff80] opacity-0 transition-all duration-0 group-hover:translate-x-[100%] group-hover:translate-y-[0%] group-hover:text-[#ffffff] group-hover:opacity-100 group-hover:duration-300`}
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7.39993 6.31991L15.8899 3.48991C19.6999 2.21991 21.7699 4.29991 20.5099 8.10991L17.6799 16.5999C15.7799 22.3099 12.6599 22.3099 10.7599 16.5999L9.91993 14.0799L7.39993 13.2399C1.68993 11.3399 1.68993 8.22991 7.39993 6.31991Z"
-                                  stroke="#f0f0f0"
-                                  strokeWidth="1.5"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                              </svg>
-                            </div>
-                            <div className="w-5">
-                              <svg
-                                className={`h-5 w-5 translate-x-[0%] translate-y-[0%] text-[#ffffff80] opacity-100 transition-all duration-0 group-hover:-translate-y-[66%] group-hover:translate-x-[100%] group-hover:text-[#ffffff] group-hover:opacity-0 group-hover:duration-300`}
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7.39993 6.31991L15.8899 3.48991C19.6999 2.21991 21.7699 4.29991 20.5099 8.10991L17.6799 16.5999C15.7799 22.3099 12.6599 22.3099 10.7599 16.5999L9.91993 14.0799L7.39993 13.2399C1.68993 11.3399 1.68993 8.22991 7.39993 6.31991Z"
-                                  stroke="#f0f0f0"
-                                  strokeWidth="1.5"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                                <path
-                                  d="M10.1101 13.6501L13.6901 10.0601"
-                                  stroke="#f0f0f0"
-                                  strokeWidth="1.5"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </ButtonV5>
-                  </button>
-                  <div className="h-16"></div>
+                    <span className="flex items-center">
+                      Next
+                      <AnimateIcon><ChevronRight /></AnimateIcon>
+                    </span>
+                  </Button>
                 </div>
               </motion.div>
             </form>
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

@@ -1,6 +1,5 @@
 "use client";
 import BasicInformation from "@/components/Create/BasicInformation";
-import DragAndDropImageUpload from "@/components/Create/DragAndDropImageUpload";
 import PreviewPage from "@/components/Create/PreviewPage";
 import SubmittedCard from "@/components/Create/SubmittedCard";
 import WriteHere from "@/components/Create/WriteHere";
@@ -8,6 +7,7 @@ import BackgroundDots from "@/components/assets/Background";
 import SuccessMessage from "@/components/notification/SuccessMessage";
 import AnimateIcon from "@/components/ui/animate-icon";
 import { Button } from "@/components/ui/button";
+import useCreateForm from "@/hooks/form/useCreateForm";
 import useErrorToast from "@/hooks/useErrorToast";
 import { apiService } from "@/lib/api";
 import { ChevronLeft, ChevronRight, Plane } from "lucide-react";
@@ -15,55 +15,47 @@ import Link from "next/link";
 import { useState } from "react";
 
 const Create = () => {
-  const initialState = {
-    name: "",
-    email: "",
-    company: "",
-    position: "",
-    title: "",
-  };
+  // Form management with persistent storage
+  const {
+    formData,
+    step,
+    errors,
+    isLoading,
+    updateFormData,
+    setIsLoading,
+    handleNext,
+    handleBack,
+    resetAfterSubmission,
+  } = useCreateForm();
 
+  // Local state for UI interactions
+  const [bannerImage, setBannerImage] = useState<string | ArrayBuffer | null>(null);
   const [file, setFile] = useState(null);
-  const [bannerImage, setbannerImage] = useState(null);
-  const [tags, setTags] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [article, setArticle] = useState("");
-  const [value, setValue] = useState(initialState);
   const [requestSend, setRequestSend] = useState<string | null>(null);
-  const [isVisible, setIsVisible] = useState(true);
-  const [step, setStep] = useState(1);
+  const [isVisible] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const showError = useErrorToast();
-  type ErrorFields = {
-    name?: string;
-    email?: string;
-    company?: string;
-    position?: string;
-    title?: string;
-    file?: string;
-    tags?: string;
-    article?: string;
-  };
-
-  const [errors, setErrors] = useState<ErrorFields>({});
 
   const publishPost = async () => {
     setIsLoading(true);
     try {
       await apiService.createBlog({
-        title: value.title,
-        authorName: value.name,
-        authorEmailId: value.email,
-        companyName: value.company,
-        role: value.position,
-        articleTags: tags,
-        article: article,
+        title: formData.title,
+        authorName: formData.name,
+        authorEmailId: formData.email,
+        companyName: formData.company,
+        role: formData.position,
+        articleTags: formData.tags,
+        article: formData.article,
         image: bannerImage,
       });
-      setIsLoading(false);
-      setValue(initialState);
+
+      // Clear localStorage after successful submission
+      resetAfterSubmission();
       setIsSubmitted(true);
+      setIsLoading(false);
+
     } catch (error: any) {
       console.error("Error submitting post:", error.response?.data);
       showError("Failed to submit the article. Please try again.");
@@ -71,61 +63,22 @@ const Create = () => {
     }
   };
 
-  const handleNext = () => {
-    const newErrors: ErrorFields = {};
-
-    if (step === 1) {
-      if (!value.name) newErrors.name = "Name cannot be empty";
-      if (!value.email) {
-        newErrors.email = "Email cannot be empty";
-      } else {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(value.email)) {
-          newErrors.email = "Please enter a valid email address";
-        }
-      }
-      if (!value.company) newErrors.company = "Company cannot be empty";
-      if (!value.position) newErrors.position = "Position cannot be empty";
-      if (!value.title) newErrors.title = "Title cannot be empty";
-      if (!file) newErrors.file = "Please upload a banner image";
-      if (tags.length === 0)
-        newErrors.tags = "Write a tag and press enter to add it";
-    }
-
-    if (step === 2 && article === "") {
-      newErrors.article = "Please write your article before proceeding";
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-
-    setErrors({});
-    setStep(step + 1);
-  };
-
-  const handleBack = () => {
-    setStep(step - 1);
-  };
-
   // Calculate progress
   const progressPercentage = ((step - 1) / 3) * 100;
 
   return (
-    <div className="relative flex flex-col items-center justify-between bg-[#f9f9f9]">
+    <div className="relative flex flex-col items-center justify-between">
       <BackgroundDots
-        dotSize={1.8}
-        dotColor="#cbcbcc"
-        backgroundColor=""
-        gap={15}
-        className="custom-class"
-        fade={true}
-        style={undefined}
-      />
+          dotSize={1.25}
+          dotColor="#cbcbcb"
+          backgroundColor=""
+          gap={10}
+          className="custom-class"
+          fade={true}
+        />
       {isSubmitted && <SubmittedCard />}
       {isVisible && (
-        <p className="relative flex w-full items-center justify-center bg-white/40 pb-1 pt-16 text-[#212121]">
+        <p className="relative flex w-full items-center justify-center mt-2 bg-white/40 pb-1 text-[#212121]">
           Before writing an article, please read the &nbsp;
           <Link href="/guidelines" target="_blank" className="underline">
             Guidelines
@@ -134,9 +87,9 @@ const Create = () => {
         </p>
       )}
 
-      <div className="mx-auto flex max-w-7xl w-full flex-col items-center gap-3 pt-4">
+      <div className="mx-auto flex max-w-7xl w-full flex-col items-center gap-3 mb-6">
         {/* Progress Bar */}
-        <div className="relative z-0 mt-4 h-12 w-[90%] border border-[#d3ddeb] bg-[#f9f9f9] md:w-[90%] md:text-[14px] lg:w-[70%] xl:w-[50%]">
+        <div className="relative z-0 mt-4 h-12 w-[90%] border border-[#d3ddeb] md:w-[90%] md:text-[14px] lg:w-[70%] xl:w-[50%]">
           <div className="absolute inset-0 left-1/3 z-[99] w-3">
             <svg
               className="h-full w-full text-slate-300"
@@ -185,36 +138,45 @@ const Create = () => {
             style={{ width: `${progressPercentage}%` }}
           ></div>
         </div>
+
+        {/* Form Steps */}
         {step === 1 && (
           <BasicInformation
-            value={value}
-            setValue={setValue}
-            tags={tags}
-            setTags={setTags}
+            value={formData}
+            setValue={(newValue: any) => updateFormData(newValue)}
+            tags={formData.tags}
+            setTags={(tags: string[]) => updateFormData({ tags })}
             file={file}
             setFile={setFile}
             bannerImage={bannerImage}
-            setbannerImage={setbannerImage}
-            DragAndDropImageUpload={DragAndDropImageUpload}
+            setbannerImage={(image: string | ArrayBuffer | null) => {
+              setBannerImage(image);
+              // Also update form data for validation
+              updateFormData({ bannerImageUrl: image as string });
+            }}
             errors={errors}
           />
         )}
+
         {step === 2 && (
           <WriteHere
-            article={article}
-            setArticle={setArticle}
+            article={formData.article}
+            setArticle={(article: string) => updateFormData({ article })}
             errors={errors}
           />
         )}
+
         {step === 3 && (
           <PreviewPage
-            value={value}
-            article={article}
+            value={formData}
+            article={formData.article}
             bannerImage={bannerImage}
-            tags={tags}
+            tags={formData.tags}
           />
         )}
-        <div className="flex w-[90%] justify-between gap-4 pb-4 lg:w-[70%]">
+
+        {/* Navigation Buttons */}
+        <div className="flex max-w-4xl justify-between md:px-0 px-5 w-full mx-auto">
           {step > 1 && (
             <Button
               onClick={handleBack}
@@ -232,7 +194,7 @@ const Create = () => {
           {step < 3 ? (
             <Button
               onClick={handleNext}
-              className="group px-2.5"
+              className="group px-2.5 md:w-fit w-full md:ml-auto"
               asChild
             >
               <span className="flex items-center">

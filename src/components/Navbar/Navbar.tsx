@@ -31,7 +31,7 @@ const Navbar = () => {
   }, [prevScrollPos]);
   
 
-  const navClasses = `bg-[#ffffffcc] bg-blur border-b fixed w-full h-[60px] mx-auto px-0 lg:px-8 flex items-center justify-between text-[#212121] z-[9999] transition-transform transform ${visible ? "translate-y-0" : "-translate-y-full"}`;
+  const navClasses = `bg-[#ffffffcc] bg-blur border-b fixed w-full h-[60px] mx-auto px-0 lg:px-8 flex items-center justify-between text-[#212121] z-50 transition-transform transform ${visible ? "translate-y-0" : "-translate-y-full"}`;
 
   return (
     <nav className={navClasses}>
@@ -61,7 +61,7 @@ const Navbar = () => {
 
         {/* CTA Buttons */}
         <div className="hidden md:flex items-center gap-2">
-          <LinkButton href="/create" variant="outline">
+          <LinkButton href="/request" variant="outline">
             Request Article
           </LinkButton>
           <LinkButton href="/create" variant="default" icon={<Pen />}>
@@ -97,7 +97,7 @@ const Navbar = () => {
               ))}
             </div>
             <div className="flex flex-col gap-2">
-              <LinkButton href="/create" variant="outline" className="w-full">
+              <LinkButton href="/request" variant="outline" className="w-full">
                 Request Article
               </LinkButton>
               <LinkButton

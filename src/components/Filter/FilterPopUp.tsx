@@ -1,6 +1,6 @@
 import React from "react";
 import Filter from "./Filter";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 const FilterPopUp = ({
   closeFilterPopUp,
@@ -20,7 +20,7 @@ const FilterPopUp = ({
         onClick={(e: any) => {
           handleClose(e);
         }}
-        className="fixed top-[0px] pt-32 inset-0 bg-white bg-opacity-70 z-50 flex justify-center items-center"
+        className="fixed top-[0px] pt-32 inset-0 bg-white/70 z-50 flex justify-center items-center"
       >
         <motion.div
           initial={{ opacity: 0, translateY: 10 }}

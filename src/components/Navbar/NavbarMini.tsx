@@ -53,7 +53,7 @@ const NavbarMini = () => {
     };
   }, [prevScrollPos]);
 
-  const navClasses = `relative bg-[#ffffffcc] bg-blur border-b fixed items-center justify-center h-[60px] p-3 flex w-screen text-black z-[9999] transition-transform transform ${visible ? "translate-y-0" : "-translate-y-full"
+  const navClasses = `relative bg-[#ffffffcc] bg-blur border-b fixed items-center justify-center h-[60px] p-3 flex w-screen text-black z-50 transition-transform transform ${visible ? "translate-y-0" : "-translate-y-full"
     }`;
 
   return (
@@ -83,7 +83,7 @@ const NavbarMini = () => {
                 <SearchIcon />
               </Button>
               <div className="flex items-center gap-2">
-                <LinkButton href="/create" variant="outline">
+                <LinkButton href="/request" variant="outline">
                   Request Article
                 </LinkButton>
                 <LinkButton href="/create" variant="default" icon={<Pen />}>

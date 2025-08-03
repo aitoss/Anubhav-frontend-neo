@@ -1,8 +1,6 @@
 "use client";
 import Giscus from "@giscus/react";
 import { useMemo, useRef, useState, useCallback } from "react";
-import dynamic from "next/dynamic";
-import "react-quill-new/dist/quill.bubble.css";
 import { useBlogById } from "../../hooks/useBlogs";
 import { useSimilarBlogs } from "../../hooks/useSearch";
 import { formatDate, ReadTime } from "../../services/date";
@@ -11,16 +9,6 @@ import Author from "./_Child/Author";
 import Tags from "./_Child/Tags";
 import Articles from "./Articles";
 import BlogLoading from "./BlogLoading";
-
-// Dynamically import ReactQuill to avoid SSR issues
-const ReactQuill = dynamic(() => import("react-quill-new"), { 
-  ssr: false,
-  loading: () => (
-    <div className="flex items-center justify-center h-[200px] text-gray-500">
-      Loading content...
-    </div>
-  )
-});
 
 const LazyLoad = ({ children }: any) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -114,11 +102,6 @@ const Blog = ({ id }: { id: string }) => {
     );
   }, [id, processedBlogData]);
 
-  // Memoize ReactQuill modules
-  const quillModules = useMemo(() => ({
-    toolbar: false,
-  }), []);
-
   if (isLoading) {
     return <BlogLoading />;
   }
@@ -135,8 +118,7 @@ const Blog = ({ id }: { id: string }) => {
 
   return (
     <>
-      <div className="max-w-7xl mx-auto items-center bg-white p-5 lg:mx-auto lg:w-[65%] lg:p-6 lg:px-20">
-        <div className="h-10"></div>
+      <div className="max-w-7xl mx-auto items-center bg-white px-5 lg:mx-auto lg:w-[65%] lg:px-6">
         <div className="data w- flex-col items-start justify-center space-y-2 md:mt-0 lg:justify-start lg:p-4">
           <div className="heading">
             <a className="text-4xl font-bold tracking-tighter text-[#212121] lg:text-5xl x-sm:text-3xl">
@@ -157,13 +139,10 @@ const Blog = ({ id }: { id: string }) => {
             </div>
           )}
           <div className="lorem-container flex flex-col items-center justify-center py-3 text-black">
-            <div className="w-full rounded-lg bg-white text-[18px] shadow-none">
-              <ReactQuill
-                value={processedBlogData.description || ""}
-                theme="bubble"
-                readOnly
+            <div className="w-full rounded-lg bg-white text-[18px] shadow-none prose prose-lg max-w-none">
+              <div 
+                dangerouslySetInnerHTML={{ __html: processedBlogData.description || "" }}
                 className="h-full w-full"
-                modules={quillModules}
               />
             </div>
           </div>

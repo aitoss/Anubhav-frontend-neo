@@ -122,7 +122,7 @@ const SearchPage = () => {
                     setHeaderName={setHeaderName}
                 />
             )}
-            <div className="h-full max-w-7xl mx-auto px-4 md:px-8">
+            <div className="h-full max-w-7xl mx-auto px-4 md:px-8 pt-8">
                 <div className="flex h-full w-full gap-10">
                     <div className="flex h-full w-full max-w-5xl flex-col gap-2">
                         <div className="flex justify-between items-center">

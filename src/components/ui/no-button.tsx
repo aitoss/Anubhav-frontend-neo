@@ -14,6 +14,7 @@ interface NoButtonProps {
   variant?: "default" | "outline" | "ghost" | "link" | "destructive";
   size?: "default" | "sm" | "lg" | "icon";
   onClick?: () => void;
+  style?: React.CSSProperties;
 }
 
 export function NoButton({
@@ -25,6 +26,8 @@ export function NoButton({
   className,
   variant = "default",
   size = "default",
+  style,
+  ...props
 }: NoButtonProps) {
   return (
     <Button
@@ -33,9 +36,11 @@ export function NoButton({
       disabled={disabled}
       size={size}
       onClick={onClick}
+      style={style}
       asChild
+      {...props}
     >
-      <span className="flex items-center">
+      <div className="flex items-center">
         {iconPosition === "left" && icon && (
           <AnimateIcon>{icon}</AnimateIcon>
         )}
@@ -43,7 +48,7 @@ export function NoButton({
         {iconPosition === "right" && icon && (
           <AnimateIcon>{icon}</AnimateIcon>
         )}
-      </span>
+      </div>
     </Button>
   );
 }

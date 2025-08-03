@@ -1,19 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
 import { useParams } from "react-router-dom";
 import { apiService } from "../../lib/api";
-import "react-quill-new/dist/quill.bubble.css";
-
-// Dynamically import ReactQuill to avoid SSR issues
-const ReactQuill = dynamic(() => import("react-quill-new"), { 
-  ssr: false,
-  loading: () => (
-    <div className="flex items-center justify-center h-[200px] text-gray-500">
-      Loading content...
-    </div>
-  )
-});
 
 const ViewBlog = () => {
   const { id } = useParams();
@@ -78,15 +66,12 @@ const ViewBlog = () => {
   }, [id]);
 
   return (
-    <ReactQuill
-      value={data}
-      theme="bubble"
-      readOnly
-      modules={{
-        toolbar: false,
-      }}
-      className="h-full w-full"
-    />
+    <div className="prose prose-lg max-w-none">
+      <div 
+        dangerouslySetInnerHTML={{ __html: blog.description || data }}
+        className="h-full w-full"
+      />
+    </div>
   );
 };
 

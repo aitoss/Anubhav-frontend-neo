@@ -31,8 +31,6 @@ const NavigationWrapper = ({ children }: NavigationWrapperProps) => {
     // Routes that need special padding (for fixed navbar)
     needsNavbarPadding: [
       "/create",
-      "/blog", 
-      "/search"
     ],
 
     // Routes that should have no navbar at all (if needed in future)

@@ -7,6 +7,7 @@ const nextConfig = {
   images: {
     domains: ['i.ibb.co'],
   },
+  transpilePackages: ['novel', '@tiptap/core', '@tiptap/pm', '@tiptap/starter-kit'],
 }
 
 export default nextConfig;
