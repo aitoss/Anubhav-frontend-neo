@@ -14,21 +14,21 @@ const DragDropFiles = () => {
     setFiles(event.dataTransfer.files);
   };
 
-  const handleUpload = () => {
-    const formData = new FormData();
-    if (files) {
-      Array.from(files).forEach((file) => {
-        formData.append("Files", file);
-      });
-    }
-    console.log(formData.getAll("Files"));
-    // fetch(
-    //   "link", {
-    //     method: "POST",
-    //     body: formData
-    //   }
-    // )
-  };
+  // const handleUpload = () => {
+  //   const formData = new FormData();
+  //   if (files) {
+  //     Array.from(files).forEach((file) => {
+  //       formData.append("Files", file);
+  //     });
+  //   }
+  //   console.log(formData.getAll("Files"));
+  //   // fetch(
+  //   //   "link", {
+  //   //     method: "POST",
+  //   //     body: formData
+  //   //   }
+  //   // )
+  // };
 
   // if (files) return (
   //   <div className="uploads">

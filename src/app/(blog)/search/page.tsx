@@ -6,11 +6,11 @@ import FilterPopUp from "@/components/Filter/FilterPopUp";
 import SearchCardLoading from "@/components/Search/SearchCardLoading";
 import { useSearchParams } from "next/navigation";
 import companyLogo from "public/assets/images/company.png";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, Suspense } from "react";
 import { apiService } from "../../../lib/api";
 import { ReadTime, formatDate } from "../../../services/date";
 
-const SearchPage = () => {
+const SearchPageContent = () => {
     const searchParams = useSearchParams();
     const query = searchParams.get("query");
 
@@ -200,6 +200,14 @@ const SearchPage = () => {
                 </div>
             </div>
         </>
+    );
+};
+
+const SearchPage = () => {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <SearchPageContent />
+        </Suspense>
     );
 };
 

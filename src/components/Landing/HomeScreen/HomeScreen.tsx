@@ -1,6 +1,6 @@
 "use client";
 import BackgroundDots from "@/components/assets/Background";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "motion/react";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -227,7 +227,7 @@ export default function HomeScreen() {
         </section>
         <section className="flex w-full flex-col items-center pt-16">
           <MaskWrapper>
-            <h1 className="text-base text-black x-sm:text-[20px]">
+            <h1 className="text-base text-foreground x-sm:text-[20px]">
               Exploring <span className="font-[500]">The Interview Safari</span>
             </h1>
           </MaskWrapper>

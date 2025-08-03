@@ -4,7 +4,7 @@ import BlogCardLoading from "./BlogCardLoading";
 import company from "public/assets/images/company.png";
 import { useLatestBlogs } from "../../hooks/useBlogs";
 import { ReadTime, formatDate } from "../../services/date";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation } from "motion/react";
 import { useInView } from "react-intersection-observer";
 
 const BlogSection = () => {

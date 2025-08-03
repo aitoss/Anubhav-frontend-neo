@@ -1,23 +1,26 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { useInView } from "react-intersection-observer";
+import { ReactNode } from "react";
+
+interface FadeWrapperProps {
+  children: ReactNode;
+  className?: string;
+  duration?: number;
+  delay?: number;
+}
 
 const FadeWrapper = ({
   children,
   className = "",
   duration = 0.4,
   delay = 0,
-}: any) => {
+}: FadeWrapperProps) => {
   const animation = {
     initial: { y: "30%", filter: "blur(2px)", opacity: 0 },
     enter: {
       y: "0",
       filter: "blur(0px)",
       opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: [0.33, 1, 0.68, 1],
-        delay,
-      },
     },
   };
 
@@ -37,6 +40,7 @@ const FadeWrapper = ({
         transition={{
           duration, // Use duration from props
           ease: "easeOut",
+          delay,
         }}
         className={className}
       >

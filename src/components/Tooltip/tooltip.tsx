@@ -4,7 +4,7 @@ import {
   useMotionValue,
   useSpring,
   useTransform,
-} from "framer-motion";
+} from "motion/react";
 import React, { useState } from "react";
 
 export const AnimatedTooltip = ({ items }: any) => {

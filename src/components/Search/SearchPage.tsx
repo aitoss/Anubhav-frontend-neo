@@ -32,7 +32,7 @@ const SearchPage = () => {
     setFilterPopUp(false);
   };
 
-  const fetchLatestArticles = async (endPoint: any, page = 1) => {
+  const fetchLatestArticles = async (page = 1) => {
     setLoading(true);
     try {
       const res = await apiService.getBlogs(page);
@@ -98,7 +98,7 @@ const SearchPage = () => {
       setPage(1);
       fetchArticles(query, 1);
     } else {
-      fetchLatestArticles("/blogs");
+      fetchLatestArticles();
     }
   }, [searchParams]);
 
@@ -107,7 +107,7 @@ const SearchPage = () => {
     if (query) {
       fetchArticles(query, page + 1);
     } else {
-      fetchLatestArticles("/blogs", page);
+      fetchLatestArticles(page);
     }
     setPage((prevPage: any) => prevPage + 1);
   };

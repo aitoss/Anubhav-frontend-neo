@@ -43,8 +43,8 @@ const Articles: React.FC<ArticlesProps> = (props) => {
             imagesrc={
               item.imageUrl === "your_image_url_here" ? company : item.imageUrl
             }
-            author={item.author?.name}
-            company={item.companyName}
+            author={item.author?.name || "Anonymous"}
+            company={item.companyName || "Unknown Company"}
             readingTime={ReadTime(item.description)}
             date={item.createdAt}
           />

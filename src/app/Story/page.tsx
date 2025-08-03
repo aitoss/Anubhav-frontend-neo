@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Footer from "../../components/Landing/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import { Timeline } from "../../components/Timeline/timeline";
@@ -111,14 +111,14 @@ const Story = () => {
         <div className="h-16 md:h-8"></div>
         <div className="flex flex-col items-center flex-1">
           <section className="mx-auto w-[100%] max-w-[1400px] lg:w-[70%] px-4 py-4 flex-1 overflow-y-auto">
-            <div className="text-xl text-black">
+            <div className="text-xl text-foreground">
               <motion.div
                 initial={{ opacity: 0, translateY: 10 }}
                 animate={{ opacity: 1, translateY: 0 }}
                 exit={{ opacity: 0, translateY: 100 }}
                 transition={{ duration: 0.15, delay: 0.05 }}
               >
-                <h1 className="text-4xl lg:py-8 py-6 font-semibold text-center text-black">
+                <h1 className="text-4xl lg:py-8 py-6 font-semibold text-center text-foreground">
                   Our Story
                 </h1>
               </motion.div>

@@ -1,19 +1,19 @@
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useInView } from "react-intersection-observer";
+import { ReactNode } from "react";
+
+interface MaskWrapperProps {
+  children: ReactNode;
+}
 
 export function MaskWrapper({
   children
-}: any) {
+}: MaskWrapperProps) {
   const animation = {
     initial: { y: "100%" },
-    enter: (i: any) => ({
+    enter: {
       y: "0",
-      transition: {
-        duration: 0.5,
-        ease: [0.33, 1, 0.68, 1],
-        delay: 0.075 * i,
-      },
-    }),
+    },
   };
 
   const { ref, inView } = useInView({
@@ -29,6 +29,11 @@ export function MaskWrapper({
           variants={animation}
           initial="initial"
           animate={inView ? "enter" : ""}
+          transition={{
+            duration: 0.5,
+            ease: "easeOut",
+            delay: 0.075,
+          }}
         >
           {children}
         </motion.span>

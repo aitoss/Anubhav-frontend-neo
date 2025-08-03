@@ -85,7 +85,7 @@ const PreviewPage = ({ value, article, bannerImage, tags }: any) => {
                   <Camera size={48} className="text-gray-400" />
                 </div>
               )}
-              <div className="lorem-container flex flex-col items-center justify-center py-3 text-black">
+              <div className="lorem-container flex flex-col items-center justify-center py-3 text-foreground">
                 <div className="w-full rounded-lg bg-white text-[18px] shadow-none prose prose-lg max-w-none">
                   <div
                     dangerouslySetInnerHTML={{ __html: article }}

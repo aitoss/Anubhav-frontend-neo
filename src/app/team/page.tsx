@@ -3,7 +3,7 @@ import React, { useMemo, useState } from "react";
 import Footer from "../../components/Landing/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import { WobbleCard } from "../../components/Tooltip/wobble";
-import { AnimatePresence, motion } from "framer-motion"; // Import motion from framer-motion
+import { AnimatePresence, motion } from "motion/react"; // Import motion from motion/react
 import BackgroundDots from "../../components/assets/Background";
 
 type DevTeamMemberProps = {
@@ -22,7 +22,7 @@ const DevTeamMember = React.memo(
       transition={{
         delay: index * 0.05,
         duration: 0.3,
-        ease: [0.33, 1, 0.68, 1],
+        ease: "easeOut",
       }}
       className="overflow-hidden"
     >

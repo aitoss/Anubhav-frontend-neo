@@ -3,9 +3,9 @@ import AnimateIcon from "@/components/ui/animate-icon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { ChevronRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BackgroundDots from "../../../components/assets/Background";
 import Navbar from "../../../components/Navbar/Navbar";
 import ErrorMessage from "../../../components/notification/ErrorMessage";
@@ -26,19 +26,19 @@ const RequestArticle = () => {
   const [value, setValue] = useState<typeof initialState>(initialState);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [requestSend, setRequestSend] = useState<string | null>(null);
-  const [companySuggestions, setCompanySuggestions] = useState<string[]>([]);
+  // const [companySuggestions, setCompanySuggestions] = useState<string[]>([]);
 
-  useEffect(() => {
-    const fetchCompanySuggestions = async () => {
-      try {
-        const response = await apiService.getAllCompanies();
-        setCompanySuggestions(response);
-      } catch (error) {
-        console.error("Error fetching company suggestions:", error);
-      }
-    };
-    fetchCompanySuggestions();
-  }, []);
+  // useEffect(() => {
+  //   const fetchCompanySuggestions = async () => {
+  //     try {
+  //       const response = await apiService.getAllCompanies();
+  //       setCompanySuggestions(response);
+  //     } catch (error) {
+  //       console.error("Error fetching company suggestions:", error);
+  //     }
+  //   };
+  //   fetchCompanySuggestions();
+  // }, []);
 
   const addError = (message: any) => {
     setError(message);

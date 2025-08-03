@@ -1,6 +1,6 @@
 import React from "react";
 import Filter from "./Filter";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 const FilterPopUp = ({
   closeFilterPopUp,

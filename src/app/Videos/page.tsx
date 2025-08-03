@@ -1,6 +1,6 @@
 "use client";
 import Navbar from "@/components/Navbar/Navbar";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation } from "motion/react";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import Tag from "../../components/InputTag/Tag";
@@ -9,7 +9,7 @@ import YoutubeCardLoading from "../../components/Video/YoutubeCardLoading";
 import BackgroundDots from "../../components/assets/Background";
 const Videos = () => {
   const [youtubeData, setYoutubeData] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading] = useState<boolean>(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -66,7 +66,7 @@ const Videos = () => {
               </>
             ) : (
               <>
-                {[...youtubeData].reverse().map((data: any, index: number) => (
+                {[...youtubeData].reverse().map((data: any) => (
                   <AnimatedYoutubeCard
                     key={data.id}
                     title={data.title}

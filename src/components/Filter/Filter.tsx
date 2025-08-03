@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
 import companyLogo from "public/assets/images/company.png";
+import { useState } from "react";
 
 const Filter = ({
   closeFilterPopUp,
@@ -8,17 +8,11 @@ const Filter = ({
   setHeaderName,
 }: any) => {
   const [currentCompany, setCurrentCompany] = useState<string>("");
-  const [show, setShow] = useState<boolean>(false);
-  const [sortBy, setSortBy] = useState<string>("");
 
   company.sort((a: any, b: any) => b.count - a.count);
 
   const handleClickApply = () => {
     closeFilterPopUp;
-  };
-
-  const stopScrollPropagation = (e: any) => {
-    e.stopPropagation();
   };
 
   return (
@@ -38,17 +32,15 @@ const Filter = ({
                 setHeaderName(item.company);
                 handleClickApply();
               }}
-              className={`relative flex cursor-pointer items-center justify-between rounded-md px-2 py-1 transition-all hover:bg-white ${
-                currentCompany === item.company ? "bg-white" : ""
-              }`}
+              className={`relative flex cursor-pointer items-center justify-between rounded-md px-2 py-1 transition-all hover:bg-white ${currentCompany === item.company ? "bg-white" : ""
+                }`}
             >
               <div className="flex items-center gap-3">
                 <div
                   className="h-5 w-5 rounded bg-cover bg-center bg-no-repeat"
                   style={{
-                    backgroundImage: `url(${
-                      item.domainName ? item.domainName : companyLogo
-                    })`,
+                    backgroundImage: `url(${item.domainName ? item.domainName : companyLogo
+                      })`,
                   }}
                 ></div>
                 <h5>{item.company}</h5>

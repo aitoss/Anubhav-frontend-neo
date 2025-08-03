@@ -1,13 +1,13 @@
 import Blog from "../../../../components/BlogSection/Blog";
 
 interface ViewBlogProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-const ViewBlog = ({ params }: ViewBlogProps) => {
-  const { id } = params;
+const ViewBlog = async ({ params }: ViewBlogProps) => {
+  const { id } = await params;
   return (
     <div className="bg-white">
       <Blog id={id} />

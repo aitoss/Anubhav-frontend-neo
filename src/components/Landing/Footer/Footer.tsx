@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import Anubhav from "public/assets/images/Anubhav-3d.png";
 import "./Footer.css";

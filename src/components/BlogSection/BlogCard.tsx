@@ -24,7 +24,7 @@ const BlogCard = ({
   imagesrc,
   author,
   company,
-  description,
+  // description,
   readingTime,
   date,
 }: BlogCardProps) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Upload from "public/assets/images/upload.svg";
 
 const MAX_FILE_SIZE = 73 * 1024;
@@ -14,31 +14,31 @@ const DragAndDropImageUpload: React.FC<DragAndDropImageUploadProps> = ({
   setFile,
   setbannerImage,
 }) => {
-  const [isDragging, setIsDragging] = useState(false);
+  // const [isDragging, setIsDragging] = useState(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsDragging(true);
+    // setIsDragging(true);
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsDragging(true);
+    // setIsDragging(true);
   };
 
   const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsDragging(false);
+    // setIsDragging(false);
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsDragging(false);
+    // setIsDragging(false);
 
     const droppedFile = e.dataTransfer.files[0];
     if (droppedFile) {

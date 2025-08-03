@@ -1,9 +1,7 @@
-// import { Cross as Hamburger } from "hamburger-react";
-import { Pen, SearchIcon } from "lucide-react";
+import { Menu, Pen, SearchIcon } from "lucide-react";
 import Link from "next/link";
 import logo from "public/assets/images/logo.svg";
 import { useEffect, useState } from "react";
-import { RxHamburgerMenu } from "react-icons/rx";
 import Search from "../Search/Search";
 import SearchModal from "../Search/SearchModal";
 import { Button } from "../ui/button";
@@ -46,7 +44,7 @@ const NavbarMini = () => {
     };
   }, [prevScrollPos]);
 
-  const navClasses = `relative bg-[#ffffffcc] bg-blur border-b fixed items-center justify-center h-[60px] p-3 flex w-screen text-black z-50 transition-transform transform ${visible ? "translate-y-0" : "-translate-y-full"
+  const navClasses = `relative bg-[#ffffffcc] bg-blur border-b fixed items-center justify-center h-[60px] p-3 flex w-screen text-foreground z-50 transition-transform transform ${visible ? "translate-y-0" : "-translate-y-full"
     }`;
 
   return (
@@ -125,18 +123,11 @@ const NavbarMini = () => {
               className="z-50 m-0 hidden items-center justify-center p-0 text-white transition-all md:flex"
               onClick={handleClick}
             >
-              {/* {click ? <FaTimes /> : <CiMenuFries />} */}
-              <RxHamburgerMenu
-                direction="right"
-                color="#212121"
-                size={32}
-              />
+              <Menu />
             </div>
           </div>
         </div>
       </nav >
-      {/* {MobileNavOpen && <MobileNav isOpen={isOpen} />} */}
-      {/* </div> */}
     </>
   );
 };

@@ -1,19 +1,19 @@
-import { motion } from "framer-motion";
+import { motion, Variants } from "motion/react";
 import { useInView } from "react-intersection-observer";
 
 export function FadeText({ textPhrase }: any) {
-  const animation = {
+  const animation: Variants = {
     initial: { y: "25%", opacity: 0, filter: "blur(2px)" },
-    enter: (i: any) => ({
+    enter: {
       y: "0",
       opacity: 1,
       filter: "blur(0px)",
       transition: {
         duration: 0.5,
-        ease: [0.33, 1, 0.68, 1],
-        delay: 0.075 * i,
+        ease: "easeOut",
+        staggerChildren: 0.075,
       },
-    }),
+    },
   };
 
   const { ref, inView } = useInView({
@@ -22,13 +22,30 @@ export function FadeText({ textPhrase }: any) {
   });
 
   return (
-    <div ref={ref} className="inline-block">
+    <motion.div 
+      ref={ref} 
+      className="inline-block"
+      variants={animation}
+      initial="initial"
+      animate={inView ? "enter" : ""}
+    >
       {textPhrase.map((phrase: any, index: number) => (
         <div key={index} className="inline-block overflow-hidden">
           <motion.span
             className="m-0 inline-block"
-            custom={index}
-            variants={animation}
+            variants={{
+              initial: { y: "25%", opacity: 0, filter: "blur(2px)" },
+              enter: {
+                y: "0",
+                opacity: 1,
+                filter: "blur(0px)",
+                transition: {
+                  duration: 0.5,
+                  ease: "easeOut",
+                  delay: 0.075 * index,
+                },
+              },
+            }}
             initial="initial"
             animate={inView ? "enter" : ""}
           >
@@ -36,7 +53,7 @@ export function FadeText({ textPhrase }: any) {
           </motion.span>
         </div>
       ))}
-    </div>
+    </motion.div>
   );
 }
 
