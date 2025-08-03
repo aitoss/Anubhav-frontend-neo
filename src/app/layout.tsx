@@ -2,6 +2,7 @@ import { geistMono, inter } from "@/lib/fonts";
 import type { Metadata, Viewport } from "next/types";
 import "./globals.css";
 import { QueryProvider } from '../providers';
+import NavigationWrapper from "@/components/Layout/NavigationWrapper";
 
 export const metadata: Metadata = {
   title: "Anubhav",
@@ -55,7 +56,9 @@ export default function RootLayout({
         className={`${inter.variable} ${geistMono.variable} font-sans antialiased`}
       >
         <QueryProvider>
-          {children}
+          <NavigationWrapper>
+            {children}
+          </NavigationWrapper>
         </QueryProvider>
       </body>
     </html>

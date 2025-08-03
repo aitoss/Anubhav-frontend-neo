@@ -4,11 +4,9 @@ import { useEffect } from "react";
 import AnubhavIsOS from "../components/Landing/AnubhavIsOS/AnubhavIsOS";
 import CTA from "../components/Landing/CTA/CTA";
 import Features from "../components/Landing/Features/Features";
-import Footer from "../components/Landing/Footer/Footer";
 import HomeScreen from "../components/Landing/HomeScreen/HomeScreen";
 import HowItWorks from "../components/Landing/HowItWorks/HowItWorks";
 import WhatIsAnubhav from "../components/Landing/WhatIsAnubhav/WhatIsAnubhav";
-import Navbar from "@/components/Navbar/Navbar";
 
 export default function Home() {
   useEffect(() => {
@@ -24,7 +22,6 @@ export default function Home() {
 
   return (
     <div className="mx-auto flex flex-col overflow-hidden">
-      <Navbar />
       <HomeScreen />
       <WhatIsAnubhav />
       <HowItWorks />
@@ -32,7 +29,6 @@ export default function Home() {
       <AnubhavIsOS />
       <div className="flex flex-col items-center">
         <CTA />
-        <Footer />
       </div>
     </div>
     // <BrowserRouter>

@@ -1,7 +1,7 @@
 "use client";
 import Giscus from "@giscus/react";
 import { useMemo, useRef, useState, useCallback } from "react";
-import ReactQuill from "react-quill-new";
+import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.bubble.css";
 import { useBlogById } from "../../hooks/useBlogs";
 import { useSimilarBlogs } from "../../hooks/useSearch";
@@ -11,6 +11,16 @@ import Author from "./_Child/Author";
 import Tags from "./_Child/Tags";
 import Articles from "./Articles";
 import BlogLoading from "./BlogLoading";
+
+// Dynamically import ReactQuill to avoid SSR issues
+const ReactQuill = dynamic(() => import("react-quill-new"), { 
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center h-[200px] text-gray-500">
+      Loading content...
+    </div>
+  )
+});
 
 const LazyLoad = ({ children }: any) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);

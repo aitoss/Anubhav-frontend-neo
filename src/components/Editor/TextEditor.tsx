@@ -1,8 +1,26 @@
+"use client";
 import React, { useEffect, useRef } from "react";
-import ReactQuill from "react-quill-new";
+import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
 import "react-quill-new/dist/quill.bubble.css";
 import "../Editor/Index.css";
+
+// Dynamically import ReactQuill to avoid SSR issues
+const ReactQuill = dynamic(
+  async () => {
+    const { default: RQ } = await import("react-quill-new");
+    // Forward ref to support ref prop
+    return React.forwardRef((props: any, ref: React.Ref<any>) => <RQ {...props} ref={ref} />);
+  },
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex items-center justify-center h-[400px] border border-gray-300 rounded-lg bg-gray-50">
+        <div className="text-gray-500">Loading editor...</div>
+      </div>
+    ),
+  }
+);
 
 const modules = {
   toolbar: [
@@ -22,7 +40,7 @@ const modules = {
 
 const TextEditor = ({ article, setArticle }: any) => {
   // create a reference for the Quill editor
-  const quillRef = useRef<ReactQuill>(null);
+  const quillRef = useRef<any>(null);
 
   useEffect(() => {
     // function to handle the scroll event

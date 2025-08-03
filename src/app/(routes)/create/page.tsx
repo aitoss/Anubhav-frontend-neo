@@ -1,19 +1,18 @@
 "use client";
+import BasicInformation from "@/components/Create/BasicInformation";
+import DragAndDropImageUpload from "@/components/Create/DragAndDropImageUpload";
+import PreviewPage from "@/components/Create/PreviewPage";
+import SubmittedCard from "@/components/Create/SubmittedCard";
+import WriteHere from "@/components/Create/WriteHere";
+import BackgroundDots from "@/components/assets/Background";
+import SuccessMessage from "@/components/notification/SuccessMessage";
 import AnimateIcon from "@/components/ui/animate-icon";
 import { Button } from "@/components/ui/button";
+import useErrorToast from "@/hooks/useErrorToast";
+import { apiService } from "@/lib/api";
 import { ChevronLeft, ChevronRight, Plane } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import BasicInformation from "../../components/Create/BasicInformation";
-import DragAndDropImageUpload from "../../components/Create/DragAndDropImageUpload";
-import PreviewPage from "../../components/Create/PreviewPage";
-import SubmittedCard from "../../components/Create/SubmittedCard";
-import WriteHere from "../../components/Create/WriteHere";
-import Footer from "../../components/Landing/Footer/Footer";
-import BackgroundDots from "../../components/assets/Background";
-import SuccessMessage from "../../components/notification/SuccessMessage";
-import useErrorToast from "../../hooks/useErrorToast";
-import { apiService } from "../../lib/api";
 
 const Create = () => {
   const initialState = {
@@ -52,7 +51,7 @@ const Create = () => {
   const publishPost = async () => {
     setIsLoading(true);
     try {
-      const response = await apiService.createBlog({
+      await apiService.createBlog({
         title: value.title,
         authorName: value.name,
         authorEmailId: value.email,
@@ -114,7 +113,7 @@ const Create = () => {
   const progressPercentage = ((step - 1) / 3) * 100;
 
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-between bg-[#f9f9f9]">
+    <div className="relative flex flex-col items-center justify-between bg-[#f9f9f9]">
       <BackgroundDots
         dotSize={1.8}
         dotColor="#cbcbcc"
@@ -263,7 +262,6 @@ const Create = () => {
           />
         )}
       </div>
-      <Footer />
     </div>
   );
 };

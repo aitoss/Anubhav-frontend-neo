@@ -1,8 +1,19 @@
+"use client";
 import React, { useEffect, useState } from "react";
-import ReactQuill from "react-quill-new";
+import dynamic from "next/dynamic";
 import { useParams } from "react-router-dom";
 import { apiService } from "../../lib/api";
 import "react-quill-new/dist/quill.bubble.css";
+
+// Dynamically import ReactQuill to avoid SSR issues
+const ReactQuill = dynamic(() => import("react-quill-new"), { 
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center h-[200px] text-gray-500">
+      Loading content...
+    </div>
+  )
+});
 
 const ViewBlog = () => {
   const { id } = useParams();

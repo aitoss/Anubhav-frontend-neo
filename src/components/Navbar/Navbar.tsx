@@ -31,7 +31,7 @@ const Navbar = () => {
   }, [prevScrollPos]);
   
 
-  const navClasses = `bg-[#ffffffcc] bg-blur border-b fixed w-full h-[60px] px-0 lg:px-8 flex items-center justify-between text-[#212121] z-[9999] transition-transform transform ${visible ? "translate-y-0" : "-translate-y-full"}`;
+  const navClasses = `bg-[#ffffffcc] bg-blur border-b fixed w-full h-[60px] mx-auto px-0 lg:px-8 flex items-center justify-between text-[#212121] z-[9999] transition-transform transform ${visible ? "translate-y-0" : "-translate-y-full"}`;
 
   return (
     <nav className={navClasses}>

@@ -53,7 +53,7 @@ const NavbarMini = () => {
     };
   }, [prevScrollPos]);
 
-  const navClasses = `rrelative bg-[#ffffffcc] bg-blur border-b fixed item-center justify-center h-[60px] p-3 flex w-screen text-black z-[9999] transition-transform transform ${visible ? "translate-y-0" : "-translate-y-full"
+  const navClasses = `relative bg-[#ffffffcc] bg-blur border-b fixed items-center justify-center h-[60px] p-3 flex w-screen text-black z-[9999] transition-transform transform ${visible ? "translate-y-0" : "-translate-y-full"
     }`;
 
   return (

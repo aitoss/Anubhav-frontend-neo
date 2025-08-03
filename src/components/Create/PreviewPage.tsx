@@ -1,11 +1,22 @@
+"use client";
 import React, { useMemo, useEffect, useRef } from "react";
 import { Camera } from "lucide-react";
 import Author from "../BlogSection/_Child/Author";
 import Tag from "../InputTag/Tag";
 import MinuteReadLikes from "../MinuteReadLikes/MinuteReadLikes";
 import { formatDate, ReadTime } from "../../services/date";
-import ReactQuill from "react-quill-new";
+import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.bubble.css"; // Import theme CSS
+
+// Dynamically import ReactQuill to avoid SSR issues
+const ReactQuill = dynamic(() => import("react-quill-new"), { 
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center h-[200px] text-gray-500">
+      Loading preview...
+    </div>
+  )
+});
 
 const PreviewPage = ({ value, article, bannerImage, tags }: any) => {
   const MemoizedAuthor = useMemo(() => {
