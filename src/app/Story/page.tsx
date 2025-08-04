@@ -1,7 +1,5 @@
 "use client";
 import { motion } from "motion/react";
-import Footer from "../../components/Landing/Footer/Footer";
-import Navbar from "../../components/Navbar/Navbar";
 import { Timeline } from "../../components/Timeline/timeline";
 
 const Story = () => {

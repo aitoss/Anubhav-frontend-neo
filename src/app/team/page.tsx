@@ -1,11 +1,9 @@
 "use client";
-import React, { useMemo, useState } from "react";
-import Footer from "../../components/Landing/Footer/Footer";
-import Navbar from "../../components/Navbar/Navbar";
-import { WobbleCard } from "../../components/Tooltip/wobble";
-import { AnimatePresence, motion } from "motion/react"; // Import motion from motion/react
-import BackgroundDots from "../../components/assets/Background";
 import { DevTeamMemberProps, TeamKey } from "@/types/components";
+import { AnimatePresence, motion } from "motion/react"; // Import motion from motion/react
+import React, { useMemo, useState } from "react";
+import BackgroundDots from "../../components/assets/Background";
+import { WobbleCard } from "../../components/Tooltip/wobble";
 
 const DevTeamMember = React.memo(
   ({ name, platform, imageSrc, githubId, index }: DevTeamMemberProps) => (

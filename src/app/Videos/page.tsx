@@ -1,5 +1,4 @@
 "use client";
-import Navbar from "@/components/Navbar/Navbar";
 import { motion, useAnimation } from "motion/react";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
