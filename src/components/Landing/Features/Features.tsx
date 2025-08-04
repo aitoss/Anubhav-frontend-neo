@@ -4,10 +4,10 @@ import World from "public/assets/images/world.png";
 import Comment from "public/assets/svg/Comment";
 import VideoIcon from "public/assets/svg/VideoIcon";
 import React from "react";
-import Videos from "../../../app/videos/page";
 import { FollowerPointerCard } from "../../../components/ui/following-pointer";
 import FadeWrapper from "../../ui/fadeWrapper";
 import MaskWrapper from "../../ui/maskWrapper";
+import Videos from "@/app/videos/page";
 
 type CardProps = {
   title: string;
