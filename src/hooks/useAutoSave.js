@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 const STORAGE_KEY = 'article_draft';
 const AUTO_SAVE_INTERVAL = 10000; // 10 seconds
 
-export const useAutoSave = (formData, articleContent, step) => {
+export const useAutoSave = (formData, articleContent, step, bannerImage = null) => {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [showRestorePrompt, setShowRestorePrompt] = useState(false);
   const [lastSaved, setLastSaved] = useState(null);
@@ -41,6 +41,7 @@ export const useAutoSave = (formData, articleContent, step) => {
       articleContent,
       tags: formData.tags || [],
       step,
+      bannerImage,
       timestamp: Date.now()
     };
 
@@ -51,7 +52,7 @@ export const useAutoSave = (formData, articleContent, step) => {
     } catch (error) {
       console.error('Error saving draft:', error);
     }
-  }, [formData, articleContent, step]);
+  }, [formData, articleContent, step, bannerImage]);
 
   // Restore draft function
   const restoreDraft = useCallback(() => {

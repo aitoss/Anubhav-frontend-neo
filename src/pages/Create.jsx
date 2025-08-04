@@ -52,7 +52,7 @@ const Create = () => {
     saveDraft,
     restoreDraft,
     clearDraft
-  } = useAutoSave(formDataWithTags, article, step);
+  } = useAutoSave(formDataWithTags, article, step, bannerImage);
 
   // Handle restore draft
   const handleRestoreDraft = () => {
@@ -61,7 +61,21 @@ const Create = () => {
       setValue(savedDraft.formData || initialState);
       setArticle(savedDraft.articleContent || "");
       setTags(savedDraft.tags || []);
-      setStep(savedDraft.step || 1);
+      
+      // Restore banner image if available
+      if (savedDraft.bannerImage) {
+        setbannerImage(savedDraft.bannerImage);
+      }
+      
+      // Check if user has uploaded an image when restoring to step 2 or higher
+      const restoredStep = savedDraft.step || 1;
+      if (restoredStep >= 2 && !savedDraft.bannerImage && !file) {
+        // If user was on step 2 or higher but doesn't have an image, force them back to step 1
+        setStep(1);
+      } else {
+        setStep(restoredStep);
+      }
+      
       setShowRestorePrompt(false);
     }
   };
