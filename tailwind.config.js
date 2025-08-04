@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import flowbite from 'flowbite/plugin';
+
 export default {
   content: [
     "./index.html",
@@ -9,6 +11,8 @@ export default {
     extend: {
       animation: {
         "infinite-scroll": "infinite-scroll 25s linear infinite",
+        rotate: "rotate 3s linear infinite both",
+        flip: "flip 6s infinite steps(2, end)",
       },
       keyframes: {
         "infinite-scroll": {
@@ -26,10 +30,6 @@ export default {
             transform: "rotate(360deg)",
           },
         },
-      },
-      animation: {
-        rotate: "rotate 3s linear infinite both",
-        flip: "flip 6s infinite steps(2, end)",
       },
       animationDelay: {
         4: "4s",
@@ -61,5 +61,5 @@ export default {
       },
     },
   },
-  plugins: [require("flowbite/plugin")],
+  plugins: [flowbite],
 };
