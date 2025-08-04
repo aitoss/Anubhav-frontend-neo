@@ -105,8 +105,6 @@ const Story = () => {
 
   return (
     <>
-      <Navbar />
-
       <div className="flex flex-col mx-auto min-h-screen">
         <div className="h-16 md:h-8"></div>
         <div className="flex flex-col items-center flex-1">
@@ -142,7 +140,6 @@ const Story = () => {
             </div>
           </section>
         </div>
-        <Footer />
       </div>
     </>
   );

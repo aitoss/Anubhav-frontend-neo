@@ -2,20 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
+import { NoButtonProps } from "@/types/ui";
 import AnimateIcon from "./animate-icon";
-
-interface NoButtonProps {
-  children: ReactNode;
-  disabled?: boolean;
-  icon?: ReactNode;
-  iconPosition?: "left" | "right";
-  className?: string;
-  variant?: "default" | "outline" | "ghost" | "link" | "destructive";
-  size?: "default" | "sm" | "lg" | "icon";
-  onClick?: () => void;
-  style?: React.CSSProperties;
-}
 
 export function NoButton({
   children,

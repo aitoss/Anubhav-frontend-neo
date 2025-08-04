@@ -1,9 +1,6 @@
+import { MaskTextProps } from "@/types/ui";
 import { motion } from "motion/react";
 import { useInView } from "react-intersection-observer";
-
-interface MaskTextProps {
-  textPhrase: string[];
-}
 
 export function MaskText({ textPhrase }: MaskTextProps) {
   const animation = {

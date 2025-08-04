@@ -1,13 +1,6 @@
+import { FadeWrapperProps } from "@/types/ui";
 import { AnimatePresence, motion } from "motion/react";
 import { useInView } from "react-intersection-observer";
-import { ReactNode } from "react";
-
-interface FadeWrapperProps {
-  children: ReactNode;
-  className?: string;
-  duration?: number;
-  delay?: number;
-}
 
 const FadeWrapper = ({
   children,

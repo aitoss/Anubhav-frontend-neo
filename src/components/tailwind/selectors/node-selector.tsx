@@ -7,7 +7,6 @@ import {
   Heading2,
   Heading3,
   ListOrdered,
-  type LucideIcon,
   TextIcon,
   TextQuote,
 } from "lucide-react";
@@ -16,13 +15,7 @@ import { EditorBubbleItem, useEditor } from "novel";
 import { NoButton } from "@/components/ui/no-button";
 import { PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Popover } from "@radix-ui/react-popover";
-
-export type SelectorItem = {
-  name: string;
-  icon: LucideIcon;
-  command: (editor: ReturnType<typeof useEditor>["editor"]) => void;
-  isActive: (editor: ReturnType<typeof useEditor>["editor"]) => boolean;
-};
+import { SelectorItem, NodeSelectorProps } from "@/types/ui/editor";
 
 const items: SelectorItem[] = [
   {
@@ -85,10 +78,6 @@ const items: SelectorItem[] = [
     isActive: (editor) => !!(editor && editor.isActive("codeBlock")),
   },
 ];
-interface NodeSelectorProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}
 
 export const NodeSelector = ({ open, onOpenChange }: NodeSelectorProps) => {
   const { editor } = useEditor();

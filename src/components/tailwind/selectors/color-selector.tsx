@@ -2,10 +2,7 @@ import { NoButton } from "@/components/ui/no-button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Check, ChevronDown } from "lucide-react";
 import { EditorBubbleItem, useEditor } from "novel";
-export interface BubbleColorMenuItem {
-  name: string;
-  color: string;
-}
+import { BubbleColorMenuItem, ColorSelectorProps } from "@/types/ui/editor";
 
 const TEXT_COLORS: BubbleColorMenuItem[] = [
   {
@@ -84,11 +81,6 @@ const HIGHLIGHT_COLORS: BubbleColorMenuItem[] = [
     color: "var(--novel-highlight-gray)",
   },
 ];
-
-interface ColorSelectorProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}
 
 export const ColorSelector = ({ open, onOpenChange }: ColorSelectorProps) => {
   const { editor } = useEditor();

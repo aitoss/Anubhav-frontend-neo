@@ -121,7 +121,7 @@ const Create = () => {
           <div
             className={`-50 absolute ${step >= 1 ? "bg-[#fff]" : ""} left-0 top-1/2 flex h-full w-1/3 -translate-y-1/2 translate-x-0 items-center justify-center text-[#212121]`}
           >
-            1. Basic Info <span className="md:hidden">rmation</span>
+            1. Basic Info <span className="md:block hidden">rmation</span>
           </div>
           <div
             className={`-50 absolute ${step >= 2 ? "bg-[#fff]" : ""} left-1/3 top-1/2 flex h-full w-1/3 -translate-y-1/2 translate-x-0 items-center justify-center text-[#212121]`}
@@ -131,7 +131,7 @@ const Create = () => {
           <div
             className={`-50 absolute ${step >= 3 ? "bg-[#fff]" : ""} right-0 top-1/2 flex h-full w-1/3 -translate-y-1/2 translate-x-0 items-center justify-center text-[#212121]`}
           >
-            3. Preview <span className="md:hidden">&nbsp;& Publish</span>
+            3. Preview <span className="md:block hidden">&nbsp;& Publish</span>
           </div>
           <div
             className="absolute bottom-0 z-[999] h-1 bg-[#212121] transition-all duration-300"
@@ -176,11 +176,11 @@ const Create = () => {
         )}
 
         {/* Navigation Buttons */}
-        <div className="flex max-w-4xl justify-between md:px-0 px-5 w-full mx-auto">
+        <div className="flex max-w-4xl justify-center gap-2 md:justify-between md:px-0 px-5 w-full mx-auto">
           {step > 1 && (
             <Button
               onClick={handleBack}
-              className="group px-2.5"
+              className="group px-2.5 w-1/2 md:w-fit"
               variant="outline"
               asChild
             >
@@ -194,7 +194,7 @@ const Create = () => {
           {step < 3 ? (
             <Button
               onClick={handleNext}
-              className="group px-2.5 md:w-fit w-full md:ml-auto"
+              className="group px-2.5 w-1/2 md:w-fit md:ml-auto"
               asChild
             >
               <span className="flex items-center">
@@ -206,7 +206,7 @@ const Create = () => {
             <Button
               onClick={publishPost}
               disabled={isLoading}
-              className="group px-2.5"
+              className="group px-2.5 w-1/2 md:w-fit"
               asChild
             >
               <span className="flex items-center">

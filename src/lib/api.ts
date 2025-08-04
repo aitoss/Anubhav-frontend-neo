@@ -155,8 +155,4 @@ export const apiService = {
 };
 
 // Export the axios instance for custom usage
-export { api };
-
-// Export types for better TypeScript support
-export type ApiResponse<T = any> = AxiosResponse<T>;
-export type ApiError = any; 
+export { api }; 

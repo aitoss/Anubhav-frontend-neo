@@ -1,20 +1,7 @@
 import BlogCard from "./BlogCard";
 import company from "public/assets/images/company.png";
 import { ReadTime } from "../../services/date";
-
-interface ArticleAuthor {
-  name: string;
-}
-
-interface Article {
-  _id: string;
-  title: string;
-  imageUrl: string;
-  author?: ArticleAuthor;
-  companyName?: string;
-  description: string;
-  createdAt: string;
-}
+import { Article } from "@/types/components/blog";
 
 interface ArticlesProps {
   similarArticles: Article[];

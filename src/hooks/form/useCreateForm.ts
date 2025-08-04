@@ -6,6 +6,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import { 
   FormData, 
+  FormErrors,
+  UseCreateFormReturn
+} from '@/types/forms';
+import { 
   saveFormData, 
   getFormData, 
   clearFormData, 
@@ -14,46 +18,6 @@ import {
   getDefaultFormData 
 } from './useFormStorage';
 
-export interface FormErrors {
-  name?: string;
-  email?: string;
-  company?: string;
-  position?: string;
-  title?: string;
-  file?: string;
-  tags?: string;
-  article?: string;
-}
-
-export interface UseCreateFormReturn {
-  // Form data
-  formData: FormData;
-  
-  // Form state
-  step: number;
-  errors: FormErrors;
-  isLoading: boolean;
-  
-  // Form actions
-  updateFormData: (data: Partial<FormData>) => void;
-  setStep: (step: number) => void;
-  setErrors: (errors: FormErrors) => void;
-  setIsLoading: (loading: boolean) => void;
-  
-  // Navigation
-  handleNext: () => boolean;
-  handleBack: () => void;
-  goToStep: (step: number) => void;
-  
-  // Storage actions
-  clearForm: () => void;
-  hasUnsavedData: boolean;
-  lastSavedAge: number;
-  
-  // Form submission
-  resetAfterSubmission: () => void;
-}
-
 const useCreateForm = (): UseCreateFormReturn => {
   // Initialize state from localStorage or defaults
   const [formData, setFormData] = useState<FormData>(getDefaultFormData);
@@ -61,6 +25,7 @@ const useCreateForm = (): UseCreateFormReturn => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [mounted, setMounted] = useState<boolean>(false);
+  const [loadedFromStorage, setLoadedFromStorage] = useState<boolean>(false);
 
   // Handle client-side mounting
   useEffect(() => {
@@ -70,10 +35,13 @@ const useCreateForm = (): UseCreateFormReturn => {
     const savedData = getFormData();
     if (savedData) {
       setFormData(savedData);
+      setLoadedFromStorage(true);
       // Restore the step if user was in the middle of filling the form
       if (savedData.currentStep && savedData.currentStep <= 3) {
         setStep(savedData.currentStep);
       }
+    } else {
+      setLoadedFromStorage(false);
     }
   }, []);
 
@@ -195,6 +163,7 @@ const useCreateForm = (): UseCreateFormReturn => {
     setStep(1);
     setErrors({});
     setIsLoading(false);
+    setLoadedFromStorage(false);
     clearFormData();
   }, []);
 
@@ -232,6 +201,7 @@ const useCreateForm = (): UseCreateFormReturn => {
     // Storage actions
     clearForm,
     hasUnsavedData,
+    loadedFromStorage,
     lastSavedAge,
     
     // Form submission

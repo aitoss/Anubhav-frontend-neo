@@ -6,6 +6,7 @@ import { Popover, PopoverTrigger } from "@radix-ui/react-popover";
 import { ArrowUpRight, Check, Trash } from "lucide-react";
 import { useEditor } from "novel";
 import { useEffect, useRef } from "react";
+import { LinkSelectorProps } from "@/types/ui/editor";
 
 export function isValidUrl(url: string) {
   try {
@@ -24,10 +25,6 @@ export function getUrlFromString(str: string) {
   } catch (_e) {
     return null;
   }
-}
-interface LinkSelectorProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
 }
 
 export const LinkSelector = ({ open, onOpenChange }: LinkSelectorProps) => {

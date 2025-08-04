@@ -6,7 +6,7 @@ import Background from "./background";
 const AnubhavIsOS = () => {
   return (
     <>
-      <section className="relative z-50 mb-24 flex flex-col items-center gap-8 bg-[#f9f9f9] py-16">
+      <section className="relative z-40 mb-24 flex flex-col items-center gap-8 bg-[#f9f9f9] py-16">
         <Background />
         <FadeWrapper>
           <h2 className="text-4xl tracking-tight font-medium text-center text-[#212121] sm:text-3xl lg:text-6xl">

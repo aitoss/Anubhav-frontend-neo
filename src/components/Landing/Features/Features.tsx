@@ -114,7 +114,7 @@ const Features = () => {
           >
             <FollowerPointerCard
               cursorColor="text-[#12B76A]"
-              className="group relative z-50"
+              className="group relative z-40"
               title={
                 <TitleComponent
                   title="You"
@@ -185,7 +185,7 @@ const Features = () => {
               </div>
             </FollowerPointerCard>
           </Card>
-          <div className="z-[60] md:h-full md:w-[1px] bg-[#d2d2d6] h-[1px] w-full" />
+          <div className="z-[40] md:h-full md:w-[1px] bg-[#d2d2d6] h-[1px] w-full" />
           <Card
             title="Video Collection"
             bold="Prefer Videos Over Blogs? "

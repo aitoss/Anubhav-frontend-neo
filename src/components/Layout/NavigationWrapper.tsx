@@ -3,10 +3,7 @@ import { usePathname } from "next/navigation";
 import Navbar from "../Navbar/Navbar";
 import NavbarMini from "../Navbar/NavbarMini";
 import Footer from "../Landing/Footer/Footer";
-
-interface NavigationWrapperProps {
-  children: React.ReactNode;
-}
+import { NavigationWrapperProps } from "@/types/components";
 
 interface RouteLayoutConfig {
   overflow?: string;

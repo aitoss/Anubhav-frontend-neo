@@ -5,14 +5,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import { WobbleCard } from "../../components/Tooltip/wobble";
 import { AnimatePresence, motion } from "motion/react"; // Import motion from motion/react
 import BackgroundDots from "../../components/assets/Background";
-
-type DevTeamMemberProps = {
-  name: string;
-  platform: string;
-  imageSrc: string;
-  githubId: string;
-  index: number;
-};
+import { DevTeamMemberProps, TeamKey } from "@/types/components";
 
 const DevTeamMember = React.memo(
   ({ name, platform, imageSrc, githubId, index }: DevTeamMemberProps) => (
@@ -52,8 +45,6 @@ const DevTeamMember = React.memo(
 );
 
 DevTeamMember.displayName = 'DevTeamMember';
-
-type TeamKey = "current" | "firstGen";
 
 const DevTeam = () => {
   const [activeTeam, setActiveTeam] = useState<TeamKey>("current"); // Holds 'current' or 'firstGen'
@@ -152,7 +143,6 @@ const DevTeam = () => {
 
   return (
     <>
-      <Navbar />
       <BackgroundDots
         dotSize={1.8}
         dotColor="#cbcbcc"
@@ -218,7 +208,6 @@ const DevTeam = () => {
             ))}
           </div>
         </div>
-        <Footer />
       </div>
     </>
   );

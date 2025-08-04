@@ -1,11 +1,7 @@
-import React, { RefObject } from "react";
+import React from "react";
+import { LoaderProps } from "@/types/components";
 
-interface Props {
-  cursor: { x: number; y: number };
-  cardRef: RefObject<HTMLElement>;
-}
-
-const Logo: React.FC<Props> = () => {
+const Logo: React.FC<LoaderProps> = () => {
   return (
     <svg
       className="logo"

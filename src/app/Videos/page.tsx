@@ -38,7 +38,6 @@ const Videos = () => {
 
   return (
     <>
-      <Navbar />
       <BackgroundDots
         dotSize={1.8}
         dotColor="#cbcbcc"

@@ -54,17 +54,17 @@ const PreviewPage = ({ value, article, bannerImage, tags }: any) => {
 
   return (
     <>
-      <div className="max-w-4xl w-full mx-auto pt-4">
+      <div className="max-w-4xl w-full mx-auto pt-4 md:px-0 px-5">
         <h1 className="text-left text-2xl font-[500] text-[#212121]">
           Preview Your Article
         </h1>
-        <div className="flex flex-col items-center justify-center">
-          <div className="laptop-mockup h-[360px] w-[620px] rounded-t-xl border-2 bg-[#121212] p-3 md:h-[500px] md:w-full md:rounded-xl md:p-2 lg:h-[500px] lg:w-[920px] xs:rounded-3xl xs:p-1">
+        <div className="flex flex-col items-center justify-center md:px-0 px-12">
+          <div className="laptop-mockup relative h-[500px] w-full rounded-t-xl border-2 bg-[#121212] p-3 md:h-[360px] md:w-[620px] md:rounded-xl md:p-2 lg:h-[500px] lg:w-[920px] xs:rounded-3xl xs:p-1">
             <div
-              className="laptop-screen flex h-full flex-col gap-2 overflow-y-auto bg-white p-2 px-12 md:rounded-md md:px-4 lg:px-32 xs:rounded-[20px]"
+              className="laptop-screen flex h-full flex-col gap-2 overflow-y-auto bg-white p-2 md:px-12 md:rounded-md px-4 lg:px-32 xs:rounded-[20px]"
               ref={scrollContainerRef} // Attach the ref here
             >
-              <h1 className="text-3xl font-bold">{value.title}</h1>
+              <h1 className="text-2xl tracking-tighter md:text-3xl font-bold">{value.title}</h1>
               {MemoizedAuthor}
               <div className="pointer-events-auto flex flex-wrap gap-2">
                 {tags.map((tag: any, index: number) => (
@@ -86,7 +86,7 @@ const PreviewPage = ({ value, article, bannerImage, tags }: any) => {
                 </div>
               )}
               <div className="lorem-container flex flex-col items-center justify-center py-3 text-foreground">
-                <div className="w-full rounded-lg bg-white text-[18px] shadow-none prose prose-lg max-w-none">
+                <div className="w-full rounded-lg bg-white text-sm md:text-base shadow-none prose prose-lg max-w-none">
                   <div
                     dangerouslySetInnerHTML={{ __html: article }}
                     className="h-full w-full"
@@ -94,11 +94,11 @@ const PreviewPage = ({ value, article, bannerImage, tags }: any) => {
                 </div>
               </div>
             </div>
+            <div className="absolute right-1 translate-x-1.5 top-[20%] md:hidden h-16 w-[5px] rounded-e bg-[#121212] block mt-2"></div>
+            <div className="absolute right-1 translate-x-1.5 top-[37%] md:hidden h-8 w-[5px] rounded-e bg-[#121212] block"></div>
           </div>
-          <div className="absolute right-[5%] top-[40%] md:hidden h-16 w-[5px] rounded-e-sm bg-[#121212] block"></div>
-          <div className="absolute right-[5%] top-[52%] md:hidden h-8 w-[5px] rounded-e-sm bg-[#121212] block"></div>
-          <div className="laptop-base -mt-3 h-2 w-[620px] border-x-2 bg-[#212121] hidden md:block md:w-full lg:w-[920px]"></div>
-          <div className="laptop-base -mx-8 h-4 w-[680px] rounded-b-xl border bg-[#121212] hidden md:block md:w-full lg:w-[980px]"></div>
+          <div className="laptop-base z-30 -mt-3 h-2 w-full border-x-2 bg-[#212121] hidden md:block md:w-[620px] lg:w-[920px]"></div>
+          <div className="laptop-base z-30 -mx-8 h-4 w-full rounded-b-xl border bg-[#121212] hidden md:block md:w-[680px] lg:w-[980px]"></div>
         </div>
       </div>
     </>

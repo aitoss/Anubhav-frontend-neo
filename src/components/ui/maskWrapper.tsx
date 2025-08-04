@@ -1,10 +1,6 @@
+import { MaskWrapperProps } from "@/types/ui";
 import { motion } from "motion/react";
 import { useInView } from "react-intersection-observer";
-import { ReactNode } from "react";
-
-interface MaskWrapperProps {
-  children: ReactNode;
-}
 
 export function MaskWrapper({
   children

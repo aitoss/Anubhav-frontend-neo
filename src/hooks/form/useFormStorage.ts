@@ -3,25 +3,7 @@
  * Provides type-safe local storage operations with error handling
  */
 
-export interface FormData {
-  // Step 1: Basic Information
-  name: string;
-  email: string;
-  company: string;
-  position: string;
-  title: string;
-  tags: string[];
-  bannerImageUrl?: string;
-  
-  // Step 2: Article Content
-  article: string;
-  
-  // Meta information
-  currentStep: number;
-  lastUpdated: string;
-}
-
-export const FORM_STORAGE_KEY = 'anubhav-create-form-data';
+import { FormData, FORM_STORAGE_KEY } from '@/types/forms';
 
 /**
  * Check if we're running on the client side

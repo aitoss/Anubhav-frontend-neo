@@ -1,31 +1,13 @@
 "use client"
 
-import { useRef } from "react"
+import { BlurFadeProps } from "@/types/ui";
 import {
   AnimatePresence,
   motion,
   useInView,
-  UseInViewOptions,
-  Variants,
-} from "motion/react"
-
-type MarginType = UseInViewOptions["margin"]
-
-interface BlurFadeProps {
-  children: React.ReactNode
-  className?: string
-  variant?: {
-    hidden: { y: number }
-    visible: { y: number }
-  }
-  duration?: number
-  delay?: number
-  yOffset?: number
-  inView?: boolean
-  inViewMargin?: MarginType
-  blur?: string
-  preservePosition?: boolean
-}
+  Variants
+} from "motion/react";
+import { useRef } from "react";
 
 export function BlurFade({
   children,
@@ -47,7 +29,7 @@ export function BlurFade({
     visible: { y: -yOffset, opacity: 1, filter: `blur(0px)` },
   }
   const combinedVariants = variant || defaultVariants
-  
+
   if (preservePosition) {
     return (
       <AnimatePresence>
@@ -63,7 +45,7 @@ export function BlurFade({
             ease: "easeOut",
           }}
           className={className}
-          style={{ 
+          style={{
             position: 'static',
             display: 'contents'
           }}
@@ -73,7 +55,7 @@ export function BlurFade({
       </AnimatePresence>
     )
   }
-  
+
   return (
     <AnimatePresence>
       <motion.div

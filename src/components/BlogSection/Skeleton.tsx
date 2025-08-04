@@ -1,19 +1,17 @@
-import React from 'react'
+import { SkeletonProps } from "@/types/components";
 
 const Skeleton = ({
     className
-}: any) => (
+}: SkeletonProps) => (
     <div aria-live="polite" aria-busy="true" className={className}>
-        <span className="inline-flex w-full h-full animate-pulse select-none rounded bg-[#e9e9e9] leading-none">
-            ‌
-        </span>
+        <span className="inline-flex w-full h-full animate-pulse select-none rounded bg-[#e9e9e9] leading-none"/>
         <br />
     </div>
 )
 
 const SVGSkeleton = ({
     className
-}: any) => (
+}: SkeletonProps) => (
     <svg
         className={
             className + " animate-pulse rounded bg-[#e9e9e9]"
@@ -32,4 +30,4 @@ const SVGSkeletonWhite = ({
 )
 
 
-export { Skeleton, SVGSkeleton, SVGSkeletonWhite }
+export { Skeleton, SVGSkeleton, SVGSkeletonWhite };

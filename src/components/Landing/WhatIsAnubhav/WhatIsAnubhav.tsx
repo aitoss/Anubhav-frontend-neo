@@ -9,11 +9,7 @@ import FadeText from "../../ui/fadeText";
 import FadeWrapper from "../../ui/fadeWrapper";
 import MaskText from "../../ui/maskText";
 import MaskWrapper from "../../ui/maskWrapper";
-
-type CardProps = {
-  title: string;
-  description: string;
-};
+import { CardProps, Card2Props } from "@/types/components";
 
 const Card = ({ title, description }: CardProps) => (
   <div className="relative w-full overflow-hidden rounded-2xl bg-background border shadow-sm p-4">
@@ -31,8 +27,6 @@ const Card = ({ title, description }: CardProps) => (
     </div>
   </div>
 );
-
-type Card2Props = Record<string, never>;
 
 const Card2: React.FC<Card2Props> = () => (
   <div className="relative h-[450px] w-full overflow-hidden rounded-2xl border bg-white shadow-sm">
