@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Landing/Footer/Footer";
 import SuccessMessage from "../components/notification/SuccessMessage";
@@ -14,6 +14,9 @@ import PreviewPage from "../components/Create/PreviewPage";
 import useErrorToast from "../hooks/useErrorToast";
 import DragAndDropImageUpload from "../components/Create/DragAndDropImageUpload";
 import BackgroundDots from "../assets/Background";
+import { useAutoSave } from "../hooks/useAutoSave";
+import RestorePrompt from "../components/Create/RestorePrompt";
+import SaveNotification from "../components/Create/SaveNotification";
 
 const Create = () => {
   const initialState = {
@@ -34,9 +37,75 @@ const Create = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [step, setStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showSaveNotification, setShowSaveNotification] = useState(false);
 
   const showError = useErrorToast();
   const [errors, setErrors] = useState({});
+
+  // Auto-save functionality
+  const formDataWithTags = { ...value, tags };
+  const {
+    hasUnsavedChanges,
+    showRestorePrompt,
+    setShowRestorePrompt,
+    lastSaved,
+    saveDraft,
+    restoreDraft,
+    clearDraft
+  } = useAutoSave(formDataWithTags, article, step, bannerImage);
+
+  // Handle restore draft
+  const handleRestoreDraft = () => {
+    const savedDraft = restoreDraft();
+    if (savedDraft) {
+      setValue(savedDraft.formData || initialState);
+      setArticle(savedDraft.articleContent || "");
+      setTags(savedDraft.tags || []);
+      
+      // Restore banner image if available
+      if (savedDraft.bannerImage) {
+        setbannerImage(savedDraft.bannerImage);
+      }
+      
+      // Check if user has uploaded an image when restoring to step 2 or higher
+      const restoredStep = savedDraft.step || 1;
+      if (restoredStep >= 2 && !savedDraft.bannerImage && !file) {
+        // If user was on step 2 or higher but doesn't have an image, force them back to step 1
+        setStep(1);
+      } else {
+        setStep(restoredStep);
+      }
+      
+      setShowRestorePrompt(false);
+    }
+  };
+
+  // Handle decline restore
+  const handleDeclineRestore = () => {
+    clearDraft();
+    setShowRestorePrompt(false);
+  };
+
+  // Manual save with notification
+  const handleManualSave = () => {
+    if (hasUnsavedChanges) {
+      saveDraft();
+      setShowSaveNotification(true);
+    }
+  };
+
+  // Keyboard shortcut for saving (Ctrl+S)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        handleManualSave();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [hasUnsavedChanges, handleManualSave]);
 
   const publishPost = async () => {
     setIsLoading(true);
@@ -55,7 +124,12 @@ const Create = () => {
       console.log("Article submitted successfully");
       setRequestSend("Article submitted successfully");
       setValue(initialState);
+      setArticle("");
+      setTags([]);
+      setStep(1);
       setIsSubmitted(true);
+      // Clear draft after successful submission
+      clearDraft();
     } catch (error) {
       console.error("Error submitting post:", error.response.data);
       showError("Failed to submit the article. Please try again.");
@@ -220,6 +294,36 @@ const Create = () => {
             </div>
           )}
 
+          {/* Manual Save Button */}
+          <div className="flex-shrink-0">
+            <ButtonV5
+              onClick={handleManualSave}
+              disabled={!hasUnsavedChanges}
+              color={hasUnsavedChanges ? "#212121" : "#e5e7eb"}
+              textColor={hasUnsavedChanges ? "#f0f0f0" : "#9ca3af"}
+              icon={false}
+            >
+              <div className="flex items-center gap-2">
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"
+                  />
+                </svg>
+                <span className="text-[16px] font-[500] -tracking-[0.2px]">
+                  Save Draft
+                </span>
+              </div>
+            </ButtonV5>
+          </div>
+
           {step < 3 ? (
             <button
               onClick={handleNext}
@@ -310,6 +414,21 @@ const Create = () => {
           />
         )}
       </div>
+
+      {/* Save notification */}
+      <SaveNotification
+        isVisible={showSaveNotification}
+        onClose={() => setShowSaveNotification(false)}
+      />
+
+      {/* Restore prompt */}
+      {showRestorePrompt && (
+        <RestorePrompt
+          onRestore={handleRestoreDraft}
+          onDecline={handleDeclineRestore}
+          lastSaved={lastSaved}
+        />
+      )}
 
       <Footer />
     </>
