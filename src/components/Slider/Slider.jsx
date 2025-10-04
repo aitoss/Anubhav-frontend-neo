@@ -11,15 +11,15 @@ import microsoft from "../../assets/company logo/microsoft.svg";
 import uber from "../../assets/company logo/uber.svg";
 
 const logos = [
-  adobe,
-  amazon,
-  atlassian,
-  DeutscheBank,
-  cisco,
-  google,
-  masterCard,
-  microsoft,
-  uber,
+  {src: adobe, alt: "Adobe", href: "https://adobe.com"},
+  {src: amazon, alt: "Amazon", href: "https://amazon.com"},
+  {src: atlassian, alt: "Atlassian", href: "https://atlassian.com"},
+  {src: DeutscheBank, alt: "Deutsche Bank", href: "https://deutschebank.com"},
+  {src: cisco, alt: "Cisco", href: "https://cisco.com"},
+  {src: google, alt: "Google", href: "https://google.com"},
+  {src: masterCard, alt: "MasterCard", href: "https://mastercard.com"},
+  {src: microsoft, alt: "Microsoft", href: "https://microsoft.com"},
+  {src: uber, alt: "Uber", href: "https://uber.com"},
 ];
 
 const Slider = () => {
@@ -37,13 +37,20 @@ const Slider = () => {
       <div className="logos">
         <div className="logos-slide">
           {logos.concat(logos).map((logo, index) => (
-            <img
+            <a
               key={index}
-              src={logo}
-              alt={`Logo ${index}`}
-              draggable="false"
-              className="select-none"
-            />
+              href={logo.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="logo-link"
+            >
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                draggable="false"
+                className="select-none logo-img"
+              />
+            </a>
           ))}
         </div>
       </div>

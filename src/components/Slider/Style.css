@@ -34,17 +34,40 @@
   background: linear-gradient(to right, rgba(255, 255, 255, 0), #f7f7f8);
 }
 
-/* .logos:hover .logos-slide {
-  animation-play-state: paused;
-}  */
+.logos:hover .logos-slide {
+  animation-play-state: paused !important;
+  transition: transform 0.5s ease-out;
+}
+
+.logos .logos-slide {
+  animation-play-state: running !important;
+  transition: transform 0.5s ease-in;
+}
 
 .logos-slide {
   display: inline-block;
   animation-duration: 10s;
+  transition: all 0.3s ease;
 }
 
 .logos-slide img {
   height: 35px;
   margin: 0 30px;
   display: inline-block;
+}
+
+.logo-link {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.logo-link:hover {
+  transform: scale(1.2);
+  z-index: 10;
+  position: relative;
+}
+
+.logo-img {
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
