@@ -60,4 +60,4 @@ If you'd like to contribute to this project, refer to the [contributing document
 ## Copyright 
 If you are thinking to use this application for your community/college, We would love to see AIT OSS CLUB mention at your hosted application.
 
-Made with ❤ by [OSS Club](https://aitoss.club). 
+Made with ❤ by [OSS Club](https://ossclub.in). 
