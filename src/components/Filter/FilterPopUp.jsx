@@ -2,7 +2,7 @@ import React from "react";
 import Filter from "./Filter";
 import { AnimatePresence, motion } from "framer-motion";
 
-const FilterPopUp = ({ closeFilterPopUp, company, fetchArticles, setHeaderName }) => {
+const FilterPopUp = ({ closeFilterPopUp, company, setHeaderName }) => {
   const handleClose = (e) => {
     if (e.target.classList.contains("fixed")) {
       closeFilterPopUp();
@@ -32,7 +32,6 @@ const FilterPopUp = ({ closeFilterPopUp, company, fetchArticles, setHeaderName }
             <Filter
               closeFilterPopUp={closeFilterPopUp}
               company={company}
-              fetchArticles={fetchArticles}
               setHeaderName={setHeaderName}
             />
           </div>

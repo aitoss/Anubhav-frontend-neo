@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import companyLogo from "/assets/images/company.png";
+import { getCompanyLogoUrl } from "../../constants";
 
-const Filter = ({ closeFilterPopUp, company, fetchArticles, setHeaderName }) => {
+const Filter = ({ closeFilterPopUp, company, setHeaderName }) => {
+  const navigate = useNavigate();
   const [currentCompany, setCurrentCompany] = useState("");
   const [show, setShow] = useState(false);
   const [sortBy, setSortBy] = useState("");
@@ -29,8 +32,8 @@ const Filter = ({ closeFilterPopUp, company, fetchArticles, setHeaderName }) => 
               key={item.company}
               onClick={() => {
                 setCurrentCompany(item.company);
-                fetchArticles(item.company, 1);
                 setHeaderName(item.company);
+                navigate("/search?query=" + encodeURIComponent(item.company));
                 handleClickApply();
               }}
               className={`relative flex cursor-pointer items-center justify-between rounded-md px-2 py-1 transition-all hover:bg-white ${currentCompany === item.company ? "bg-white" : ""
@@ -40,7 +43,7 @@ const Filter = ({ closeFilterPopUp, company, fetchArticles, setHeaderName }) => 
                 <div
                   className="h-5 w-5 rounded bg-cover bg-center bg-no-repeat"
                   style={{
-                    backgroundImage: `url(${item.domainName ? item.domainName : companyLogo
+                    backgroundImage: `url(${item.company ? getCompanyLogoUrl(item.company) : companyLogo
                       })`,
                   }}
                 ></div>

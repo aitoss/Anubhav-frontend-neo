@@ -57,8 +57,8 @@ const SearchPage = () => {
 
   const fetchArticles = async (query, page) => {
     setLoading(true);
+    if (page === 1) setArticles([]);
     const params = { q: query, page, limit: 10 };
-    console.log("params", params);
 
     try {
       const response = await axios.get(BACKEND_URL + "/search", { params });
@@ -140,7 +140,6 @@ const SearchPage = () => {
         <FilterPopUp
           closeFilterPopUp={closeFilterPopUp}
           company={company}
-          fetchArticles={fetchArticles}
           setHeaderName={setHeaderName}
         />
       )}
@@ -236,7 +235,6 @@ const SearchPage = () => {
           <div className="section-right flex w-1/5 flex-col gap-2 md:hidden">
             <Filter
               company={company}
-              fetchArticles={fetchArticles}
               setHeaderName={setHeaderName}
             />
           </div>

@@ -31,7 +31,7 @@ const RequestArticle = () => {
     const fetchCompanySuggestions = async () => {
       try {
         const response = await axios.get(BACKEND_URL + "/companies");
-        setCompanySuggestions(response.data);
+        setCompanySuggestions(response.data.companies);
       } catch (error) {
         console.error("Error fetching company suggestions:", error);
       }
@@ -246,11 +246,11 @@ const RequestArticle = () => {
                             className="text-md w-full rounded-lg border-[1px] border-[#78788033] bg-white p-3 text-[#3C3C43] ring ring-transparent placeholder:text-[#3C3C4399] focus:outline-none focus:placeholder:text-[#3c3c4350] sm:p-2 sm:text-[13px] md:w-full"
                           />
                         </motion.div>
-                        {/* <datalist id="companySuggestions">
+                        <datalist id="companySuggestions">
                           {companySuggestions.map((suggestion, index) => (
-                            <option key={index} value={suggestion} />
+                            <option key={index} value={suggestion.name} />
                           ))}
-                        </datalist> */}
+                        </datalist>
                       </div>
 
                       <div className="relative flex flex-col gap-2">
