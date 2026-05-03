@@ -24,6 +24,7 @@ const SearchPage = () => {
   const [totalArticles, setTotalArticles] = useState(0);
 
   const [filterPopUp, setFilterPopUp] = useState(false);
+  const [sortBy, setSortBy] = useState("relevance");
   const loadMoreRef = useRef(null);
 
   const openFilterPopup = () => {
@@ -34,10 +35,10 @@ const SearchPage = () => {
     setFilterPopUp(false);
   };
 
-  const fetchLatestArticles = async (endPoint, page = 1) => {
+  const fetchLatestArticles = async (endPoint, page = 1, sort = "date") => {
     setLoading(true);
     try {
-      const res = await axios.get(`${BACKEND_URL}${endPoint}?page=${page}`);
+      const res = await axios.get(`${BACKEND_URL}${endPoint}?page=${page}&sort=${sort}`);
       const data = res.data.articles;
       setTotalArticles(res.data.totalArticles);
 
@@ -55,10 +56,10 @@ const SearchPage = () => {
     }
   };
 
-  const fetchArticles = async (query, page) => {
+  const fetchArticles = async (query, page, sort = sortBy) => {
     setLoading(true);
     if (page === 1) setArticles([]);
-    const params = { q: query, page, limit: 10 };
+    const params = { q: query, page, limit: 10, sort };
 
     try {
       const response = await axios.get(BACKEND_URL + "/search", { params });
@@ -97,13 +98,25 @@ const SearchPage = () => {
     setIsSearching(!!query);
 
     if (query) {
+      setSortBy("relevance");
       setArticles([]);
       setPage(1);
-      fetchArticles(query, 1);
+      fetchArticles(query, 1, "relevance");
     } else {
+      setSortBy("date");
       fetchLatestArticles("/blogs");
     }
   }, [searchParams]);
+
+  useEffect(() => {
+    const query = searchParams.get("query");
+    setPage(1);
+    if (query) {
+      fetchArticles(query, 1, sortBy);
+    } else {
+      fetchLatestArticles("/blogs", 1, sortBy);
+    }
+  }, [sortBy]);
 
   const handleShowMore = () => {
     const query = searchParams.get("query");
@@ -162,7 +175,32 @@ const SearchPage = () => {
                           )
                     }`}
               </h3>
-              <svg
+              <div className="flex items-center gap-2">
+                {isSearching && (
+                  <div className="flex items-center gap-[3px] rounded-lg border border-[#e5e5e5] p-[3px] text-sm">
+                    <button
+                      onClick={() => setSortBy("relevance")}
+                      className="rounded-md px-4 py-1 transition-all duration-200"
+                      style={{
+                        backgroundColor: sortBy === "relevance" ? "#212121" : "#f8f8f8",
+                        color: sortBy === "relevance" ? "#f0f0f0" : "#212121",
+                      }}
+                    >
+                      Relevance
+                    </button>
+                    <button
+                      onClick={() => setSortBy("date")}
+                      className="rounded-md px-4 py-1 transition-all duration-200"
+                      style={{
+                        backgroundColor: sortBy === "date" ? "#212121" : "#f8f8f8",
+                        color: sortBy === "date" ? "#f0f0f0" : "#212121",
+                      }}
+                    >
+                      Date
+                    </button>
+                  </div>
+                )}
+                <svg
                 onClick={() => openFilterPopup()}
                 className="hidden h-7 w-7 cursor-pointer rounded-lg border border-[#c1c1c1] p-[2px] transition-all hover:border-[#919191] md:block"
                 width="24"
@@ -187,7 +225,8 @@ const SearchPage = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
-              </svg>
+                </svg>
+              </div>
             </div>
 
             {loading && articles.length === 0 ? (

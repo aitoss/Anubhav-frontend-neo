@@ -19,7 +19,7 @@ const Card = ({ title, bold, href, description, icon, children }) => (
         </div>
       </MaskWrapper>
       <MaskWrapper>
-        <p className="text-[20px] leading-[100%] tracking-tight text-[#a1a1a1]">
+        <p className="text-[20px] leading-snug tracking-tight text-[#a1a1a1]">
           <Link
             to={href}
             className={`font-[600] text-[#212121] ${href != "" ? "underline" : ""}`}
