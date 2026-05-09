@@ -16,6 +16,25 @@ const inputClass =
 
 const LINKEDIN_RE = /^https?:\/\/(www\.)?linkedin\.com\/.+/i;
 
+const ProfileShell = ({ children, requestSend, setRequestSend }) => (
+  <>
+    <Navbar />
+    <BackgroundDots
+      dotSize={1.8}
+      dotColor="#cbcbcc"
+      backgroundColor=""
+      gap={15}
+      className="custom-class"
+      fade={true}
+    />
+    <SuccessMessage requestSend={requestSend} setRequestSend={setRequestSend} />
+    <div className="relative mx-auto w-full max-w-[1440px] px-4 pb-16 pt-24 md:px-6 lg:px-14">
+      {children}
+    </div>
+    <Footer />
+  </>
+);
+
 const Profile = () => {
   const { user, loading, setUser } = useUser();
   const navigate = useNavigate();
@@ -71,37 +90,20 @@ const Profile = () => {
     }
   };
 
-  const Shell = ({ children }) => (
-    <>
-      <Navbar />
-      <BackgroundDots
-        dotSize={1.8}
-        dotColor="#cbcbcc"
-        backgroundColor=""
-        gap={15}
-        className="custom-class"
-        fade={true}
-      />
-      <SuccessMessage requestSend={requestSend} setRequestSend={setRequestSend} />
-      <div className="relative mx-auto w-full max-w-[1440px] px-4 pb-16 pt-24 md:px-6 lg:px-14">
-        {children}
-      </div>
-      <Footer />
-    </>
-  );
+  const shellProps = { requestSend, setRequestSend };
 
   if (loading) {
     return (
-      <Shell>
+      <ProfileShell {...shellProps}>
         <div className="flex h-[40vh] items-center justify-center">
           <Spinner color="#212121" />
         </div>
-      </Shell>
+      </ProfileShell>
     );
   }
 
   return (
-    <Shell>
+    <ProfileShell {...shellProps}>
       <div className="mx-auto max-w-3xl">
         <div className="flex items-center justify-between pb-6">
           <h1 className="text-4xl font-[500] tracking-tight text-[#212121] x-sm:text-3xl">
@@ -179,7 +181,7 @@ const Profile = () => {
           </form>
         </div>
       </div>
-    </Shell>
+    </ProfileShell>
   );
 };
 

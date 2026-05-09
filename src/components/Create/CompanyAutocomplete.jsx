@@ -12,7 +12,7 @@ const CompanyAutocomplete = ({ value, companyId, onChange, error }) => {
   const abortRef = useRef(null);
   const debounceRef = useRef(null);
 
-  const fetch = (q) => {
+  const runFetch = (q) => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(async () => {
       if (abortRef.current) abortRef.current.abort();
@@ -34,14 +34,15 @@ const CompanyAutocomplete = ({ value, companyId, onChange, error }) => {
 
   const handleFocus = () => {
     setOpen(true);
-    if (items.length === 0) fetch("");
+    if (items.length === 0) runFetch("");
   };
 
   const handleChange = (e) => {
     const v = e.target.value;
     onChange({ companyName: v, companyId: null });
     setOpen(true);
-    fetch(v);
+    setHighlight(-1);
+    runFetch(v);
   };
 
   const handleSelect = (item) => {
@@ -105,26 +106,27 @@ const CompanyAutocomplete = ({ value, companyId, onChange, error }) => {
       )}
       {error && <p className="px-1 text-sm text-red-500">{error}</p>}
       {open && (loading || items.length > 0) && (
-        <ul className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-y-auto rounded-lg border border-[#78788033] bg-white shadow-lg">
+        <ul
+          className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-y-auto overscroll-contain rounded-lg border border-[#78788033] bg-white shadow-lg"
+          role="listbox"
+        >
           {loading && items.length === 0 && (
             <li className="px-3 py-2 text-sm text-gray-500">Searching…</li>
           )}
           {items.map((item, idx) => (
             <li
               key={item._id || `${item.company}-${idx}`}
+              role="option"
+              aria-selected={idx === highlight}
               onMouseDown={(e) => {
                 e.preventDefault();
                 handleSelect(item);
               }}
-              onMouseEnter={() => setHighlight(idx)}
-              className={`cursor-pointer px-3 py-2 text-sm ${
-                idx === highlight ? "bg-gray-100" : ""
+              className={`cursor-pointer px-3 py-2 text-sm text-[#212121] hover:bg-[#f5f5f5] ${
+                idx === highlight ? "bg-[#f0f0f0]" : ""
               }`}
             >
-              <div className="font-medium text-[#212121]">{item.company}</div>
-              {item.domain && (
-                <div className="text-xs text-gray-500">{item.domain}</div>
-              )}
+              {item.company}
             </li>
           ))}
         </ul>

@@ -1,6 +1,7 @@
 import React from "react";
 import InputTag from "../InputTag/Usertag";
 import CompanyAutocomplete from "./CompanyAutocomplete";
+import PositionSelect from "./PositionSelect";
 
 const BasicInformation = ({
   value,
@@ -52,69 +53,51 @@ const BasicInformation = ({
           </h2>
         </div>
 
-        {user && (
-          <div className="rounded-lg border border-[#78788033] bg-[#f9f9f9] px-3 py-2 text-sm text-[#3C3C43]">
-            Posting as <span className="font-[500]">{user.name || "(no name set)"}</span>
-            {user.email && <span> · {user.email}</span>}
-          </div>
-        )}
-
         <div className="flex gap-2 md:flex-col">
           <div className="flex w-1/2 flex-col gap-3 md:w-full md:gap-2">
-            <div className="flex flex-col gap-3 md:gap-1">
-              <div className="flex flex-col gap-2">
-                <CompanyAutocomplete
-                  value={value.company}
-                  companyId={value.companyId}
-                  onChange={handleCompanyChange}
-                  error={errors.company}
-                />
-
-                <div className="relative flex flex-col">
-                  <h4 className="text-[#212121]">Position</h4>
-                  <select
-                    required
-                    name="position"
-                    id="position"
-                    value={value.position}
-                    onChange={handleChange}
-                    className="text-md w-full rounded-lg border-[1px] border-[#78788033] bg-white p-3 text-[#3C3C43] ring ring-transparent placeholder:text-[#3C3C4399] focus:outline-none focus:placeholder:text-[#3c3c4350] sm:p-2 sm:text-[13px] md:w-full"
-                  >
-                    <option value="">Select Position</option>
-                    <option value="Internship">Internship</option>
-                    <option value="FullTime">Full Time</option>
-                    <option value="Interview-experience">
-                      Interview Experience
-                    </option>
-                  </select>
-                  {errors.position && (
-                    <p className="px-1 text-sm text-red-500">{errors.position}</p>
-                  )}
-                </div>
+            {user && (
+              <div className="rounded-lg border border-[#78788033] bg-[#f9f9f9] px-3 py-2 text-sm text-[#3C3C43]">
+                Posting as{" "}
+                <span className="font-[500]">
+                  {user.name || "(no name set)"}
+                </span>
+                {user.email && (
+                  <>
+                    <span className="mx-1 text-[#888]">·</span>
+                    <span className="text-[#666]">{user.email}</span>
+                  </>
+                )}
               </div>
-            </div>
+            )}
 
-            <div className="flex flex-col gap-3 md:gap-1">
-              <div className="flex flex-col gap-2">
-                <div className="relative flex flex-col gap-1">
-                  <div className="relative flex flex-col">
-                    <h4 className="text-[#212121]">Title</h4>
-                    <input
-                      required
-                      type="text"
-                      name="title"
-                      id="title"
-                      placeholder="Blog Title"
-                      value={value.title}
-                      onChange={handleChange}
-                      className="text-md w-full rounded-lg border-[1px] border-[#78788033] bg-white p-3 text-[#3C3C43] ring ring-transparent placeholder:text-[#3C3C4399] focus:outline-none focus:placeholder:text-[#3c3c4350] sm:p-2 sm:text-[13px] md:w-full"
-                    />
-                    {errors.title && (
-                      <p className="px-1 text-sm text-red-500">{errors.title}</p>
-                    )}
-                  </div>
-                </div>
-              </div>
+            <CompanyAutocomplete
+              value={value.company}
+              companyId={value.companyId}
+              onChange={handleCompanyChange}
+              error={errors.company}
+            />
+
+            <PositionSelect
+              value={value.position}
+              onChange={handleChange}
+              error={errors.position}
+            />
+
+            <div className="relative flex flex-col">
+              <h4 className="text-[#212121]">Title</h4>
+              <input
+                required
+                type="text"
+                name="title"
+                id="title"
+                placeholder="Blog Title"
+                value={value.title}
+                onChange={handleChange}
+                className="text-md w-full rounded-lg border-[1px] border-[#78788033] bg-white p-3 text-[#3C3C43] ring ring-transparent placeholder:text-[#3C3C4399] focus:outline-none focus:placeholder:text-[#3c3c4350] sm:p-2 sm:text-[13px] md:w-full"
+              />
+              {errors.title && (
+                <p className="px-1 text-sm text-red-500">{errors.title}</p>
+              )}
             </div>
           </div>
 

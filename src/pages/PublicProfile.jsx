@@ -93,6 +93,24 @@ const LinkedInIcon = () => (
   </svg>
 );
 
+const ProfileShell = ({ children }) => (
+  <>
+    <Navbar />
+    <BackgroundDots
+      dotSize={1.8}
+      dotColor="#cbcbcc"
+      backgroundColor=""
+      gap={15}
+      className="custom-class"
+      fade={true}
+    />
+    <div className="relative mx-auto h-full w-full max-w-[1440px] px-4 pb-16 pt-24 md:px-6 lg:px-14">
+      {children}
+    </div>
+    <Footer />
+  </>
+);
+
 const PublicProfile = () => {
   const params = useParams();
   const location = useLocation();
@@ -169,49 +187,31 @@ const PublicProfile = () => {
 
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
-  const Shell = ({ children }) => (
-    <>
-      <Navbar />
-      <BackgroundDots
-        dotSize={1.8}
-        dotColor="#cbcbcc"
-        backgroundColor=""
-        gap={15}
-        className="custom-class"
-        fade={true}
-      />
-      <div className="relative mx-auto h-full w-full max-w-[1440px] px-4 pb-16 pt-24 md:px-6 lg:px-14">
-        {children}
-      </div>
-      <Footer />
-    </>
-  );
-
   if (loading || (isMeRoute && userLoading)) {
     return (
-      <Shell>
+      <ProfileShell>
         <div className="flex h-[40vh] items-center justify-center">
           <Spinner color="#212121" />
         </div>
-      </Shell>
+      </ProfileShell>
     );
   }
 
   if (error || !profile) {
     return (
-      <Shell>
+      <ProfileShell>
         <div className="flex h-[40vh] flex-col items-center justify-center gap-3 text-[#212121]">
           <p className="text-lg font-[400]">{error || "Profile not found"}</p>
           <Link to="/" className="text-sm text-[#666] underline">
             Back to home
           </Link>
         </div>
-      </Shell>
+      </ProfileShell>
     );
   }
 
   return (
-    <Shell>
+    <ProfileShell>
       {/* Profile header — landing-style elevated card */}
       <div className="relative mx-auto flex max-w-5xl flex-col items-start gap-6 overflow-hidden rounded-3xl border border-[#d2d2d6] bg-[#fff9] p-6 shadow-2xl md:flex-row md:items-center md:p-8">
         <Avatar user={profile} size={104} />
@@ -337,7 +337,7 @@ const PublicProfile = () => {
         )}
         </div>
       </div>
-    </Shell>
+    </ProfileShell>
   );
 };
 
