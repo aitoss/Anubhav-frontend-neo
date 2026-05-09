@@ -10,6 +10,7 @@ import { BACKEND_URL } from "../../constants";
 import { formatDate, ReadTime } from "../../services/date";
 import MinuteReadLikes from "../MinuteReadLikes/MinuteReadLikes";
 import Giscus from "@giscus/react";
+import { getAuthor } from "../../utils/getAuthor";
 
 const LazyLoad = ({ children }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -95,10 +96,12 @@ const Blog = () => {
   }, [id]);
 
   const MemoizedAuthor = useMemo(() => {
+    const a = getAuthor(blogData);
     return (
       <Author
         person={{
-          name: blogData?.author?.name,
+          _id: a?._id,
+          name: a?.name,
           company: blogData?.companyName,
         }}
       />

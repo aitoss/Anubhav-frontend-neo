@@ -26,6 +26,15 @@ export default defineConfig(({ mode }) => {
           target: apiDomain,
           changeOrigin: true,
           secure: false,
+          // SuperTokens API and the website route share /auth.
+          // Browser navigations (HTML accept) must fall through to Vite (SPA index.html);
+          // SDK API calls (JSON/no-accept) get proxied to the backend.
+          bypass: (req) => {
+            const accept = req.headers.accept || "";
+            if (req.method === "GET" && accept.includes("text/html")) {
+              return req.url;
+            }
+          },
         },
       },
     },

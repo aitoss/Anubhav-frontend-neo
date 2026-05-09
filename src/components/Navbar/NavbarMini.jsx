@@ -10,6 +10,7 @@ import "./Navbar.css";
 import Search from "../Search/Search";
 import SearchModal from "../Search/SearchModal";
 import ButtonV5 from "../ui/buttonv5";
+import ProfileMenu from "./ProfileMenu";
 
 const NavbarMini = () => {
   const [isOpen, setIsOpen] = useState(false); // for hamburger menu
@@ -53,7 +54,7 @@ const NavbarMini = () => {
     };
   }, [prevScrollPos]);
 
-  const navClasses = `rrelative bg-[#ffffffcc] bg-blur border-b fixed item-center justify-center h-[60px] p-3 flex w-screen text-black z-[9999] transition-transform transform ${
+  const navClasses = `bg-[#ffffffcc] bg-blur border-b fixed item-center justify-center h-[60px] p-3 flex w-screen text-[#212121] z-[9999] transition-transform transform ${
     visible ? "translate-y-0" : "-translate-y-full"
   }`;
 
@@ -194,6 +195,7 @@ const NavbarMini = () => {
                   </div>
                 </ButtonV5>
               </Link>
+              <ProfileMenu />
             </div>
           </div>
         </div>

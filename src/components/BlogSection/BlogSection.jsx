@@ -6,6 +6,7 @@ import company from "/assets/images/company.png";
 
 import { BACKEND_URL } from "../../constants";
 import { ReadTime, formatDate } from "../../services/date";
+import { getAuthor } from "../../utils/getAuthor";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
@@ -47,26 +48,30 @@ const BlogSection = () => {
             <BlogCardLoading />
           </>
         ) : (
-          blogData.map((item) => (
-            <AnimatedBlogCard
-              key={item._id}
-              id={item._id}
-              link={`/blog/${item._id}`}
-              Title={item.title}
-              imagesrc={item.imageUrl === "your_image_url_here" ? company : item.imageUrl}
-              author={item.author?.name}
-              company={item.companyName}
-              readingTime={ReadTime(item.description)}
-              date={formatDate(item.createdAt)}
-            />
-          ))
+          blogData.map((item) => {
+            const a = getAuthor(item);
+            return (
+              <AnimatedBlogCard
+                key={item._id}
+                id={item._id}
+                link={`/blog/${item._id}`}
+                Title={item.title}
+                imagesrc={item.imageUrl === "your_image_url_here" ? company : item.imageUrl}
+                author={a?.name}
+                authorId={a?._id}
+                company={item.companyName}
+                readingTime={ReadTime(item.description)}
+                date={formatDate(item.createdAt)}
+              />
+            );
+          })
         )}
       </div>
     </div>
   );
 };
 
-const AnimatedBlogCard = ({ id, link, Title, imagesrc, author, company, readingTime, date }) => {
+const AnimatedBlogCard = ({ id, link, Title, imagesrc, author, authorId, company, readingTime, date }) => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
@@ -93,6 +98,7 @@ const AnimatedBlogCard = ({ id, link, Title, imagesrc, author, company, readingT
         Title={Title}
         imagesrc={imagesrc}
         author={author}
+        authorId={authorId}
         company={company}
         readingTime={readingTime}
         date={date}

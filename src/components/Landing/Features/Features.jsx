@@ -86,7 +86,7 @@ const Avatar = ({ Name, borderColor, src, className }) => (
 
 const Features = () => {
   return (
-    <section className="flex flex-col items-center justify-center bg-[#f9f9f9] px-4 pb-32 pt-20">
+    <section className="relative flex flex-col items-center justify-center overflow-hidden bg-[#f9f9f9] px-4 pb-32 pt-20">
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center text-left">
         <div className="mx-auto flex h-[500px] w-full flex-row items-center justify-center border-b border-t border-[#d2d2d6] md:h-[1000px] md:flex-col">
           <Card

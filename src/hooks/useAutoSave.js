@@ -3,7 +3,16 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 const STORAGE_KEY = 'article_draft';
 const AUTO_SAVE_INTERVAL = 10000; // 10 seconds
 
-export const useAutoSave = (formData, articleContent, step, bannerImage = null) => {
+const hasFormContent = (formData = {}) =>
+  Boolean(
+    formData.company ||
+    formData.companyId ||
+    formData.position ||
+    formData.title ||
+    (formData.tags && formData.tags.length > 0)
+  );
+
+export const useAutoSave = (formData, articleContent, step, bannerImage = null, enabled = true) => {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [showRestorePrompt, setShowRestorePrompt] = useState(false);
   const [lastSaved, setLastSaved] = useState(null);
@@ -11,19 +20,14 @@ export const useAutoSave = (formData, articleContent, step, bannerImage = null) 
 
   // Check for existing draft on mount
   useEffect(() => {
+    if (!enabled) return;
     const existingDraft = localStorage.getItem(STORAGE_KEY);
     if (existingDraft) {
       try {
         const parsed = JSON.parse(existingDraft);
-        // Only show restore prompt if there's actual content
         if (parsed.formData && (
-          parsed.formData.name || 
-          parsed.formData.email || 
-          parsed.formData.company || 
-          parsed.formData.position || 
-          parsed.formData.title ||
-          parsed.articleContent ||
-          (parsed.tags && parsed.tags.length > 0)
+          hasFormContent(parsed.formData) ||
+          parsed.articleContent
         )) {
           setShowRestorePrompt(true);
         }
@@ -32,10 +36,11 @@ export const useAutoSave = (formData, articleContent, step, bannerImage = null) 
         localStorage.removeItem(STORAGE_KEY);
       }
     }
-  }, []);
+  }, [enabled]);
 
   // Auto-save function
   const saveDraft = useCallback(() => {
+    if (!enabled) return;
     const draftData = {
       formData,
       articleContent,
@@ -52,15 +57,13 @@ export const useAutoSave = (formData, articleContent, step, bannerImage = null) 
     } catch (error) {
       console.error('Error saving draft:', error);
     }
-  }, [formData, articleContent, step, bannerImage]);
+  }, [formData, articleContent, step, bannerImage, enabled]);
 
-  // Restore draft function
   const restoreDraft = useCallback(() => {
     const existingDraft = localStorage.getItem(STORAGE_KEY);
     if (existingDraft) {
       try {
-        const parsed = JSON.parse(existingDraft);
-        return parsed;
+        return JSON.parse(existingDraft);
       } catch (error) {
         console.error('Error parsing saved draft:', error);
         localStorage.removeItem(STORAGE_KEY);
@@ -69,7 +72,6 @@ export const useAutoSave = (formData, articleContent, step, bannerImage = null) 
     return null;
   }, []);
 
-  // Clear draft function
   const clearDraft = useCallback(() => {
     localStorage.removeItem(STORAGE_KEY);
     setHasUnsavedChanges(false);
@@ -81,27 +83,21 @@ export const useAutoSave = (formData, articleContent, step, bannerImage = null) 
     }
   }, []);
 
-  // Auto-save effect
   useEffect(() => {
-    // Only auto-save if there's actual content
-    const hasContent = 
-      formData.name || 
-      formData.email || 
-      formData.company || 
-      formData.position || 
-      formData.title ||
-      articleContent ||
-      (formData.tags && formData.tags.length > 0);
+    if (!enabled) {
+      setHasUnsavedChanges(false);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      return;
+    }
+
+    const hasContent = hasFormContent(formData) || Boolean(articleContent);
 
     if (hasContent) {
       setHasUnsavedChanges(true);
-      
-      // Clear existing interval
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-      
-      // Set new interval
+      if (intervalRef.current) clearInterval(intervalRef.current);
       intervalRef.current = setInterval(() => {
         saveDraft();
       }, AUTO_SAVE_INTERVAL);
@@ -119,14 +115,12 @@ export const useAutoSave = (formData, articleContent, step, bannerImage = null) 
         intervalRef.current = null;
       }
     }
-  }, [formData, articleContent, saveDraft]);
+  }, [formData, articleContent, saveDraft, enabled]);
 
-  // Save on beforeunload
   useEffect(() => {
     const handleBeforeUnload = (e) => {
       if (hasUnsavedChanges) {
         saveDraft();
-        // Show browser's default "leave site" dialog
         e.preventDefault();
         e.returnValue = '';
       }
@@ -145,4 +139,4 @@ export const useAutoSave = (formData, articleContent, step, bannerImage = null) 
     restoreDraft,
     clearDraft
   };
-}; 
+};

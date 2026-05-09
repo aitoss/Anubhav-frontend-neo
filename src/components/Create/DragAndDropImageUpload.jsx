@@ -3,7 +3,7 @@ import Upload from "../../../src/assets/images/upload.svg";
 
 const MAX_FILE_SIZE = 73 * 1024;
 
-const DragAndDropImageUpload = ({ file, setFile, setbannerImage }) => {
+const DragAndDropImageUpload = ({ file, setFile, setbannerImage, bannerImage }) => {
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = React.useRef();
 
@@ -87,6 +87,17 @@ const DragAndDropImageUpload = ({ file, setFile, setbannerImage }) => {
               alt="Preview"
               draggable="false"
               className="h-full w-[500px] select-none rounded-lg border object-cover"
+            />
+          ) : bannerImage ? (
+            <img
+              src={bannerImage}
+              alt="Banner"
+              draggable="false"
+              onClick={(e) => {
+                inputRef.current.click();
+                e.preventDefault();
+              }}
+              className="h-full w-[500px] cursor-pointer select-none rounded-lg border object-cover"
             />
           ) : (
             <img

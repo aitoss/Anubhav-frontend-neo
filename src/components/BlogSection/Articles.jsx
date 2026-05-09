@@ -1,6 +1,7 @@
 import BlogCard from "./BlogCard";
 import company from "/assets/images/company.png";
 import { ReadTime } from "../../services/date";
+import { getAuthor } from "../../utils/getAuthor";
 
 const Articles = (props) => {
   const { similarArticles } = props;
@@ -16,21 +17,25 @@ const Articles = (props) => {
           Similar Articles
         </h1>
         <br />
-        {similarArticles.map((item) => (
-          <BlogCard
-            key={item._id}
-            link={`/blog/${item._id}`}
-            Title={item.title}
-            imagesrc={
-              item.imageUrl === "your_image_url_here" ? company : item.imageUrl
-            }
-            author={item.author?.name}
-            company={item.companyName}
-            data={item.description}
-            readingTime={ReadTime(item.description)}
-            date={item.createdAt}
-          />
-        ))}
+        {similarArticles.map((item) => {
+          const a = getAuthor(item);
+          return (
+            <BlogCard
+              key={item._id}
+              link={`/blog/${item._id}`}
+              Title={item.title}
+              imagesrc={
+                item.imageUrl === "your_image_url_here" ? company : item.imageUrl
+              }
+              author={a?.name}
+              authorId={a?._id}
+              company={item.companyName}
+              data={item.description}
+              readingTime={ReadTime(item.description)}
+              date={item.createdAt}
+            />
+          );
+        })}
       </div>
     </section>
   );

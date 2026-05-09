@@ -9,7 +9,7 @@ import MobileNav from "./MobileNav";
 import "./Navbar.css";
 import ButtonV5 from "../ui/buttonv5";
 import SVGStore from "../SVGs/SVGStore";
-import LogoutButton from "../ui/LogoutButton";
+import ProfileMenu from "./ProfileMenu";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // for hamburger menu
@@ -107,9 +107,9 @@ const Navbar = () => {
                   </div>
                 </ButtonV5>
               </Link>
+              <ProfileMenu />
             </div>
           </div>
-          <LogoutButton />
         </div>
       </nav>
     </>

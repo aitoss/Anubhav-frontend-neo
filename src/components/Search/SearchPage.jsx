@@ -6,6 +6,7 @@ import FilterPopUp from "../Filter/FilterPopUp";
 import Filter from "../Filter/Filter";
 import axios from "axios";
 import { BACKEND_URL } from "../../constants";
+import { getAuthor } from "../../utils/getAuthor";
 import { useSearchParams } from "react-router-dom";
 import companyLogo from "/assets/images/company.png";
 import { ReadTime, formatDate } from "../../services/date";
@@ -238,24 +239,28 @@ const SearchPage = () => {
                 <SearchCardLoading />
               </>
             ) : (
-              articles.map((item) => (
-                <BlogCard
-                  key={item._id}
-                  id={item._id}
-                  link={`/blog/${item._id}`}
-                  Title={item.title}
-                  imagesrc={
-                    item.imageUrl === "your_image_url_here"
-                      ? companyLogo
-                      : item.imageUrl
-                  }
-                  author={item.author?.name}
-                  company={item.companyName}
-                  data={item.description}
-                  readingTime={ReadTime(item.description)}
-                  date={formatDate(item.createdAt)}
-                />
-              ))
+              articles.map((item) => {
+                const a = getAuthor(item);
+                return (
+                  <BlogCard
+                    key={item._id}
+                    id={item._id}
+                    link={`/blog/${item._id}`}
+                    Title={item.title}
+                    imagesrc={
+                      item.imageUrl === "your_image_url_here"
+                        ? companyLogo
+                        : item.imageUrl
+                    }
+                    author={a?.name}
+                    authorId={a?._id}
+                    company={item.companyName}
+                    data={item.description}
+                    readingTime={ReadTime(item.description)}
+                    date={formatDate(item.createdAt)}
+                  />
+                );
+              })
             )}
 
             {hasMore && !loading && (
