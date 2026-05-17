@@ -1,60 +1,51 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import Author from "./_Child/Author";
 import MinuteReadLikes from "../MinuteReadLikes/MinuteReadLikes";
 
-const KebabMenu = ({ ownerEditPath }) => {
-  const [open, setOpen] = useState(false);
-  const wrapperRef = useRef(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const onClickOutside = (e) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", onClickOutside);
-    return () => document.removeEventListener("mousedown", onClickOutside);
-  }, []);
-
-  return (
-    <div className="relative" ref={wrapperRef}>
-      <button
-        type="button"
-        aria-label="Article actions"
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          setOpen((o) => !o);
-        }}
-        className="flex h-8 w-8 items-center justify-center rounded-full border border-transparent bg-white/0 text-[#666] transition-all hover:border-[#e5e7eb] hover:bg-white hover:text-[#212121]"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <circle cx="5" cy="12" r="2" />
-          <circle cx="12" cy="12" r="2" />
-          <circle cx="19" cy="12" r="2" />
-        </svg>
-      </button>
-      {open && (
-        <div className="absolute right-0 top-full z-30 mt-1 w-32 overflow-hidden rounded-lg border border-[#e5e7eb] bg-white shadow-lg">
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setOpen(false);
-              navigate(ownerEditPath);
-            }}
-            className="block w-full bg-white px-3 py-2 text-left text-sm text-[#212121] hover:bg-[#f5f5f5]"
-          >
-            Edit
-          </button>
-        </div>
-      )}
-    </div>
-  );
-};
+const EditButton = ({ ownerEditPath }) => (
+  <div className="group relative">
+    <span className="pointer-events-none absolute right-0 bottom-full z-30 mb-1.5 whitespace-nowrap rounded-md bg-[#212121] px-2 py-1 text-xs font-[400] text-white opacity-0 shadow-md transition-opacity duration-150 group-hover:opacity-100">
+      Edit article
+    </span>
+    <Link
+    to={ownerEditPath}
+    aria-label="Edit article"
+    onClick={(e) => e.stopPropagation()}
+    className="flex h-8 w-8 items-center justify-center rounded-full border border-[#e5e7eb] bg-white/90 text-[#212121] shadow-sm backdrop-blur transition-all hover:bg-white"
+  >
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M11 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22H15C20 22 22 20 22 15V13"
+        stroke="#212121"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M16.0399 3.02001L8.15988 10.9C7.85988 11.2 7.55988 11.79 7.49988 12.22L7.06988 15.23C6.90988 16.32 7.67988 17.08 8.76988 16.93L11.7799 16.5C12.1999 16.44 12.7899 16.14 13.0999 15.84L20.9799 7.96001C22.3399 6.60001 22.9799 5.02001 20.9799 3.02001C18.9799 1.02001 17.3999 1.66001 16.0399 3.02001Z"
+        stroke="#212121"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14.9099 4.15002C15.5799 6.54002 17.4499 8.41002 19.8499 9.09002"
+        stroke="#212121"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  </Link>
+  </div>
+);
 
 const BlogCard = ({
   id,
@@ -73,7 +64,7 @@ const BlogCard = ({
     <div className="relative max-w-5xl border-b pb-2">
       {ownerEditPath && (
         <div className="absolute right-1 top-1 z-20">
-          <KebabMenu ownerEditPath={ownerEditPath} />
+          <EditButton ownerEditPath={ownerEditPath} />
         </div>
       )}
       <div className="flex h-full w-full items-center justify-center gap-4 p-1 md:flex-col md:gap-1">

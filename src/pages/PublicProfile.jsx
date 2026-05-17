@@ -213,8 +213,21 @@ const PublicProfile = () => {
   return (
     <ProfileShell>
       {/* Profile header — landing-style elevated card */}
-      <div className="relative mx-auto flex max-w-5xl flex-col items-start gap-6 overflow-hidden rounded-3xl border border-[#d2d2d6] bg-[#fff9] p-6 shadow-2xl md:flex-row md:items-center md:p-8">
-        <Avatar user={profile} size={104} />
+      <div className="relative mx-auto flex max-w-5xl flex-col items-start gap-6 overflow-hidden rounded-3xl border border-[#d2d2d6] bg-[#fff9] p-6 md:flex-row md:items-center md:p-8">
+        <div className="flex justify-between w-full">
+          <Avatar user={profile} size={104} />
+          {isOwner && (
+            <div className="flex flex-shrink-0">
+              <Link to="/profile/edit">
+                <ButtonV5 icon={false} color="#f8f8f8">
+                  <h5 className="flex gap-1 text-[16px] font-[400] -tracking-[0.2px] text-[#212121]">
+                    Edit Profile
+                  </h5>
+                </ButtonV5>
+              </Link>
+            </div>
+          )}
+        </div>
         <div className="flex flex-1 flex-col gap-1">
           <h1 className="text-4xl font-[500] tracking-tight text-[#212121] x-sm:text-3xl">
             {profile.name || "Unnamed user"}
@@ -246,18 +259,6 @@ const PublicProfile = () => {
             </p>
           )}
         </div>
-
-        {isOwner && (
-          <div className="flex flex-shrink-0">
-            <Link to="/profile/edit">
-              <ButtonV5 icon={false} color="#f8f8f8">
-                <h5 className="flex gap-1 text-[16px] font-[400] -tracking-[0.2px] text-[#212121]">
-                  Edit Profile
-                </h5>
-              </ButtonV5>
-            </Link>
-          </div>
-        )}
       </div>
 
       {/* Articles */}
