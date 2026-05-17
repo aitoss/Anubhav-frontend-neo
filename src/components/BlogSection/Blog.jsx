@@ -9,7 +9,6 @@ import BlogLoading from "./BlogLoading";
 import { BACKEND_URL } from "../../constants";
 import { formatDate, ReadTime } from "../../services/date";
 import MinuteReadLikes from "../MinuteReadLikes/MinuteReadLikes";
-import Giscus from "@giscus/react";
 import { getAuthor } from "../../utils/getAuthor";
 
 const LazyLoad = ({ children }) => {
@@ -160,22 +159,7 @@ const Blog = () => {
                 </div>
               </div>
             </div>
-            <h1 className="items-center justify-center text-center text-4xl font-medium text-slate-900 lg:ml-10 lg:text-left lg:text-4xl">
-              Comments
-            </h1>
-            <Giscus
-              repo="aitoss/Anubhav-frontend-neo"
-              repoId="R_kgDOKijwFQ"
-              category="General"
-              categoryId="DIC_kwDOKijwFc4CeLfX"
-              mapping="pathname"
-              term="Welcome to @giscus/react component!"
-              reactionsEnabled="1"
-              emitMetadata="0"
-              inputPosition="top"
-              theme="light"
-              lang="en"
-            />
+            {/* TODO: DB-backed likes & comments section goes here (flat, login-required). */}
             <LazyLoad>
               {similarArticles && similarArticles.length > 0 && (
                 <Articles similarArticles={similarArticles} />

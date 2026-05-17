@@ -25,7 +25,9 @@ const SearchPage = () => {
   const [totalArticles, setTotalArticles] = useState(0);
 
   const [filterPopUp, setFilterPopUp] = useState(false);
-  const [sortBy, setSortBy] = useState("relevance");
+  const [sortBy, setSortBy] = useState(() =>
+    searchParams.get("query") ? "relevance" : "date"
+  );
   const loadMoreRef = useRef(null);
 
   const openFilterPopup = () => {
@@ -94,37 +96,31 @@ const SearchPage = () => {
     countCompany();
   }, []);
 
+  const query = searchParams.get("query");
+
+  // Reset sortBy when toggling between search and recent views.
+  // Non-fetching effect so it doesn't race with the fetch effect below.
   useEffect(() => {
-    const query = searchParams.get("query");
+    setSortBy(query ? "relevance" : "date");
+  }, [query]);
+
+  // Single source of truth for fetching list articles.
+  useEffect(() => {
     setIsSearching(!!query);
-
-    if (query) {
-      setSortBy("relevance");
-      setArticles([]);
-      setPage(1);
-      fetchArticles(query, 1, "relevance");
-    } else {
-      setSortBy("date");
-      fetchLatestArticles("/blogs");
-    }
-  }, [searchParams]);
-
-  useEffect(() => {
-    const query = searchParams.get("query");
     setPage(1);
     if (query) {
+      setArticles([]);
       fetchArticles(query, 1, sortBy);
     } else {
       fetchLatestArticles("/blogs", 1, sortBy);
     }
-  }, [sortBy]);
+  }, [query, sortBy]);
 
   const handleShowMore = () => {
-    const query = searchParams.get("query");
     if (query) {
-      fetchArticles(query, page + 1);
+      fetchArticles(query, page + 1, sortBy);
     } else {
-      fetchLatestArticles("/blogs", page);
+      fetchLatestArticles("/blogs", page + 1, sortBy);
     }
     setPage((prevPage) => prevPage + 1);
   };
