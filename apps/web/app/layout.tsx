@@ -1,12 +1,14 @@
-import { Geist, Geist_Mono, Inter, Instrument_Sans } from "next/font/google"
+import { Geist_Mono, Inter } from "next/font/google"
 
-import "@workspace/ui/globals.css"
+import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@workspace/ui/lib/utils";
+import { ReactQueryProvider } from "@/components/react-query-provider"
+import { cn } from "@workspace/ui/lib/utils"
+import SearchShortcut from "@/components/search-shortcut"
+import { SuperTokensProvider } from "@/components/supertokens-provider"
 
-const instrumentSansHeading = Instrument_Sans({subsets:['latin'],variable:'--font-heading'});
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'})
+const inter = Inter({subsets:['latin'],axes:["opsz"], variable:'--font-sans'})
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
@@ -22,10 +24,17 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", inter.variable, instrumentSansHeading.variable)}
+      className={cn("antialiased", fontMono.variable, "font-sans", inter.variable,)}
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <SuperTokensProvider>
+          <ThemeProvider>
+            <ReactQueryProvider>
+              <SearchShortcut />
+              {children}
+            </ReactQueryProvider>
+          </ThemeProvider>
+        </SuperTokensProvider>
       </body>
     </html>
   )

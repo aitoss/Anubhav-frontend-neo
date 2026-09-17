@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "img": "./assets/youtube_image1.png",
+    "link": "https://www.youtube.com/embed/c58BoAV2dPc?si=Q2HOD9wHer0iV8Ox",
+    "title": "Talk with Bhupendra Yadav 🔥",
+    "description": "In this first episode of Anubhav video interview series, we have Bhupendra Yadav, of class 2021. He has shared his college experience, coding journey and preparation strategy for juniors.",
+    "tags": [
+      "Zeta",
+      "Codeforces"
+    ]
+  },
+  {
+    "id": 2,
+    "img": "./assets/youtube_image2.png",
+    "link": "https://www.youtube.com/embed/u3Ypg4BIu-0?si=BljzinBDTMQdSynT",
+    "title": "Talk with Shailesh Kr Sahu",
+    "description": "In this episode of Anubhav video interview series, we have Shailesh Kumar Sahu (Shellkore), of class 2021. He has shared his college experience, dev journey, deutsche bank interview experience, and useful tips for juniors.",
+    "tags": [
+      "Deutsche Bank",
+      "Hackathon"
+    ]
+  },
+  {
+    "id": 3,
+    "img": "./assets/youtube_image3.png",
+    "link": "https://www.youtube.com/embed/DoVbefblNbc?si=5EPAzWpF3GczesZ3",
+    "title": "Talk with Sachin Yadav 🔥",
+    "description": "For this episode, we have Sachin Yadav, of class 2021. He has shared his college experience, coding journey, google interview experience, and useful tips for juniors.",
+    "tags": [
+      "Zeta",
+      "Google",
+      "ACM-ICPC"
+    ]
+  },
+  {
+    "id": 4,
+    "img": "./assets/youtube_image4.jpg",
+    "link": "https://youtu.be/DoVbefblNbc",
+    "title": "Talk with Vivek Kumar 🔥",
+    "description": "For this episode, we have Vivek Kumar, of class 2021. Watch the video to learn from his experience, coding journey, placement preparation, and useful tips for juniors.",
+    "tags": [
+      "BNY Mellon",
+      "Deutsche Bank"
+    ]
+  },
+  {
+    "id": 5,
+    "img": "https://i.ytimg.com/vi/5W1r5CSodxo/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBJKuWpN7NKcuHj-_DK1bfw9B-OrA",
+    "link": "https://youtu.be/5W1r5CSodxo",
+    "title": "Talk With Vidushi Singh | Amazon 🔥",
+    "description": "In this episode of the Anubhav Interview Series, we have Vidushi Singh, Class of 2024, who is currently a Software Development Engineer (SDE) at Amazon. ",
+    "tags": [
+      "Microsoft",
+      "Amazon"
+    ]
+  },
+  {
+    "id": 6,
+    "img": "https://i.ytimg.com/vi/6ABxfFbImlE/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLC8yvipz7f7JKmMGaTxfwLJS2oj8w",
+    "link": "https://youtu.be/6ABxfFbImlE",
+    "title": "EP-11 | Talk with Anand Dwivedi | Deutsche Bank 🔥",
+    "description": "Are you someone who's passionate about tech but unsure how to turn that passion into a successful career? Wondering how to bridge the gap between college projects and real-world roles in the tech industry? Or looking for practical advice from someone who’s carved their path from the ground up?",
+    "tags": [
+      "Deutsche Bank",
+      "Technical Analyst"
+    ]
+  },
+  {
+    "id": 7,
+    "img": "https://i.ytimg.com/vi/rLzhbBA6wUQ/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLAi_n7frZ6uG-xCR6L8rzVoc4M-Dg",
+    "link": "https://youtu.be/rLzhbBA6wUQ",
+    "title": "EP-12 | Talk with Mukesh Bishnoi | Techie from Non-Tech 🔥",
+    "description": "Are you passionate about breaking into tech but unsure how to make the leap from college projects to impactful industry roles? Curious about transitioning from a Non-Technical Branch into the dynamic world of software? Then this episode of the Anubhav Interview Series is just for you!",
+    "tags": [
+      "Frontend Developer",
+      "Unolo"
+    ]
+  }
+]

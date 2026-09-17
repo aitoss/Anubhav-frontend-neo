@@ -2,6 +2,18 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+@font-face {
+  font-family: 'Aeonik Pro VF';
+  src: url('/fonts/Aeonik Pro VF.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-heading: 'Aeonik Pro VF', serif;
+}
+
 @custom-variant dark (&:is(.dark *));
 @source "../../../apps/**/*.{ts,tsx}";
 @source "../../../components/**/*.{ts,tsx}";
@@ -129,4 +141,8 @@
   button:not(:disabled), [role="button"]:not(:disabled) {
     cursor: pointer;
     }
+}
+
+::selection{
+  background: hsla(216, 0%, 50%, 0.2);
 }
