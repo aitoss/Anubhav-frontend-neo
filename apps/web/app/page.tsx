@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { ButtonLink } from "@/components/button-link"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
@@ -303,14 +304,18 @@ export default function Page() {
                 description="No worries! We've got an exciting collection of videos that bring the same inspiring stories and useful insights right to your screen."
               />
 
-              <div className="pointer-events-none absolute left-1/2 top-[86%] w-[360px] -translate-x-1/2 -translate-y-1/2 scale-100 select-none rounded-3xl lg:w-[800px] lg:scale-80 xl:w-[1050px]">
+              <Link
+                href="/videos"
+                aria-label="Browse the video collection"
+                className="absolute left-1/2 top-[86%] w-[360px] -translate-x-1/2 -translate-y-1/2 scale-100 select-none rounded-3xl lg:w-[800px] lg:scale-80 xl:w-[1050px]"
+              >
                 <img
                   src="/assets/images/VideoPage.png"
                   alt="VideoPage"
                   className="select-none"
                   draggable={false}
                 />
-              </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -364,6 +369,28 @@ export default function Page() {
             >
               Star On Github
             </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="flex justify-center px-4 pb-12">
+        <div className="border-border bg-card flex w-full max-w-7xl flex-col items-start justify-between gap-8 rounded-2xl border p-8 shadow-lg md:p-16 lg:flex-row lg:items-center">
+          <div className="flex flex-col items-start gap-6">
+            <h2 className="font-heading text-left text-[2.6rem] leading-[1.1] font-medium tracking-tight">
+              Discover Our
+              <br />
+              Latest Insights
+            </h2>
+            <p className="text-muted-foreground max-w-xl text-left">
+              Dive into our blog to explore a variety of topics, from industry trends to
+              practical tips. Whether you&rsquo;re looking for inspiration or knowledge,
+              we&rsquo;ve got something for everyone.{" "}
+              <span className="text-foreground font-semibold">Explore now</span> and stay
+              updated with our latest posts.
+            </p>
+            <ButtonLink href="/article" size="lg">
+              Start Reading
+            </ButtonLink>
           </div>
         </div>
       </section>
