@@ -35,7 +35,7 @@ export default function EditProfilePage() {
 
   React.useEffect(() => {
     if (!isLoading && (isError || !me)) {
-      router.replace("/auth?redirectToPath=%2Fprofile%2Fedit")
+      router.replace("/log-in?redirectToPath=%2Fprofile%2Fedit")
     }
   }, [isLoading, isError, me, router])
 

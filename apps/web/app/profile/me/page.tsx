@@ -18,7 +18,7 @@ export default function MyProfilePage() {
   React.useEffect(() => {
     if (isLoading) return
     if (me?._id) router.replace(profilePath(me))
-    else if (isError || !me) router.replace("/auth?redirectToPath=%2Fprofile%2Fme")
+    else if (isError || !me) router.replace("/log-in?redirectToPath=%2Fprofile%2Fme")
   }, [me, isLoading, isError, router])
 
   return (
