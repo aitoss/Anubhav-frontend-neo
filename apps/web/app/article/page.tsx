@@ -13,6 +13,7 @@ import { cn } from "@workspace/ui/lib/utils"
 import { Header } from "@/components/header"
 import { useArticles } from "@/hooks/use-articles"
 import { buildArticlePath } from "@/lib/article-url"
+import { CompanyFilter } from "@/components/company-filter"
 
 function formatDate(dateValue?: string) {
   if (!dateValue) return ""
@@ -207,7 +208,8 @@ function ArticleContent() {
       </section>
 
       <section className="px-4 py-10 sm:px-6 lg:px-8">
-        <div className="mx-auto w-full max-w-7xl">
+        <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[minmax(0,1fr)_260px]">
+          <div className="min-w-0">
           {isError ? (
             <div className="rounded-3xl border border-red-300 bg-red-50 p-6 text-center text-red-700">
               <div className="mb-2 font-semibold">Failed to load articles</div>
@@ -279,6 +281,19 @@ function ArticleContent() {
               {isFetchingNextPage ? "Loading more articles..." : "Scroll to load more"}
             </div>
           ) : null}
+          </div>
+
+          <div className="hidden lg:block">
+            <CompanyFilter
+              activeCompany={queryFromUrl}
+              onSelect={(company) => {
+                const params = new URLSearchParams()
+                params.set("query", company)
+                if (sortFromUrl !== "date") params.set("sort", sortFromUrl)
+                router.push(`/article?${params.toString()}`)
+              }}
+            />
+          </div>
         </div>
       </section>
     </main>

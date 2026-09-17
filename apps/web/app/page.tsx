@@ -6,6 +6,7 @@ import PartnersMarquee from "@/components/partners-marquee"
 import { BackgroundDots } from "@/components/background-dots"
 import { SendArrowIcon } from "@/components/send-arrow-icon"
 import { FeatureCardWithIcon } from "@/components/feature-card-with-icon"
+import { HowItWorks } from "@/components/how-it-works"
 import { CommentBubble } from "@/components/comment-bubble"
 import { AvatarStack, type Avatar } from "@/components/avatar-stack"
 import { Comment01Icon, Video01Icon } from "@hugeicons/core-free-icons"
@@ -265,6 +266,8 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      <HowItWorks />
 
       <section className="relative flex flex-col items-center justify-center overflow-hidden bg-sidebar/50 px-4 pb-32 pt-20">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center text-left">
