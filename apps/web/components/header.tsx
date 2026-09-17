@@ -21,7 +21,7 @@ import {
 
 const navLinks = [
     { href: "/videos", label: "Videos" },
-    { href: "/stories", label: "Stories" },
+    { href: "/article", label: "Stories" },
     { href: "/team", label: "Team" },
 ]
 
@@ -125,6 +125,16 @@ export function Header() {
                         </Link>
                     ))}
                 </nav>
+                <div className="flex items-center gap-2">
+                <Link
+                    href="/request"
+                    className="hidden text-sm px-2.5 py-1 rounded-md font-medium text-muted-foreground transition hover:text-foreground sm:inline-flex"
+                >
+                    Request Article
+                </Link>
+                <Button size="sm" render={<Link href="/create" />}>
+                    Write Article
+                </Button>
                 {sessionContext.loading ? (
                     <Button variant="outline" size="sm" disabled>
                         Loading...
@@ -210,6 +220,7 @@ export function Header() {
                         Log in
                     </ButtonLink>
                 )}
+                </div>
             </div>
         </header>
     )
