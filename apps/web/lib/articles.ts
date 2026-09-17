@@ -4,8 +4,20 @@ import {
     encodeArticleId,
 } from "./article-url"
 
+export type ArticleAuthor = {
+    _id?: string
+    name?: string
+    email?: string
+    contact?: string
+    logoUrl?: string
+    linkedinUrl?: string
+}
+
 export type Article = {
     _id: string
+    authorId?: ArticleAuthor | string
+    author?: ArticleAuthor
+    showName?: boolean
     title: string
     description?: string
     companyName?: string
@@ -70,4 +82,32 @@ export async function fetchSimilarBlogs(input: { q: string; company?: string; ta
             if (Array.isArray(payload)) return payload
             return payload.similarBlogs ?? payload.blogs ?? payload.articles ?? payload.data ?? []
         })
+}
+
+const ANONYMOUS = "Anonymous"
+
+// Mirrors the Vite getAuthor helper: authorId arrives either populated or as a
+// bare id with the details on `author`.
+export function getAuthor(article: Article): ArticleAuthor {
+    const { authorId, author } = article
+
+    if (authorId && typeof authorId === "object") {
+        return { ...authorId, name: authorId.name || ANONYMOUS }
+    }
+
+    if (typeof authorId === "string") {
+        return { ...author, _id: authorId, name: author?.name || ANONYMOUS }
+    }
+
+    return { ...author, name: author?.name || ANONYMOUS }
+}
+
+export function authorInitials(name?: string) {
+    if (!name) return "?"
+    return name
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map((part) => part[0]?.toUpperCase() ?? "")
+        .join("")
 }

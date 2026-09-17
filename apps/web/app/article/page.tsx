@@ -12,36 +12,11 @@ import { cn } from "@workspace/ui/lib/utils"
 
 import { Header } from "@/components/header"
 import { useArticles } from "@/hooks/use-articles"
-import { buildArticlePath } from "@/lib/article-url"
 import { CompanyFilter } from "@/components/company-filter"
+import { ArticleCard } from "@/components/article-card"
 
-function formatDate(dateValue?: string) {
-  if (!dateValue) return ""
-  const date = new Date(dateValue)
-  if (Number.isNaN(date.getTime())) return ""
-  return new Intl.DateTimeFormat("en-US", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(date)
-}
 
-function readTime(description?: string) {
-  const words = description
-    ?.replace(/<[^>]*>/g, " ")
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean).length ?? 0
-  return `${Math.max(1, Math.ceil(words / 200))} min read`
-}
 
-function renderDescription(description?: string) {
-  if (!description) return undefined
-
-  return {
-    __html: description,
-  }
-}
 
 function ArticleListSkeleton() {
   return (
@@ -232,46 +207,7 @@ function ArticleContent() {
           ) : (
             <div className="flex flex-col gap-6">
               {articles.map((article) => (
-                <article
-                  key={article._id}
-                  className="group grid overflow-hidden md:grid-cols-[280px_minmax(0,1fr)] space-x-2 cursor-pointer"
-                  role="button"
-                  tabIndex={0}
-                  onClick={() =>
-                    void router.push(buildArticlePath({ id: article._id, title: article.title }))
-                  }
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      void router.push(buildArticlePath({ id: article._id, title: article.title }))
-                    }
-                  }}
-                >
-                  <div className="relative h-44 rounded-lg overflow-hidden bg-muted md:aspect-auto md:min-h-fit">
-                    <img
-                      src={article.imageUrl || "/assets/images/VideoPage.png"}
-                      alt={article.title}
-                      className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                    />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-70" />
-                  </div>
-                  <div className="flex h-full flex-col gap-4">
-                    <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                      {article.companyName ? (
-                        <span className="rounded-full border border-border bg-background px-3 py-1 text-[11px] font-medium text-foreground">
-                          {article.companyName}
-                        </span>
-                      ) : null}
-                      {article.createdAt ? <span>{formatDate(article.createdAt)}</span> : null}
-                      <span>{readTime(article.description)}</span>
-                    </div>
-                    <h2 className="max-w-3xl text-2xl font-medium font-heading leading-tight tracking-tight sm:text-[1.7rem]">
-                      {article.title}
-                    </h2>
-                    <div className="max-w-4xl line-clamp-2 space-y-3 text-sm leading-7 text-muted-foreground [&_br]:hidden [&_h1]:mb-2 [&_h1]:text-base [&_h1]:font-semibold [&_h2]:mb-2 [&_h2]:text-base [&_h2]:font-semibold [&_h3]:mb-2 [&_h3]:text-base [&_h3]:font-semibold [&_p]:m-0 [&_strong]:font-semibold [&_ul]:my-2 [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:space-y-1 [&_ol]:pl-5"
-                      dangerouslySetInnerHTML={renderDescription(article.description)}
-                    />
-                  </div>
-                </article>
+                <ArticleCard key={article._id} article={article} />
               ))}
             </div>
           )}

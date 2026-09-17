@@ -12,6 +12,9 @@ const nextConfig = {
       { source: "/stories", destination: "/article", permanent: true },
       { source: "/search", destination: "/article", permanent: true },
       { source: "/blog/:id", destination: "/article/:id", permanent: true },
+      { source: "/profile", destination: "/profile/me", permanent: true },
+      { source: "/my-posts", destination: "/profile/me", permanent: true },
+      { source: "/profile/:userId", destination: "/u/:userId", permanent: true },
     ]
   },
 }
