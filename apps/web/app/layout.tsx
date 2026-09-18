@@ -10,7 +10,6 @@ import { SuperTokensProvider } from "@/components/supertokens-provider"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import {
-  OG_IMAGE,
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
   SITE_NAME,
@@ -44,13 +43,11 @@ export const metadata: Metadata = {
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
     locale: "en_US",
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: SITE_NAME }],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
-    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
 }

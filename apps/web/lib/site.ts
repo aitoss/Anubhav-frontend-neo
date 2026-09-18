@@ -16,4 +16,3 @@ export const SITE_KEYWORDS = [
     "Anubhav",
 ]
 
-export const OG_IMAGE = "/og-cover.png"
