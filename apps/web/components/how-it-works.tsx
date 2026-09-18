@@ -35,7 +35,7 @@ export function HowItWorks() {
         <p className="text-muted-foreground text-sm font-semibold tracking-[0.2em] uppercase">
           How It Works
         </p>
-        <h2 className="font-heading mt-3 text-4xl font-medium tracking-tight text-balance">
+        <h2 className="font-heading mt-3 text-3xl font-medium sm:text-4xl tracking-tight text-balance">
           Get Started with Our Platform
         </h2>
         <p className="text-muted-foreground mt-4 mb-10 max-w-2xl text-pretty">

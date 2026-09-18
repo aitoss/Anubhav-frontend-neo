@@ -81,7 +81,7 @@ export default function RequestArticlePage() {
     <>
       {/* <BackgroundDots dotSize={1.8} gap={15} fade /> */}
       <main className="relative mx-auto w-full max-w-2xl px-4 py-6">
-        <h1 className="text-3xl font-medium tracking-tight">Request an article</h1>
+        <h1 className="text-2xl font-medium tracking-tight sm:text-3xl">Request an article</h1>
         <p className="text-muted-foreground mt-2 text-sm">
           Ask a senior to share their interview experience. We&apos;ll reach out on your
           behalf.

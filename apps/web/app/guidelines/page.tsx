@@ -13,7 +13,7 @@ export default function GuidelinesPage() {
   return (
     <>
       <main className="mx-auto w-full max-w-3xl px-4 py-6">
-        <h1 className="mb-8 text-center text-4xl font-semibold">Guidelines</h1>
+        <h1 className="mb-8 text-center text-3xl font-semibold sm:text-4xl">Guidelines</h1>
 
         <p className="text-muted-foreground leading-7">
           Anubhav, the experience sharing platform, welcomes contributions from anyone at

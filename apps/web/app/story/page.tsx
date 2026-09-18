@@ -73,7 +73,7 @@ export default function StoryPage() {
   return (
     <>
       <main className="mx-auto w-full max-w-4xl px-4 py-6">
-        <h1 className="py-6 text-center text-4xl font-semibold lg:py-8">Our Story</h1>
+        <h1 className="py-6 text-center text-3xl font-semibold sm:text-4xl lg:py-8">Our Story</h1>
 
         <div className="border-border relative flex flex-col gap-12 border-l pl-6 sm:pl-10">
           {MILESTONES.map((milestone) => (

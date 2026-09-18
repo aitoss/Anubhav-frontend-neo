@@ -29,7 +29,7 @@ export default function VideosPage() {
       <BackgroundDots dotSize={1.8} gap={15} fade />
       <main className="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4">
         <div className="mx-auto flex max-w-lg flex-col items-center justify-center py-6 text-center">
-          <h1 className="mb-4 text-4xl font-semibold tracking-tight">Videos</h1>
+          <h1 className="mb-4 text-3xl font-semibold sm:text-4xl tracking-tight">Videos</h1>
           <div className="flex w-full flex-wrap justify-center gap-2">
             {TAGS.map((tag) => (
               <TagBadgeLink key={tag} label={tag} />

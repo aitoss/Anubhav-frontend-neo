@@ -196,7 +196,7 @@ export function ArticleForm({ mode = "create", articleId, initialArticle }: Prop
       {/* <BackgroundDots dotSize={1.8} gap={15} fade /> */}
       <main className="relative mx-auto w-full max-w-3xl px-4 py-6">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-3xl font-medium tracking-tight">
+          <h1 className="text-2xl font-medium tracking-tight sm:text-3xl">
             {isEdit ? "Edit article" : "Write an article"}
           </h1>
           <span className="text-muted-foreground text-sm">Step {step} of 3</span>
@@ -264,7 +264,7 @@ export function ArticleForm({ mode = "create", articleId, initialArticle }: Prop
               <span aria-hidden>&bull;</span>
               <span>{POSITIONS.find((p) => p.value === position)?.label ?? position}</span>
             </div>
-            <h2 className="font-heading text-3xl font-medium tracking-tight">{title}</h2>
+            <h2 className="font-heading text-2xl font-medium tracking-tight sm:text-3xl">{title}</h2>
             <div
               className="article-prose"
               dangerouslySetInnerHTML={{ __html: highlightedPreview }}

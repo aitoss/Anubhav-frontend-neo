@@ -81,7 +81,7 @@ function EditProfileForm() {
         onSubmit={handleSubmit}
         className="border-border bg-card/60 mx-auto flex max-w-2xl flex-col gap-5 rounded-3xl border p-6 md:p-8"
       >
-        <h1 className="text-3xl font-medium tracking-tight">Edit profile</h1>
+        <h1 className="text-2xl font-medium tracking-tight sm:text-3xl">Edit profile</h1>
 
         <div className="flex flex-col gap-2">
           <Label htmlFor="name">Name</Label>
