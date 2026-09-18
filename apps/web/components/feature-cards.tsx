@@ -10,7 +10,7 @@ function CollaborateArt() {
   const thread = [
     { avatar: CONTRIBUTORS[0], text: "Which round was hardest?" },
     { avatar: CONTRIBUTORS[1], text: "System design, by far." },
-    { avatar: CONTRIBUTORS[2], text: "This helped me a lot \u2014 thanks!" },
+    { avatar: CONTRIBUTORS[2], text: "This helped me a lot - thanks!" },
   ]
 
   return (
