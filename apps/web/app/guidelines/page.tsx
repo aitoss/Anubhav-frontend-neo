@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function GuidelinesPage() {
   return (
     <>
-      <main className="mx-auto w-full max-w-3xl px-4 pt-28 pb-16">
+      <main className="mx-auto w-full max-w-3xl px-4 py-6">
         <h1 className="mb-8 text-center text-4xl font-semibold">Guidelines</h1>
 
         <p className="text-muted-foreground leading-7">

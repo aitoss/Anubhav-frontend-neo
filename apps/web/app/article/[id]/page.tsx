@@ -17,6 +17,7 @@ import { useArticle } from "@/hooks/use-article"
 import { useSimilarArticles } from "@/hooks/use-similar-articles"
 import { articleTagList, authorInitials, getAuthor } from "@/lib/articles"
 import { buildArticlePath, extractArticleIdFromRoute } from "@/lib/article-url"
+import { highlightCodeBlocks } from "@/lib/highlight-code"
 import { profilePath } from "@/lib/users"
 
 function ArticleDetailSkeleton() {
@@ -51,6 +52,10 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
   })
 
   const author = article ? getAuthor(article) : null
+  const body = React.useMemo(
+    () => highlightCodeBlocks(article?.description ?? ""),
+    [article?.description],
+  )
 
   return (
     <main className="bg-background text-foreground min-h-screen">
@@ -68,6 +73,21 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
 
         {isLoading ? (
           <ArticleDetailSkeleton />
+        ) : (error as any)?.response?.status === 403 ? (
+          <div className="border-border bg-card rounded-xl border p-8 text-center">
+            <p className="font-medium">This article isn&apos;t public yet</p>
+            <p className="text-muted-foreground mt-2 text-sm">
+              It will be visible here once a reviewer has checked it over.
+            </p>
+            <div className="mt-5 flex flex-wrap justify-center gap-3">
+              <Button render={<Link href="/profile/me" />} size="sm">
+                My articles
+              </Button>
+              <Button variant="outline" size="sm" render={<Link href="/article" />}>
+                Browse articles
+              </Button>
+            </div>
+          </div>
         ) : error ? (
           <div className="border-destructive/40 bg-destructive/5 text-destructive rounded-xl border p-6">
             <p className="font-medium">Failed to load this article</p>
@@ -132,7 +152,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
 
             <div
               className="article-prose mt-8"
-              dangerouslySetInnerHTML={{ __html: article.description ?? "" }}
+              dangerouslySetInnerHTML={{ __html: body }}
             />
 
             {tags.length > 0 ? (

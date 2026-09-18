@@ -3,6 +3,11 @@
 import * as React from "react"
 import { EditorContent, useEditor } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
+import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight"
+import { common, createLowlight } from "lowlight"
+
+import { NativeSelect } from "@workspace/ui/components/native-select"
+import { CODE_LANGUAGES } from "@/lib/highlight-code"
 
 import { Button } from "@workspace/ui/components/button"
 import { cn } from "@workspace/ui/lib/utils"
@@ -14,9 +19,18 @@ type Props = {
 
 // ponytail: StarterKit only. The Vite editor also had emoji/image plugins —
 // add those extensions if authors ask for them.
+const lowlight = createLowlight(common)
+
 export function RichEditor({ value, onChange }: Props) {
   const editor = useEditor({
-    extensions: [StarterKit],
+    // StarterKit's plain codeBlock swapped for the lowlight one so code is
+    // highlighted while typing. Note the highlighting is ProseMirror
+    // decorations, so it never reaches getHTML() — saved articles are
+    // highlighted at render time by highlightCodeBlocks.
+    extensions: [
+      StarterKit.configure({ codeBlock: false }),
+      CodeBlockLowlight.configure({ lowlight }),
+    ],
     content: value,
     immediatelyRender: false,
     editorProps: {
@@ -48,9 +62,12 @@ export function RichEditor({ value, onChange }: Props) {
     { label: "Code", isActive: () => editor.isActive("codeBlock"), run: () => editor.chain().focus().toggleCodeBlock().run() },
   ]
 
+  const inCodeBlock = editor.isActive("codeBlock")
+  const currentLanguage = (editor.getAttributes("codeBlock").language as string) ?? ""
+
   return (
     <div className="border-border overflow-hidden rounded-lg border">
-      <div className="border-border bg-muted/40 flex flex-wrap gap-1 border-b p-2">
+      <div className="border-border bg-muted/40 flex flex-wrap items-center gap-1 border-b p-2">
         {tools.map((tool) => (
           <Button
             key={tool.label}
@@ -63,6 +80,28 @@ export function RichEditor({ value, onChange }: Props) {
             {tool.label}
           </Button>
         ))}
+
+        {/* Highlighting needs a declared language — auto-detection guesses
+            wrong often enough to be worse than plain text. */}
+        {inCodeBlock ? (
+          <NativeSelect
+            aria-label="Code language"
+            className="ml-1 h-7 w-36 text-xs"
+            value={currentLanguage}
+            onChange={(event) =>
+              editor.chain().focus().updateAttributes("codeBlock", {
+                language: event.target.value || null,
+              }).run()
+            }
+          >
+            <option value="">Plain text</option>
+            {CODE_LANGUAGES.map((language) => (
+              <option key={language} value={language}>
+                {language}
+              </option>
+            ))}
+          </NativeSelect>
+        ) : null}
       </div>
       <EditorContent editor={editor} />
     </div>

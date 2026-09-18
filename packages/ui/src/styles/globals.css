@@ -265,3 +265,94 @@
   margin-top: 2em;
   margin-bottom: 2em;
 }
+
+/* highlight.js tokens for code blocks, expressed against the theme so they
+   hold up in both light and dark rather than fighting an imported hljs theme. */
+.article-prose .hljs-comment,
+.article-prose .hljs-quote {
+  color: color-mix(in oklab, var(--muted-foreground) 85%, transparent);
+  font-style: italic;
+}
+
+.article-prose .hljs-keyword,
+.article-prose .hljs-selector-tag,
+.article-prose .hljs-literal,
+.article-prose .hljs-doctag,
+.article-prose .hljs-name {
+  color: var(--color-violet-600);
+  font-weight: 500;
+}
+
+.article-prose .hljs-string,
+.article-prose .hljs-regexp,
+.article-prose .hljs-addition {
+  color: var(--color-emerald-600);
+}
+
+.article-prose .hljs-number,
+.article-prose .hljs-built_in,
+.article-prose .hljs-builtin-name,
+.article-prose .hljs-type {
+  color: var(--color-amber-600);
+}
+
+.article-prose .hljs-title,
+.article-prose .hljs-section,
+.article-prose .hljs-function .hljs-title {
+  color: var(--color-blue-600);
+  font-weight: 500;
+}
+
+.article-prose .hljs-attr,
+.article-prose .hljs-attribute,
+.article-prose .hljs-variable,
+.article-prose .hljs-template-variable,
+.article-prose .hljs-selector-attr {
+  color: var(--color-cyan-700);
+}
+
+.article-prose .hljs-deletion {
+  color: var(--color-rose-600);
+}
+
+.article-prose .hljs-emphasis { font-style: italic; }
+.article-prose .hljs-strong { font-weight: 600; }
+
+.dark .article-prose .hljs-keyword,
+.dark .article-prose .hljs-selector-tag,
+.dark .article-prose .hljs-literal,
+.dark .article-prose .hljs-doctag,
+.dark .article-prose .hljs-name {
+  color: var(--color-violet-400);
+}
+
+.dark .article-prose .hljs-string,
+.dark .article-prose .hljs-regexp,
+.dark .article-prose .hljs-addition {
+  color: var(--color-emerald-400);
+}
+
+.dark .article-prose .hljs-number,
+.dark .article-prose .hljs-built_in,
+.dark .article-prose .hljs-builtin-name,
+.dark .article-prose .hljs-type {
+  color: var(--color-amber-400);
+}
+
+.dark .article-prose .hljs-title,
+.dark .article-prose .hljs-section,
+.dark .article-prose .hljs-function .hljs-title {
+  color: var(--color-blue-400);
+}
+
+.dark .article-prose .hljs-attr,
+.dark .article-prose .hljs-attribute,
+.dark .article-prose .hljs-variable,
+.dark .article-prose .hljs-template-variable,
+.dark .article-prose .hljs-selector-attr {
+  color: var(--color-cyan-300);
+}
+
+.dark .article-prose .hljs-deletion {
+  color: var(--color-rose-400);
+}

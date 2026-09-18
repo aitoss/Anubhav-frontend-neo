@@ -1,55 +1,78 @@
 import Image from "next/image"
+import Link from "next/link"
 
+// Mirrors the Vite Card2 in Landing/WhatIsAnubhav: fixed 450px panel, two
+// concentric circles rising from below, rotated chips, three memoji at 33% of
+// their 192px source, and one stack rotated as a whole (not per card).
 const CARDS = [
-  { meta: "11 mins read • 09-06-2023", title: "CRED Interview Experience ( On Campus SDE - Backend )", rotate: "rotate-2", hoverLift: "group-hover/stack:-translate-y-2" },
-  { meta: "5 mins read • 21-12-2022", title: "Google STEP Internship Decoded", rotate: "-rotate-1", hoverLift: "group-hover/stack:-translate-y-1" },
-  { meta: "5 mins read • 19-12-2022", title: "Deutsche bank: Internship | Summer Intern 2023", rotate: "rotate-1", hoverLift: "group-hover/stack:translate-y-1" },
-  { meta: "15 mins read • 14-01-2022", title: "Microsoft FTE Interview Experience from Engage 2021 [FTE]", rotate: "-rotate-2", hoverLift: "group-hover/stack:translate-y-2" },
+  {
+    id: "6482c7f31efe8f6914eefe2e",
+    meta: "11 mins read • 09-06-2023",
+    title: "CRED Interview Experience ( On Campus SDE - Backend )",
+    className: "-mb-2 hover:z-[999]",
+  },
+  {
+    id: "63a30bd3fa72a20c75f513e3",
+    meta: "5 mins read • 21-12-2022",
+    title: "Google STEP Internship Decoded",
+    className: "z-[99] -mb-2 scale-[102%]",
+  },
+  {
+    id: "639f77bcfa72a20c75f5106a",
+    meta: "5 mins read • 19-12-2022",
+    title: "Deutsche bank: Internship | Summer Intern 2023",
+    className: "z-[20] -mb-2 hover:z-[99]",
+  },
+  {
+    id: "61e1433251a2879b50add90e",
+    meta: "15 mins read • 14-01-2022",
+    title: "Microsoft FTE Interview Experience from Engage 2021 [FTE]",
+    className: "z-[10] hover:z-[99]",
+  },
 ]
 
-const AVATARS = [
-  { src: "/assets/images/Emoji.png", className: "left-6 top-28 size-14" },
-  { src: "/assets/images/Emoji-1.png", className: "left-2 top-44 size-12" },
-  { src: "/assets/images/Emoji-2.png", className: "left-16 top-12 size-11" },
+const EMOJI = [
+  { src: "/assets/images/Emoji.png", className: "top-[20%] left-[30%]" },
+  { src: "/assets/images/Emoji-1.png", className: "-bottom-8 left-[1%]" },
+  { src: "/assets/images/Emoji-2.png", className: "right-[4%] bottom-0" },
 ]
 
 export function StoryStack() {
   return (
-    <div className="group/stack border-border bg-card relative h-96 overflow-hidden rounded-2xl border shadow-sm">
-      {/* soft riser behind the stack, so the cards read as sitting on something */}
-      <div className="bg-muted absolute -bottom-40 left-1/2 h-[340px] w-[88%] -translate-x-1/2 rounded-t-full" />
+    <div className="border-border bg-card relative h-[450px] w-full overflow-hidden rounded-2xl border shadow-md">
+      <div className="bg-foreground/5 absolute top-[120%] left-1/2 z-0 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full" />
+      <div className="bg-foreground/5 absolute top-[120%] left-1/2 z-10 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full" />
 
-      <span className="border-border bg-background text-muted-foreground absolute top-6 left-6 -rotate-6 rounded-md border px-3 py-1 text-sm shadow-sm transition-transform duration-500 group-hover/stack:-rotate-12">
+      <p className="border-border bg-muted absolute top-12 left-[5%] inline-flex -rotate-12 rounded-md border px-2 py-1">
         Fresh Stories
-      </span>
-      <span className="border-border bg-background text-muted-foreground absolute top-6 right-6 rotate-6 rounded-md border px-3 py-1 text-sm shadow-sm transition-transform duration-500 group-hover/stack:rotate-12">
+      </p>
+      <p className="border-border bg-muted absolute top-12 right-12 inline-flex rotate-12 rounded-md border px-2 py-1">
         Latest Insights
-      </span>
+      </p>
 
-      {AVATARS.map((avatar) => (
+      {EMOJI.map((emoji) => (
         <Image
-          key={avatar.src}
-          src={avatar.src}
+          key={emoji.src}
+          src={emoji.src}
           alt=""
-          width={72}
-          height={72}
+          width={63}
+          height={63}
           aria-hidden
-          className={`ring-background absolute rounded-full object-cover ring-4 transition-transform duration-500 group-hover/stack:scale-105 ${avatar.className}`}
+          draggable={false}
+          className={`absolute z-20 select-none object-cover ${emoji.className}`}
         />
       ))}
 
-      {/* Fanned stack: each card pulls up over the previous one, straightens and
-          lifts above its siblings on hover. */}
-      <div className="absolute top-16 -right-4 left-24 flex flex-col">
-        {CARDS.map((card, index) => (
-          <article
-            key={card.title}
-            style={{ zIndex: index + 1 }}
-            className={`border-border bg-background relative -mt-2 rounded-lg border p-3 shadow-md transition-all duration-300 first:mt-0 hover:z-50 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl ${card.rotate} ${card.hoverLift} hover:rotate-0`}
+      <div className="absolute bottom-[-2%] left-[20%] z-[100] inline-flex rotate-6 flex-col select-none">
+        {CARDS.map((card) => (
+          <Link
+            key={card.id}
+            href={`/article/${card.id}`}
+            className={`border-border bg-muted hover:bg-card inline-flex cursor-pointer flex-col rounded-lg border p-2 shadow-md backdrop-blur-[12px] transition-all duration-200 hover:scale-105 ${card.className}`}
           >
-            <p className="text-muted-foreground text-xs">{card.meta}</p>
-            <p className="mt-1.5 font-semibold text-pretty">{card.title}</p>
-          </article>
+            <p className="text-muted-foreground font-normal">{card.meta}</p>
+            <h3>{card.title}</h3>
+          </Link>
         ))}
       </div>
     </div>

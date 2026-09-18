@@ -2,10 +2,11 @@
 
 import * as React from "react"
 
-import { Badge } from "@workspace/ui/components/badge"
 import { Button } from "@workspace/ui/components/button"
 import { Input } from "@workspace/ui/components/input"
 import { Label } from "@workspace/ui/components/label"
+
+import { tagColor } from "@/components/tag-badge"
 
 type Props = {
   tags: string[]
@@ -57,7 +58,10 @@ export function TagInput({ tags, setTags, error }: Props) {
       {tags.length > 0 ? (
         <div className="flex flex-wrap gap-2 pt-1">
           {tags.map((item) => (
-            <Badge key={item} variant="secondary" className="gap-1">
+            <span
+              key={item}
+              className={`inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-sm font-medium ${tagColor(item)}`}
+            >
               {item}
               <button
                 type="button"
@@ -67,7 +71,7 @@ export function TagInput({ tags, setTags, error }: Props) {
               >
                 &times;
               </button>
-            </Badge>
+            </span>
           ))}
         </div>
       ) : null}

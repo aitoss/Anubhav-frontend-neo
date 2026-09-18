@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 import { Button } from "@workspace/ui/components/button"
@@ -20,6 +21,7 @@ import { CompanyAutocomplete } from "@/components/create/company-autocomplete"
 import { RichEditor } from "@/components/create/rich-editor"
 import { TagInput } from "@/components/create/tag-input"
 import { buildArticlePath } from "@/lib/article-url"
+import { highlightCodeBlocks } from "@/lib/highlight-code"
 import { createBlog, updateBlog, type ArticlePayload } from "@/lib/blogs"
 import {
   pruneSatisfiedErrors,
@@ -52,6 +54,7 @@ export function ArticleForm({ mode = "create", articleId, initialArticle }: Prop
   const [errors, setErrors] = React.useState<Record<string, string>>({})
   const [submitting, setSubmitting] = React.useState(false)
   const [savedAt, setSavedAt] = React.useState<string | null>(null)
+  const [submitted, setSubmitted] = React.useState(false)
 
   React.useEffect(() => {
     if (!initialArticle) return
@@ -117,6 +120,11 @@ export function ArticleForm({ mode = "create", articleId, initialArticle }: Prop
     return Object.keys(next).length === 0
   }
 
+  const highlightedPreview = React.useMemo(
+    () => (step === 3 ? highlightCodeBlocks(articleHtml) : ""),
+    [step, articleHtml],
+  )
+
   function buildPayload(): ArticlePayload {
     const payload: ArticlePayload = { title, article: articleHtml, role: position, articleTags: tags }
     if (companyId) payload.companyId = companyId
@@ -133,14 +141,15 @@ export function ArticleForm({ mode = "create", articleId, initialArticle }: Prop
         const res = await updateBlog(articleId, buildPayload())
         router.push(buildArticlePath({ id: res.article?._id ?? articleId, title }))
       } else {
-        const res = await createBlog(buildPayload())
+        await createBlog(buildPayload())
         try {
           localStorage.removeItem(DRAFT_KEY)
         } catch {
           // ignore
         }
-        const newId = res.createArticle?._id
-        router.push(newId ? buildArticlePath({ id: newId, title }) : "/profile/me")
+        // Do not link to the article: it stays non-public until a reviewer
+        // marks it authentic, so the detail page would 403.
+        setSubmitted(true)
       }
     } catch (error: any) {
       const status = error?.response?.status
@@ -158,10 +167,34 @@ export function ArticleForm({ mode = "create", articleId, initialArticle }: Prop
     }
   }
 
+  // A new article is not public until a reviewer marks it authentic, so we
+  // confirm here instead of linking to a page that would 403.
+  if (submitted) {
+    return (
+      <main className="relative mx-auto w-full max-w-2xl px-4 py-6">
+        <div className="border-border bg-card flex flex-col items-center gap-4 rounded-2xl border p-10 text-center">
+          <h1 className="text-2xl font-medium tracking-tight">
+            Your article has been submitted
+          </h1>
+          <p className="text-muted-foreground max-w-md text-sm leading-6">
+            It will go live once a reviewer has checked it over. You can find it under your
+            profile in the meantime.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3 pt-2">
+            <Button render={<Link href="/profile/me" />}>View my articles</Button>
+            <Button variant="outline" render={<Link href="/article" />}>
+              Browse articles
+            </Button>
+          </div>
+        </div>
+      </main>
+    )
+  }
+
   return (
     <>
       {/* <BackgroundDots dotSize={1.8} gap={15} fade /> */}
-      <main className="relative mx-auto w-full max-w-3xl px-4 pt-24 pb-16">
+      <main className="relative mx-auto w-full max-w-3xl px-4 py-6">
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-3xl font-medium tracking-tight">
             {isEdit ? "Edit article" : "Write an article"}
@@ -233,8 +266,8 @@ export function ArticleForm({ mode = "create", articleId, initialArticle }: Prop
             </div>
             <h2 className="font-heading text-3xl font-medium tracking-tight">{title}</h2>
             <div
-              className="text-muted-foreground space-y-3 text-sm leading-7 [&_h1]:mb-2 [&_h1]:text-xl [&_h1]:font-semibold [&_h2]:mb-2 [&_h2]:text-lg [&_h2]:font-semibold [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:m-0 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5"
-              dangerouslySetInnerHTML={{ __html: articleHtml }}
+              className="article-prose"
+              dangerouslySetInnerHTML={{ __html: highlightedPreview }}
             />
           </div>
         ) : null}
