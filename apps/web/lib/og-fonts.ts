@@ -8,8 +8,8 @@ type OgFont = {
     style: "normal"
 }
 
-async function localFont(relativePath: string) {
-    const buffer = await readFile(path.join(process.cwd(), relativePath))
+async function localFont(file: string) {
+    const buffer = await readFile(path.join(process.cwd(), "public/fonts", file))
     return buffer.buffer.slice(
         buffer.byteOffset,
         buffer.byteOffset + buffer.byteLength,
@@ -28,10 +28,10 @@ async function localFont(relativePath: string) {
  */
 export async function loadOgFonts(): Promise<OgFont[]> {
     const wanted: { name: string; file: string; weight: 400 | 600 }[] = [
-        { name: "Aeonik Pro", file: "public/fonts/aeonik-pro-600.ttf", weight: 600 },
-        { name: "Aeonik Pro", file: "public/fonts/aeonik-pro-500.ttf", weight: 400 },
-        { name: "Inter", file: "public/fonts/inter-400.ttf", weight: 400 },
-        { name: "Inter", file: "public/fonts/inter-600.ttf", weight: 600 },
+        { name: "Aeonik Pro", file: "aeonik-pro-600.ttf", weight: 600 },
+        { name: "Aeonik Pro", file: "aeonik-pro-500.ttf", weight: 400 },
+        { name: "Inter", file: "inter-400.ttf", weight: 400 },
+        { name: "Inter", file: "inter-600.ttf", weight: 600 },
     ]
 
     const loaded = await Promise.all(
