@@ -47,21 +47,21 @@ interface Comment {
 
 const comments: Comment[] = [
   {
-    position: { top: "16%", left: "18%" },
+    position: { top: "6%", left: "3%" },
     iconColor: "#313131",
     borderColor: "#121212",
     backgroundColor: "#313131",
     name: "Lokendra Kushwah",
   },
   {
-    position: { bottom: "22%", left: "14%" },
+    position: { bottom: "8%", left: "6%" },
     iconColor: "#2E90FA",
     borderColor: "#1570EF",
     backgroundColor: "#2E90FA",
     name: "Nikhil Dhariwal",
   },
   {
-    position: { top: "10%", right: "18%" },
+    position: { top: "34%", right: "3%" },
     iconColor: "#FF479F",
     borderColor: "#B11C64",
     backgroundColor: "#FF479F",
@@ -210,7 +210,12 @@ export default function Page() {
                 <AvatarStack avatars={avatars} />
 
                 <div className="absolute bottom-0 right-0 select-none opacity-60">
-                  <img src="/assets/images/world.png" alt="" className="select-none" draggable={false} />
+                  <img
+                    src="/assets/images/world.png"
+                    alt=""
+                    className="w-40 max-w-none select-none sm:w-auto"
+                    draggable={false}
+                  />
                 </div>
               </div>
             </div>
@@ -225,15 +230,19 @@ export default function Page() {
                 description="No worries! We've got an exciting collection of videos that bring the same inspiring stories and useful insights right to your screen."
               />
 
+              {/* On phones this sat at top-86% translated -50%, so the tall
+                  screenshot rode up over the description. Pin it to the bottom
+                  as a cropped strip instead, and keep the original framing
+                  from lg up. */}
               <Link
                 href="/videos"
                 aria-label="Browse the video collection"
-                className="absolute left-1/2 top-[86%] w-[360px] -translate-x-1/2 -translate-y-1/2 scale-100 select-none rounded-3xl lg:w-[800px] lg:scale-80 xl:w-[1050px]"
+                className="relative mt-5 block select-none rounded-3xl lg:absolute lg:mt-0 lg:left-1/2 lg:top-[86%] lg:w-[800px] lg:-translate-x-1/2 lg:-translate-y-1/2 lg:scale-80 xl:w-[1050px]"
               >
                 <img
                   src="/assets/images/VideoPage.png"
-                  alt="VideoPage"
-                  className="select-none"
+                  alt=""
+                  className="h-32 w-full rounded-t-xl border border-border object-cover object-top select-none sm:h-40 lg:h-auto lg:rounded-none lg:border-0"
                   draggable={false}
                 />
               </Link>

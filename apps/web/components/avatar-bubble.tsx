@@ -15,13 +15,13 @@ export function AvatarBubble({
 }: AvatarBubbleProps) {
   return (
     <div
-      className={`${isFirst ? "z-30" : `z-${zIndex}`} -ml-3 rounded-full border-2 bg-background p-1`}
+      className={`${isFirst ? "z-30" : `z-${zIndex}`} -ml-2 rounded-full border-2 bg-background p-0.5 sm:-ml-3 sm:p-1`}
       style={{ borderColor, zIndex }}
     >
       <img
         src={src}
         alt={alt}
-        className="h-20 w-20 rounded-full object-cover select-none sm:h-16 sm:w-16"
+        className="size-12 rounded-full object-cover select-none sm:size-16"
         draggable={false}
       />
     </div>

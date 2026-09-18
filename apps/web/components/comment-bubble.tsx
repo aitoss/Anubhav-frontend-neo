@@ -31,13 +31,13 @@ export function CommentBubble({
       }}
     >
       <div
-        className="flex h-6 w-6 -translate-x-[12px] -translate-y-[10px] -rotate-[70deg] transform"
+        className="flex size-5 -translate-x-[10px] -translate-y-[8px] -rotate-[70deg] transform sm:size-6 sm:-translate-x-[12px] sm:-translate-y-[10px]"
         style={{ color: iconColor }}
       >
         <SendArrowIcon />
       </div>
       <div
-        className="rounded-bl-full rounded-br-full rounded-tr-full border px-2 py-1 text-base font-medium text-white"
+        className="max-w-[9rem] truncate rounded-br-full rounded-bl-full rounded-tr-full border px-2 py-0.5 text-xs font-medium text-white sm:max-w-none sm:py-1 sm:text-base"
         style={{
           borderColor,
           backgroundColor,

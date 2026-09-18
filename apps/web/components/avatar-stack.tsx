@@ -12,7 +12,7 @@ interface AvatarStackProps {
 
 export function AvatarStack({ avatars }: AvatarStackProps) {
   return (
-    <div className="absolute bottom-40 left-1/2 z-10 flex -translate-x-1/2 items-center">
+    <div className="absolute bottom-24 left-1/2 z-10 flex -translate-x-1/2 items-center sm:bottom-40">
       {avatars.map((avatar, index) => (
         <AvatarBubble
           key={avatar.alt}
