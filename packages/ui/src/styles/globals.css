@@ -1,0 +1,411 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@font-face {
+  font-family: 'Aeonik Pro VF';
+  src: url('/fonts/Aeonik Pro VF.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-heading: 'Aeonik Pro VF', serif;
+}
+
+@custom-variant dark (&:is(.dark *));
+@source "../../../apps/**/*.{ts,tsx}";
+@source "../../../components/**/*.{ts,tsx}";
+@source "../**/*.{ts,tsx}";
+
+:root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --radius: 0.45rem;
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
+}
+
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+    --font-sans: var(--font-sans);
+    --font-heading: var(--font-heading);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground;
+    font-variation-settings: "opsz" 32;
+    }
+  button:not(:disabled), [role="button"]:not(:disabled) {
+    cursor: pointer;
+    }
+}
+
+::selection{
+  background: hsla(216, 0%, 50%, 0.2);
+}
+/* Article bodies arrive as raw HTML from the API (p, h1-h3, ul/li, pre/code,
+   blockquote, a, strong). Tailwind's reset strips all of it, so the reading
+   view needs these defaults. Used by the article detail page. */
+.article-prose {
+  color: var(--muted-foreground);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.article-prose > * + * {
+  margin-top: 1.1em;
+}
+
+.article-prose h1,
+.article-prose h2,
+.article-prose h3 {
+  color: var(--foreground);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+  scroll-margin-top: 5rem;
+}
+
+.article-prose h1 { font-size: 1.875rem; }
+.article-prose h2 { font-size: 1.5rem; }
+.article-prose h3 { font-size: 1.25rem; }
+
+.article-prose h1:first-child,
+.article-prose h2:first-child,
+.article-prose h3:first-child {
+  margin-top: 0;
+}
+
+.article-prose strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.article-prose a {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.article-prose a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.article-prose ul,
+.article-prose ol {
+  padding-left: 1.5rem;
+}
+
+.article-prose ul { list-style: disc; }
+.article-prose ol { list-style: decimal; }
+
+.article-prose li {
+  margin-top: 0.4em;
+}
+
+.article-prose li::marker {
+  color: color-mix(in oklab, var(--muted-foreground) 60%, transparent);
+}
+
+/* The editor emits <p><br></p> as a spacer; collapse those so the rhythm
+   above does the spacing instead of leaving large empty gaps. */
+.article-prose p:has(> br:only-child) {
+  display: none;
+}
+
+.article-prose blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 1rem;
+  font-style: italic;
+}
+
+.article-prose code {
+  background: var(--muted);
+  color: var(--foreground);
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.35rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.875em;
+}
+
+.article-prose pre {
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.article-prose pre code {
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  font-size: inherit;
+}
+
+.article-prose img {
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  max-width: 100%;
+  height: auto;
+}
+
+.article-prose hr {
+  border-color: var(--border);
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+/* highlight.js tokens for code blocks, expressed against the theme so they
+   hold up in both light and dark rather than fighting an imported hljs theme. */
+.article-prose .hljs-comment,
+.article-prose .hljs-quote {
+  color: color-mix(in oklab, var(--muted-foreground) 85%, transparent);
+  font-style: italic;
+}
+
+.article-prose .hljs-keyword,
+.article-prose .hljs-selector-tag,
+.article-prose .hljs-literal,
+.article-prose .hljs-doctag,
+.article-prose .hljs-name {
+  color: var(--color-violet-600);
+  font-weight: 500;
+}
+
+.article-prose .hljs-string,
+.article-prose .hljs-regexp,
+.article-prose .hljs-addition {
+  color: var(--color-emerald-600);
+}
+
+.article-prose .hljs-number,
+.article-prose .hljs-built_in,
+.article-prose .hljs-builtin-name,
+.article-prose .hljs-type {
+  color: var(--color-amber-600);
+}
+
+.article-prose .hljs-title,
+.article-prose .hljs-section,
+.article-prose .hljs-function .hljs-title {
+  color: var(--color-blue-600);
+  font-weight: 500;
+}
+
+.article-prose .hljs-attr,
+.article-prose .hljs-attribute,
+.article-prose .hljs-variable,
+.article-prose .hljs-template-variable,
+.article-prose .hljs-selector-attr {
+  color: var(--color-cyan-700);
+}
+
+.article-prose .hljs-deletion {
+  color: var(--color-rose-600);
+}
+
+.article-prose .hljs-emphasis { font-style: italic; }
+.article-prose .hljs-strong { font-weight: 600; }
+
+.dark .article-prose .hljs-keyword,
+.dark .article-prose .hljs-selector-tag,
+.dark .article-prose .hljs-literal,
+.dark .article-prose .hljs-doctag,
+.dark .article-prose .hljs-name {
+  color: var(--color-violet-400);
+}
+
+.dark .article-prose .hljs-string,
+.dark .article-prose .hljs-regexp,
+.dark .article-prose .hljs-addition {
+  color: var(--color-emerald-400);
+}
+
+.dark .article-prose .hljs-number,
+.dark .article-prose .hljs-built_in,
+.dark .article-prose .hljs-builtin-name,
+.dark .article-prose .hljs-type {
+  color: var(--color-amber-400);
+}
+
+.dark .article-prose .hljs-title,
+.dark .article-prose .hljs-section,
+.dark .article-prose .hljs-function .hljs-title {
+  color: var(--color-blue-400);
+}
+
+.dark .article-prose .hljs-attr,
+.dark .article-prose .hljs-attribute,
+.dark .article-prose .hljs-variable,
+.dark .article-prose .hljs-template-variable,
+.dark .article-prose .hljs-selector-attr {
+  color: var(--color-cyan-300);
+}
+
+.dark .article-prose .hljs-deletion {
+  color: var(--color-rose-400);
+}
+
+/* Rotating conic-gradient ring for the hero announcement pill, ported from the
+   Vite tailwind config (animation: rotate 3s linear, flip 6s steps(2)). */
+@keyframes anubhav-spark-rotate {
+  0% {
+    transform: translateX(-50%) translateY(-15%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-15%) rotate(360deg);
+  }
+}
+
+@keyframes anubhav-spark-flip {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spark-flip {
+  animation: anubhav-spark-flip 6s infinite steps(2, end);
+}
+
+.animate-spark-rotate::before {
+  animation: anubhav-spark-rotate 3s linear infinite both;
+}
+
+/* Tailwind's line-clamp-* does not clamp here: `display: -webkit-box` gets
+   normalised away during CSS processing (computed display comes back as
+   flow-root), which leaves -webkit-line-clamp inert. The max-height in `lh`
+   units clamps regardless, and the webkit properties still add the ellipsis
+   wherever they survive. */
+.clamp-1,
+.clamp-2,
+.clamp-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.clamp-1 {
+  -webkit-line-clamp: 1;
+  max-height: 1lh;
+}
+
+.clamp-2 {
+  -webkit-line-clamp: 2;
+  max-height: 2lh;
+}
+
+.clamp-3 {
+  -webkit-line-clamp: 3;
+  max-height: 3lh;
+}
