@@ -14,7 +14,7 @@ import type { Article } from "@/lib/articles"
 
 function CollegeIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden className="size-4 shrink-0">
       <path d="M22 9 12 4 2 9l10 5 10-5Z" strokeLinejoin="round" />
       <path d="M6 10.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-5.5" strokeLinejoin="round" />
       <path d="M22 9v6" strokeLinecap="round" />
@@ -56,55 +56,63 @@ export function ProfileView({
 
   return (
     <ProfileShell>
-      <div className="border-border bg-card/60 relative mx-auto flex max-w-5xl flex-col items-start gap-6 overflow-hidden rounded-3xl border p-6 md:flex-row md:items-center md:p-8">
-        <div className="flex w-full justify-between">
-          <Avatar className="size-26">
-            {profile.logoUrl ? <AvatarImage src={profile.logoUrl} alt={profile.name} /> : null}
-            <AvatarFallback className="text-3xl">{authorInitials(profile.name)}</AvatarFallback>
-          </Avatar>
-          {isOwner ? (
-            <Button variant="outline" render={<Link href="/profile/edit" />}>
-              Edit Profile
-            </Button>
-          ) : null}
-        </div>
+      <div className="border-border bg-card/60 mx-auto max-w-5xl overflow-hidden rounded-3xl border p-6 md:p-8">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+          <div className="flex min-w-0 items-center gap-5">
+            <Avatar className="size-20 shrink-0 sm:size-24">
+              {profile.logoUrl ? <AvatarImage src={profile.logoUrl} alt={profile.name} /> : null}
+              <AvatarFallback className="text-2xl">{authorInitials(profile.name)}</AvatarFallback>
+            </Avatar>
 
-        <div className="flex flex-1 flex-col gap-1">
-          <h1 className="text-4xl font-medium tracking-tight">
-            {profile.name || "Unnamed user"}
-          </h1>
+            <div className="flex min-w-0 flex-col gap-1.5">
+              <h1 className="truncate text-3xl font-medium tracking-tight sm:text-4xl">
+                {profile.name || "Unnamed user"}
+              </h1>
 
-          <div className="text-muted-foreground flex items-center gap-1.5 pt-1 text-sm">
-            <CollegeIcon />
-            <span>{profile.college || "Army Institute Of Technology, Pune"}</span>
+              <p className="text-muted-foreground flex items-center gap-1.5 text-sm">
+                <CollegeIcon />
+                <span className="truncate">
+                  {profile.college || "Army Institute Of Technology, Pune"}
+                </span>
+              </p>
+
+              <div className="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+                {profile.linkedinUrl ? (
+                  <a
+                    href={profile.linkedinUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-foreground font-medium hover:underline"
+                  >
+                    LinkedIn
+                  </a>
+                ) : null}
+                {profile.createdAt ? (
+                  <span>Joined {formatArticleDate(profile.createdAt)}</span>
+                ) : null}
+              </div>
+            </div>
           </div>
 
-          {profile.linkedinUrl ? (
-            <a
-              href={profile.linkedinUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-1 inline-flex w-max items-center gap-1.5 text-sm text-[#0a66c2] hover:underline"
+          {isOwner ? (
+            <Button
+              variant="outline"
+              className="shrink-0 self-start"
+              render={<Link href="/profile/edit" />}
             >
-              LinkedIn
-            </a>
-          ) : null}
-
-          {profile.createdAt ? (
-            <p className="text-muted-foreground pt-2 text-xs">
-              Joined {formatArticleDate(profile.createdAt)}
-            </p>
+              Edit Profile
+            </Button>
           ) : null}
         </div>
       </div>
 
       <div className="mx-auto max-w-5xl pt-8">
-        <h2 className="px-1 pb-4 text-2xl font-medium tracking-tight">
+        <h2 className="flex items-baseline gap-2 px-1 pb-4 text-2xl font-medium tracking-tight">
           {isOwner ? "My Articles" : "Articles"}
-          <span className="text-muted-foreground ml-2 text-sm font-normal">({total})</span>
+          <span className="text-muted-foreground text-base font-normal">{total}</span>
         </h2>
 
-        <div className="bg-card flex flex-col gap-5 rounded-2xl p-4 shadow-lg md:p-6">
+        <div className="flex flex-col gap-5">
           {isLoadingArticles ? (
             <div className="flex flex-col gap-6">
               {Array.from({ length: 3 }).map((_, index) => (
@@ -123,9 +131,11 @@ export function ProfileView({
               ) : null}
             </div>
           ) : (
-            <div className="flex flex-col gap-6">
+            <div className="divide-border flex flex-col divide-y">
               {articles.map((article) => (
-                <ArticleCard key={article._id} article={article} author={profile} />
+                <div key={article._id} className="py-6 first:pt-0 last:pb-0">
+                  <ArticleCard article={article} author={profile} />
+                </div>
               ))}
             </div>
           )}

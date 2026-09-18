@@ -182,14 +182,14 @@ export function Header() {
                                 <div className="px-2 py-2">
                                     <DropdownMenuItem
                                         className="px-3 py-2 text-sm"
-                                        onClick={() => router.push("/profile")}
+                                        onClick={() => router.push("/profile/me")}
                                     >
                                         <HugeiconsIcon icon={UserCircleIcon} className="size-4" />
                                         <span>Profile</span>
                                     </DropdownMenuItem>
                                     <DropdownMenuItem
                                         className="px-3 py-2 text-sm"
-                                        onClick={() => router.push("/settings")}
+                                        onClick={() => router.push("/profile/edit")}
                                     >
                                         <HugeiconsIcon icon={Settings02Icon} className="size-4" />
                                         <span>Settings</span>
@@ -210,10 +210,6 @@ export function Header() {
                                 </div>
                             </DropdownMenuContent>
                         </DropdownMenu>
-
-                        <Button variant="outline" size="sm" onClick={() => void handleLogout()}>
-                            Log out
-                        </Button>
                     </div>
                 ) : (
                     <ButtonLink variant="outline" href="/log-in" size="sm">
