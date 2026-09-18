@@ -25,7 +25,7 @@ function CollegeIcon() {
 export function ProfileShell({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <BackgroundDots dotSize={1.8} gap={15} fade />
+      {/* <BackgroundDots dotSize={1.8} gap={15} fade /> */}
       <main className="relative mx-auto h-full w-full max-w-[1440px] px-4 pt-24 pb-16 md:px-6 lg:px-14">
         {children}
       </main>
