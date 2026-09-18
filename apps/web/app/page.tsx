@@ -97,7 +97,7 @@ export default function Page() {
       }}
     >
 
-      <section className="relative isolate overflow-hidden px-4 pb-20 pt-16 sm:px-6 lg:px-8 lg:pb-28 lg:pt-24">
+      <section className="relative isolate overflow-hidden px-4 pb-16 pt-10 sm:px-6 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-28 lg:pt-24">
         <BackgroundDots
           dotSize={1.8}
           dotColor="#71717a"
@@ -106,21 +106,21 @@ export default function Page() {
           className="pointer-events-none opacity-50"
           fade
         />
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center gap-4 text-center">
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center gap-3 text-center sm:gap-4">
           <AnnouncementPill />
           <h1 className="max-w-xl font-heading text-3xl sm:text-4xl lg:text-6xl font-medium tracking-tight text-foreground">
             Stories of success from the community
           </h1>
-          <p className="max-w-xl text-base leading-8 text-muted-foreground sm:text-lg">
+          <p className="max-w-md text-base leading-7 text-muted-foreground sm:max-w-xl sm:text-lg sm:leading-8">
             Anubhav is a space for interview experiences, across placements, internships,
             and career journeys.
           </p>
 
-          <div className="mt-8 w-full max-w-3xl">
+          <div className="mt-5 w-full max-w-3xl sm:mt-8">
             <SearchTrigger />
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-3 sm:mt-8">
             <ButtonLink href="/article" size="lg">
               Start Reading
             </ButtonLink>
@@ -129,7 +129,7 @@ export default function Page() {
             </ButtonLink>
           </div>
           {/* Partner logos bar */}
-          <div className="mt-32 w-full">
+          <div className="mt-16 w-full sm:mt-24 lg:mt-32">
             {/* Moving partner logos marquee */}
             <PartnersMarquee />
           </div>

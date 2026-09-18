@@ -193,7 +193,7 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
           </span>
         </div>
 
-        <ScrollArea className="max-h-80">
+        <ScrollArea scrollFade className="max-h-80">
           <ul ref={listRef} role="listbox" className="p-1">
             {items.length === 0 ? (
               <li className="py-6 text-center text-sm text-muted-foreground">
