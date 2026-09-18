@@ -1,10 +1,8 @@
 import Image from "next/image"
-import Link from "next/link"
 import type { Metadata } from "next"
 
-import { Badge } from "@workspace/ui/components/badge"
+import { TagBadge, TagBadgeLink } from "@/components/tag-badge"
 
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { BackgroundDots } from "@/components/background-dots"
 import videoData from "../../public/VideoData.json"
@@ -29,18 +27,13 @@ export default function VideosPage() {
 
   return (
     <>
-      <Header />
       <BackgroundDots dotSize={1.8} gap={15} fade />
-      <main className="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 pt-24">
+      <main className="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4">
         <div className="mx-auto flex max-w-lg flex-col items-center justify-center py-6 text-center">
           <h1 className="mb-4 text-4xl font-semibold tracking-tight">Videos</h1>
           <div className="flex w-full flex-wrap justify-center gap-2">
             {TAGS.map((tag) => (
-              <Link key={tag} href={`/article?query=${encodeURIComponent(tag)}`}>
-                <Badge variant="secondary" className="cursor-pointer">
-                  {tag}
-                </Badge>
-              </Link>
+              <TagBadgeLink key={tag} label={tag} />
             ))}
           </div>
         </div>
@@ -52,7 +45,7 @@ export default function VideosPage() {
               href={video.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col gap-2 rounded-2xl p-1 transition-opacity hover:opacity-90"
+              className="group flex flex-col gap-2 rounded-2xl p-1 transition-opacity hover:opacity-90 bg-accent/20 backdrop-blur-2xl"
             >
               <Image
                 src={imageSrc(video.img)}
@@ -64,9 +57,7 @@ export default function VideosPage() {
               <h2 className="truncate text-xl font-medium">{video.title}</h2>
               <div className="flex flex-wrap gap-2">
                 {video.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary">
-                    {tag}
-                  </Badge>
+                  <TagBadge key={tag} label={tag} />
                 ))}
               </div>
               <p className="text-muted-foreground line-clamp-2 text-sm leading-5">

@@ -7,7 +7,6 @@ import { Input } from "@workspace/ui/components/input"
 import { Label } from "@workspace/ui/components/label"
 import { Textarea } from "@workspace/ui/components/textarea"
 
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { BackgroundDots } from "@/components/background-dots"
 import protectedAxios from "@/lib/protectedAxios"
@@ -81,7 +80,6 @@ export default function RequestArticlePage() {
 
   return (
     <>
-      <Header />
       <BackgroundDots dotSize={1.8} gap={15} fade />
       <main className="relative mx-auto w-full max-w-2xl px-4 pt-24 pb-16">
         <h1 className="text-3xl font-medium tracking-tight">Request an article</h1>

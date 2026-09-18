@@ -2,34 +2,22 @@
 
 import * as React from "react"
 import { useQuery } from "@tanstack/react-query"
-import { useRouter } from "next/navigation"
 
 import { Spinner } from "@workspace/ui/components/spinner"
 
 import { ArticleForm } from "@/components/create/article-form"
-import { useMe } from "@/hooks/use-profile"
+import { RequireSession } from "@/components/require-session"
 import { fetchBlog } from "@/lib/blogs"
 import { extractArticleIdFromRoute } from "@/lib/article-url"
 
-export default function EditArticlePage({ params }: { params: Promise<{ id: string }> }) {
-  const { id: routeId } = React.use(params)
-  const id = extractArticleIdFromRoute(routeId)
-  const router = useRouter()
-  const { data: me, isLoading: loadingMe, isError: meError } = useMe()
-
+function EditArticle({ id }: { id: string }) {
   const { data: article, isLoading } = useQuery({
     queryKey: ["article", id],
     queryFn: () => fetchBlog(id),
     enabled: Boolean(id),
   })
 
-  React.useEffect(() => {
-    if (!loadingMe && (meError || !me)) {
-      router.replace(`/log-in?redirectToPath=${encodeURIComponent(`/edit/${routeId}`)}`)
-    }
-  }, [loadingMe, meError, me, router, routeId])
-
-  if (loadingMe || isLoading || !me) {
+  if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <Spinner />
@@ -38,4 +26,15 @@ export default function EditArticlePage({ params }: { params: Promise<{ id: stri
   }
 
   return <ArticleForm mode="edit" articleId={id} initialArticle={article ?? null} />
+}
+
+export default function EditArticlePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id: routeId } = React.use(params)
+  const id = extractArticleIdFromRoute(routeId)
+
+  return (
+    <RequireSession>
+      <EditArticle id={id} />
+    </RequireSession>
+  )
 }

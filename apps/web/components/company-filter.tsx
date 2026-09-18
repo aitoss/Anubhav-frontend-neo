@@ -19,7 +19,7 @@ export function CompanyFilter({ activeCompany, onSelect }: CompanyFilterProps) {
 
   return (
     <aside className="w-full">
-      <h5 className="mb-2 text-xl font-medium">Filter by Company</h5>
+      <h5 className="bg-background sticky top-0 z-10 mb-2 pb-2 text-xl font-medium">Filter by Company</h5>
 
       {isLoading ? (
         <div className="flex flex-col gap-2">
@@ -28,7 +28,7 @@ export function CompanyFilter({ activeCompany, onSelect }: CompanyFilterProps) {
           ))}
         </div>
       ) : (
-        <div className="flex max-h-[40rem] flex-col gap-1 overflow-y-auto pr-1">
+        <div className="flex flex-col gap-1 pr-1">
           {companies.map((item) => (
             <button
               key={item.company}

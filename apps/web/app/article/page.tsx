@@ -10,7 +10,6 @@ import { Input } from "@workspace/ui/components/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@workspace/ui/components/select"
 import { cn } from "@workspace/ui/lib/utils"
 
-import { Header } from "@/components/header"
 import { useArticles } from "@/hooks/use-articles"
 import { CompanyFilter } from "@/components/company-filter"
 import { ArticleCard } from "@/components/article-card"
@@ -139,7 +138,6 @@ function ArticleContent() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <Header />
 
       <section className="pt-2">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
@@ -219,7 +217,7 @@ function ArticleContent() {
           ) : null}
           </div>
 
-          <div className="hidden lg:block">
+          <div className="hidden lg:block lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
             <CompanyFilter
               activeCompany={queryFromUrl}
               onSelect={(company) => {

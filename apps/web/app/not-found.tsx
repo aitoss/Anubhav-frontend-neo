@@ -2,12 +2,10 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { ButtonLink } from "@/components/button-link"
-import { Header } from "@/components/header"
 
 export default function NotFound() {
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <Header />
       <section className="px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <div className="mx-auto flex w-full max-w-5xl flex-col items-center text-center">
           <div className="w-full max-w-xs">

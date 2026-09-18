@@ -160,9 +160,9 @@ export function Header() {
                                 </button>
                             </DropdownMenuTrigger>
 
-                            <DropdownMenuContent align="end" sideOffset={10} className="w-80 min-w-80 overflow-hidden rounded-2xl p-0">
-                                <div className="flex items-center gap-3 border-b border-border/70 px-4 py-4">
-                                    <div className="h-12 w-12 overflow-hidden rounded-full border border-border/80 bg-muted text-sm font-semibold text-foreground inline-flex items-center justify-center">
+                            <DropdownMenuContent align="end" sideOffset={10} className="w-64 min-w-64 overflow-hidden rounded-xl p-0">
+                                <div className="flex items-center gap-3 border-b border-border/70 px-3 py-3">
+                                    <div className="h-9 w-9 overflow-hidden rounded-full border border-border/80 bg-muted text-xs font-semibold text-foreground inline-flex items-center justify-center">
                                         {profileImageUrl ? (
                                             <img
                                                 src={profileImageUrl}
@@ -174,24 +174,24 @@ export function Header() {
                                         )}
                                     </div>
                                     <div className="min-w-0">
-                                        <p className="truncate text-[1.35rem] leading-tight font-semibold text-foreground">{displayName}</p>
-                                        <p className="truncate text-base text-muted-foreground">{displayEmail}</p>
+                                        <p className="truncate text-sm leading-tight font-semibold text-foreground">{displayName}</p>
+                                        <p className="truncate text-xs text-muted-foreground">{displayEmail}</p>
                                     </div>
                                 </div>
 
                                 <div className="px-2 py-2">
                                     <DropdownMenuItem
-                                        className="px-3 py-3 text-2xl"
+                                        className="px-3 py-2 text-sm"
                                         onClick={() => router.push("/profile")}
                                     >
-                                        <HugeiconsIcon icon={UserCircleIcon} className="size-5" />
+                                        <HugeiconsIcon icon={UserCircleIcon} className="size-4" />
                                         <span>Profile</span>
                                     </DropdownMenuItem>
                                     <DropdownMenuItem
-                                        className="px-3 py-3 text-2xl"
+                                        className="px-3 py-2 text-sm"
                                         onClick={() => router.push("/settings")}
                                     >
-                                        <HugeiconsIcon icon={Settings02Icon} className="size-5" />
+                                        <HugeiconsIcon icon={Settings02Icon} className="size-4" />
                                         <span>Settings</span>
                                     </DropdownMenuItem>
                                 </div>
@@ -201,10 +201,10 @@ export function Header() {
                                 <div className="px-2 py-2">
                                     <DropdownMenuItem
                                         variant="destructive"
-                                        className="px-3 py-3 text-2xl"
+                                        className="px-3 py-2 text-sm"
                                         onClick={() => void handleLogout()}
                                     >
-                                        <HugeiconsIcon icon={Logout01Icon} className="size-5" />
+                                        <HugeiconsIcon icon={Logout01Icon} className="size-4" />
                                         <span>Sign out</span>
                                     </DropdownMenuItem>
                                 </div>

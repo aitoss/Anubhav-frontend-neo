@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
@@ -14,7 +13,6 @@ export const metadata: Metadata = {
 export default function GuidelinesPage() {
   return (
     <>
-      <Header />
       <main className="mx-auto w-full max-w-3xl px-4 pt-28 pb-16">
         <h1 className="mb-8 text-center text-4xl font-semibold">Guidelines</h1>
 

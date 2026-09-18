@@ -1,7 +1,6 @@
 import Image from "next/image"
 import type { Metadata } from "next"
 
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
@@ -49,7 +48,6 @@ const MILESTONES = [
 export default function StoryPage() {
   return (
     <>
-      <Header />
       <main className="mx-auto w-full max-w-4xl px-4 pt-24 pb-16">
         <h1 className="py-6 text-center text-4xl font-semibold lg:py-8">Our Story</h1>
 

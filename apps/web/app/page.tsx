@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { ButtonLink } from "@/components/button-link"
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { SearchTrigger } from "@/components/search-trigger"
 import PartnersMarquee from "@/components/partners-marquee"
@@ -8,6 +7,7 @@ import { BackgroundDots } from "@/components/background-dots"
 import { SendArrowIcon } from "@/components/send-arrow-icon"
 import { FeatureCardWithIcon } from "@/components/feature-card-with-icon"
 import { HowItWorks } from "@/components/how-it-works"
+import { StoryStack } from "@/components/story-stack"
 import { CommentBubble } from "@/components/comment-bubble"
 import { AvatarStack, type Avatar } from "@/components/avatar-stack"
 import { Comment01Icon, Video01Icon } from "@hugeicons/core-free-icons"
@@ -113,7 +113,6 @@ export default function Page() {
           "radial-gradient(circle at top, hsl(var(--primary) / 0.08), transparent 34%), linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%)",
       }}
     >
-      <Header />
 
       <section className="relative isolate overflow-hidden px-4 pb-20 pt-16 sm:px-6 lg:px-8 lg:pb-28 lg:pt-24">
         <BackgroundDots
@@ -190,52 +189,7 @@ export default function Page() {
             </div>
           </div>
 
-          <div>
-            <div className="relative rounded-2xl bg-card p-6 lg:p-10 h-80 lg:h-96 shadow-sm overflow-hidden">
-              {/* semicircle background */}
-              <div className="absolute -bottom-36 left-1/2 -translate-x-1/2 w-[90%] h-[320px] rounded-t-full bg-muted/10" />
-
-              {/* sticker pills */}
-              <div className="absolute top-6 left-8 rotate-[-8deg]">
-                <span className="inline-block rounded-md border border-border bg-background px-3 py-1 text-sm text-muted-foreground shadow-sm">Fresh Stories</span>
-              </div>
-              <div className="absolute top-6 right-8 rotate-6">
-                <span className="inline-block rounded-md border border-border bg-background px-3 py-1 text-sm text-muted-foreground shadow-sm">Latest Insights</span>
-              </div>
-
-              {/* avatars */}
-              <div className="absolute left-10 top-32">
-                <div className="h-10 w-10 rounded-full bg-purple-200 ring-4 ring-white shadow-sm" />
-              </div>
-              <div className="absolute left-6 top-44">
-                <div className="h-12 w-12 rounded-full bg-pink-200 ring-4 ring-white shadow-sm" />
-              </div>
-
-              {/* stacked cards */}
-              <div className="absolute right-6 top-20 w-[340px]">
-                <div className="transform rotate-2 origin-top-right">
-                  <div className="bg-background rounded-md border border-border p-3 shadow-md">
-                    <div className="text-xs text-muted-foreground">11 mins read • 09-06-2023</div>
-                    <div className="mt-2 font-semibold">CRED Interview Experience ( On Campus SDE - Backend )</div>
-                  </div>
-                </div>
-
-                <div className="-mt-3 transform rotate-1 origin-top-right">
-                  <div className="bg-background rounded-md border border-border p-3 shadow-md">
-                    <div className="text-xs text-muted-foreground">5 mins read • 21-12-2022</div>
-                    <div className="mt-2 font-semibold">Google STEP Internship Decoded</div>
-                  </div>
-                </div>
-
-                <div className="-mt-3 transform -rotate-2 origin-top-right">
-                  <div className="bg-background rounded-md border border-border p-3 shadow-md">
-                    <div className="text-xs text-muted-foreground">5 mins read • 19-12-2022</div>
-                    <div className="mt-2 font-semibold">Deutsche bank: Internship | Summer Intern 2023</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <StoryStack />
         </div>
       </section>
 

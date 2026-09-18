@@ -4,7 +4,6 @@ import Image from "next/image"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@workspace/ui/components/tabs"
 
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { BackgroundDots } from "@/components/background-dots"
 
@@ -60,9 +59,8 @@ function MemberGrid({ members }: { members: Member[] }) {
 export default function TeamPage() {
   return (
     <>
-      <Header />
       <BackgroundDots dotSize={1.8} gap={15} fade />
-      <main className="relative mx-auto w-full max-w-7xl px-4 pt-28 pb-16">
+      <main className="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 pt-6">
         <h1 className="mb-6 text-center text-4xl font-semibold">Dev Team</h1>
         <Tabs defaultValue="current" className="w-full">
           <TabsList className="mx-auto">

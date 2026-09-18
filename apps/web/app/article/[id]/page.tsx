@@ -11,7 +11,6 @@ import { Badge } from "@workspace/ui/components/badge"
 import { Button } from "@workspace/ui/components/button"
 import { Skeleton } from "@workspace/ui/components/skeleton"
 
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { ArticleActions } from "@/components/article-actions"
 import { formatArticleDate, readTime } from "@/components/article-card"
@@ -56,7 +55,6 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
 
   return (
     <main className="bg-background text-foreground min-h-screen">
-      <Header />
 
       <div className="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6">
         <Button

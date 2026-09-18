@@ -10,7 +10,7 @@ type BackgroundDotsProps = HTMLAttributes<HTMLDivElement> & {
 
 export function BackgroundDots({
   dotSize = 1.2,
-  dotColor = "#71717a8A",
+  dotColor = "#71717acd",
   backgroundColor = "transparent",
   gap = 15,
   className = "",

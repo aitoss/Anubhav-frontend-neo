@@ -6,6 +6,7 @@ import { ReactQueryProvider } from "@/components/react-query-provider"
 import { cn } from "@workspace/ui/lib/utils"
 import SearchShortcut from "@/components/search-shortcut"
 import { SuperTokensProvider } from "@/components/supertokens-provider"
+import { Header } from "@/components/header"
 
 
 const inter = Inter({subsets:['latin'],axes:["opsz"], variable:'--font-sans'})
@@ -31,6 +32,7 @@ export default function RootLayout({
           <ThemeProvider>
             <ReactQueryProvider>
               <SearchShortcut />
+              <Header />
               {children}
             </ReactQueryProvider>
           </ThemeProvider>

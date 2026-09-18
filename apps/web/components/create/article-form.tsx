@@ -14,7 +14,6 @@ import {
   SelectValue,
 } from "@workspace/ui/components/select"
 
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { BackgroundDots } from "@/components/background-dots"
 import { BannerUpload } from "@/components/create/banner-upload"
@@ -156,7 +155,6 @@ export function ArticleForm({ mode = "create", articleId, initialArticle }: Prop
 
   return (
     <>
-      <Header />
       <BackgroundDots dotSize={1.8} gap={15} fade />
       <main className="relative mx-auto w-full max-w-3xl px-4 pt-24 pb-16">
         <div className="mb-6 flex items-center justify-between">

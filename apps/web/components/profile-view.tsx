@@ -6,7 +6,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/av
 import { Button } from "@workspace/ui/components/button"
 import { Skeleton } from "@workspace/ui/components/skeleton"
 
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { BackgroundDots } from "@/components/background-dots"
 import { ArticleCard, formatArticleDate } from "@/components/article-card"
@@ -27,7 +26,6 @@ function CollegeIcon() {
 export function ProfileShell({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Header />
       <BackgroundDots dotSize={1.8} gap={15} fade />
       <main className="relative mx-auto h-full w-full max-w-[1440px] px-4 pt-24 pb-16 md:px-6 lg:px-14">
         {children}

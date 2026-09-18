@@ -6,20 +6,18 @@ import { useRouter } from "next/navigation"
 import { Spinner } from "@workspace/ui/components/spinner"
 
 import { ProfileShell } from "@/components/profile-view"
+import { RequireSession } from "@/components/require-session"
 import { useMe } from "@/hooks/use-profile"
 import { profilePath } from "@/lib/users"
 
-// /profile/me only resolves who "me" is, then hands off to the canonical
-// /u/:id/:slug page — same behaviour as the Vite route.
-export default function MyProfilePage() {
+// Resolves who "me" is, then hands off to the canonical /u/:id/:slug page.
+function MyProfileRedirect() {
   const router = useRouter()
-  const { data: me, isLoading, isError } = useMe()
+  const { data: me, isLoading } = useMe()
 
   React.useEffect(() => {
-    if (isLoading) return
-    if (me?._id) router.replace(profilePath(me))
-    else if (isError || !me) router.replace("/log-in?redirectToPath=%2Fprofile%2Fme")
-  }, [me, isLoading, isError, router])
+    if (!isLoading && me?._id) router.replace(profilePath(me))
+  }, [me, isLoading, router])
 
   return (
     <ProfileShell>
@@ -27,5 +25,13 @@ export default function MyProfilePage() {
         <Spinner />
       </div>
     </ProfileShell>
+  )
+}
+
+export default function MyProfilePage() {
+  return (
+    <RequireSession>
+      <MyProfileRedirect />
+    </RequireSession>
   )
 }

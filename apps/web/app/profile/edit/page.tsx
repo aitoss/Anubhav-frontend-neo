@@ -10,15 +10,16 @@ import { Label } from "@workspace/ui/components/label"
 import { Spinner } from "@workspace/ui/components/spinner"
 
 import { ProfileShell } from "@/components/profile-view"
+import { RequireSession } from "@/components/require-session"
 import { useMe } from "@/hooks/use-profile"
 import { profilePath, updateMe, type Profile } from "@/lib/users"
 
 const LINKEDIN_RE = /^https?:\/\/(www\.)?linkedin\.com\/.+/i
 
-export default function EditProfilePage() {
+function EditProfileForm() {
   const router = useRouter()
   const queryClient = useQueryClient()
-  const { data: me, isLoading, isError } = useMe()
+  const { data: me, isLoading } = useMe()
 
   const [form, setForm] = React.useState({ name: "", contact: "", linkedinUrl: "" })
   const [errors, setErrors] = React.useState<Record<string, string | undefined>>({})
@@ -32,12 +33,6 @@ export default function EditProfilePage() {
       linkedinUrl: me.linkedinUrl ?? "",
     })
   }, [me])
-
-  React.useEffect(() => {
-    if (!isLoading && (isError || !me)) {
-      router.replace("/log-in?redirectToPath=%2Fprofile%2Fedit")
-    }
-  }, [isLoading, isError, me, router])
 
   const mutation = useMutation({
     mutationFn: (payload: Partial<Profile>) => updateMe(payload),
@@ -132,5 +127,13 @@ export default function EditProfilePage() {
         </div>
       </form>
     </ProfileShell>
+  )
+}
+
+export default function EditProfilePage() {
+  return (
+    <RequireSession>
+      <EditProfileForm />
+    </RequireSession>
   )
 }
