@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og"
 
+import { LOGO_PATH, loadOgFonts } from "@/lib/og-fonts"
 import { SITE_NAME } from "@/lib/site"
 
 export const alt = "Anubhav — interview experiences from AIT students"
@@ -8,7 +9,9 @@ export const contentType = "image/png"
 
 // Generated rather than a committed PNG: the old public/og-cover.png showed the
 // pre-redesign UI and went stale. This tracks the current brand automatically.
-export default function Image() {
+export default async function Image() {
+  const fonts = await loadOgFonts()
+
   return new ImageResponse(
     (
       <div
@@ -24,20 +27,21 @@ export default function Image() {
           backgroundImage:
             "radial-gradient(circle at 1px 1px, #e4e4e7 1px, transparent 0)",
           backgroundSize: "24px 24px",
-          fontFamily: "sans-serif",
+          fontFamily: "Inter, sans-serif",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-          <svg width="52" height="46" viewBox="0 0 45 40" fill="#18181b">
-            <path d="M22.0122 0.5L10.9529 18.6788L12.6481 19.2122L0.000740229 40.0009L0 40.0021H5.2L22.0122 12.3086L38.8244 40.0021H44.0244L22.0122 0.5Z" />
+          <svg width="56" height="56" viewBox="0 0 80 80" fill="#18181b">
+            <path d={LOGO_PATH} />
           </svg>
-          <span style={{ fontSize: 52, fontWeight: 600, color: "#18181b", letterSpacing: -1 }}>
+          <span style={{ fontFamily: "Aeonik Pro", fontSize: 52, fontWeight: 600, color: "#18181b", letterSpacing: -1 }}>
             {SITE_NAME}
           </span>
         </div>
 
         <div
           style={{
+            fontFamily: "Aeonik Pro",
             fontSize: 74,
             fontWeight: 600,
             color: "#09090b",
@@ -86,6 +90,6 @@ export default function Image() {
         </div>
       </div>
     ),
-    size,
+    { ...size, fonts: fonts.length > 0 ? fonts : undefined },
   )
 }

@@ -12,6 +12,7 @@ import { cn } from "@workspace/ui/lib/utils"
 
 import { useArticles } from "@/hooks/use-articles"
 import { CompanyFilter } from "@/components/company-filter"
+import { CompanyFilterDialog } from "@/components/company-filter-dialog"
 import { ArticleCard } from "@/components/article-card"
 
 
@@ -142,7 +143,7 @@ function ArticleContent() {
   return (
     <main className="min-h-screen bg-background text-foreground">
 
-      <section className="pt-2">
+      <section className="px-4 pt-2 sm:px-6 lg:px-8">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
           <form onSubmit={handleSubmit} className="flex w-full max-w-3xl gap-3">
             <div className="relative flex-1 max-w-sm">
@@ -176,6 +177,15 @@ function ArticleContent() {
                 </SelectContent>
               </Select>
             </div>
+            <CompanyFilterDialog
+              activeCompany={queryFromUrl}
+              onSelect={(company) => {
+                const params = new URLSearchParams()
+                params.set("query", company)
+                if (sortFromUrl !== "date") params.set("sort", sortFromUrl)
+                router.push(`/article?${params.toString()}`)
+              }}
+            />
             <div className="ml-auto text-sm text-muted-foreground">
               {queryFromUrl ? `${totalArticles} articles found` : "Latest articles"}
             </div>

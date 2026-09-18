@@ -2,6 +2,7 @@ import { ImageResponse } from "next/og"
 
 import { extractArticleIdFromRoute } from "@/lib/article-url"
 import { BACKEND_URL } from "@/lib/backend"
+import { LOGO_PATH, loadOgFonts } from "@/lib/og-fonts"
 import { SITE_NAME } from "@/lib/site"
 import type { Article } from "@/lib/articles"
 
@@ -49,6 +50,7 @@ function formatDate(value?: string) {
 
 export default async function Image({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
+  const fonts = await loadOgFonts()
 
   let article: Article | null = null
   try {
@@ -88,14 +90,16 @@ export default async function Image({ params }: { params: Promise<{ id: string }
           backgroundImage:
             "radial-gradient(circle at 1px 1px, #e4e4e7 1px, transparent 0)",
           backgroundSize: "24px 24px",
-          fontFamily: "sans-serif",
+          fontFamily: "Inter, sans-serif",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <svg width="34" height="30" viewBox="0 0 45 40" fill="#18181b">
-            <path d="M22.0122 0.5L10.9529 18.6788L12.6481 19.2122L0.000740229 40.0009L0 40.0021H5.2L22.0122 12.3086L38.8244 40.0021H44.0244L22.0122 0.5Z" />
+          <svg width="40" height="40" viewBox="0 0 80 80" fill="#18181b">
+            <path d={LOGO_PATH} />
           </svg>
-          <span style={{ fontSize: 30, fontWeight: 600, color: "#18181b" }}>anubhav</span>
+          <span style={{ fontFamily: "Aeonik Pro", fontSize: 30, fontWeight: 600, color: "#18181b" }}>
+            anubhav
+          </span>
           {company ? (
             <span style={{ fontSize: 24, color: "#71717a", marginLeft: 8 }}>
               / {company}
@@ -106,6 +110,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
         <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
           <div
             style={{
+              fontFamily: "Aeonik Pro",
               fontSize: title.length > 70 ? 54 : 66,
               fontWeight: 600,
               color: "#09090b",
@@ -165,6 +170,6 @@ export default async function Image({ params }: { params: Promise<{ id: string }
         </div>
       </div>
     ),
-    size,
+    { ...size, fonts: fonts.length > 0 ? fonts : undefined },
   )
 }
