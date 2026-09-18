@@ -16,7 +16,11 @@ import { Kbd, KbdGroup } from "@workspace/ui/components/kbd"
 import { ScrollArea } from "@workspace/ui/components/scroll-area"
 import { cn } from "@workspace/ui/lib/utils"
 
+import { useQuery } from "@tanstack/react-query"
+
 import { sections } from "@/components/nav-sections"
+import { buildArticlePath } from "@/lib/article-url"
+import { fetchArticlesPage } from "@/lib/articles"
 
 type SearchItem = {
   label: string
@@ -46,6 +50,16 @@ const ALL_ITEMS: SearchItem[] = [
     ),
 ]
 
+function ArticleIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+      <path d="M14 3v4a1 1 0 0 0 1 1h4" strokeLinejoin="round" />
+      <path d="M19 9v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7z" strokeLinejoin="round" />
+      <path d="M9 13h6M9 17h4" strokeLinecap="round" />
+    </svg>
+  )
+}
+
 function filterItems(query: string): SearchItem[] {
   const q = query.trim().toLowerCase()
   if (!q) return ALL_ITEMS
@@ -67,7 +81,46 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
   const [query, setQuery] = React.useState("")
   const [highlight, setHighlight] = React.useState(0)
   const listRef = React.useRef<HTMLUListElement>(null)
-  const items = React.useMemo(() => filterItems(query), [query])
+  // The dialog only matched a static list of nav pages, so any real search
+  // term came back empty. Query the article search API too.
+  const [debounced, setDebounced] = React.useState("")
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => setDebounced(query.trim()), 250)
+    return () => clearTimeout(timer)
+  }, [query])
+
+  const { data: articleResults, isFetching } = useQuery({
+    queryKey: ["search-dialog", debounced],
+    queryFn: () => fetchArticlesPage(debounced, "relevance", 1),
+    enabled: debounced.length >= 2,
+    staleTime: 60_000,
+  })
+
+  const items = React.useMemo(() => {
+    const pages = filterItems(query)
+    if (debounced.length < 2) return pages
+
+    const articles = (articleResults?.articles ?? []).slice(0, 6).map<SearchItem>(
+      (article) => ({
+        label: article.title,
+        href: buildArticlePath({ id: article._id, title: article.title }),
+        group: "Articles",
+        icon: ArticleIcon,
+      }),
+    )
+
+    return [
+      ...pages,
+      ...articles,
+      {
+        label: `See all results for \u201c${debounced}\u201d`,
+        href: `/article?query=${encodeURIComponent(debounced)}`,
+        group: "Articles",
+        icon: ArticleIcon,
+      },
+    ]
+  }, [query, debounced, articleResults])
 
   React.useEffect(() => {
     setHighlight(0)
@@ -144,7 +197,7 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
           <ul ref={listRef} role="listbox" className="p-1">
             {items.length === 0 ? (
               <li className="py-6 text-center text-sm text-muted-foreground">
-                No results found.
+                {isFetching ? "Searching\u2026" : "No results found."}
               </li>
             ) : (
               items.map((item, index) => {
@@ -186,6 +239,9 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
                 )
               })
             )}
+            {items.length > 0 && isFetching ? (
+              <li className="text-muted-foreground px-3 py-2 text-xs">Searching\u2026</li>
+            ) : null}
           </ul>
         </ScrollArea>
 

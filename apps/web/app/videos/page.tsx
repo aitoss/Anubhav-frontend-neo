@@ -59,7 +59,7 @@ export default function VideosPage() {
                   <TagBadge key={tag} label={tag} />
                 ))}
               </div>
-              <p className="text-muted-foreground line-clamp-2 text-sm leading-5">
+              <p className="text-muted-foreground clamp-2 text-sm leading-5">
                 {video.description}
               </p>
             </a>

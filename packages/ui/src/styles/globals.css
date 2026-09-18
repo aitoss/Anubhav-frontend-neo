@@ -356,3 +356,56 @@
 .dark .article-prose .hljs-deletion {
   color: var(--color-rose-400);
 }
+
+/* Rotating conic-gradient ring for the hero announcement pill, ported from the
+   Vite tailwind config (animation: rotate 3s linear, flip 6s steps(2)). */
+@keyframes anubhav-spark-rotate {
+  0% {
+    transform: translateX(-50%) translateY(-15%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-15%) rotate(360deg);
+  }
+}
+
+@keyframes anubhav-spark-flip {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spark-flip {
+  animation: anubhav-spark-flip 6s infinite steps(2, end);
+}
+
+.animate-spark-rotate::before {
+  animation: anubhav-spark-rotate 3s linear infinite both;
+}
+
+/* Tailwind's line-clamp-* does not clamp here: `display: -webkit-box` gets
+   normalised away during CSS processing (computed display comes back as
+   flow-root), which leaves -webkit-line-clamp inert. The max-height in `lh`
+   units clamps regardless, and the webkit properties still add the ellipsis
+   wherever they survive. */
+.clamp-1,
+.clamp-2,
+.clamp-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.clamp-1 {
+  -webkit-line-clamp: 1;
+  max-height: 1lh;
+}
+
+.clamp-2 {
+  -webkit-line-clamp: 2;
+  max-height: 2lh;
+}
+
+.clamp-3 {
+  -webkit-line-clamp: 3;
+  max-height: 3lh;
+}

@@ -8,6 +8,7 @@ import { FeatureCardWithIcon } from "@/components/feature-card-with-icon"
 import { HowItWorks } from "@/components/how-it-works"
 import { StoryStack } from "@/components/story-stack"
 import { FeatureCards } from "@/components/feature-cards"
+import { AnnouncementPill } from "@/components/announcement-pill"
 import { CommentBubble } from "@/components/comment-bubble"
 import { AvatarStack, type Avatar } from "@/components/avatar-stack"
 import { Comment01Icon, Video01Icon } from "@hugeicons/core-free-icons"
@@ -106,9 +107,7 @@ export default function Page() {
           fade
         />
         <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center gap-4 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-muted-foreground shadow-sm">
-            🎉 Video collection now live
-          </div>
+          <AnnouncementPill />
           <h1 className="max-w-xl font-heading text-3xl sm:text-4xl lg:text-6xl font-medium tracking-tight text-foreground">
             Stories of success from the community
           </h1>

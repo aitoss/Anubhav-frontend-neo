@@ -7,11 +7,12 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowLeft01Icon } from "@hugeicons/core-free-icons"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar"
-import { Badge } from "@workspace/ui/components/badge"
 import { Button } from "@workspace/ui/components/button"
 import { Skeleton } from "@workspace/ui/components/skeleton"
 
 import { ArticleActions } from "@/components/article-actions"
+import { ArticleThumb } from "@/components/article-thumb"
+import { TagBadgeLink } from "@/components/tag-badge"
 import { formatArticleDate, readTime } from "@/components/article-card"
 import { useArticle } from "@/hooks/use-article"
 import { useSimilarArticles } from "@/hooks/use-similar-articles"
@@ -99,10 +100,23 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
           </div>
         ) : (
           <article>
-            {article.companyName ? (
-              <p className="text-muted-foreground mb-3 text-sm font-semibold tracking-[0.15em] uppercase">
-                {article.companyName}
-              </p>
+            {article.companyName || tags.length > 0 ? (
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+                {article.companyName ? (
+                  <p className="text-muted-foreground text-sm font-medium">
+                    {article.companyName}
+                  </p>
+                ) : (
+                  <span />
+                )}
+                {tags.length > 0 ? (
+                  <div className="flex flex-wrap gap-2">
+                    {tags.map((tag) => (
+                      <TagBadgeLink key={tag} label={tag} className="text-xs" />
+                    ))}
+                  </div>
+                ) : null}
+              </div>
             ) : null}
 
             <h1 className="font-heading text-3xl leading-tight font-medium tracking-tight text-balance sm:text-4xl">
@@ -155,18 +169,6 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
               dangerouslySetInnerHTML={{ __html: body }}
             />
 
-            {tags.length > 0 ? (
-              <div className="mt-10 flex flex-wrap gap-2">
-                {tags.map((tag) => (
-                  <Link key={tag} href={`/article?query=${encodeURIComponent(tag)}`}>
-                    <Badge variant="secondary" className="cursor-pointer">
-                      {tag}
-                    </Badge>
-                  </Link>
-                ))}
-              </div>
-            ) : null}
-
             <section className="border-border mt-12 border-t pt-8">
               <h2 className="font-heading mb-4 text-xl font-medium">Similar articles</h2>
               {isSimilarLoading ? (
@@ -186,11 +188,18 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                       <Link
                         key={item._id}
                         href={buildArticlePath({ id: item._id, title: item.title })}
-                        className="border-border hover:bg-muted/50 rounded-lg border p-4 transition-colors"
+                        className="group border-border hover:bg-muted/50 flex gap-3 overflow-hidden rounded-lg border p-3 transition-colors"
                       >
-                        <div className="mb-2 line-clamp-2 font-medium">{item.title}</div>
-                        <div className="text-muted-foreground text-xs">
-                          {item.companyName || "Unknown company"}
+                        <ArticleThumb
+                          src={item.imageUrl}
+                          className="size-16 shrink-0 rounded-md"
+                          logoClassName="h-6 w-6"
+                        />
+                        <div className="min-w-0">
+                          <div className="clamp-2 font-medium">{item.title}</div>
+                          <div className="text-muted-foreground mt-1 text-xs">
+                            {item.companyName || "Unknown company"}
+                          </div>
                         </div>
                       </Link>
                     ))}

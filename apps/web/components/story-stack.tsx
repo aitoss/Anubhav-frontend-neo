@@ -69,7 +69,7 @@ export function StoryStack() {
   const cards = fetched.length > 0 ? fetched : FALLBACK
 
   return (
-    <div className="border-border bg-card relative h-[450px] w-full overflow-hidden rounded-2xl border shadow-md">
+    <div className="border-border bg-card relative isolate h-[450px] w-full overflow-hidden rounded-2xl border shadow-md">
       <div className="bg-foreground/5 absolute top-[120%] left-1/2 z-0 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full" />
       <div className="bg-foreground/5 absolute top-[120%] left-1/2 z-10 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full" />
 
@@ -98,10 +98,10 @@ export function StoryStack() {
           <Link
             key={card.href}
             href={card.href}
-            className={`border-border bg-muted hover:bg-card inline-flex cursor-pointer flex-col rounded-lg border p-2 shadow-md backdrop-blur-[12px] transition-all duration-200 hover:scale-105 ${SLOTS[index] ?? ""}`}
+            className={`border-border bg-muted hover:bg-card inline-flex max-w-[23rem] cursor-pointer flex-col rounded-lg border p-2 shadow-md backdrop-blur-[12px] transition-all duration-200 hover:scale-105 ${SLOTS[index] ?? ""}`}
           >
             <p className="text-muted-foreground font-normal">{card.meta}</p>
-            <h3 className="line-clamp-2">{card.title}</h3>
+            <h3 className="clamp-2">{card.title}</h3>
           </Link>
         ))}
       </div>

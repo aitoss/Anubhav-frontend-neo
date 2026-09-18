@@ -119,11 +119,6 @@ export function Footer() {
                   Dev Team
                 </Link>
               </li>
-              <li>
-                <Link href="/legal/terms" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
-                  Terms of Service
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -148,14 +143,6 @@ export function Footer() {
           </p>
           <div className="flex items-center gap-4">
             <ThemeToggle />
-            <div className="flex gap-6 text-sm text-muted-foreground">
-              <a href="/legal/terms" className="transition-colors hover:text-foreground">
-                Privacy
-              </a>
-              <a href="/legal/terms" className="transition-colors hover:text-foreground">
-                Terms
-              </a>
-            </div>
           </div>
         </div>
       </div>

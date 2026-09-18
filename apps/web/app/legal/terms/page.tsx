@@ -1,22 +1,17 @@
 import type { Metadata } from "next"
 
-
 export const metadata: Metadata = {
   title: "Terms of Service | Anubhav",
 }
 
-// ponytail: the Vite page was a heading and nothing else - there is no terms
-// copy anywhere in the repo to port. Kept so footer links resolve instead of
-// 404ing. Replace the placeholder below once legal copy exists.
+// Copied as-is from master's src/pages/TermsService.jsx, which is a heading
+// centred in a full-height container and nothing else — there is no terms copy
+// anywhere in the repo. Needs real legal text before launch.
 export default function TermsOfServicePage() {
   return (
-    <>
-      <main className="mx-auto flex w-full max-w-3xl flex-col px-4 pt-28 pb-16">
-        <h1 className="text-4xl font-semibold">Terms of Service</h1>
-        <p className="text-muted-foreground mt-6 leading-7">
-          Our terms of service are being prepared and will be published here.
-        </p>
-      </main>
-    </>
+    <main className="flex h-screen w-full flex-col place-items-center justify-center">
+      <div className="h-[10vh]" />
+      <h1 className="text-2xl">Terms of Service</h1>
+    </main>
   )
 }
