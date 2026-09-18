@@ -14,7 +14,6 @@ import {
   SelectValue,
 } from "@workspace/ui/components/select"
 
-import { Footer } from "@/components/footer"
 import { BackgroundDots } from "@/components/background-dots"
 import { BannerUpload } from "@/components/create/banner-upload"
 import { CompanyAutocomplete } from "@/components/create/company-autocomplete"
@@ -22,6 +21,11 @@ import { RichEditor } from "@/components/create/rich-editor"
 import { TagInput } from "@/components/create/tag-input"
 import { buildArticlePath } from "@/lib/article-url"
 import { createBlog, updateBlog, type ArticlePayload } from "@/lib/blogs"
+import {
+  pruneSatisfiedErrors,
+  validateArticleStep,
+  type ArticleFormValues,
+} from "@/lib/article-form-validation"
 import type { Article } from "@/lib/articles"
 
 const POSITIONS = [
@@ -96,18 +100,19 @@ export function ArticleForm({ mode = "create", articleId, initialArticle }: Prop
     }
   }, [isEdit])
 
+  const values: ArticleFormValues = React.useMemo(
+    () => ({ company, position, title, tags, banner, articleHtml }),
+    [company, position, title, tags, banner, articleHtml],
+  )
+
+  // Clear an error as soon as its field is satisfied. Without this the errors
+  // set on Next stayed on screen even once the form was fully filled in.
+  React.useEffect(() => {
+    setErrors((previous) => pruneSatisfiedErrors(previous, values))
+  }, [values])
+
   function validateStep() {
-    const next: Record<string, string> = {}
-    if (step === 1) {
-      if (!company) next.company = "Company cannot be empty"
-      if (!position) next.position = "Position cannot be empty"
-      if (!title) next.title = "Title cannot be empty"
-      if (!isEdit && !banner) next.banner = "Please upload a banner image"
-      if (tags.length === 0) next.tags = "Write a tag and press enter to add it"
-    }
-    if (step === 2 && !articleHtml.replace(/<[^>]*>/g, "").trim()) {
-      next.article = "Please write your article before proceeding"
-    }
+    const next = validateArticleStep(step, values, isEdit)
     setErrors(next)
     return Object.keys(next).length === 0
   }
@@ -155,7 +160,7 @@ export function ArticleForm({ mode = "create", articleId, initialArticle }: Prop
 
   return (
     <>
-      <BackgroundDots dotSize={1.8} gap={15} fade />
+      {/* <BackgroundDots dotSize={1.8} gap={15} fade /> */}
       <main className="relative mx-auto w-full max-w-3xl px-4 pt-24 pb-16">
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-3xl font-medium tracking-tight">
@@ -263,7 +268,6 @@ export function ArticleForm({ mode = "create", articleId, initialArticle }: Prop
           </div>
         </div>
       </main>
-      <Footer />
     </>
   )
 }

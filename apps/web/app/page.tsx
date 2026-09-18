@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { ButtonLink } from "@/components/button-link"
-import { Footer } from "@/components/footer"
 import { SearchTrigger } from "@/components/search-trigger"
 import PartnersMarquee from "@/components/partners-marquee"
 import { BackgroundDots } from "@/components/background-dots"
@@ -349,7 +348,6 @@ export default function Page() {
         </div>
       </section>
 
-      <Footer />
     </main>
   )
 }

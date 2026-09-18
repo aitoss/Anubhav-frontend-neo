@@ -4,7 +4,6 @@ import Image from "next/image"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@workspace/ui/components/tabs"
 
-import { Footer } from "@/components/footer"
 import { BackgroundDots } from "@/components/background-dots"
 
 type Member = { name: string; imageSrc: string; githubId: string }
@@ -75,7 +74,6 @@ export default function TeamPage() {
           </TabsContent>
         </Tabs>
       </main>
-      <Footer />
     </>
   )
 }

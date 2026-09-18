@@ -6,7 +6,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/av
 import { Button } from "@workspace/ui/components/button"
 import { Skeleton } from "@workspace/ui/components/skeleton"
 
-import { Footer } from "@/components/footer"
 import { BackgroundDots } from "@/components/background-dots"
 import { ArticleCard, formatArticleDate } from "@/components/article-card"
 import { authorInitials } from "@/lib/articles"
@@ -30,7 +29,6 @@ export function ProfileShell({ children }: { children: React.ReactNode }) {
       <main className="relative mx-auto h-full w-full max-w-[1440px] px-4 pt-24 pb-16 md:px-6 lg:px-14">
         {children}
       </main>
-      <Footer />
     </>
   )
 }

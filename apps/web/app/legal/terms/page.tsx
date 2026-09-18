@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 
-import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
   title: "Terms of Service | Anubhav",
@@ -18,7 +17,6 @@ export default function TermsOfServicePage() {
           Our terms of service are being prepared and will be published here.
         </p>
       </main>
-      <Footer />
     </>
   )
 }

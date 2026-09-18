@@ -7,7 +7,6 @@ import { Input } from "@workspace/ui/components/input"
 import { Label } from "@workspace/ui/components/label"
 import { Textarea } from "@workspace/ui/components/textarea"
 
-import { Footer } from "@/components/footer"
 import { BackgroundDots } from "@/components/background-dots"
 import protectedAxios from "@/lib/protectedAxios"
 
@@ -161,7 +160,6 @@ export default function RequestArticlePage() {
           </div>
         </form>
       </main>
-      <Footer />
     </>
   )
 }

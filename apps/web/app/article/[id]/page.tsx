@@ -11,7 +11,6 @@ import { Badge } from "@workspace/ui/components/badge"
 import { Button } from "@workspace/ui/components/button"
 import { Skeleton } from "@workspace/ui/components/skeleton"
 
-import { Footer } from "@/components/footer"
 import { ArticleActions } from "@/components/article-actions"
 import { formatArticleDate, readTime } from "@/components/article-card"
 import { useArticle } from "@/hooks/use-article"
@@ -182,7 +181,6 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
         )}
       </div>
 
-      <Footer />
     </main>
   )
 }

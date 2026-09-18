@@ -3,7 +3,6 @@ import type { Metadata } from "next"
 
 import { TagBadge, TagBadgeLink } from "@/components/tag-badge"
 
-import { Footer } from "@/components/footer"
 import { BackgroundDots } from "@/components/background-dots"
 import videoData from "../../public/VideoData.json"
 
@@ -67,7 +66,6 @@ export default function VideosPage() {
           ))}
         </div>
       </main>
-      <Footer />
     </>
   )
 }

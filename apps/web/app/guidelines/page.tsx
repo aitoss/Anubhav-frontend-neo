@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 
-import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
   title: "Guidelines | Anubhav",
@@ -56,7 +55,6 @@ export default function GuidelinesPage() {
           </li>
         </ol>
       </main>
-      <Footer />
     </>
   )
 }

@@ -1,7 +1,6 @@
 import Image from "next/image"
 import type { Metadata } from "next"
 
-import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
   title: "Our Story | Anubhav",
@@ -76,7 +75,6 @@ export default function StoryPage() {
           ))}
         </div>
       </main>
-      <Footer />
     </>
   )
 }
