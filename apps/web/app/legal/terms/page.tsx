@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Anubhav",
+  title: "Terms of Service",
 }
 
 // Copied as-is from master's src/pages/TermsService.jsx, which is a heading

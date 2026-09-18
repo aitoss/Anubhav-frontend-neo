@@ -7,7 +7,7 @@ import { BackgroundDots } from "@/components/background-dots"
 import videoData from "../../public/VideoData.json"
 
 export const metadata: Metadata = {
-  title: "Videos | Anubhav",
+  title: "Videos",
   description:
     "The Anubhav video interview series - seniors share their college life, tech and non-tech journeys, and tips for juniors.",
 }

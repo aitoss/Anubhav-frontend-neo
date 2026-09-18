@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { Geist_Mono, Inter } from "next/font/google"
 
 import "./globals.css"
@@ -8,7 +9,52 @@ import SearchShortcut from "@/components/search-shortcut"
 import { SuperTokensProvider } from "@/components/supertokens-provider"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import {
+  OG_IMAGE,
+  SITE_DESCRIPTION,
+  SITE_KEYWORDS,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/site"
 
+
+// Mirrors master's index.html head, with a title template so each route can
+// set its own name without repeating the brand.
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  keywords: SITE_KEYWORDS,
+  applicationName: SITE_NAME,
+  alternates: { canonical: "/" },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    locale: "en_US",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: SITE_NAME }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    images: [OG_IMAGE],
+  },
+  robots: { index: true, follow: true },
+}
 
 const inter = Inter({subsets:['latin'],axes:["opsz"], variable:'--font-sans'})
 

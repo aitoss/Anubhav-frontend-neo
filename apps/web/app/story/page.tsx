@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 
 
 export const metadata: Metadata = {
-  title: "Our Story | Anubhav",
+  title: "Our Story",
   description:
     "How Anubhav grew from a conversation in Dec 2020 into the experience-sharing platform it is today.",
 }

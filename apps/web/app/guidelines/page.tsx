@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 
 
 export const metadata: Metadata = {
-  title: "Guidelines | Anubhav",
+  title: "Guidelines",
   description:
     "How to contribute an interview experience to Anubhav, and how the review process works.",
 }
