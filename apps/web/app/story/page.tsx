@@ -42,6 +42,31 @@ const MILESTONES = [
     body: "The brand-new version of Anubhav has been released, featuring a sleek design, enhanced functionality, and several new features to support students and alumni in networking, learning, and sharing their experiences. The launch marked a new milestone for the platform and its users.",
     image: "/dev/Anubhav2024.png",
   },
+  {
+    date: "Mar 2024",
+    heading: "Search Arrives",
+    body: "Browsing alone stopped scaling as the archive grew, so search landed \u2014 letting juniors look up a company or a role directly instead of scrolling the full list of experiences.",
+  },
+  {
+    date: "Jun 2024",
+    heading: "Conversations on Every Article",
+    body: "Reading someone's experience often raises follow-up questions. Comments were added so juniors could ask them on the article itself, turning one-way write-ups into a conversation with the author.",
+  },
+  {
+    date: "July 2025",
+    heading: "Accounts for Everyone",
+    body: "Until now articles were submitted without an identity attached. Authentication landed, giving every contributor their own account \u2014 so experiences are tied to the person who lived them, and authors can come back to their own work.",
+  },
+  {
+    date: "May 2026",
+    heading: "Profiles and Smarter Sorting",
+    body: "Accounts grew into full profiles that collect everything you have written and can be edited by their owner, and the article list learned to sort by relevance as well as by date.",
+  },
+  {
+    date: "Sep 2026",
+    heading: "Migrated to Next.js",
+    body: "Anubhav moved off Vite and onto the Next.js App Router, rebuilt in TypeScript on a shared component library. Pages now render on the server for faster first loads and proper link previews, with the whole interface redesigned along the way.",
+  },
 ]
 
 export default function StoryPage() {

@@ -28,7 +28,7 @@ const TAG_COLORS = [
 // reloads, rather than shifting with list order.
 export function tagColor(label: string) {
   // djb2: spread the current tag set over 12 of the 16 colours, vs 10 for a
-  // plain char sum. Keep the full 32-bit value — an intermediate modulo throws
+  // plain char sum. Keep the full 32-bit value - an intermediate modulo throws
   // away entropy and bunches tags onto the same colour.
   let hash = 5381
   for (let index = 0; index < label.length; index += 1) {

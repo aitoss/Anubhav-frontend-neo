@@ -6,7 +6,7 @@ export type CompanyCount = {
   domain?: string | null
 }
 
-// Publishable logo.dev key — same one the Vite app shipped in its client bundle.
+// Publishable logo.dev key - same one the Vite app shipped in its client bundle.
 const LOGO_DEV_TOKEN = "pk_CpFL-9mKSGekK5eOgAGi2g"
 
 export function getCompanyLogoUrl(name: string) {

@@ -7,6 +7,7 @@ import { SendArrowIcon } from "@/components/send-arrow-icon"
 import { FeatureCardWithIcon } from "@/components/feature-card-with-icon"
 import { HowItWorks } from "@/components/how-it-works"
 import { StoryStack } from "@/components/story-stack"
+import { FeatureCards } from "@/components/feature-cards"
 import { CommentBubble } from "@/components/comment-bubble"
 import { AvatarStack, type Avatar } from "@/components/avatar-stack"
 import { Comment01Icon, Video01Icon } from "@hugeicons/core-free-icons"
@@ -27,24 +28,6 @@ const steps = [
     title: "Preview and publish",
     description:
       "Review the post and publish it so other students can learn from it.",
-  },
-]
-
-const features = [
-  {
-    title: "Collaborate with writers",
-    description:
-      "Comment, discuss, and improve stories together across the community.",
-  },
-  {
-    title: "Video collection",
-    description:
-      "Prefer watching? Explore curated videos that complement the written stories.",
-  },
-  {
-    title: "Open source",
-    description:
-      "The platform stays community-driven and easy to extend with new ideas.",
   },
 ]
 
@@ -203,21 +186,7 @@ export default function Page() {
               Built for reading, writing, and sharing.
             </h2>
           </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            {features.map((feature) => (
-              <article
-                key={feature.title}
-                className="rounded-3xl border border-border bg-card p-6 shadow-sm"
-              >
-                <h3 className="text-xl font-semibold text-foreground">
-                  {feature.title}
-                </h3>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                  {feature.description}
-                </p>
-              </article>
-            ))}
-          </div>
+          <FeatureCards />
         </div>
       </section>
 

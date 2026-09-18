@@ -17,7 +17,7 @@ type Props = {
   onChange: (html: string) => void
 }
 
-// ponytail: StarterKit only. The Vite editor also had emoji/image plugins —
+// ponytail: StarterKit only. The Vite editor also had emoji/image plugins -
 // add those extensions if authors ask for them.
 const lowlight = createLowlight(common)
 
@@ -25,7 +25,7 @@ export function RichEditor({ value, onChange }: Props) {
   const editor = useEditor({
     // StarterKit's plain codeBlock swapped for the lowlight one so code is
     // highlighted while typing. Note the highlighting is ProseMirror
-    // decorations, so it never reaches getHTML() — saved articles are
+    // decorations, so it never reaches getHTML() - saved articles are
     // highlighted at render time by highlightCodeBlocks.
     extensions: [
       StarterKit.configure({ codeBlock: false }),
@@ -81,7 +81,7 @@ export function RichEditor({ value, onChange }: Props) {
           </Button>
         ))}
 
-        {/* Highlighting needs a declared language — auto-detection guesses
+        {/* Highlighting needs a declared language - auto-detection guesses
             wrong often enough to be worse than plain text. */}
         {inCodeBlock ? (
           <NativeSelect

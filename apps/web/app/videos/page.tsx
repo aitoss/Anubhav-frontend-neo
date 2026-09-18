@@ -9,7 +9,7 @@ import videoData from "../../public/VideoData.json"
 export const metadata: Metadata = {
   title: "Videos | Anubhav",
   description:
-    "The Anubhav video interview series — seniors share their college life, tech and non-tech journeys, and tips for juniors.",
+    "The Anubhav video interview series - seniors share their college life, tech and non-tech journeys, and tips for juniors.",
 }
 
 // ponytail: VideoData.json is a static file, so it is imported rather than fetched.

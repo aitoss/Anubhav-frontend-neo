@@ -4,7 +4,7 @@ import { BACKEND_ORIGIN } from "@/lib/backend"
 
 // SuperTokens' own API, proxied so auth is same-origin with the rest of the app.
 // Without this, sign-in happens against the backend origin and the session
-// cookie is set there — a cookie our origin can never send back, so every
+// cookie is set there - a cookie our origin can never send back, so every
 // authenticated call came back "unauthorised".
 const UPSTREAM_AUTH_BASE = `${BACKEND_ORIGIN}/auth`
 

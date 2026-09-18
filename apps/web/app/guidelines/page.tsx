@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 // ponytail: the Vite page wrapped every paragraph in its own framer-motion
-// stagger. Dropped — it is static prose. Re-add if the entrance matters.
+// stagger. Dropped - it is static prose. Re-add if the entrance matters.
 export default function GuidelinesPage() {
   return (
     <>

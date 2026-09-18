@@ -7,7 +7,7 @@ import { useSessionContext } from "supertokens-auth-react/recipe/session"
 import { Spinner } from "@workspace/ui/components/spinner"
 
 // Gate on SuperTokens' own session state, not on a /me request. /me can 401
-// transiently — most importantly during the refresh SuperTokens runs on load —
+// transiently - most importantly during the refresh SuperTokens runs on load -
 // and a gate that redirects on that kicks signed-in users out to log-in.
 export function RequireSession({ children }: { children: React.ReactNode }) {
   const router = useRouter()

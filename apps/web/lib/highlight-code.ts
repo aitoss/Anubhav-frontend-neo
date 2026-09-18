@@ -47,7 +47,7 @@ function declaredLanguage(element: Element): string | undefined {
  * render time.
  *
  * Only blocks with a declared `language-*` class are touched. Auto-detection
- * was measured against real articles and is not trustworthy — plain prose
+ * was measured against real articles and is not trustworthy - plain prose
  * scores as "vbnet" and an ASCII diagram as "sql", both above where real
  * JavaScript lands, so guessing mis-colours more than it helps.
  */

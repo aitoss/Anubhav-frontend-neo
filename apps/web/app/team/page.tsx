@@ -53,7 +53,7 @@ function MemberGrid({ members }: { members: Member[] }) {
   )
 }
 
-// ponytail: dropped the WobbleCard 3D hover and the per-card motion stagger —
+// ponytail: dropped the WobbleCard 3D hover and the per-card motion stagger -
 // neither exists in the new UI package. Add back if the effect is wanted.
 export default function TeamPage() {
   return (

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Terms of Service | Anubhav",
 }
 
-// ponytail: the Vite page was a heading and nothing else — there is no terms
+// ponytail: the Vite page was a heading and nothing else - there is no terms
 // copy anywhere in the repo to port. Kept so footer links resolve instead of
 // 404ing. Replace the placeholder below once legal copy exists.
 export default function TermsOfServicePage() {

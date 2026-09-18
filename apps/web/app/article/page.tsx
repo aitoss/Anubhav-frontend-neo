@@ -17,22 +17,22 @@ import { ArticleCard } from "@/components/article-card"
 
 
 
-function ArticleListSkeleton() {
+function ArticleListSkeleton({ count = 6 }: { count?: number }) {
   return (
     <div className="flex flex-col gap-6">
-      {Array.from({ length: 6 }).map((_, index) => (
+      {Array.from({ length: count }).map((_, index) => (
         <div
           key={index}
           className="grid animate-pulse overflow-hidden md:grid-cols-[280px_minmax(0,1fr)] md:gap-2"
         >
           <div className="h-44 rounded-lg border border-border bg-muted/70" />
           <div className="flex flex-col gap-4 pt-3 md:pt-0">
+            <div className="h-8 w-4/5 rounded bg-muted/70" />
             <div className="flex flex-wrap items-center gap-2">
-              <div className="h-6 w-24 rounded-full bg-muted/70" />
-              <div className="h-4 w-20 rounded bg-muted/70" />
+              <div className="size-5 rounded-full bg-muted/70" />
+              <div className="h-4 w-24 rounded bg-muted/70" />
               <div className="h-4 w-16 rounded bg-muted/70" />
             </div>
-            <div className="h-8 w-4/5 rounded bg-muted/70" />
             <div className="space-y-2">
               <div className="h-4 w-full rounded bg-muted/70" />
               <div className="h-4 w-11/12 rounded bg-muted/70" />
@@ -129,7 +129,10 @@ function ArticleContent() {
           handleLoadMore()
         }
       },
-      { threshold: 1 },
+      // threshold 1 required the sentinel to be fully visible, which is
+      // impossible once the loading skeleton makes it taller than the
+      // viewport. Fire as it approaches instead.
+      { threshold: 0, rootMargin: "200px 0px" },
     )
 
     observer.observe(loadMoreRef.current)
@@ -211,8 +214,10 @@ function ArticleContent() {
           )}
 
           {hasNextPage && articles.length > 0 ? (
-            <div ref={loadMoreRef} className="py-10 text-center text-sm text-muted-foreground">
-              {isFetchingNextPage ? "Loading more articles..." : "Scroll to load more"}
+            // The spacer keeps a target for the observer to intersect once the
+            // skeleton is gone.
+            <div ref={loadMoreRef} className="pt-6" aria-live="polite" aria-busy={isFetchingNextPage}>
+              {isFetchingNextPage ? <ArticleListSkeleton count={2} /> : <div className="h-12" />}
             </div>
           ) : null}
           </div>
