@@ -31,7 +31,7 @@ export default function VideosPage() {
     <>
       <Header />
       <BackgroundDots dotSize={1.8} gap={15} fade />
-      <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 pt-24">
+      <main className="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 pt-24">
         <div className="mx-auto flex max-w-lg flex-col items-center justify-center py-6 text-center">
           <h1 className="mb-4 text-4xl font-semibold tracking-tight">Videos</h1>
           <div className="flex w-full flex-wrap justify-center gap-2">

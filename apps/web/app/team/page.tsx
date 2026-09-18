@@ -62,7 +62,7 @@ export default function TeamPage() {
     <>
       <Header />
       <BackgroundDots dotSize={1.8} gap={15} fade />
-      <main className="mx-auto w-full max-w-7xl px-4 pt-28 pb-16">
+      <main className="relative mx-auto w-full max-w-7xl px-4 pt-28 pb-16">
         <h1 className="mb-6 text-center text-4xl font-semibold">Dev Team</h1>
         <Tabs defaultValue="current" className="w-full">
           <TabsList className="mx-auto">

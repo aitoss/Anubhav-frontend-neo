@@ -108,7 +108,7 @@ export function Header() {
 
     return (
         <header className="sticky top-0 z-50 border-b border-border/70 bg-background/75 backdrop-blur-xl">
-            <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 xl:px-0">
                 <Link href="/" className="flex items-center gap-2">
                     <Logo className="w-6 h-6 text-foreground" />
                     <span className="text-2xl font-heading font-medium tracking-tight">anubhav</span>

@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/av
 
 import { buildArticlePath } from "@/lib/article-url"
 import { authorInitials, getAuthor, type Article, type ArticleAuthor } from "@/lib/articles"
+import { ArticleActions } from "@/components/article-actions"
 
 export function formatArticleDate(dateValue?: string) {
   if (!dateValue) return ""
@@ -82,14 +83,6 @@ export function ArticleCard({
               <span className="text-foreground font-medium">{article.companyName}</span>
             </>
           ) : null}
-          <span aria-hidden>&bull;</span>
-          <span>{readTime(article.description)}</span>
-          {article.createdAt ? (
-            <>
-              <span aria-hidden>&bull;</span>
-              <span>{formatArticleDate(article.createdAt)}</span>
-            </>
-          ) : null}
         </div>
         <h2 className="font-heading max-w-3xl text-2xl leading-tight font-medium tracking-tight sm:text-[1.7rem]">
           {article.title}
@@ -98,6 +91,14 @@ export function ArticleCard({
           className="text-muted-foreground line-clamp-2 max-w-4xl space-y-3 text-sm leading-7 [&_br]:hidden [&_h1]:mb-2 [&_h1]:text-base [&_h1]:font-semibold [&_h2]:mb-2 [&_h2]:text-base [&_h2]:font-semibold [&_h3]:mb-2 [&_h3]:text-base [&_h3]:font-semibold [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:space-y-1 [&_ol]:pl-5 [&_p]:m-0 [&_strong]:font-semibold [&_ul]:my-2 [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5"
           dangerouslySetInnerHTML={renderDescription(article.description)}
         />
+
+        <div className="text-muted-foreground mt-auto flex items-center justify-between gap-2 text-xs">
+          <span>
+            {readTime(article.description)}
+            {article.createdAt ? ` \u2022 ${formatArticleDate(article.createdAt)}` : ""}
+          </span>
+          <ArticleActions id={article._id} />
+        </div>
       </div>
     </article>
   )

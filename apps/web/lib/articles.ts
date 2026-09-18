@@ -21,7 +21,10 @@ export type Article = {
     title: string
     description?: string
     companyName?: string
+    // The API field is articleTags; `tags` is kept for callers that pass one in.
+    articleTags?: string[]
     tags?: string[]
+    typeOfArticle?: string
     imageUrl?: string
     createdAt?: string
 }
@@ -110,4 +113,8 @@ export function authorInitials(name?: string) {
         .slice(0, 2)
         .map((part) => part[0]?.toUpperCase() ?? "")
         .join("")
+}
+
+export function articleTagList(article?: Article | null) {
+    return article?.articleTags ?? article?.tags ?? []
 }

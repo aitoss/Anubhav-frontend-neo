@@ -158,7 +158,7 @@ export function ArticleForm({ mode = "create", articleId, initialArticle }: Prop
     <>
       <Header />
       <BackgroundDots dotSize={1.8} gap={15} fade />
-      <main className="mx-auto w-full max-w-3xl px-4 pt-24 pb-16">
+      <main className="relative mx-auto w-full max-w-3xl px-4 pt-24 pb-16">
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-3xl font-medium tracking-tight">
             {isEdit ? "Edit article" : "Write an article"}

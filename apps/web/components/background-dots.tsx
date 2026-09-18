@@ -10,7 +10,7 @@ type BackgroundDotsProps = HTMLAttributes<HTMLDivElement> & {
 
 export function BackgroundDots({
   dotSize = 1.2,
-  dotColor = "#fb3a5d",
+  dotColor = "#71717a8A",
   backgroundColor = "transparent",
   gap = 15,
   className = "",
@@ -36,7 +36,7 @@ export function BackgroundDots({
 
   return (
     <div
-      className={`absolute inset-0 z-0 h-full w-full ${className}`}
+      className={`pointer-events-none absolute inset-0 z-0 h-full w-full ${className}`}
       style={backgroundStyle}
       {...props}
     />

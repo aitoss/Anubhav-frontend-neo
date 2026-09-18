@@ -1,25 +1,15 @@
 import axios from "axios"
 
+// Same-origin on purpose: requests go to this app's /api/anubhav proxy so the
+// browser never has to clear CORS. Auth is proxied through /api/auth for the
+// same reason, which also means the SuperTokens session cookie is set on our
+// origin and therefore gets sent on these calls.
 const protectedAxios = axios.create({
   withCredentials: true,
   headers: {
     Accept: "application/json, text/plain, */*",
   },
   timeout: 15000,
-})
-
-protectedAxios.interceptors.request.use((config) => {
-  try {
-    if (typeof window !== "undefined") {
-      const token = localStorage.getItem("token")
-      if (token && config && config.headers) {
-        ;(config.headers as any).Authorization = `Bearer ${token}`
-      }
-    }
-  } catch (err) {
-    // ignore
-  }
-  return config
 })
 
 export default protectedAxios

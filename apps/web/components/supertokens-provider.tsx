@@ -17,9 +17,12 @@ function initSuperTokens() {
     SuperTokens.init({
         appInfo: {
             appName: "Anubhav",
-            apiDomain: process.env.NEXT_PUBLIC_SUPERTOKENS_API_DOMAIN ?? "https://oss-backend.vercel.app",
+            // Auth is proxied through this app (see app/api/auth) so it is
+            // same-origin: the session cookie is then set on our origin and is
+            // sent on the /api/anubhav calls too.
+            apiDomain: window.location.origin,
             websiteDomain: window.location.origin,
-            apiBasePath: "/auth",
+            apiBasePath: "/api/auth",
             websiteBasePath: "/log-in",
         },
         recipeList: [EmailPassword.init(), Session.init()],
