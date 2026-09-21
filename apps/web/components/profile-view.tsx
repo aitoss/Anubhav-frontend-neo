@@ -2,7 +2,12 @@
 
 import Link from "next/link"
 
-import { AcademicCapIcon, DocumentTextIcon, PencilSquareIcon } from "@heroicons/react/24/solid"
+import {
+  AcademicCapIcon,
+  DocumentTextIcon,
+  LinkIcon,
+  PencilSquareIcon,
+} from "@heroicons/react/24/solid"
 
 import { Button } from "@workspace/ui/components/button"
 import {
@@ -15,7 +20,6 @@ import {
 } from "@workspace/ui/components/empty"
 import { Skeleton } from "@workspace/ui/components/skeleton"
 
-import { BackgroundDots } from "@/components/background-dots"
 import { ArticleCard, formatArticleDate } from "@/components/article-card"
 import { ArticleOwnerActions } from "@/components/article-owner-actions"
 import { UserAvatar } from "@/components/user-avatar"
@@ -26,21 +30,24 @@ import type { Article } from "@/lib/articles"
 export function ProfileSkeleton() {
   return (
     <>
-      <div className="border-border bg-card/60 mx-auto max-w-5xl overflow-hidden rounded-3xl border p-6 md:p-8">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-          <div className="flex min-w-0 items-center gap-5">
-            <Skeleton className="size-20 shrink-0 rounded-full sm:size-24" />
-            <div className="flex min-w-0 flex-col gap-2.5">
-              <Skeleton className="h-9 w-48" />
-              <Skeleton className="h-4 w-56" />
-              <Skeleton className="h-3 w-32" />
-            </div>
-          </div>
-          <Skeleton className="h-9 w-28 shrink-0 self-start rounded-md" />
-        </div>
-      </div>
+      <header className="mx-auto flex max-w-5xl flex-col gap-6 sm:flex-row sm:items-start sm:gap-14">
+        <Skeleton className="size-24 shrink-0 rounded-full sm:size-40" />
 
-      <div className="mx-auto max-w-5xl pt-8">
+        <div className="flex min-w-0 flex-1 flex-col gap-5">
+          <Skeleton className="h-8 w-52" />
+          <div className="flex gap-8">
+            <Skeleton className="h-5 w-20" />
+            <Skeleton className="h-5 w-24" />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Skeleton className="h-4 w-64" />
+            <Skeleton className="h-4 w-40" />
+          </div>
+          <Skeleton className="h-9 w-full rounded-lg sm:w-40" />
+        </div>
+      </header>
+
+      <div className="border-border mx-auto mt-10 max-w-5xl border-t pt-8">
         <Skeleton className="mb-6 h-7 w-40" />
         <div className="divide-border flex flex-col divide-y">
           {Array.from({ length: 3 }).map((_, index) => (
@@ -66,7 +73,6 @@ export function ProfileSkeleton() {
 export function ProfileShell({ children }: { children: React.ReactNode }) {
   return (
     <>
-      {/* <BackgroundDots dotSize={1.8} gap={15} fade /> */}
       <main className="relative mx-auto h-full w-full max-w-[1440px] px-4 pt-24 pb-16 md:px-6 lg:px-14">
         {children}
       </main>
@@ -97,59 +103,71 @@ export function ProfileView({
 
   return (
     <ProfileShell>
-      <div className="border-border bg-card/60 mx-auto max-w-5xl overflow-hidden rounded-3xl border p-6 md:p-8">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-          <div className="flex min-w-0 items-center gap-5">
-<UserAvatar
-              name={profile.name}
-              src={profile.logoUrl}
-              size={96}
-              className="size-20 sm:size-24"
-            />
+      <header className="mx-auto flex max-w-5xl flex-col gap-6 sm:flex-row sm:items-start sm:gap-14">
+        <UserAvatar
+          name={profile.name}
+          src={profile.logoUrl}
+          size={160}
+          className="size-24 shrink-0 sm:size-40"
+        />
 
-            <div className="flex min-w-0 flex-col gap-1.5">
-              <h1 className="truncate text-3xl font-medium tracking-tight sm:text-4xl">
-                {profile.name || "Unnamed user"}
-              </h1>
+        <div className="flex min-w-0 flex-1 flex-col gap-5">
+          <h1 className="truncate text-2xl font-medium tracking-tight sm:text-3xl">
+            {profile.name || "Unnamed user"}
+          </h1>
 
-              <p className="text-muted-foreground flex items-center gap-1.5 text-sm">
-                <AcademicCapIcon className="size-4 shrink-0" />
-                <span className="truncate">
-                  {profile.college || "Army Institute Of Technology, Pune"}
-                </span>
-              </p>
-
-              <div className="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
-                {profile.linkedinUrl ? (
-                  <a
-                    href={profile.linkedinUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-foreground font-medium hover:underline"
-                  >
-                    LinkedIn
-                  </a>
-                ) : null}
-                {profile.createdAt ? (
-                  <span>Joined {formatArticleDate(profile.createdAt)}</span>
-                ) : null}
-              </div>
+          {/* No followers or following to count, so articles carries the row. */}
+          <dl className="flex flex-wrap items-baseline gap-x-8 gap-y-2 text-sm">
+            <div className="flex items-baseline gap-1.5">
+              <dt className="sr-only">Articles</dt>
+              <dd className="font-medium">{total}</dd>
+              <span className="text-muted-foreground">
+                {total === 1 ? "article" : "articles"}
+              </span>
             </div>
+            {profile.createdAt ? (
+              <div className="flex items-baseline gap-1.5">
+                <dt className="text-muted-foreground">Joined</dt>
+                <dd className="font-medium">{formatArticleDate(profile.createdAt)}</dd>
+              </div>
+            ) : null}
+          </dl>
+
+          <div className="flex flex-col gap-1 text-sm">
+            <p className="text-muted-foreground flex items-center gap-1.5">
+              <AcademicCapIcon className="size-4 shrink-0" />
+              <span className="truncate">
+                {profile.college || "Army Institute Of Technology, Pune"}
+              </span>
+            </p>
+            {profile.linkedinUrl ? (
+              <a
+                href={profile.linkedinUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex w-fit items-center gap-1.5 font-medium hover:underline"
+              >
+                <LinkIcon className="size-4 shrink-0" />
+                <span className="truncate">LinkedIn</span>
+              </a>
+            ) : null}
           </div>
 
           {isOwner ? (
-            <Button
-              variant="outline"
-              className="shrink-0 self-start"
-              render={<Link href="/profile/edit" />}
-            >
-              Edit Profile
-            </Button>
+            <div className="grid gap-2 pt-1 sm:flex sm:flex-wrap">
+              <Button variant="outline" render={<Link href="/profile/edit" />}>
+                Edit Profile
+              </Button>
+              <Button variant="outline" render={<Link href="/create" />}>
+                <PencilSquareIcon className="size-4" />
+                Write Article
+              </Button>
+            </div>
           ) : null}
         </div>
-      </div>
+      </header>
 
-      <div className="mx-auto max-w-5xl pt-8">
+      <div className="border-border mx-auto mt-10 max-w-5xl border-t pt-8">
         <h2 className="flex items-baseline gap-2 px-1 pb-4 text-2xl font-medium tracking-tight">
           {isOwner ? "My Articles" : "Articles"}
           <span className="text-muted-foreground text-base font-normal">{total}</span>
