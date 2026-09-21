@@ -11,7 +11,7 @@ import { FeatureCards } from "@/components/feature-cards"
 import { AnnouncementPill } from "@/components/announcement-pill"
 import { CommentBubble } from "@/components/comment-bubble"
 import { AvatarStack, type Avatar } from "@/components/avatar-stack"
-import { Comment01Icon, Video01Icon } from "@hugeicons/core-free-icons"
+import { ChatBubbleOvalLeftIcon, VideoCameraIcon } from "@heroicons/react/24/outline"
 
 
 const steps = [
@@ -196,7 +196,7 @@ export default function Page() {
           <div className="mx-auto flex h-auto w-full flex-col items-center justify-center border-b border-t lg:h-[500px] lg:flex-row">
             <div className="relative h-full w-full overflow-hidden lg:w-1/2">
               <FeatureCardWithIcon
-                icon={Comment01Icon}
+                icon={ChatBubbleOvalLeftIcon}
                 title="Collaborate with other writers"
                 boldedText="Sign in with GitHub on "
                 description="our platform, and get started with commenting on blog posts to collaborate with others."
@@ -224,7 +224,7 @@ export default function Page() {
 
             <div className="relative h-full w-full overflow-hidden lg:w-1/2">
               <FeatureCardWithIcon
-                icon={Video01Icon}
+                icon={VideoCameraIcon}
                 title="Video Collection"
                 boldedText="Prefer Videos Over Blogs? "
                 description="No worries! We've got an exciting collection of videos that bring the same inspiring stories and useful insights right to your screen."

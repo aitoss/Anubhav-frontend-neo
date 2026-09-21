@@ -3,8 +3,7 @@
 import * as React from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
-import { HugeiconsIcon } from "@hugeicons/react"
-import { SearchIcon } from "@hugeicons/core-free-icons"
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { Button } from "@workspace/ui/components/button"
 import { Input } from "@workspace/ui/components/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@workspace/ui/components/select"
@@ -147,11 +146,7 @@ function ArticleContent() {
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
           <form onSubmit={handleSubmit} className="flex w-full max-w-3xl gap-3">
             <div className="relative flex-1 max-w-sm">
-              <HugeiconsIcon
-                icon={SearchIcon}
-                strokeWidth={2}
-                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-              />
+              <MagnifyingGlassIcon className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 value={searchValue}
                 onChange={(event) => setSearchValue(event.target.value)}

@@ -1,13 +1,13 @@
-import { Loader2Icon } from "lucide-react";
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import type React from "react";
 import { cn } from "@workspace/ui/lib/utils";
 
 export function Spinner({
   className,
   ...props
-}: React.ComponentProps<typeof Loader2Icon>): React.ReactElement {
+}: React.ComponentProps<typeof ArrowPathIcon>): React.ReactElement {
   return (
-    <Loader2Icon
+    <ArrowPathIcon
       aria-label="Loading"
       className={cn("animate-spin", className)}
       role="status"

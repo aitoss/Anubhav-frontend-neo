@@ -3,8 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { HugeiconsIcon } from "@hugeicons/react"
-import { ArrowLeft01Icon } from "@hugeicons/core-free-icons"
+import { ChevronLeftIcon } from "@heroicons/react/24/outline"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar"
 import { Button } from "@workspace/ui/components/button"
@@ -68,7 +67,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
           className="mb-6 -ml-2 inline-flex items-center gap-2"
           onClick={() => router.back()}
         >
-          <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={2} className="size-4" />
+          <ChevronLeftIcon className="size-4" />
           Back
         </Button>
 

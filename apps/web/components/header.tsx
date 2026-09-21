@@ -5,8 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 import { signOut, useSessionContext } from "supertokens-auth-react/recipe/session"
-import { HugeiconsIcon } from "@hugeicons/react"
-import { Logout01Icon, Settings02Icon, UserCircleIcon } from "@hugeicons/core-free-icons"
+import { ArrowLeftStartOnRectangleIcon, Cog6ToothIcon, UserCircleIcon } from "@heroicons/react/24/outline"
 
 import { ButtonLink } from "@/components/button-link"
 import { Logo } from "@/components/logo"
@@ -184,14 +183,14 @@ export function Header() {
                                         className="px-3 py-2 text-sm"
                                         onClick={() => router.push("/profile/me")}
                                     >
-                                        <HugeiconsIcon icon={UserCircleIcon} className="size-4" />
+                                        <UserCircleIcon className="size-4" />
                                         <span>Profile</span>
                                     </DropdownMenuItem>
                                     <DropdownMenuItem
                                         className="px-3 py-2 text-sm"
                                         onClick={() => router.push("/profile/edit")}
                                     >
-                                        <HugeiconsIcon icon={Settings02Icon} className="size-4" />
+                                        <Cog6ToothIcon className="size-4" />
                                         <span>Settings</span>
                                     </DropdownMenuItem>
                                 </div>
@@ -204,7 +203,7 @@ export function Header() {
                                         className="px-3 py-2 text-sm"
                                         onClick={() => void handleLogout()}
                                     >
-                                        <HugeiconsIcon icon={Logout01Icon} className="size-4" />
+                                        <ArrowLeftStartOnRectangleIcon className="size-4" />
                                         <span>Sign out</span>
                                     </DropdownMenuItem>
                                 </div>

@@ -3,8 +3,7 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 
-import { HugeiconsIcon } from "@hugeicons/react"
-import { ArrowRight01Icon, SearchIcon } from "@hugeicons/core-free-icons"
+import { ChevronRightIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 
 import {
   Dialog,
@@ -178,7 +177,7 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
         </DialogDescription>
 
         <div className="flex h-14 items-center gap-3 border-b border-border px-4">
-          <HugeiconsIcon icon={SearchIcon} strokeWidth={2} className="size-4 shrink-0 text-muted-foreground/70" />
+          <MagnifyingGlassIcon className="size-4 shrink-0 text-muted-foreground/70" />
           <input
             autoFocus
             type="text"
@@ -232,7 +231,7 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
                       <Icon className="size-4 shrink-0 text-muted-foreground" />
                       <span className="truncate">{item.label}</span>
                       {selected ? (
-                        <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} className="ms-auto size-4 text-muted-foreground" />
+                        <ChevronRightIcon className="ms-auto size-4 text-muted-foreground" />
                       ) : null}
                     </li>
                   </React.Fragment>
