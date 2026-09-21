@@ -17,6 +17,7 @@ import { Skeleton } from "@workspace/ui/components/skeleton"
 
 import { BackgroundDots } from "@/components/background-dots"
 import { ArticleCard, formatArticleDate } from "@/components/article-card"
+import { ArticleOwnerActions } from "@/components/article-owner-actions"
 import { UserAvatar } from "@/components/user-avatar"
 import { PROFILE_PAGE_SIZE, type Profile } from "@/lib/users"
 import type { Article } from "@/lib/articles"
@@ -190,6 +191,9 @@ export function ProfileView({
               {articles.map((article) => (
                 <div key={article._id} className="py-6 first:pt-0 last:pb-0">
                   <ArticleCard article={article} author={profile} />
+                  {isOwner ? (
+                    <ArticleOwnerActions articleId={article._id} title={article.title} />
+                  ) : null}
                 </div>
               ))}
             </div>

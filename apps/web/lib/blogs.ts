@@ -53,3 +53,9 @@ export async function fetchBlog(id: string) {
             return (payload?.article ?? payload) as Article
         })
 }
+
+export async function deleteBlog(id: string) {
+    return protectedAxios
+        .delete<{message: string; articleId: string}>(`/api/anubhav/blogs/${id}`)
+        .then((res) => res.data)
+}

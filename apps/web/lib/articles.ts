@@ -27,6 +27,7 @@ export type Article = {
     typeOfArticle?: string
     imageUrl?: string
     createdAt?: string
+    updatedAt?: string | null
 }
 
 export type ArticlesResponse = {

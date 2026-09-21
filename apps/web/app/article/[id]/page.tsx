@@ -167,6 +167,11 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                     {readTime(article.description)}
                     {article.createdAt ? ` • ${formatArticleDate(article.createdAt)}` : ""}
                   </p>
+                  {article.updatedAt ? (
+                    <p className="text-muted-foreground text-xs">
+                      Last edited on {formatArticleDate(article.updatedAt)}
+                    </p>
+                  ) : null}
                 </div>
               </div>
 
