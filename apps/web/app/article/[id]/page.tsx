@@ -3,10 +3,22 @@
 import * as React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { ChevronLeftIcon } from "@heroicons/react/24/solid"
+import {
+  ChevronLeftIcon,
+  ClockIcon,
+  DocumentTextIcon,
+  ExclamationTriangleIcon,
+} from "@heroicons/react/24/solid"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar"
 import { Button } from "@workspace/ui/components/button"
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@workspace/ui/components/empty"
 import { Skeleton } from "@workspace/ui/components/skeleton"
 
 import { ArticleActions } from "@/components/article-actions"
@@ -74,12 +86,17 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
         {isLoading ? (
           <ArticleDetailSkeleton />
         ) : (error as any)?.response?.status === 403 ? (
-          <div className="border-border bg-card rounded-xl border p-8 text-center">
-            <p className="font-medium">This article isn&apos;t public yet</p>
-            <p className="text-muted-foreground mt-2 text-sm">
-              It will be visible here once a reviewer has checked it over.
-            </p>
-            <div className="mt-5 flex flex-wrap justify-center gap-3">
+          <Empty className="border">
+            <EmptyHeader>
+              <EmptyMedia variant="icon">
+                <ClockIcon />
+              </EmptyMedia>
+              <EmptyTitle>This article isn&apos;t public yet</EmptyTitle>
+              <EmptyDescription>
+                It will be visible here once a reviewer has checked it over.
+              </EmptyDescription>
+            </EmptyHeader>
+            <div className="flex flex-wrap justify-center gap-3">
               <Button render={<Link href="/profile/me" />} size="sm">
                 My articles
               </Button>
@@ -87,16 +104,26 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                 Browse articles
               </Button>
             </div>
-          </div>
+          </Empty>
         ) : error ? (
-          <div className="border-destructive/40 bg-destructive/5 text-destructive rounded-xl border p-6">
-            <p className="font-medium">Failed to load this article</p>
-            <p className="mt-1 text-sm">{(error as any)?.message ?? String(error)}</p>
-          </div>
+          <Empty className="border">
+            <EmptyHeader>
+              <EmptyMedia variant="icon">
+                <ExclamationTriangleIcon />
+              </EmptyMedia>
+              <EmptyTitle>Failed to load this article</EmptyTitle>
+              <EmptyDescription>{(error as any)?.message ?? String(error)}</EmptyDescription>
+            </EmptyHeader>
+          </Empty>
         ) : !article ? (
-          <div className="border-border text-muted-foreground rounded-xl border border-dashed p-10 text-center">
-            No article found.
-          </div>
+          <Empty className="border">
+            <EmptyHeader>
+              <EmptyMedia variant="icon">
+                <DocumentTextIcon />
+              </EmptyMedia>
+              <EmptyTitle>No article found</EmptyTitle>
+            </EmptyHeader>
+          </Empty>
         ) : (
           <article>
             {article.companyName || tags.length > 0 ? (
@@ -177,7 +204,10 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                   ))}
                 </div>
               ) : (similarArticles?.length ?? 0) === 0 ? (
-                <p className="text-muted-foreground text-sm">No similar articles found.</p>
+                <p className="text-muted-foreground flex items-center gap-2 text-sm">
+                  <DocumentTextIcon className="size-4 shrink-0" />
+                  No similar articles found.
+                </p>
               ) : (
                 <div className="grid gap-4 sm:grid-cols-2">
                   {similarArticles

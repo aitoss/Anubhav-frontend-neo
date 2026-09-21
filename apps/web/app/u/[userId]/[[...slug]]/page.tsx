@@ -5,6 +5,16 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 import { ProfileShell, ProfileView } from "@/components/profile-view"
+import { UserCircleIcon } from "@heroicons/react/24/solid"
+
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@workspace/ui/components/empty"
 import { Spinner } from "@workspace/ui/components/spinner"
 import { useMe, useProfile, useProfileArticles } from "@/hooks/use-profile"
 import { profilePath, slugifyName } from "@/lib/users"
@@ -49,12 +59,22 @@ export default function PublicProfilePage({
   if (isError || !profile) {
     return (
       <ProfileShell>
-        <div className="flex h-[40vh] flex-col items-center justify-center gap-3">
-          <p className="text-lg">Profile not found</p>
-          <Link href="/" className="text-muted-foreground text-sm underline">
-            Back to home
-          </Link>
-        </div>
+        <Empty className="border">
+          <EmptyHeader>
+            <EmptyMedia variant="icon">
+              <UserCircleIcon />
+            </EmptyMedia>
+            <EmptyTitle>Profile not found</EmptyTitle>
+            <EmptyDescription>
+              This account may have been removed, or the link is wrong.
+            </EmptyDescription>
+          </EmptyHeader>
+          <EmptyContent>
+            <Link href="/" className="text-muted-foreground text-sm underline">
+              Back to home
+            </Link>
+          </EmptyContent>
+        </Empty>
       </ProfileShell>
     )
   }

@@ -3,7 +3,7 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 
-import { ChevronRightIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid"
+import { ChevronRightIcon, DocumentTextIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid"
 
 import {
   Dialog,
@@ -15,7 +15,6 @@ import { Kbd, KbdGroup } from "@workspace/ui/components/kbd"
 import { ScrollArea } from "@workspace/ui/components/scroll-area"
 import { cn } from "@workspace/ui/lib/utils"
 
-import { DocumentTextIcon } from "@heroicons/react/24/solid"
 import { useQuery } from "@tanstack/react-query"
 
 import { sections } from "@/components/nav-sections"
@@ -190,7 +189,8 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
         <ScrollArea scrollFade className="max-h-80">
           <ul ref={listRef} role="listbox" className="p-1">
             {items.length === 0 ? (
-              <li className="py-6 text-center text-sm text-muted-foreground">
+              <li className="text-muted-foreground flex flex-col items-center gap-2 py-8 text-sm">
+                <MagnifyingGlassIcon className="size-5 opacity-60" />
                 {isFetching ? "Searching\u2026" : "No results found."}
               </li>
             ) : (

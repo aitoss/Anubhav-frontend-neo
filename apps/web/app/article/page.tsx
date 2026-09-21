@@ -3,7 +3,7 @@
 import * as React from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid"
+import { ExclamationTriangleIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid"
 import { Button } from "@workspace/ui/components/button"
 import { Input } from "@workspace/ui/components/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@workspace/ui/components/select"
@@ -12,6 +12,15 @@ import { cn } from "@workspace/ui/lib/utils"
 import { useArticles } from "@/hooks/use-articles"
 import { CompanyFilter } from "@/components/company-filter"
 import { CompanyFilterDialog } from "@/components/company-filter-dialog"
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@workspace/ui/components/empty"
+
 import { ArticleCard } from "@/components/article-card"
 
 
@@ -192,24 +201,38 @@ function ArticleContent() {
         <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[minmax(0,1fr)_260px]">
           <div className="min-w-0">
           {isError ? (
-            <div className="rounded-3xl border border-red-300 bg-red-50 p-6 text-center text-red-700">
-              <div className="mb-2 font-semibold">Failed to load articles</div>
-              <div className="text-sm mb-4">{String((error as any)?.message ?? error)}</div>
-              <div>
-                <button
-                  onClick={() => void refetch()}
-                  className="inline-flex items-center rounded-md bg-red-600 px-3 py-1 text-sm text-white hover:bg-red-700"
-                >
-                  Retry
-                </button>
-              </div>
-            </div>
+            <Empty className="border">
+              <EmptyHeader>
+                <EmptyMedia variant="icon">
+                  <ExclamationTriangleIcon />
+                </EmptyMedia>
+                <EmptyTitle>Failed to load articles</EmptyTitle>
+                <EmptyDescription>
+                  {String((error as any)?.message ?? error)}
+                </EmptyDescription>
+              </EmptyHeader>
+              <EmptyContent>
+                <Button variant="outline" size="sm" onClick={() => void refetch()}>
+                  Try again
+                </Button>
+              </EmptyContent>
+            </Empty>
           ) : isLoading && articles.length === 0 ? (
             <ArticleListSkeleton />
           ) : articles.length === 0 ? (
-            <div className="rounded-3xl border border-dashed border-border bg-card p-10 text-center text-muted-foreground">
-              No articles found.
-            </div>
+            <Empty className="border">
+              <EmptyHeader>
+                <EmptyMedia variant="icon">
+                  <MagnifyingGlassIcon />
+                </EmptyMedia>
+                <EmptyTitle>No articles found</EmptyTitle>
+                <EmptyDescription>
+                  {queryFromUrl
+                    ? `Nothing matched \u201c${queryFromUrl}\u201d. Try a different company or role.`
+                    : "There are no articles to show yet."}
+                </EmptyDescription>
+              </EmptyHeader>
+            </Empty>
           ) : (
             <div className="flex flex-col gap-6">
               {articles.map((article) => (

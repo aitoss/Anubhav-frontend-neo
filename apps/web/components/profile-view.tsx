@@ -2,10 +2,18 @@
 
 import Link from "next/link"
 
-import { AcademicCapIcon } from "@heroicons/react/24/solid"
+import { AcademicCapIcon, DocumentTextIcon, PencilSquareIcon } from "@heroicons/react/24/solid"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar"
 import { Button } from "@workspace/ui/components/button"
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@workspace/ui/components/empty"
 import { Skeleton } from "@workspace/ui/components/skeleton"
 
 import { BackgroundDots } from "@/components/background-dots"
@@ -112,16 +120,29 @@ export function ProfileView({
               ))}
             </div>
           ) : articles.length === 0 ? (
-            <div className="border-border flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed p-12 text-center">
-              <p className="text-muted-foreground">
-                {isOwner
-                  ? "You haven't published any articles yet."
-                  : "No articles published yet."}
-              </p>
+            <Empty className="border">
+              <EmptyHeader>
+                <EmptyMedia variant="icon">
+                  <DocumentTextIcon />
+                </EmptyMedia>
+                <EmptyTitle>
+                  {isOwner ? "You haven't published anything yet" : "No articles yet"}
+                </EmptyTitle>
+                <EmptyDescription>
+                  {isOwner
+                    ? "Share an interview experience to help juniors preparing for the same rounds."
+                    : "This author hasn't published any articles so far."}
+                </EmptyDescription>
+              </EmptyHeader>
               {isOwner ? (
-                <Button render={<Link href="/create" />}>Write your first article</Button>
+                <EmptyContent>
+                  <Button render={<Link href="/create" />}>
+                    <PencilSquareIcon className="size-4" />
+                    Write your first article
+                  </Button>
+                </EmptyContent>
               ) : null}
-            </div>
+            </Empty>
           ) : (
             <div className="divide-border flex flex-col divide-y">
               {articles.map((article) => (
