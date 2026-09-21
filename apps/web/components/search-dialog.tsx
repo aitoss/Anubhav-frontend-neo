@@ -112,7 +112,9 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
       icon: DocumentTextIcon,
     }
 
-    return [...pages, ...articles, seeAll]
+    // Only offer "see all" when there is actually something to see — otherwise
+    // it reads as a result and hides the empty state.
+    return articles.length > 0 ? [...pages, ...articles, seeAll] : pages
   }, [query, debounced, articleResults])
 
   React.useEffect(() => {

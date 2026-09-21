@@ -4,7 +4,6 @@ import Link from "next/link"
 
 import { AcademicCapIcon, DocumentTextIcon, PencilSquareIcon } from "@heroicons/react/24/solid"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar"
 import { Button } from "@workspace/ui/components/button"
 import {
   Empty,
@@ -18,9 +17,50 @@ import { Skeleton } from "@workspace/ui/components/skeleton"
 
 import { BackgroundDots } from "@/components/background-dots"
 import { ArticleCard, formatArticleDate } from "@/components/article-card"
-import { authorInitials } from "@/lib/articles"
+import { UserAvatar } from "@/components/user-avatar"
 import { PROFILE_PAGE_SIZE, type Profile } from "@/lib/users"
 import type { Article } from "@/lib/articles"
+
+// Mirrors the real header and list so the page does not jump when data lands.
+export function ProfileSkeleton() {
+  return (
+    <>
+      <div className="border-border bg-card/60 mx-auto max-w-5xl overflow-hidden rounded-3xl border p-6 md:p-8">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+          <div className="flex min-w-0 items-center gap-5">
+            <Skeleton className="size-20 shrink-0 rounded-full sm:size-24" />
+            <div className="flex min-w-0 flex-col gap-2.5">
+              <Skeleton className="h-9 w-48" />
+              <Skeleton className="h-4 w-56" />
+              <Skeleton className="h-3 w-32" />
+            </div>
+          </div>
+          <Skeleton className="h-9 w-28 shrink-0 self-start rounded-md" />
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-5xl pt-8">
+        <Skeleton className="mb-6 h-7 w-40" />
+        <div className="divide-border flex flex-col divide-y">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <div
+              key={index}
+              className="grid gap-4 py-6 first:pt-0 last:pb-0 md:grid-cols-[280px_minmax(0,1fr)]"
+            >
+              <Skeleton className="h-44 rounded-lg" />
+              <div className="flex flex-col gap-3">
+                <Skeleton className="h-7 w-4/5" />
+                <Skeleton className="h-4 w-40" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-11/12" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  )
+}
 
 export function ProfileShell({ children }: { children: React.ReactNode }) {
   return (
@@ -59,10 +99,12 @@ export function ProfileView({
       <div className="border-border bg-card/60 mx-auto max-w-5xl overflow-hidden rounded-3xl border p-6 md:p-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex min-w-0 items-center gap-5">
-            <Avatar className="size-20 shrink-0 sm:size-24">
-              {profile.logoUrl ? <AvatarImage src={profile.logoUrl} alt={profile.name} /> : null}
-              <AvatarFallback className="text-2xl">{authorInitials(profile.name)}</AvatarFallback>
-            </Avatar>
+<UserAvatar
+              name={profile.name}
+              src={profile.logoUrl}
+              size={96}
+              className="size-20 sm:size-24"
+            />
 
             <div className="flex min-w-0 flex-col gap-1.5">
               <h1 className="truncate text-3xl font-medium tracking-tight sm:text-4xl">

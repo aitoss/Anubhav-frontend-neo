@@ -4,7 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
-import { ProfileShell, ProfileView } from "@/components/profile-view"
+import { ProfileShell, ProfileSkeleton, ProfileView } from "@/components/profile-view"
 import { UserCircleIcon } from "@heroicons/react/24/solid"
 
 import {
@@ -15,7 +15,6 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@workspace/ui/components/empty"
-import { Spinner } from "@workspace/ui/components/spinner"
 import { useMe, useProfile, useProfileArticles } from "@/hooks/use-profile"
 import { profilePath, slugifyName } from "@/lib/users"
 
@@ -49,9 +48,7 @@ export default function PublicProfilePage({
   if (isLoading) {
     return (
       <ProfileShell>
-        <div className="flex h-[40vh] items-center justify-center">
-          <Spinner />
-        </div>
+        <ProfileSkeleton />
       </ProfileShell>
     )
   }

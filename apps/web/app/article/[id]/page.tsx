@@ -10,7 +10,6 @@ import {
   ExclamationTriangleIcon,
 } from "@heroicons/react/24/solid"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar"
 import { Button } from "@workspace/ui/components/button"
 import {
   Empty,
@@ -23,11 +22,12 @@ import { Skeleton } from "@workspace/ui/components/skeleton"
 
 import { ArticleActions } from "@/components/article-actions"
 import { ArticleThumb } from "@/components/article-thumb"
+import { UserAvatar } from "@/components/user-avatar"
 import { TagBadgeLink } from "@/components/tag-badge"
 import { formatArticleDate, readTime } from "@/components/article-card"
 import { useArticle } from "@/hooks/use-article"
 import { useSimilarArticles } from "@/hooks/use-similar-articles"
-import { articleTagList, authorInitials, getAuthor } from "@/lib/articles"
+import { articleTagList, getAuthor } from "@/lib/articles"
 import { buildArticlePath, extractArticleIdFromRoute } from "@/lib/article-url"
 import { highlightCodeBlocks } from "@/lib/highlight-code"
 import { profilePath } from "@/lib/users"
@@ -151,14 +151,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
 
             <div className="border-border mt-6 flex flex-wrap items-center justify-between gap-4 border-b pb-6">
               <div className="flex items-center gap-3">
-                <Avatar className="size-9">
-                  {author?.logoUrl ? (
-                    <AvatarImage src={author.logoUrl} alt={author.name} />
-                  ) : null}
-                  <AvatarFallback className="text-xs">
-                    {authorInitials(author?.name)}
-                  </AvatarFallback>
-                </Avatar>
+<UserAvatar name={author?.name} src={author?.logoUrl} size={36} className="size-9" />
                 <div className="text-sm">
                   {author?._id ? (
                     <Link

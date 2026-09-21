@@ -3,11 +3,11 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar"
 
 import { ArticleThumb } from "@/components/article-thumb"
+import { UserAvatar } from "@/components/user-avatar"
 import { buildArticlePath } from "@/lib/article-url"
-import { authorInitials, getAuthor, type Article, type ArticleAuthor } from "@/lib/articles"
+import { getAuthor, type Article, type ArticleAuthor } from "@/lib/articles"
 import { ArticleActions } from "@/components/article-actions"
 
 export function formatArticleDate(dateValue?: string) {
@@ -70,12 +70,7 @@ export function ArticleCard({
         </h2>
         <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-xs">
           <span className="flex items-center gap-1.5">
-            <Avatar className="size-5">
-              {author.logoUrl ? <AvatarImage src={author.logoUrl} alt={author.name} /> : null}
-              <AvatarFallback className="text-[9px]">
-                {authorInitials(author.name)}
-              </AvatarFallback>
-            </Avatar>
+<UserAvatar name={author.name} src={author.logoUrl} size={20} className="size-5" />
             <span className="text-foreground font-medium">{author.name}</span>
           </span>
           {article.companyName ? (
