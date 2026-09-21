@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Button } from "@workspace/ui/components/button"
 import { Input } from "@workspace/ui/components/input"
 import { Label } from "@workspace/ui/components/label"
-import { Spinner } from "@workspace/ui/components/spinner"
+import { Skeleton } from "@workspace/ui/components/skeleton"
 
 import { ProfileShell } from "@/components/profile-view"
 import { RequireSession } from "@/components/require-session"
@@ -15,6 +15,24 @@ import { useMe } from "@/hooks/use-profile"
 import { profilePath, updateMe, type Profile } from "@/lib/users"
 
 const LINKEDIN_RE = /^https?:\/\/(www\.)?linkedin\.com\/.+/i
+
+// Same card and field rhythm as the form below it.
+function EditProfileSkeleton() {
+  return (
+    <ProfileShell>
+      <div className="border-border bg-card/60 mx-auto flex max-w-2xl flex-col gap-5 rounded-3xl border p-6 md:p-8">
+        <Skeleton className="h-8 w-40" />
+        {Array.from({ length: 3 }).map((_, index) => (
+          <div key={index} className="flex flex-col gap-2">
+            <Skeleton className="h-4 w-20" />
+            <Skeleton className="h-9 w-full" />
+          </div>
+        ))}
+        <Skeleton className="h-9 w-28 self-end" />
+      </div>
+    </ProfileShell>
+  )
+}
 
 function EditProfileForm() {
   const router = useRouter()
@@ -65,15 +83,7 @@ function EditProfileForm() {
     mutation.mutate({ ...form, linkedinUrl })
   }
 
-  if (isLoading || !me) {
-    return (
-      <ProfileShell>
-        <div className="flex h-[40vh] items-center justify-center">
-          <Spinner />
-        </div>
-      </ProfileShell>
-    )
-  }
+  if (isLoading || !me) return <EditProfileSkeleton />
 
   return (
     <ProfileShell>
@@ -132,7 +142,7 @@ function EditProfileForm() {
 
 export default function EditProfilePage() {
   return (
-    <RequireSession>
+    <RequireSession fallback={<EditProfileSkeleton />}>
       <EditProfileForm />
     </RequireSession>
   )
