@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query"
 
+import { fetchReactedArticles, type ReactionKind } from "@/lib/reactions"
 import {
   fetchMe,
   fetchMyArticles,
@@ -36,5 +37,14 @@ export function useProfileArticles(userId: string | undefined, page: number, isO
         ? fetchMyArticles(page, PROFILE_PAGE_SIZE)
         : fetchUserArticles(userId!, page, PROFILE_PAGE_SIZE),
     enabled: isOwner || Boolean(userId),
+  })
+}
+
+/** Backs the Saved and Liked tabs; only ever enabled on your own profile. */
+export function useReactedArticles(kind: ReactionKind, page: number, enabled: boolean) {
+  return useQuery({
+    queryKey: ["reacted-articles", kind, page],
+    queryFn: () => fetchReactedArticles(kind, page, PROFILE_PAGE_SIZE),
+    enabled,
   })
 }

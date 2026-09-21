@@ -4,7 +4,12 @@ import * as React from "react"
 import Link from "next/link"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
-import { ExclamationTriangleIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid"
+import {
+  EllipsisHorizontalIcon,
+  ExclamationTriangleIcon,
+  PencilSquareIcon,
+  TrashIcon,
+} from "@heroicons/react/24/solid"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,6 +22,14 @@ import {
   AlertDialogTitle,
 } from "@workspace/ui/components/alert-dialog"
 import { Button } from "@workspace/ui/components/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@workspace/ui/components/dropdown-menu"
+
+import { cn } from "@workspace/ui/lib/utils"
 
 import { deleteBlog } from "@/lib/blogs"
 
@@ -24,9 +37,11 @@ import { deleteBlog } from "@/lib/blogs"
 export function ArticleOwnerActions({
   articleId,
   title,
+  className,
 }: {
   articleId: string
   title: string
+  className?: string
 }) {
   const [confirmOpen, setConfirmOpen] = React.useState(false)
   const queryClient = useQueryClient()
@@ -41,20 +56,24 @@ export function ArticleOwnerActions({
   })
 
   return (
-    <div className="flex items-center gap-1 pt-3">
-      <Button variant="outline" size="sm" render={<Link href={`/edit/${articleId}`} />}>
-        <PencilSquareIcon className="size-4" />
-        Edit
-      </Button>
-
-      <Button
-        variant="destructive-outline"
-        size="sm"
-        onClick={() => setConfirmOpen(true)}
-      >
-        <TrashIcon className="size-4" />
-        Delete
-      </Button>
+    <div className={cn("flex items-center justify-end", className)}>
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          render={<Button variant="ghost" size="icon" aria-label={`Actions for ${title}`} />}
+        >
+          <EllipsisHorizontalIcon className="size-5" />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem render={<Link href={`/edit/${articleId}`} />}>
+            <PencilSquareIcon className="size-4" />
+            Edit
+          </DropdownMenuItem>
+          <DropdownMenuItem variant="destructive" onClick={() => setConfirmOpen(true)}>
+            <TrashIcon className="size-4" />
+            Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
 
       <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
         <AlertDialogContent>

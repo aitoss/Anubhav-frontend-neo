@@ -1,4 +1,5 @@
 import protectedAxios from "./protectedAxios"
+import type {Article} from "./articles"
 
 export type ReactionKind = "like" | "save"
 
@@ -26,5 +27,23 @@ export async function setReaction(
             `/api/anubhav/blogs/${articleId}/reactions`,
             {kind, value},
         )
+        .then((res) => res.data)
+}
+
+export type ReactedArticlesPage = {
+    total: number
+    page: number
+    limit: number
+    articles: Article[]
+}
+
+export async function fetchReactedArticles(
+    kind: ReactionKind,
+    page: number,
+    limit: number,
+) {
+    const params = new URLSearchParams({kind, page: String(page), limit: String(limit)})
+    return protectedAxios
+        .get<ReactedArticlesPage>(`/api/anubhav/me/reactions/articles?${params}`)
         .then((res) => res.data)
 }
