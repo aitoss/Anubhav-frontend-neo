@@ -1,37 +1,54 @@
 "use client"
 
 import * as React from "react"
-import { useRouter } from "next/navigation"
 
-import { Spinner } from "@workspace/ui/components/spinner"
-
-import { ProfileShell } from "@/components/profile-view"
+import { ProfileShell, ProfileSkeleton, ProfileView } from "@/components/profile-view"
 import { RequireSession } from "@/components/require-session"
-import { useMe } from "@/hooks/use-profile"
-import { profilePath } from "@/lib/users"
+import { useMe, useProfileArticles } from "@/hooks/use-profile"
 
-// Resolves who "me" is, then hands off to the canonical /u/:id/:slug page.
-function MyProfileRedirect() {
-  const router = useRouter()
+// Renders your profile in place rather than bouncing to /u/:id/:slug. The old
+// hand-off meant a spinner, a client-side redirect, then the destination's own
+// loading pass — three states to reach your own page.
+function MyProfile() {
+  const [page, setPage] = React.useState(1)
   const { data: me, isLoading } = useMe()
+  const { data: articleData, isLoading: isLoadingArticles } = useProfileArticles(
+    me?._id,
+    page,
+    true,
+  )
 
-  React.useEffect(() => {
-    if (!isLoading && me?._id) router.replace(profilePath(me))
-  }, [me, isLoading, router])
+  if (isLoading || !me) {
+    return (
+      <ProfileShell>
+        <ProfileSkeleton />
+      </ProfileShell>
+    )
+  }
 
   return (
-    <ProfileShell>
-      <div className="flex h-[40vh] items-center justify-center">
-        <Spinner />
-      </div>
-    </ProfileShell>
+    <ProfileView
+      profile={me}
+      articles={articleData?.articles ?? []}
+      total={articleData?.total ?? 0}
+      page={page}
+      onPageChange={setPage}
+      isOwner
+      isLoadingArticles={isLoadingArticles}
+    />
   )
 }
 
 export default function MyProfilePage() {
   return (
-    <RequireSession>
-      <MyProfileRedirect />
+    <RequireSession
+      fallback={
+        <ProfileShell>
+          <ProfileSkeleton />
+        </ProfileShell>
+      }
+    >
+      <MyProfile />
     </RequireSession>
   )
 }
