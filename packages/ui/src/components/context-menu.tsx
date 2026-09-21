@@ -4,7 +4,7 @@ import * as React from "react"
 import { ContextMenu as ContextMenuPrimitive } from "@base-ui/react/context-menu"
 
 import { cn } from "@workspace/ui/lib/utils"
-import { CheckIcon, ChevronRightIcon } from "@heroicons/react/24/outline"
+import { CheckIcon, ChevronRightIcon } from "@heroicons/react/24/solid"
 
 function ContextMenu({ ...props }: ContextMenuPrimitive.Root.Props) {
   return <ContextMenuPrimitive.Root data-slot="context-menu" {...props} />

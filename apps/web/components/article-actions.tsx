@@ -2,6 +2,8 @@
 
 import * as React from "react"
 
+import { BookmarkIcon, HeartIcon } from "@heroicons/react/24/solid"
+
 import { cn } from "@workspace/ui/lib/utils"
 
 type Kind = "heart" | "bookmark"
@@ -46,22 +48,16 @@ function useToggle(kind: Kind, id: string) {
   return { on, pulsing, toggle }
 }
 
-const HEART_PATH =
-  "M16.44 3.1001C14.63 3.1001 13.01 3.9801 12 5.3301C10.99 3.9801 9.37 3.1001 7.56 3.1001C4.49 3.1001 2 5.6001 2 8.6901C2 9.8801 2.19 10.9801 2.52 12.0001C4.1 17.0001 8.97 19.9901 11.38 20.8101C11.72 20.9301 12.28 20.9301 12.62 20.8101C15.03 19.9901 19.9 17.0001 21.48 12.0001C21.81 10.9801 22 9.8801 22 8.6901C22 5.6001 19.51 3.1001 16.44 3.1001Z"
-
-const BOOKMARK_PATH =
-  "M16.82 2H7.18001C5.05001 2 3.32001 3.74 3.32001 5.86V19.95C3.32001 21.75 4.61001 22.51 6.19001 21.64L11.07 18.93C11.59 18.64 12.43 18.64 12.94 18.93L17.82 21.64C19.4 22.52 20.69 21.76 20.69 19.95V5.86C20.68 3.74 18.95 2 16.82 2Z"
-
 function IconToggle({
   kind,
   id,
-  path,
+  Icon,
   label,
   activeClass,
 }: {
   kind: Kind
   id: string
-  path: string
+  Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
   label: string
   activeClass: string
 }) {
@@ -82,19 +78,14 @@ function IconToggle({
       onKeyDown={(event) => event.stopPropagation()}
       className="cursor-pointer p-0.5"
     >
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
+      <Icon
         aria-hidden
         className={cn(
-          "transition-transform duration-[175ms] ease-in-out",
+          "size-5 transition-transform duration-[175ms] ease-in-out",
           pulsing && "scale-120",
           on ? activeClass : "fill-muted-foreground/35",
         )}
-      >
-        <path d={path} />
-      </svg>
+      />
     </button>
   )
 }
@@ -105,14 +96,14 @@ export function ArticleActions({ id, className }: { id: string; className?: stri
       <IconToggle
         kind="heart"
         id={id}
-        path={HEART_PATH}
+        Icon={HeartIcon}
         label="Like article"
         activeClass="fill-[#e0245e]"
       />
       <IconToggle
         kind="bookmark"
         id={id}
-        path={BOOKMARK_PATH}
+        Icon={BookmarkIcon}
         label="Bookmark article"
         activeClass="fill-foreground"
       />

@@ -3,7 +3,7 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 
-import { ChevronRightIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline"
+import { ChevronRightIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid"
 
 import {
   Dialog,
@@ -15,9 +15,11 @@ import { Kbd, KbdGroup } from "@workspace/ui/components/kbd"
 import { ScrollArea } from "@workspace/ui/components/scroll-area"
 import { cn } from "@workspace/ui/lib/utils"
 
+import { DocumentTextIcon } from "@heroicons/react/24/solid"
 import { useQuery } from "@tanstack/react-query"
 
 import { sections } from "@/components/nav-sections"
+import { ArticleThumb } from "@/components/article-thumb"
 import { buildArticlePath } from "@/lib/article-url"
 import { fetchArticlesPage } from "@/lib/articles"
 
@@ -26,6 +28,10 @@ type SearchItem = {
   href: string
   group: string
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
+  // Article rows show a 16:9 thumbnail instead of the icon. Set (possibly
+  // empty) for articles, left undefined for page and "see all" rows so they
+  // keep the icon.
+  thumbnail?: string
 }
 
 const ALL_ITEMS: SearchItem[] = [
@@ -48,16 +54,6 @@ const ALL_ITEMS: SearchItem[] = [
       })),
     ),
 ]
-
-function ArticleIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
-      <path d="M14 3v4a1 1 0 0 0 1 1h4" strokeLinejoin="round" />
-      <path d="M19 9v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7z" strokeLinejoin="round" />
-      <path d="M9 13h6M9 17h4" strokeLinecap="round" />
-    </svg>
-  )
-}
 
 function filterItems(query: string): SearchItem[] {
   const q = query.trim().toLowerCase()
@@ -105,20 +101,19 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
         label: article.title,
         href: buildArticlePath({ id: article._id, title: article.title }),
         group: "Articles",
-        icon: ArticleIcon,
+        icon: DocumentTextIcon,
+        thumbnail: article.imageUrl ?? "",
       }),
     )
 
-    return [
-      ...pages,
-      ...articles,
-      {
-        label: `See all results for \u201c${debounced}\u201d`,
-        href: `/article?query=${encodeURIComponent(debounced)}`,
-        group: "Articles",
-        icon: ArticleIcon,
-      },
-    ]
+    const seeAll: SearchItem = {
+      label: `See all results for \u201c${debounced}\u201d`,
+      href: `/article?query=${encodeURIComponent(debounced)}`,
+      group: "Articles",
+      icon: DocumentTextIcon,
+    }
+
+    return [...pages, ...articles, seeAll]
   }, [query, debounced, articleResults])
 
   React.useEffect(() => {
@@ -228,7 +223,15 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
                           : "text-foreground hover:bg-muted/60",
                       )}
                     >
-                      <Icon className="size-4 shrink-0 text-muted-foreground" />
+                      {item.thumbnail === undefined ? (
+                        <Icon className="size-4 shrink-0 text-muted-foreground" />
+                      ) : (
+                        <ArticleThumb
+                          src={item.thumbnail || undefined}
+                          className="aspect-video w-16 shrink-0 rounded"
+                          logoClassName="size-4"
+                        />
+                      )}
                       <span className="truncate">{item.label}</span>
                       {selected ? (
                         <ChevronRightIcon className="ms-auto size-4 text-muted-foreground" />

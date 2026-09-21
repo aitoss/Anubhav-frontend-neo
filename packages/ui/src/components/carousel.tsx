@@ -7,7 +7,7 @@ import useEmblaCarousel, {
 
 import { cn } from "@workspace/ui/lib/utils"
 import { Button } from "@workspace/ui/components/button"
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline"
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid"
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>

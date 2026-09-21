@@ -10,7 +10,7 @@ import {
 
 import { cn } from "@workspace/ui/lib/utils"
 import { Button, buttonVariants } from "@workspace/ui/components/button"
-import { ArrowDownIcon, ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline"
+import { ArrowDownIcon, ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid"
 
 function Calendar({
   className,

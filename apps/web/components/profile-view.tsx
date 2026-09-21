@@ -2,6 +2,8 @@
 
 import Link from "next/link"
 
+import { AcademicCapIcon } from "@heroicons/react/24/solid"
+
 import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar"
 import { Button } from "@workspace/ui/components/button"
 import { Skeleton } from "@workspace/ui/components/skeleton"
@@ -11,16 +13,6 @@ import { ArticleCard, formatArticleDate } from "@/components/article-card"
 import { authorInitials } from "@/lib/articles"
 import { PROFILE_PAGE_SIZE, type Profile } from "@/lib/users"
 import type { Article } from "@/lib/articles"
-
-function CollegeIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden className="size-4 shrink-0">
-      <path d="M22 9 12 4 2 9l10 5 10-5Z" strokeLinejoin="round" />
-      <path d="M6 10.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-5.5" strokeLinejoin="round" />
-      <path d="M22 9v6" strokeLinecap="round" />
-    </svg>
-  )
-}
 
 export function ProfileShell({ children }: { children: React.ReactNode }) {
   return (
@@ -70,7 +62,7 @@ export function ProfileView({
               </h1>
 
               <p className="text-muted-foreground flex items-center gap-1.5 text-sm">
-                <CollegeIcon />
+                <AcademicCapIcon className="size-4 shrink-0" />
                 <span className="truncate">
                   {profile.college || "Army Institute Of Technology, Pune"}
                 </span>

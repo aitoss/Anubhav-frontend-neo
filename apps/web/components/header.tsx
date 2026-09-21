@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 import { signOut, useSessionContext } from "supertokens-auth-react/recipe/session"
-import { ArrowLeftStartOnRectangleIcon, Cog6ToothIcon, UserCircleIcon } from "@heroicons/react/24/outline"
+import { ArrowLeftStartOnRectangleIcon, Cog6ToothIcon, UserCircleIcon } from "@heroicons/react/24/solid"
 
 import { ButtonLink } from "@/components/button-link"
 import { Logo } from "@/components/logo"

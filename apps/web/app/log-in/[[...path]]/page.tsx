@@ -4,7 +4,7 @@ import * as React from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import EmailPassword from "supertokens-auth-react/recipe/emailpassword"
 
-import { ArrowRightEndOnRectangleIcon, EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
+import { ArrowRightEndOnRectangleIcon, EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid"
 
 import { ButtonLink } from "@/components/button-link"
 import { Button } from "@workspace/ui/components/button"

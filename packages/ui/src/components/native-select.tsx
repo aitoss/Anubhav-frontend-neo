@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import { cn } from "@workspace/ui/lib/utils"
-import { ChevronUpDownIcon } from "@heroicons/react/24/outline"
+import { ChevronUpDownIcon } from "@heroicons/react/24/solid"
 
 type NativeSelectProps = Omit<React.ComponentProps<"select">, "size"> & {
   size?: "sm" | "default"

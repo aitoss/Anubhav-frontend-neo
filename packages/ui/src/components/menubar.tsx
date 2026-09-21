@@ -20,7 +20,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu"
-import { CheckIcon } from "@heroicons/react/24/outline"
+import { CheckIcon } from "@heroicons/react/24/solid"
 
 function Menubar({ className, ...props }: MenubarPrimitive.Props) {
   return (

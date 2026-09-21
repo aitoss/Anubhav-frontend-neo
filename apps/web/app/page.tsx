@@ -11,7 +11,7 @@ import { FeatureCards } from "@/components/feature-cards"
 import { AnnouncementPill } from "@/components/announcement-pill"
 import { CommentBubble } from "@/components/comment-bubble"
 import { AvatarStack, type Avatar } from "@/components/avatar-stack"
-import { ChatBubbleOvalLeftIcon, VideoCameraIcon } from "@heroicons/react/24/outline"
+import { ChatBubbleOvalLeftIcon, VideoCameraIcon } from "@heroicons/react/24/solid"
 
 
 const steps = [

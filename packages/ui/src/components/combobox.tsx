@@ -11,7 +11,7 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "@workspace/ui/components/input-group"
-import { CheckIcon, ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/outline"
+import { CheckIcon, ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/solid"
 
 const Combobox = ComboboxPrimitive.Root
 

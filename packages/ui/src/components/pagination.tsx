@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { cn } from "@workspace/ui/lib/utils"
 import { Button } from "@workspace/ui/components/button"
-import { ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalCircleIcon } from "@heroicons/react/24/outline"
+import { ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalCircleIcon } from "@heroicons/react/24/solid"
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (

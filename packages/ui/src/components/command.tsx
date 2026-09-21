@@ -15,7 +15,7 @@ import {
   InputGroup,
   InputGroupAddon,
 } from "@workspace/ui/components/input-group"
-import { CheckIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline"
+import { CheckIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid"
 
 function Command({
   className,
