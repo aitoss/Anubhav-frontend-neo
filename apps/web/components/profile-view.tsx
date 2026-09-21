@@ -5,7 +5,6 @@ import Link from "next/link"
 import {
   AcademicCapIcon,
   DocumentTextIcon,
-  LinkIcon,
   PencilSquareIcon,
 } from "@heroicons/react/24/solid"
 
@@ -21,6 +20,7 @@ import {
 import { Skeleton } from "@workspace/ui/components/skeleton"
 
 import { ArticleCard, formatArticleDate } from "@/components/article-card"
+import { LinkedInIcon } from "@/components/footer"
 import { ArticleOwnerActions } from "@/components/article-owner-actions"
 import { UserAvatar } from "@/components/user-avatar"
 import { PROFILE_PAGE_SIZE, type Profile } from "@/lib/users"
@@ -111,7 +111,7 @@ export function ProfileView({
           className="size-24 shrink-0 sm:size-40"
         />
 
-        <div className="flex min-w-0 flex-1 flex-col gap-5">
+        <div className="flex min-w-0 flex-1 flex-col gap-2.5">
           <h1 className="truncate text-2xl font-medium tracking-tight sm:text-3xl">
             {profile.name || "Unnamed user"}
           </h1>
@@ -147,7 +147,7 @@ export function ProfileView({
                 rel="noreferrer"
                 className="flex w-fit items-center gap-1.5 font-medium hover:underline"
               >
-                <LinkIcon className="size-4 shrink-0" />
+                <LinkedInIcon className="size-4 shrink-0" />
                 <span className="truncate">LinkedIn</span>
               </a>
             ) : null}
