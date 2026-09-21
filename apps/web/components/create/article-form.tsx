@@ -48,7 +48,9 @@ export function ArticleForm({ mode = "create", articleId, initialArticle }: Prop
   const [companyId, setCompanyId] = React.useState<string | null>(null)
   const [position, setPosition] = React.useState((initialArticle as any)?.typeOfArticle ?? "")
   const [title, setTitle] = React.useState(initialArticle?.title ?? "")
-  const [tags, setTags] = React.useState<string[]>(initialArticle?.tags ?? [])
+  const [tags, setTags] = React.useState<string[]>(
+    initialArticle?.articleTags ?? initialArticle?.tags ?? [],
+  )
   const [banner, setBanner] = React.useState<string | null>(initialArticle?.imageUrl ?? null)
   const [articleHtml, setArticleHtml] = React.useState(initialArticle?.description ?? "")
   const [errors, setErrors] = React.useState<Record<string, string>>({})
@@ -60,7 +62,7 @@ export function ArticleForm({ mode = "create", articleId, initialArticle }: Prop
     if (!initialArticle) return
     setCompany(initialArticle.companyName ?? "")
     setTitle(initialArticle.title ?? "")
-    setTags(initialArticle.tags ?? [])
+    setTags(initialArticle.articleTags ?? initialArticle.tags ?? [])
     setBanner(initialArticle.imageUrl ?? null)
     setArticleHtml(initialArticle.description ?? "")
     setPosition((initialArticle as any)?.typeOfArticle ?? "")
