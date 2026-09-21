@@ -1,6 +1,10 @@
 import { NextRequest } from "next/server"
 
-const UPSTREAM_BASE_URL = "https://oss-backend.vercel.app/api/anubhav"
+import { BACKEND_URL } from "@/lib/backend"
+
+// Same origin as the auth proxy, so NEXT_PUBLIC_BACKEND_URL points both at a
+// preview deployment in one go.
+const UPSTREAM_BASE_URL = BACKEND_URL
 const HOP_BY_HOP_HEADERS = new Set([
   "connection",
   "keep-alive",

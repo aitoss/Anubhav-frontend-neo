@@ -24,7 +24,7 @@ import { ArticleActions } from "@/components/article-actions"
 import { ArticleThumb } from "@/components/article-thumb"
 import { UserAvatar } from "@/components/user-avatar"
 import { TagBadgeLink } from "@/components/tag-badge"
-import { formatArticleDate, readTime } from "@/components/article-card"
+import { editedDate, formatArticleDate, readTime } from "@/components/article-card"
 import { useArticle } from "@/hooks/use-article"
 import { useSimilarArticles } from "@/hooks/use-similar-articles"
 import { articleTagList, getAuthor } from "@/lib/articles"
@@ -64,6 +64,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
   })
 
   const author = article ? getAuthor(article) : null
+  const edited = editedDate(article?.createdAt, article?.updatedAt)
   const body = React.useMemo(
     () => highlightCodeBlocks(article?.description ?? ""),
     [article?.description],
@@ -167,9 +168,9 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                     {readTime(article.description)}
                     {article.createdAt ? ` • ${formatArticleDate(article.createdAt)}` : ""}
                   </p>
-                  {article.updatedAt ? (
+                  {edited ? (
                     <p className="text-muted-foreground text-xs">
-                      Last edited on {formatArticleDate(article.updatedAt)}
+                      Last edited on {edited}
                     </p>
                   ) : null}
                 </div>

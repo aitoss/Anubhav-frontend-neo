@@ -19,6 +19,20 @@ export function formatArticleDate(dateValue?: string) {
   return `${day}-${month}-${date.getFullYear()}`
 }
 
+/**
+ * The edit date, but only once there has been an edit. `updatedAt` defaults to
+ * the creation time, so a never-edited article would otherwise claim one.
+ */
+export function editedDate(createdAt?: string, updatedAt?: string | null) {
+  if (!updatedAt) return ""
+  const edited = new Date(updatedAt).getTime()
+  const created = createdAt ? new Date(createdAt).getTime() : 0
+  if (Number.isNaN(edited)) return ""
+  // A second of slack: both stamps are written in the same request on create.
+  if (edited - created < 1000) return ""
+  return formatArticleDate(updatedAt)
+}
+
 // 180 wpm, same as the Vite ReadTime helper.
 export function readTime(description?: string) {
   const words =

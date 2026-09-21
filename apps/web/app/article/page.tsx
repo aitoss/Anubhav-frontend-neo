@@ -3,7 +3,7 @@
 import * as React from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
-import { ExclamationTriangleIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid"
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid"
 import { Button } from "@workspace/ui/components/button"
 import { Input } from "@workspace/ui/components/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@workspace/ui/components/select"
@@ -22,6 +22,7 @@ import {
 } from "@workspace/ui/components/empty"
 
 import { ArticleCard } from "@/components/article-card"
+import { ErrorState } from "@/components/error-state"
 
 
 
@@ -201,22 +202,15 @@ function ArticleContent() {
         <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[minmax(0,1fr)_260px]">
           <div className="min-w-0">
           {isError ? (
-            <Empty className="border">
-              <EmptyHeader>
-                <EmptyMedia variant="icon">
-                  <ExclamationTriangleIcon />
-                </EmptyMedia>
-                <EmptyTitle>Failed to load articles</EmptyTitle>
-                <EmptyDescription>
-                  {String((error as any)?.message ?? error)}
-                </EmptyDescription>
-              </EmptyHeader>
-              <EmptyContent>
+            <ErrorState
+              title="Failed to load articles"
+              description={String((error as any)?.message ?? error)}
+              action={
                 <Button variant="outline" size="sm" onClick={() => void refetch()}>
                   Try again
                 </Button>
-              </EmptyContent>
-            </Empty>
+              }
+            />
           ) : isLoading && articles.length === 0 ? (
             <ArticleListSkeleton />
           ) : articles.length === 0 ? (
