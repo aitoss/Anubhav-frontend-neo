@@ -252,10 +252,19 @@ export function ProfileView({
             }}
             className="pb-4"
           >
-            <TabsList variant="line">
-              <TabsTrigger value="mine">My Articles</TabsTrigger>
-              <TabsTrigger value="save">Saved</TabsTrigger>
-              <TabsTrigger value="like">Liked</TabsTrigger>
+            <TabsList variant="default">
+              <TabsTrigger value="mine" className="gap-1.5">
+                <DocumentTextIcon className="size-4" />
+                My Articles
+              </TabsTrigger>
+              <TabsTrigger value="save" className="gap-1.5">
+                <BookmarkIcon className="size-4" />
+                Saved
+              </TabsTrigger>
+              <TabsTrigger value="like" className="gap-1.5">
+                <HeartIcon className="size-4" />
+                Liked
+              </TabsTrigger>
             </TabsList>
           </Tabs>
         ) : (
