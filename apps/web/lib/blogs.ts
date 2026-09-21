@@ -54,6 +54,16 @@ export async function fetchBlog(id: string) {
         })
 }
 
+/**
+ * Reads an article as its author. Unlike `fetchBlog` this also returns
+ * articles still awaiting moderation, which is what the edit form needs.
+ */
+export async function fetchOwnedBlog(id: string) {
+    return protectedAxios
+        .get<{article: Article}>(`/api/anubhav/blogs/${id}`)
+        .then((res) => res.data.article)
+}
+
 export async function deleteBlog(id: string) {
     return protectedAxios
         .delete<{message: string; articleId: string}>(`/api/anubhav/blogs/${id}`)
