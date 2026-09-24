@@ -23,8 +23,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@workspace/ui/components/tooltip"
-import { HugeiconsIcon } from "@hugeicons/react"
-import { SidebarLeftIcon } from "@hugeicons/core-free-icons"
+import { Bars3BottomLeftIcon } from "@heroicons/react/24/solid"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -272,7 +271,7 @@ function SidebarTrigger({
       }}
       {...props}
     >
-      <HugeiconsIcon icon={SidebarLeftIcon} strokeWidth={2} />
+      <Bars3BottomLeftIcon />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )

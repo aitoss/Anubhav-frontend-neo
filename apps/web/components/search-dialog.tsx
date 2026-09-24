@@ -3,8 +3,7 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 
-import { HugeiconsIcon } from "@hugeicons/react"
-import { ArrowRight01Icon, SearchIcon } from "@hugeicons/core-free-icons"
+import { ChevronRightIcon, DocumentTextIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid"
 
 import {
   Dialog,
@@ -19,6 +18,7 @@ import { cn } from "@workspace/ui/lib/utils"
 import { useQuery } from "@tanstack/react-query"
 
 import { sections } from "@/components/nav-sections"
+import { ArticleThumb } from "@/components/article-thumb"
 import { buildArticlePath } from "@/lib/article-url"
 import { fetchArticlesPage } from "@/lib/articles"
 
@@ -27,6 +27,10 @@ type SearchItem = {
   href: string
   group: string
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
+  // Article rows show a 16:9 thumbnail instead of the icon. Set (possibly
+  // empty) for articles, left undefined for page and "see all" rows so they
+  // keep the icon.
+  thumbnail?: string
 }
 
 const ALL_ITEMS: SearchItem[] = [
@@ -49,16 +53,6 @@ const ALL_ITEMS: SearchItem[] = [
       })),
     ),
 ]
-
-function ArticleIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
-      <path d="M14 3v4a1 1 0 0 0 1 1h4" strokeLinejoin="round" />
-      <path d="M19 9v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7z" strokeLinejoin="round" />
-      <path d="M9 13h6M9 17h4" strokeLinecap="round" />
-    </svg>
-  )
-}
 
 function filterItems(query: string): SearchItem[] {
   const q = query.trim().toLowerCase()
@@ -106,20 +100,21 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
         label: article.title,
         href: buildArticlePath({ id: article._id, title: article.title }),
         group: "Articles",
-        icon: ArticleIcon,
+        icon: DocumentTextIcon,
+        thumbnail: article.imageUrl ?? "",
       }),
     )
 
-    return [
-      ...pages,
-      ...articles,
-      {
-        label: `See all results for \u201c${debounced}\u201d`,
-        href: `/article?query=${encodeURIComponent(debounced)}`,
-        group: "Articles",
-        icon: ArticleIcon,
-      },
-    ]
+    const seeAll: SearchItem = {
+      label: `See all results for \u201c${debounced}\u201d`,
+      href: `/article?query=${encodeURIComponent(debounced)}`,
+      group: "Articles",
+      icon: DocumentTextIcon,
+    }
+
+    // Only offer "see all" when there is actually something to see — otherwise
+    // it reads as a result and hides the empty state.
+    return articles.length > 0 ? [...pages, ...articles, seeAll] : pages
   }, [query, debounced, articleResults])
 
   React.useEffect(() => {
@@ -178,7 +173,7 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
         </DialogDescription>
 
         <div className="flex h-14 items-center gap-3 border-b border-border px-4">
-          <HugeiconsIcon icon={SearchIcon} strokeWidth={2} className="size-4 shrink-0 text-muted-foreground/70" />
+          <MagnifyingGlassIcon className="size-4 shrink-0 text-muted-foreground/70" />
           <input
             autoFocus
             type="text"
@@ -196,7 +191,8 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
         <ScrollArea scrollFade className="max-h-80">
           <ul ref={listRef} role="listbox" className="p-1">
             {items.length === 0 ? (
-              <li className="py-6 text-center text-sm text-muted-foreground">
+              <li className="text-muted-foreground flex flex-col items-center gap-2 py-8 text-sm">
+                <MagnifyingGlassIcon className="size-5 opacity-60" />
                 {isFetching ? "Searching\u2026" : "No results found."}
               </li>
             ) : (
@@ -229,10 +225,18 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
                           : "text-foreground hover:bg-muted/60",
                       )}
                     >
-                      <Icon className="size-4 shrink-0 text-muted-foreground" />
+                      {item.thumbnail === undefined ? (
+                        <Icon className="size-4 shrink-0 text-muted-foreground" />
+                      ) : (
+                        <ArticleThumb
+                          src={item.thumbnail || undefined}
+                          className="aspect-video w-16 shrink-0 rounded"
+                          logoClassName="size-4"
+                        />
+                      )}
                       <span className="truncate">{item.label}</span>
                       {selected ? (
-                        <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} className="ms-auto size-4 text-muted-foreground" />
+                        <ChevronRightIcon className="ms-auto size-4 text-muted-foreground" />
                       ) : null}
                     </li>
                   </React.Fragment>

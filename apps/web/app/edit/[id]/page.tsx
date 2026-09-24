@@ -1,31 +1,59 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import { useQuery } from "@tanstack/react-query"
 
-import { Spinner } from "@workspace/ui/components/spinner"
+import { Button } from "@workspace/ui/components/button"
 
 import { ArticleForm } from "@/components/create/article-form"
+import { ArticleFormSkeleton } from "@/components/create/article-form-skeleton"
+import { ErrorState } from "@/components/error-state"
 import { RequireSession } from "@/components/require-session"
-import { fetchBlog } from "@/lib/blogs"
+import { fetchOwnedBlog } from "@/lib/blogs"
 import { extractArticleIdFromRoute } from "@/lib/article-url"
 
+const LOAD_FAILURE: Record<number, string> = {
+  403: "This article belongs to someone else.",
+  404: "This article no longer exists.",
+}
+
 function EditArticle({ id }: { id: string }) {
-  const { data: article, isLoading } = useQuery({
-    queryKey: ["article", id],
-    queryFn: () => fetchBlog(id),
+  const {
+    data: article,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["owned-article", id],
+    queryFn: () => fetchOwnedBlog(id),
     enabled: Boolean(id),
   })
 
-  if (isLoading) {
+  if (isLoading) return <ArticleFormSkeleton />
+
+  // Rendering the blank form here would let a save wipe the real article, so
+  // the failure has to stop before the form does.
+  if (isError || !article) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <Spinner />
-      </div>
+      <main className="mx-auto w-full max-w-2xl px-4 pt-32 pb-16">
+        <ErrorState
+          title="Cannot open this article"
+          description={
+            LOAD_FAILURE[(error as any)?.response?.status] ??
+            "We could not load the article. Please try again."
+          }
+          action={
+            <Button variant="outline" render={<Link href="/profile/me" />}>
+              Back to my articles
+            </Button>
+          }
+        />
+      </main>
     )
   }
 
-  return <ArticleForm mode="edit" articleId={id} initialArticle={article ?? null} />
+  return <ArticleForm mode="edit" articleId={id} initialArticle={article} />
 }
 
 export default function EditArticlePage({ params }: { params: Promise<{ id: string }> }) {
@@ -33,7 +61,7 @@ export default function EditArticlePage({ params }: { params: Promise<{ id: stri
   const id = extractArticleIdFromRoute(routeId)
 
   return (
-    <RequireSession>
+    <RequireSession fallback={<ArticleFormSkeleton />}>
       <EditArticle id={id} />
     </RequireSession>
   )

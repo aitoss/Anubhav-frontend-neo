@@ -4,8 +4,7 @@ import * as React from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import EmailPassword from "supertokens-auth-react/recipe/emailpassword"
 
-import { HugeiconsIcon } from "@hugeicons/react"
-import { Login01Icon, ViewIcon, ViewOffIcon } from "@hugeicons/core-free-icons"
+import { ArrowRightEndOnRectangleIcon, EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid"
 
 import { ButtonLink } from "@/components/button-link"
 import { Button } from "@workspace/ui/components/button"
@@ -187,7 +186,11 @@ export default function AuthRoutePage() {
                                             className="absolute inset-y-0 right-2 inline-flex items-center justify-center text-muted-foreground hover:text-foreground"
                                             aria-label={showPassword ? "Hide password" : "Show password"}
                                         >
-                                            <HugeiconsIcon icon={showPassword ? ViewOffIcon : ViewIcon} className="size-4" />
+                                            {showPassword ? (
+                                                <EyeSlashIcon className="size-4" />
+                                            ) : (
+                                                <EyeIcon className="size-4" />
+                                            )}
                                         </button>
                                     </div>
                                 </div>

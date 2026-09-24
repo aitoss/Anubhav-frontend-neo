@@ -1,71 +1,87 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useSessionContext } from "supertokens-auth-react/recipe/session"
 
+import { BookmarkIcon, HeartIcon } from "@heroicons/react/24/solid"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogTitle,
+} from "@workspace/ui/components/alert-dialog"
 import { cn } from "@workspace/ui/lib/utils"
 
-type Kind = "heart" | "bookmark"
+import { fetchMyReactions, setReaction, type MyReactions, type ReactionKind } from "@/lib/reactions"
 
-// Per-viewer only: the Vite app stored these in localStorage and there is no
-// like/bookmark endpoint. Reads/writes are guarded because storage throws in
-// private mode and comes back empty with site data cleared.
-function readFlag(kind: Kind, id: string) {
-  try {
-    return localStorage.getItem(`${kind}_${id}`) === "true"
-  } catch {
-    return false
-  }
+const REACTIONS_KEY = ["my-reactions"]
+
+/**
+ * One query holds every like and save the viewer has, so a list of cards costs
+ * a single request instead of one per card.
+ */
+function useMyReactions(enabled: boolean) {
+  return useQuery({
+    queryKey: REACTIONS_KEY,
+    queryFn: fetchMyReactions,
+    enabled,
+    staleTime: 60_000,
+  })
 }
 
-function writeFlag(kind: Kind, id: string, value: boolean) {
-  try {
-    localStorage.setItem(`${kind}_${id}`, String(value))
-  } catch {
-    // ignore
-  }
+function useReactionToggle(articleId: string) {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ kind, value }: { kind: ReactionKind; value: boolean }) =>
+      setReaction(articleId, kind, value),
+
+    // A tap has to feel instant, so paint it first and roll back if the write
+    // fails.
+    onMutate: async ({ kind, value }) => {
+      await queryClient.cancelQueries({ queryKey: REACTIONS_KEY })
+      const previous = queryClient.getQueryData<MyReactions>(REACTIONS_KEY)
+      if (!previous) return { previous }
+
+      const field = kind === "like" ? "liked" : "saved"
+      const next = new Set(previous[field])
+      if (value) next.add(articleId)
+      else next.delete(articleId)
+
+      queryClient.setQueryData<MyReactions>(REACTIONS_KEY, { ...previous, [field]: next })
+      return { previous }
+    },
+
+    onError: (_error, _variables, context) => {
+      if (context?.previous) queryClient.setQueryData(REACTIONS_KEY, context.previous)
+    },
+  })
 }
-
-function useToggle(kind: Kind, id: string) {
-  const [on, setOn] = React.useState(false)
-  const [pulsing, setPulsing] = React.useState(false)
-
-  React.useEffect(() => {
-    setOn(readFlag(kind, id))
-  }, [kind, id])
-
-  const toggle = React.useCallback(() => {
-    setOn((previous) => {
-      const next = !previous
-      writeFlag(kind, id, next)
-      return next
-    })
-    setPulsing(true)
-    setTimeout(() => setPulsing(false), 175)
-  }, [kind, id])
-
-  return { on, pulsing, toggle }
-}
-
-const HEART_PATH =
-  "M16.44 3.1001C14.63 3.1001 13.01 3.9801 12 5.3301C10.99 3.9801 9.37 3.1001 7.56 3.1001C4.49 3.1001 2 5.6001 2 8.6901C2 9.8801 2.19 10.9801 2.52 12.0001C4.1 17.0001 8.97 19.9901 11.38 20.8101C11.72 20.9301 12.28 20.9301 12.62 20.8101C15.03 19.9901 19.9 17.0001 21.48 12.0001C21.81 10.9801 22 9.8801 22 8.6901C22 5.6001 19.51 3.1001 16.44 3.1001Z"
-
-const BOOKMARK_PATH =
-  "M16.82 2H7.18001C5.05001 2 3.32001 3.74 3.32001 5.86V19.95C3.32001 21.75 4.61001 22.51 6.19001 21.64L11.07 18.93C11.59 18.64 12.43 18.64 12.94 18.93L17.82 21.64C19.4 22.52 20.69 21.76 20.69 19.95V5.86C20.68 3.74 18.95 2 16.82 2Z"
 
 function IconToggle({
-  kind,
-  id,
-  path,
+  on,
+  pending,
+  onToggle,
+  Icon,
   label,
   activeClass,
 }: {
-  kind: Kind
-  id: string
-  path: string
+  on: boolean
+  pending: boolean
+  onToggle: () => void
+  Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
   label: string
   activeClass: string
 }) {
-  const { on, pulsing, toggle } = useToggle(kind, id)
+  const [pulsing, setPulsing] = React.useState(false)
 
   return (
     <button
@@ -73,49 +89,96 @@ function IconToggle({
       aria-label={label}
       aria-pressed={on}
       title={label}
+      disabled={pending}
       // The card itself is clickable, so keep the toggle from navigating.
       onClick={(event) => {
         event.stopPropagation()
         event.preventDefault()
-        toggle()
+        setPulsing(true)
+        setTimeout(() => setPulsing(false), 175)
+        onToggle()
       }}
       onKeyDown={(event) => event.stopPropagation()}
-      className="cursor-pointer p-0.5"
+      className="cursor-pointer p-0.5 disabled:cursor-default"
     >
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
+      <Icon
         aria-hidden
         className={cn(
-          "transition-transform duration-[175ms] ease-in-out",
+          "size-5 transition-transform duration-[175ms] ease-in-out",
           pulsing && "scale-120",
           on ? activeClass : "fill-muted-foreground/35",
         )}
-      >
-        <path d={path} />
-      </svg>
+      />
     </button>
   )
 }
 
 export function ArticleActions({ id, className }: { id: string; className?: string }) {
+  const pathname = usePathname()
+  const session = useSessionContext()
+  const signedIn = session.loading ? false : session.doesSessionExist
+
+  const [promptOpen, setPromptOpen] = React.useState(false)
+  const { data: reactions } = useMyReactions(signedIn)
+  const toggle = useReactionToggle(id)
+
+  const act = (kind: ReactionKind, on: boolean) => {
+    if (!signedIn) {
+      setPromptOpen(true)
+      return
+    }
+    toggle.mutate({ kind, value: !on })
+  }
+
+  const liked = reactions?.liked.has(id) ?? false
+  const saved = reactions?.saved.has(id) ?? false
+
   return (
     <div className={cn("flex items-center gap-2", className)}>
       <IconToggle
-        kind="heart"
-        id={id}
-        path={HEART_PATH}
-        label="Like article"
+        on={liked}
+        pending={session.loading}
+        onToggle={() => act("like", liked)}
+        Icon={HeartIcon}
+        label={liked ? "Unlike article" : "Like article"}
         activeClass="fill-[#e0245e]"
       />
       <IconToggle
-        kind="bookmark"
-        id={id}
-        path={BOOKMARK_PATH}
-        label="Bookmark article"
+        on={saved}
+        pending={session.loading}
+        onToggle={() => act("save", saved)}
+        Icon={BookmarkIcon}
+        label={saved ? "Remove bookmark" : "Bookmark article"}
         activeClass="fill-foreground"
       />
+
+      <AlertDialog open={promptOpen} onOpenChange={setPromptOpen}>
+        {/* The dialog is portalled out of the card in the DOM, but React still
+            bubbles its clicks up to the card's router.push. Without this,
+            "Log in" opens the article instead. */}
+        <AlertDialogContent onClick={(event) => event.stopPropagation()}>
+          <AlertDialogHeader>
+            <AlertDialogMedia>
+              <HeartIcon className="fill-[#e0245e]" />
+            </AlertDialogMedia>
+            <AlertDialogTitle>Log in to save this</AlertDialogTitle>
+            <AlertDialogDescription>
+              Likes and bookmarks live on your account, so they follow you to any
+              device.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Not now</AlertDialogCancel>
+            <AlertDialogAction
+              render={
+                <Link href={`/log-in?redirectToPath=${encodeURIComponent(pathname)}`} />
+              }
+            >
+              Log in
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

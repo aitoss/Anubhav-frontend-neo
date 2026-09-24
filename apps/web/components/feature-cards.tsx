@@ -1,3 +1,4 @@
+import { PlayIcon } from "@heroicons/react/24/solid"
 import Image from "next/image"
 
 const CONTRIBUTORS = [
@@ -57,9 +58,7 @@ function VideoArt() {
         ))}
       </div>
       <span className="absolute top-1/2 left-1/2 z-20 flex size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/70 backdrop-blur-sm">
-        <svg viewBox="0 0 24 24" className="size-4 translate-x-px fill-white" aria-hidden>
-          <path d="M8 5v14l11-7z" />
-        </svg>
+        <PlayIcon className="size-4 translate-x-px fill-white" aria-hidden />
       </span>
     </div>
   )

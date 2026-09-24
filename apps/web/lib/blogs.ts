@@ -53,3 +53,30 @@ export async function fetchBlog(id: string) {
             return (payload?.article ?? payload) as Article
         })
 }
+
+/**
+ * Reads an article as its author. Unlike `fetchBlog` this also returns
+ * articles still awaiting moderation, which is what the edit form needs.
+ *
+ * ponytail: the 404 fallback is only there for backends that predate the
+ * owner route - drop it once every deployed backend has GET /blogs/:id. A 403
+ * deliberately does not fall back: the public route would happily hand a
+ * non-author the article to load into the edit form.
+ */
+export async function fetchOwnedBlog(id: string) {
+    try {
+        const res = await protectedAxios.get<{article: Article}>(
+            `/api/anubhav/blogs/${id}`,
+        )
+        return res.data.article
+    } catch (error) {
+        if ((error as any)?.response?.status !== 404) throw error
+        return fetchBlog(id)
+    }
+}
+
+export async function deleteBlog(id: string) {
+    return protectedAxios
+        .delete<{message: string; articleId: string}>(`/api/anubhav/blogs/${id}`)
+        .then((res) => res.data)
+}

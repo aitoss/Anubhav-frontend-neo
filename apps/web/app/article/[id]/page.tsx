@@ -3,20 +3,31 @@
 import * as React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { HugeiconsIcon } from "@hugeicons/react"
-import { ArrowLeft01Icon } from "@hugeicons/core-free-icons"
+import {
+  ChevronLeftIcon,
+  ClockIcon,
+  DocumentTextIcon,
+  ExclamationTriangleIcon,
+} from "@heroicons/react/24/solid"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar"
 import { Button } from "@workspace/ui/components/button"
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@workspace/ui/components/empty"
 import { Skeleton } from "@workspace/ui/components/skeleton"
 
 import { ArticleActions } from "@/components/article-actions"
 import { ArticleThumb } from "@/components/article-thumb"
+import { UserAvatar } from "@/components/user-avatar"
 import { TagBadgeLink } from "@/components/tag-badge"
-import { formatArticleDate, readTime } from "@/components/article-card"
+import { editedDate, formatArticleDate, readTime } from "@/components/article-card"
 import { useArticle } from "@/hooks/use-article"
 import { useSimilarArticles } from "@/hooks/use-similar-articles"
-import { articleTagList, authorInitials, getAuthor } from "@/lib/articles"
+import { articleTagList, getAuthor } from "@/lib/articles"
 import { buildArticlePath, extractArticleIdFromRoute } from "@/lib/article-url"
 import { highlightCodeBlocks } from "@/lib/highlight-code"
 import { profilePath } from "@/lib/users"
@@ -53,6 +64,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
   })
 
   const author = article ? getAuthor(article) : null
+  const edited = editedDate(article?.createdAt, article?.updatedAt)
   const body = React.useMemo(
     () => highlightCodeBlocks(article?.description ?? ""),
     [article?.description],
@@ -68,19 +80,24 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
           className="mb-6 -ml-2 inline-flex items-center gap-2"
           onClick={() => router.back()}
         >
-          <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={2} className="size-4" />
+          <ChevronLeftIcon className="size-4" />
           Back
         </Button>
 
         {isLoading ? (
           <ArticleDetailSkeleton />
         ) : (error as any)?.response?.status === 403 ? (
-          <div className="border-border bg-card rounded-xl border p-8 text-center">
-            <p className="font-medium">This article isn&apos;t public yet</p>
-            <p className="text-muted-foreground mt-2 text-sm">
-              It will be visible here once a reviewer has checked it over.
-            </p>
-            <div className="mt-5 flex flex-wrap justify-center gap-3">
+          <Empty className="border">
+            <EmptyHeader>
+              <EmptyMedia variant="icon">
+                <ClockIcon />
+              </EmptyMedia>
+              <EmptyTitle>This article isn&apos;t public yet</EmptyTitle>
+              <EmptyDescription>
+                It will be visible here once a reviewer has checked it over.
+              </EmptyDescription>
+            </EmptyHeader>
+            <div className="flex flex-wrap justify-center gap-3">
               <Button render={<Link href="/profile/me" />} size="sm">
                 My articles
               </Button>
@@ -88,16 +105,26 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                 Browse articles
               </Button>
             </div>
-          </div>
+          </Empty>
         ) : error ? (
-          <div className="border-destructive/40 bg-destructive/5 text-destructive rounded-xl border p-6">
-            <p className="font-medium">Failed to load this article</p>
-            <p className="mt-1 text-sm">{(error as any)?.message ?? String(error)}</p>
-          </div>
+          <Empty className="border">
+            <EmptyHeader>
+              <EmptyMedia variant="icon">
+                <ExclamationTriangleIcon />
+              </EmptyMedia>
+              <EmptyTitle>Failed to load this article</EmptyTitle>
+              <EmptyDescription>{(error as any)?.message ?? String(error)}</EmptyDescription>
+            </EmptyHeader>
+          </Empty>
         ) : !article ? (
-          <div className="border-border text-muted-foreground rounded-xl border border-dashed p-10 text-center">
-            No article found.
-          </div>
+          <Empty className="border">
+            <EmptyHeader>
+              <EmptyMedia variant="icon">
+                <DocumentTextIcon />
+              </EmptyMedia>
+              <EmptyTitle>No article found</EmptyTitle>
+            </EmptyHeader>
+          </Empty>
         ) : (
           <article>
             {article.companyName || tags.length > 0 ? (
@@ -125,14 +152,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
 
             <div className="border-border mt-6 flex flex-wrap items-center justify-between gap-4 border-b pb-6">
               <div className="flex items-center gap-3">
-                <Avatar className="size-9">
-                  {author?.logoUrl ? (
-                    <AvatarImage src={author.logoUrl} alt={author.name} />
-                  ) : null}
-                  <AvatarFallback className="text-xs">
-                    {authorInitials(author?.name)}
-                  </AvatarFallback>
-                </Avatar>
+<UserAvatar name={author?.name} src={author?.logoUrl} size={36} className="size-9" />
                 <div className="text-sm">
                   {author?._id ? (
                     <Link
@@ -148,6 +168,11 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                     {readTime(article.description)}
                     {article.createdAt ? ` • ${formatArticleDate(article.createdAt)}` : ""}
                   </p>
+                  {edited ? (
+                    <p className="text-muted-foreground text-xs">
+                      Last edited on {edited}
+                    </p>
+                  ) : null}
                 </div>
               </div>
 
@@ -178,7 +203,10 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                   ))}
                 </div>
               ) : (similarArticles?.length ?? 0) === 0 ? (
-                <p className="text-muted-foreground text-sm">No similar articles found.</p>
+                <p className="text-muted-foreground flex items-center gap-2 text-sm">
+                  <DocumentTextIcon className="size-4 shrink-0" />
+                  No similar articles found.
+                </p>
               ) : (
                 <div className="grid gap-4 sm:grid-cols-2">
                   {similarArticles

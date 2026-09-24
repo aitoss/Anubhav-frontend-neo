@@ -9,7 +9,15 @@ import { Spinner } from "@workspace/ui/components/spinner"
 // Gate on SuperTokens' own session state, not on a /me request. /me can 401
 // transiently - most importantly during the refresh SuperTokens runs on load -
 // and a gate that redirects on that kicks signed-in users out to log-in.
-export function RequireSession({ children }: { children: React.ReactNode }) {
+export function RequireSession({
+  children,
+  fallback,
+}: {
+  children: React.ReactNode
+  /** Shown while the session resolves. Give it the page's own skeleton so the
+   *  gate does not flash a spinner before the page renders its loading state. */
+  fallback?: React.ReactNode
+}) {
   const router = useRouter()
   const pathname = usePathname()
   const session = useSessionContext()
@@ -27,9 +35,11 @@ export function RequireSession({ children }: { children: React.ReactNode }) {
 
   if (loading || !doesSessionExist) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <Spinner />
-      </div>
+      fallback ?? (
+        <div className="flex min-h-screen items-center justify-center">
+          <Spinner />
+        </div>
+      )
     )
   }
 
