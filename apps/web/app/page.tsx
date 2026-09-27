@@ -9,7 +9,7 @@ import { HowItWorks } from "@/components/how-it-works"
 import { StoryStack } from "@/components/story-stack"
 import { FeatureCards } from "@/components/feature-cards"
 import { AnnouncementPill } from "@/components/announcement-pill"
-import { BrandFilters, Grain } from "@/components/brand/marks"
+import { BrandFilters } from "@/components/brand/marks"
 import { HeroArt } from "@/components/brand/hero-collage"
 import { CommentBubble } from "@/components/comment-bubble"
 import { AvatarStack, type Avatar } from "@/components/avatar-stack"
@@ -95,16 +95,19 @@ export default function Page() {
       <BrandFilters />
 
       <section className="relative isolate overflow-hidden px-4 pt-10 pb-10 sm:px-6 sm:pt-14 lg:px-8 lg:pt-16 lg:pb-14">
-        {/* Full height and flush to the edges, so the art frames the section
-            instead of leaving a band of empty page above and below it. */}
-        <HeroArt
-          side="left"
-          className="pointer-events-none absolute inset-y-0 left-0 hidden h-full w-[15rem] xl:block 2xl:w-[19rem]"
-        />
-        <HeroArt
-          side="right"
-          className="pointer-events-none absolute inset-y-0 right-0 hidden h-full w-[15rem] xl:block 2xl:w-[19rem]"
-        />
+        {/* The art lives in its own max-width track rather than being pinned to
+            the viewport, so it keeps the same gap from the type at every width
+            instead of drifting further out as the window grows. */}
+        <div className="pointer-events-none absolute inset-0 mx-auto hidden max-w-[84rem] xl:block">
+          <HeroArt
+            side="left"
+            className="absolute inset-y-0 left-0 h-full w-[13rem] 2xl:w-[15rem]"
+          />
+          <HeroArt
+            side="right"
+            className="absolute inset-y-0 right-0 h-full w-[13rem] 2xl:w-[15rem]"
+          />
+        </div>
 
         <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center gap-6 text-center">
           <AnnouncementPill />
@@ -132,10 +135,7 @@ export default function Page() {
           </div>
 
           {/* Narrow screens get the landing half of the story rather than none. */}
-          <div className="relative mt-4 w-full max-w-[15rem] xl:hidden">
-            <HeroArt side="right" className="w-full" />
-            <Grain className="pointer-events-none absolute inset-0 h-full w-full" />
-          </div>
+          <HeroArt side="right" className="mt-4 w-full max-w-[15rem] xl:hidden" />
         </div>
       </section>
 

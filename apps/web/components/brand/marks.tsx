@@ -2,24 +2,23 @@
  * The pieces the Anubhav brand is drawn from.
  *
  * The idea: an interview is a climb through rounds, and the wordmark is
- * already a peak. So the identity is that peak, printed badly on purpose —
- * roughened edges and grain, the way a riso or a woodblock lays ink down —
- * crossed with the dry schematic language of a textbook diagram. The warmth
- * is the story; the diagram is the preparation.
+ * already a peak. So the identity is that peak, printed badly on purpose,
+ * with edges roughened the way ink bleeds into paper, crossed with the dry
+ * schematic language of a textbook diagram. The warmth is the story; the
+ * diagram is the preparation.
  *
  * Everything here is drawn with `currentColor` or a brand token, so a mark
  * takes the colour of wherever it is placed and follows the theme.
  */
 
 /** Ids are global in SVG, so each filter is namespaced by where it is used. */
-export const GRAIN_FILTER_ID = "anubhav-grain"
 export const ROUGH_FILTER_ID = "anubhav-rough"
 
 /**
- * Filters that give flat vectors a printed feel: `rough` chews the edges the
- * way ink bleeds into paper, `grain` lays speckle over the top.
+ * The filter that gives flat vectors a printed feel: it chews edges the way
+ * ink bleeds into paper.
  *
- * Render once per page; the marks below reference them by id.
+ * Render once per page; the marks below reference it by id.
  */
 export function BrandFilters() {
   return (
@@ -41,30 +40,7 @@ export function BrandFilters() {
             yChannelSelector="G"
           />
         </filter>
-
-        <filter id={GRAIN_FILTER_ID}>
-          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" seed="3" />
-          <feColorMatrix type="saturate" values="0" />
-          {/* Crushes the noise to sparse specks rather than an even fog. */}
-          <feComponentTransfer>
-            <feFuncA type="discrete" tableValues="0 0 0 0 0.5 0.9 1" />
-          </feComponentTransfer>
-        </filter>
       </defs>
-    </svg>
-  )
-}
-
-/** Speckle to lay over a solid area so it reads as ink, not as fill. */
-export function Grain({ className, opacity = 0.16 }: { className?: string; opacity?: number }) {
-  return (
-    <svg
-      aria-hidden
-      className={className}
-      preserveAspectRatio="none"
-      style={{ mixBlendMode: "overlay", opacity }}
-    >
-      <rect width="100%" height="100%" filter={`url(#${GRAIN_FILTER_ID})`} />
     </svg>
   )
 }
