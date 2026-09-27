@@ -139,7 +139,6 @@
     --color-sidebar-ring: var(--sidebar-ring);
     --font-sans: var(--font-sans);
     --font-heading: var(--font-heading);
-    --font-display: var(--font-display), Georgia, serif;
 }
 
 @layer base {
@@ -184,8 +183,7 @@
 .article-prose h2,
 .article-prose h3 {
   color: var(--foreground);
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1.3;
   margin-top: 2em;

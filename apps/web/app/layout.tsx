@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Geist_Mono, Inter, Old_Standard_TT } from "next/font/google"
+import { Geist_Mono, Inter } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -54,15 +54,6 @@ export const metadata: Metadata = {
 
 const inter = Inter({subsets:['latin'],axes:["opsz"], variable:'--font-sans'})
 
-// Headings run in Old Standard TT: a modern serif with enough contrast to
-// carry a display size, while Inter keeps everything read at length.
-const displaySerif = Old_Standard_TT({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-display",
-})
-
 const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
@@ -82,7 +73,6 @@ export default function RootLayout({
         fontMono.variable,
         "font-sans",
         inter.variable,
-        displaySerif.variable,
       )}
     >
       <body>
