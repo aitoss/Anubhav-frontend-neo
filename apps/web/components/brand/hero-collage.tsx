@@ -9,17 +9,15 @@ const PEAK_PATH =
   "M128 196 82 274l7.1 2.2-52.6 86.5h21c16.3 0 31.4-8.9 39.3-23l31.8-56.5 2.6 4.4 29.4 52.1c7.9 14.1 22.9 23 39.3 23h24.1l-54.6-86.8 6.6-2L128 196Z"
 
 /**
- * Three peaks on a shared baseline, overlapping, each tilted a little.
- *
- * Upright and evenly spaced they looked like a logo lockup; off-axis they look
- * like ground. The rotation is small on purpose, a few degrees is enough to
- * stop the eye reading them as a repeated stamp.
+ * The ridgeline, as one silhouette rather than the wordmark stamped three
+ * times. Repeating the logo read as a lockup; a single irregular horizon with
+ * a paler range behind it reads as landscape, which is what the climb needs to
+ * look like. Baselines sit at y 400 and the peaks are deliberately uneven.
  */
-const RIDGE = [
-  { tx: 1126, ty: 201, s: 0.55, rotate: -4, opacity: 0.72 },
-  { tx: 1167, ty: 110, s: 0.8, rotate: 2.5, opacity: 1 },
-  { tx: 1277, ty: 165, s: 0.65, rotate: -6, opacity: 0.85 },
-] as const
+const RIDGE_BACK =
+  "M1050 400 1118 288 1160 334 1216 210 1262 288 1312 238 1358 308 1402 266 1440 310 1440 400Z"
+const RIDGE_FRONT =
+  "M1086 400 1142 316 1172 352 1246 234 1288 302 1330 260 1372 332 1408 296 1440 342 1440 400Z"
 
 /**
  * The dots that walk the climb. Long durations and staggered starts, so the
@@ -200,30 +198,21 @@ export function HeroBackdrop({
 
       </g>
 
-      {/* The solid mark: a ridge, not a peak parked on a square. Three of the
-          wordmark's own peaks at different heights, baselines aligned and
-          overlapping, which is what a climb looks like and what the block was
-          failing to say. */}
+      {/* The landscape the climb ends in. Two ranges, the far one paler, so
+          it has depth without repeating a shape. */}
       <g filter={`url(#${GRUNGE_FILTER_ID})`}>
-        {RIDGE.map(({ tx, ty, s: scale, rotate, opacity }) => (
-          <path
-            key={tx}
-            className="fill-brand"
-            opacity={opacity}
-            transform={`translate(${tx} ${ty}) rotate(${rotate} 140 300) scale(${scale})`}
-            d={PEAK_PATH}
-          />
-        ))}
+        <path className="fill-brand" opacity={0.42} d={RIDGE_BACK} />
+        <path className="fill-brand" d={RIDGE_FRONT} />
       </g>
 
-      {/* Its echo at the far left, tilted the other way so the two ends of the
-          climb rhyme rather than repeat. */}
+      {/* A far-off fragment of the same range at the other end, so the two
+          sides of the figure belong to one place. */}
       <path
-        className="fill-brand/70"
+        className="fill-brand/35"
         filter={`url(#${GRUNGE_FILTER_ID})`}
-        transform="translate(78 336) rotate(9 140 300) scale(0.17)"
-        d={PEAK_PATH}
+        d="M20 400 54 356 76 378 108 338 134 372 156 352 178 386 200 366 220 396 220 400Z"
       />
+
     </svg>
   )
 }

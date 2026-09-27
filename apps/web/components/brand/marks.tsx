@@ -58,7 +58,7 @@ export function BrandFilters() {
           <feDisplacementMap
             in="SourceGraphic"
             in2="warp"
-            scale="9"
+            scale="6"
             xChannelSelector="R"
             yChannelSelector="G"
             result="rough"
@@ -67,7 +67,7 @@ export function BrandFilters() {
           {/* 2. Shrink it to get a solid core that the speckle never touches.
                  Punching holes through the whole shape left it looking moth
                  eaten; ink only breaks up where it runs out, at the edge. */}
-          <feMorphology in="rough" operator="erode" radius="5" result="core" />
+          <feMorphology in="rough" operator="erode" radius="3" result="core" />
 
           {/* 3. The band between the two is the only place flakes are allowed. */}
           <feComposite in="rough" in2="core" operator="out" result="band" />
@@ -80,7 +80,7 @@ export function BrandFilters() {
             result="noise"
           />
           <feComponentTransfer in="noise" result="flakes">
-            <feFuncA type="discrete" tableValues="0 1 1 0 1 0 1 1" />
+            <feFuncA type="discrete" tableValues="1 1 0 1 1 1 0 1" />
           </feComponentTransfer>
           <feComposite in="band" in2="flakes" operator="in" result="edge" />
 

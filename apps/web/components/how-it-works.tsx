@@ -1,27 +1,29 @@
 "use client"
 
-import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
+
+import { BrandFilters } from "@/components/brand/marks"
+import { StepDetails, StepPublish, StepWrite } from "@/components/brand/step-art"
 
 const STEPS = [
   {
     title: "Enter info about you",
     description:
       "Enter basic information like your name, company name, offered position, and email address.",
-    image: "/assets/images/Form.png",
+    Art: StepDetails,
   },
   {
     title: "Write Your Article",
     description:
       "Use our intuitive editor to craft your blog post. Add headings, format text, and include images or links to make your content engaging and informative.",
-    image: "/assets/images/Editor.png",
+    Art: StepWrite,
   },
   {
     title: "Preview and Publish",
     description:
       "Once you’re satisfied with your post, hit the publish button to make it live. Share it with your audience via social media or email newsletters.",
-    image: "/assets/images/Publish.png",
+    Art: StepPublish,
   },
 ]
 
@@ -31,6 +33,7 @@ const STEPS = [
 export function HowItWorks() {
   return (
     <section className="flex flex-col items-center justify-center px-4 pt-20 pb-32">
+      <BrandFilters />
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center text-center">
         <p className="text-muted-foreground text-sm font-semibold tracking-[0.2em] uppercase">
           How It Works
@@ -49,9 +52,9 @@ export function HowItWorks() {
         </p>
 
         <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3">
-          {STEPS.map((step, index) => (
+          {STEPS.map(({ title, description, Art }, index) => (
             <motion.div
-              key={step.title}
+              key={title}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
@@ -59,20 +62,11 @@ export function HowItWorks() {
               className="group border-border bg-card relative h-full w-full overflow-hidden rounded-2xl border shadow-sm"
             >
               <div className="h-full p-3">
-                <div className="relative w-full overflow-hidden">
-                  <Image
-                    src={step.image}
-                    alt={step.title}
-                    width={600}
-                    height={360}
-                    className="border-border w-full translate-y-[5%] scale-95 rounded-xl border transition-transform duration-300 select-none group-hover:translate-y-[10%] md:scale-100"
-                    draggable={false}
-                  />
+                <div className="border-border bg-muted/40 relative w-full overflow-hidden rounded-xl border">
+                  <Art />
                 </div>
-                <h3 className="mt-3 mb-2 text-left text-xl font-medium">{step.title}</h3>
-                <p className="text-muted-foreground text-left text-base">
-                  {step.description}
-                </p>
+                <h3 className="mt-3 mb-2 text-left text-xl font-medium">{title}</h3>
+                <p className="text-muted-foreground text-left text-base">{description}</p>
               </div>
             </motion.div>
           ))}
