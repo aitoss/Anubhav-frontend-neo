@@ -11,7 +11,6 @@ const TRACK_ID = "anubhav-hero-track"
  */
 const TRAVELLERS = [
   { track: "a", dur: "52s", begin: "0s", r: 2.6 },
-  { track: "b", dur: "38s", begin: "-15s", r: 2.2 },
 ] as const
 
 const STAR =
@@ -90,10 +89,10 @@ const FIG_PROPS = {
 /**
  * The hero backdrop, as a plate of figures.
  *
- * Abstract shapes pulled off a screenprint — a torn mass, a wedge, a fan of
- * rings, a ladder — laid out and annotated FIG. 1 to FIG. 4 with dashed lines
- * running between them. Same idea the thin diagram was reaching for, in a
- * vocabulary that can actually hold a page.
+ * Two shapes pulled off a screenprint, a torn mass and a ladder, annotated
+ * FIG. 1 and FIG. 2 with a dashed line running between them. Four figures and
+ * three splatters filled the section but left nowhere for the eye to rest;
+ * two is enough to establish the language.
  *
  * Every solid is screened into halftone rather than filled flat, so the plate
  * reads as printed colour without any one shape becoming the loudest thing in
@@ -123,7 +122,7 @@ export function HeroBackdrop({
       preserveAspectRatio={`${anchor} ${fit}`}
       className={className}
       role="img"
-      aria-label="A printed plate of abstract figures: a torn mass, a wedge, a fan of rings and a ladder"
+      aria-label="A printed plate of two abstract figures: a torn mass and a ladder"
     >
       <defs>
         {/* Fades the plate out under the type, which otherwise has figures
@@ -147,12 +146,6 @@ export function HeroBackdrop({
             strokeWidth="1.2"
             strokeDasharray="5 8"
           />
-          <path
-            id={`${trackId}-b`}
-            d="M196 436C400 452 620 440 1040 118"
-            strokeWidth="1.2"
-            strokeDasharray="2 7"
-          />
         </g>
 
         <g className="brand-travellers fill-brand/60">
@@ -173,56 +166,30 @@ export function HeroBackdrop({
           ))}
         </g>
 
-        {/* FIG. 1 — a torn mass, the shape everything else is measured off. */}
-        <g filter={`url(#${GRUNGE_FILTER_ID})`}>
-          <path
-            fill={`url(#${HALFTONE_ID})`}
-            d="M58 168c30-40 96-58 148-44 40 11 62 44 56 80-7 44-60 72-112 70-48-2-92-26-102-56-7-22 0-36 10-50Z"
-          />
-        </g>
-        <Splatter className="text-foreground/30" x={186} y={118} seed={3} count={18} spread={54} />
-        <Stars
-          className="text-foreground/45"
-          points={[
-            [42, 118, 15],
-            [212, 92, 10],
-            [96, 262, 8],
-            [250, 210, 12],
-          ]}
-        />
-        <g className="text-foreground/45" {...FIG_PROPS}>
-          <text x="64" y="296">FIG. 1</text>
-        </g>
-
-        {/* FIG. 2 — a wedge, thrown off axis. */}
-        <g filter={`url(#${GRUNGE_FILTER_ID})`}>
-          <path fill={`url(#${HALFTONE_ID})`} d="M214 486 330 330l96 166Z" />
-        </g>
-        <Splatter className="text-foreground/25" x={232} y={430} seed={11} count={24} spread={62} />
-        <g className="text-foreground/45" {...FIG_PROPS}>
-          <text x="348" y="512">FIG. 2</text>
-        </g>
-
-        {/* FIG. 3 — a fan of rings, the way a signal gets drawn. */}
-        <g className="text-foreground/30" stroke="currentColor" fill="none">
-          {[34, 52, 70, 90, 112, 136].map((r, index) => (
+        {/* FIG. 1 — a torn mass, the shape everything else is measured off.
+            Held back, so the two figures are not competing: the ladder is the
+            one that means something and this one sets the language. */}
+        <g opacity={0.45}>
+          <g filter={`url(#${GRUNGE_FILTER_ID})`}>
             <path
-              key={r}
-              d={`M${1040 - r} 116A${r} ${r} 0 0 1 ${1040 + r} 116`}
-              strokeWidth={1.1}
-              strokeDasharray={index % 2 ? "3 5" : undefined}
+              fill={`url(#${HALFTONE_ID})`}
+              d="M58 168c30-40 96-58 148-44 40 11 62 44 56 80-7 44-60 72-112 70-48-2-92-26-102-56-7-22 0-36 10-50Z"
             />
-          ))}
-        </g>
-        <g filter={`url(#${GRUNGE_FILTER_ID})`}>
-          <path fill={`url(#${HALFTONE_ID})`} d="M1014 118h52l16 92h-84Z" />
-        </g>
-        <Splatter className="text-foreground/22" x={1096} y={68} seed={7} count={20} spread={56} />
-        <g className="text-foreground/45" {...FIG_PROPS}>
-          <text x="1096" y="216">FIG. 3</text>
+          </g>
+          <Splatter className="text-foreground/30" x={186} y={118} seed={3} count={16} spread={54} />
+          <Stars
+            className="text-foreground/45"
+            points={[
+              [42, 118, 15],
+              [250, 210, 10],
+            ]}
+          />
+          <g className="text-foreground/45" {...FIG_PROPS}>
+            <text x="64" y="296">FIG. 1</text>
+          </g>
         </g>
 
-        {/* FIG. 4 — the ladder. The one figure that says outright what the
+        {/* FIG. 2 — the ladder. The one figure that says outright what the
             product is about, so it is drawn in line rather than in mass. */}
         <g
           className="text-brand/60"
@@ -249,12 +216,11 @@ export function HeroBackdrop({
           className="text-foreground/45"
           points={[
             [1408, 150, 13],
-            [1372, 336, 9],
             [1188, 176, 7],
           ]}
         />
         <g className="text-foreground/45" {...FIG_PROPS}>
-          <text x="1350" y="184">FIG. 4</text>
+          <text x="1350" y="184">FIG. 2</text>
         </g>
       </g>
     </svg>
