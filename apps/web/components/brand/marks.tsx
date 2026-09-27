@@ -18,10 +18,10 @@ export const GRUNGE_FILTER_ID = "anubhav-grunge"
 /**
  * The filters that give flat vectors a printed feel.
  *
- * `rough` only chews the outline. `grunge` also eats into the fill: a second,
- * much finer noise is turned into an alpha mask and composited away, so ink
- * drops out in speckles the way it does on a bad pull. A flat fill reads as a
- * div with a background colour; this reads as something that was printed.
+ * `rough` only chews the outline. `grunge` goes further: it erodes a solid
+ * core, takes the band between core and outline, and breaks that band up with
+ * noise. Ink runs out at the edge of a stroke, not in the middle of it, so the
+ * rim comes away ragged while the fill stays solid.
  *
  * Render once per page; the marks below reference them by id.
  */
@@ -46,10 +46,11 @@ export function BrandFilters() {
           />
         </filter>
 
-        <filter id={GRUNGE_FILTER_ID} x="-12%" y="-12%" width="124%" height="124%">
+        <filter id={GRUNGE_FILTER_ID} x="-15%" y="-15%" width="130%" height="130%">
+          {/* 1. Chew the outline. */}
           <feTurbulence
             type="fractalNoise"
-            baseFrequency="0.024"
+            baseFrequency="0.021"
             numOctaves="4"
             seed="7"
             result="warp"
@@ -57,26 +58,37 @@ export function BrandFilters() {
           <feDisplacementMap
             in="SourceGraphic"
             in2="warp"
-            scale="6"
+            scale="9"
             xChannelSelector="R"
             yChannelSelector="G"
             result="rough"
           />
 
+          {/* 2. Shrink it to get a solid core that the speckle never touches.
+                 Punching holes through the whole shape left it looking moth
+                 eaten; ink only breaks up where it runs out, at the edge. */}
+          <feMorphology in="rough" operator="erode" radius="5" result="core" />
+
+          {/* 3. The band between the two is the only place flakes are allowed. */}
+          <feComposite in="rough" in2="core" operator="out" result="band" />
+
           <feTurbulence
             type="fractalNoise"
-            baseFrequency="0.16"
+            baseFrequency="0.09"
             numOctaves="3"
             seed="13"
-            result="speckle"
+            result="noise"
           />
-          {/* A hard threshold, not a ramp. A ramp just makes the whole shape
-              semi-transparent; this keeps the ink solid and punches out the
-              occasional flake, which is what a bad pull actually looks like. */}
-          <feComponentTransfer in="speckle" result="holes">
-            <feFuncA type="discrete" tableValues="1 1 1 1 1 1 0 1 1 1" />
+          <feComponentTransfer in="noise" result="flakes">
+            <feFuncA type="discrete" tableValues="0 1 1 0 1 0 1 1" />
           </feComponentTransfer>
-          <feComposite in="rough" in2="holes" operator="in" />
+          <feComposite in="band" in2="flakes" operator="in" result="edge" />
+
+          {/* 4. Solid middle, ragged rim. */}
+          <feMerge>
+            <feMergeNode in="core" />
+            <feMergeNode in="edge" />
+          </feMerge>
         </filter>
       </defs>
     </svg>

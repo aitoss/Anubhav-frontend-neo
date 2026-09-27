@@ -94,10 +94,18 @@ export default function Page() {
     <main className="bg-background text-foreground min-h-screen">
       <BrandFilters />
 
-      <section className="relative isolate overflow-hidden px-4 pt-10 pb-10 sm:px-6 sm:pt-14 lg:px-8 lg:pt-16 lg:pb-14">
+      <section className="relative isolate overflow-hidden px-4 pt-10 pb-28 sm:px-6 sm:pt-14 lg:px-8 lg:pt-16 lg:pb-14">
         {/* One figure spread across the whole section, behind the type. Narrow
             screens crop hard, so they get the right-hand end of the climb,
             where the ridge is, rather than the faint middle. */}
+        {/* Narrow screens get the whole figure rather than a crop of it, sat
+            behind the type and run wider than the viewport so it still has
+            some presence at that size. */}
+        <HeroBackdrop
+          idPrefix="n"
+          fit="meet"
+          className="pointer-events-none absolute bottom-0 left-1/2 w-[150%] -translate-x-[76%] translate-y-[16%] lg:hidden"
+        />
         <HeroBackdrop
           idPrefix="w"
           className="pointer-events-none absolute inset-0 hidden h-full w-full lg:block"
@@ -127,15 +135,6 @@ export default function Page() {
               Share your story
             </ButtonLink>
           </div>
-
-          {/* Narrow screens crop the backdrop to almost nothing, and what
-              survives lands on the paragraph, so they get the whole figure as
-              a strip below the buttons instead. */}
-          <HeroBackdrop
-            idPrefix="n"
-            fit="meet"
-            className="pointer-events-none mt-2 w-full lg:hidden"
-          />
 
 
         </div>
