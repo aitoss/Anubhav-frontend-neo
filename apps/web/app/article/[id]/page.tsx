@@ -146,7 +146,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
               </div>
             ) : null}
 
-            <h1 className="font-display text-4xl leading-[1.1] font-normal tracking-tight text-balance sm:text-5xl">
+            <h1 className="font-heading text-3xl leading-tight font-medium tracking-tight text-balance sm:text-4xl">
               {article.title}
             </h1>
 
@@ -195,7 +195,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
             />
 
             <section className="border-border mt-12 border-t pt-8">
-              <h2 className="font-display mb-4 text-2xl font-normal">Similar articles</h2>
+              <h2 className="font-heading mb-4 text-xl font-medium">Similar articles</h2>
               {isSimilarLoading ? (
                 <div className="grid gap-4 sm:grid-cols-2">
                   {Array.from({ length: 4 }).map((_, index) => (

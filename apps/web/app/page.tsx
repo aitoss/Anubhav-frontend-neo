@@ -10,7 +10,7 @@ import { StoryStack } from "@/components/story-stack"
 import { FeatureCards } from "@/components/feature-cards"
 import { AnnouncementPill } from "@/components/announcement-pill"
 import { BrandFilters, Grain } from "@/components/brand/marks"
-import { HeroCollage } from "@/components/brand/hero-collage"
+import { HeroArt } from "@/components/brand/hero-collage"
 import { CommentBubble } from "@/components/comment-bubble"
 import { AvatarStack, type Avatar } from "@/components/avatar-stack"
 import { ChatBubbleOvalLeftIcon, VideoCameraIcon } from "@heroicons/react/24/solid"
@@ -94,19 +94,28 @@ export default function Page() {
     <main className="bg-background text-foreground min-h-screen">
       <BrandFilters />
 
-      <section className="relative isolate overflow-hidden px-4 pt-10 pb-4 sm:px-6 sm:pt-16 lg:px-8 lg:pt-20">
+      <section className="relative isolate overflow-hidden px-4 pt-10 pb-10 sm:px-6 sm:pt-14 lg:px-8 lg:pt-16 lg:pb-14">
+        {/* Full height and flush to the edges, so the art frames the section
+            instead of leaving a band of empty page above and below it. */}
+        <HeroArt
+          side="left"
+          className="pointer-events-none absolute inset-y-0 left-0 hidden h-full w-[15rem] xl:block 2xl:w-[19rem]"
+        />
+        <HeroArt
+          side="right"
+          className="pointer-events-none absolute inset-y-0 right-0 hidden h-full w-[15rem] xl:block 2xl:w-[19rem]"
+        />
+
         <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center gap-6 text-center">
           <AnnouncementPill />
 
-          <h1 className="font-display text-5xl leading-[1.02] font-normal tracking-tight text-balance sm:text-6xl lg:text-7xl">
-            The rounds,
-            <br />
-            <span className="text-brand italic">as they happened</span>
+          <h1 className="font-heading text-4xl leading-[1.05] font-medium tracking-tight text-balance sm:text-5xl lg:text-6xl">
+            The rounds, <span className="text-brand">as they happened</span>
           </h1>
 
           <p className="text-muted-foreground max-w-xl text-lg leading-8 text-balance">
-            Every interview here was written by the student who sat it — the questions,
-            the mistakes, the verdict. Read the climb before you make it.
+            Every interview here was written by the student who sat it: the rounds,
+            the questions, the verdict. Read the climb before you make it.
           </p>
 
           <div className="w-full max-w-xl">
@@ -121,13 +130,12 @@ export default function Page() {
               Share your story
             </ButtonLink>
           </div>
-        </div>
 
-        {/* The collage closes the hero rather than competing with it, so the
-            headline still owns the centre line. */}
-        <div className="relative mx-auto mt-4 w-full max-w-md sm:mt-8">
-          <HeroCollage className="w-full" />
-          <Grain className="pointer-events-none absolute inset-0 h-full w-full" />
+          {/* Narrow screens get the landing half of the story rather than none. */}
+          <div className="relative mt-4 w-full max-w-[15rem] xl:hidden">
+            <HeroArt side="right" className="w-full" />
+            <Grain className="pointer-events-none absolute inset-0 h-full w-full" />
+          </div>
         </div>
       </section>
 
@@ -148,7 +156,7 @@ export default function Page() {
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               What is Anubhav?
             </p>
-            <h2 className="mt-3 text-4xl sm:text-5xl font-display font-normal tracking-tight text-foreground">
+            <h2 className="mt-3 text-3xl sm:text-4xl font-heading font-medium tracking-tight text-foreground">
               Discover Anubhav
             </h2>
             <p className="mt-6 max-w-xl text-muted-foreground">
@@ -186,7 +194,7 @@ export default function Page() {
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Features
             </p>
-            <h2 className="mt-3 text-3xl sm:text-4xl font-display font-normal tracking-tight text-foreground">
+            <h2 className="mt-3 text-2xl sm:text-3xl font-heading font-medium tracking-tight text-foreground">
               Built for reading, writing, and sharing.
             </h2>
           </div>
@@ -271,7 +279,7 @@ export default function Page() {
           <p className="text-sm font-medium text-foreground/90 sm:text-base">
             What is Anubhav?
           </p>
-          <h2 className="mt-2 text-4xl font-display font-normal tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+          <h2 className="mt-2 text-3xl font-heading font-medium tracking-tight text-foreground sm:text-5xl lg:text-6xl">
             Anubhav is Open Source
           </h2>
 
@@ -311,7 +319,7 @@ export default function Page() {
       <section className="flex justify-center px-4 pb-12">
         <div className="border-border bg-card flex w-full max-w-7xl flex-col items-start justify-between gap-8 rounded-2xl border p-8 shadow-lg md:p-16 lg:flex-row lg:items-center">
           <div className="flex flex-col items-start gap-6">
-            <h2 className="font-display text-left text-4xl leading-[1.15] sm:text-[3rem] sm:leading-[1.1] font-normal tracking-tight">
+            <h2 className="font-heading text-left text-3xl leading-[1.15] sm:text-[2.6rem] sm:leading-[1.1] font-medium tracking-tight">
               Discover Our
               <br />
               Latest Insights
