@@ -79,7 +79,7 @@ export function ArticleCard({
         className="h-44 rounded-lg md:aspect-auto md:min-h-fit"
       />
       <div className="flex h-full flex-col gap-4">
-        <h2 className="font-heading max-w-3xl text-2xl leading-tight font-medium tracking-tight sm:text-[1.7rem]">
+        <h2 className="font-display max-w-3xl text-2xl leading-snug font-normal tracking-tight sm:text-[1.8rem]">
           {article.title}
         </h2>
         <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-xs">

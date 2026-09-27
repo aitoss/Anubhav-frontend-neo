@@ -114,7 +114,7 @@ export default function Page() {
         <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center gap-6 text-center">
           <AnnouncementPill />
 
-          <h1 className="font-heading text-4xl leading-[0.9] font-medium tracking-tight text-balance sm:text-5xl lg:text-6xl">
+          <h1 className="font-display text-5xl leading-[0.95] font-normal tracking-tight text-balance sm:text-6xl lg:text-7xl">
             Stories of success <span className="text-brand">from the community</span>
           </h1>
 
@@ -157,7 +157,7 @@ export default function Page() {
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               What is Anubhav?
             </p>
-            <h2 className="mt-3 text-3xl sm:text-4xl font-heading font-medium tracking-tight text-foreground">
+            <h2 className="mt-3 text-4xl sm:text-5xl font-display font-normal tracking-tight text-foreground">
               Discover Anubhav
             </h2>
             <p className="mt-6 max-w-xl text-muted-foreground">
@@ -195,7 +195,7 @@ export default function Page() {
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Features
             </p>
-            <h2 className="mt-3 text-2xl sm:text-3xl font-heading font-medium tracking-tight text-foreground">
+            <h2 className="mt-3 text-3xl sm:text-4xl font-display font-normal tracking-tight text-foreground">
               Built for reading, writing, and sharing.
             </h2>
           </div>
@@ -280,7 +280,7 @@ export default function Page() {
           <p className="text-sm font-medium text-foreground/90 sm:text-base">
             What is Anubhav?
           </p>
-          <h2 className="mt-2 text-3xl font-heading font-medium tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+          <h2 className="mt-2 text-4xl font-display font-normal tracking-tight text-foreground sm:text-5xl lg:text-6xl">
             Anubhav is Open Source
           </h2>
 
@@ -320,7 +320,7 @@ export default function Page() {
       <section className="flex justify-center px-4 pb-12">
         <div className="border-border bg-card flex w-full max-w-7xl flex-col items-start justify-between gap-8 rounded-2xl border p-8 shadow-lg md:p-16 lg:flex-row lg:items-center">
           <div className="flex flex-col items-start gap-6">
-            <h2 className="font-heading text-left text-3xl leading-[1.15] sm:text-[2.6rem] sm:leading-[1.1] font-medium tracking-tight">
+            <h2 className="font-display text-left text-4xl leading-[1.12] sm:text-[3rem] sm:leading-[1.08] font-normal tracking-tight">
               Discover Our
               <br />
               Latest Insights
