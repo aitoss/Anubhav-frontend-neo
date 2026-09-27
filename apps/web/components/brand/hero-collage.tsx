@@ -1,17 +1,17 @@
+import { GRUNGE_FILTER_ID, HALFTONE_ID } from "@/components/brand/marks"
+
 const MASK_ID = "anubhav-hero-mask"
 const CLEAR_ID = "anubhav-hero-clear"
 const TRACK_ID = "anubhav-hero-track"
 
 /**
- * The dots that walk the climb. Long durations and staggered starts, so the
+ * The dots that walk the plate. Long durations and staggered starts, so the
  * eye never catches two of them moving together and the whole thing reads as
  * drift rather than as an animation playing.
  */
 const TRAVELLERS = [
-  { track: "a", dur: "48s", begin: "0s", r: 2.6 },
-  { track: "b", dur: "62s", begin: "-21s", r: 3.2 },
-  { track: "c", dur: "36s", begin: "-13s", r: 2.2 },
-  { track: "d", dur: "54s", begin: "-31s", r: 2.6 },
+  { track: "a", dur: "52s", begin: "0s", r: 2.6 },
+  { track: "b", dur: "38s", begin: "-15s", r: 2.2 },
 ] as const
 
 const STAR =
@@ -38,25 +38,66 @@ function Stars({
   )
 }
 
-// Mono, because these are annotations on a figure, not copy.
-const LABEL_PROPS = {
+/**
+ * Ink thrown off the edge of a shape.
+ *
+ * Deterministic rather than random, so the plate is identical on the server
+ * and the client and does not reshuffle itself on every render.
+ */
+function Splatter({
+  x,
+  y,
+  seed,
+  count = 22,
+  spread = 70,
+  className,
+}: {
+  x: number
+  y: number
+  seed: number
+  count?: number
+  spread?: number
+  className?: string
+}) {
+  const dots = Array.from({ length: count }, (_, i) => {
+    const angle = (seed * 12.9898 + i * 78.233) % 6.283
+    const distance = ((seed * 437.585 + i * 127.1) % 100) / 100
+    const size = ((seed * 311.7 + i * 269.5) % 100) / 100
+    return {
+      cx: x + Math.cos(angle) * spread * distance,
+      cy: y + Math.sin(angle) * spread * distance * 0.7,
+      r: 0.7 + size * 2.4,
+    }
+  })
+
+  return (
+    <g className={className} fill="currentColor">
+      {dots.map((dot, index) => (
+        <circle key={index} cx={dot.cx} cy={dot.cy} r={dot.r} />
+      ))}
+    </g>
+  )
+}
+
+// Mono and small: the caption under a figure in a textbook, not copy.
+const FIG_PROPS = {
   fill: "currentColor",
-  fontSize: 13,
-  letterSpacing: 1.4,
+  fontSize: 10,
+  letterSpacing: 1.6,
   fontFamily: "var(--font-mono), ui-monospace, monospace",
 } as const
 
 /**
- * The hero backdrop: one figure spread across the whole section rather than two
- * panels stacked at the edges.
+ * The hero backdrop, as a plate of figures.
  *
- * The climb is plotted left to right across the full width, so the marks are
- * distributed through the space instead of clustered into columns. Nothing here
- * is drawn large; it covers ground by being spread out, which is what keeps the
- * section from reading as two objects and a lot of empty page.
+ * Abstract shapes pulled off a screenprint — a torn mass, a wedge, a fan of
+ * rings, a ladder — laid out and annotated FIG. 1 to FIG. 4 with dashed lines
+ * running between them. Same idea the thin diagram was reaching for, in a
+ * vocabulary that can actually hold a page.
  *
- * The viewBox is 1:1 with a 1440px window, so every stroke and star is authored
- * at the size it actually renders.
+ * Every solid is screened into halftone rather than filled flat, so the plate
+ * reads as printed colour without any one shape becoming the loudest thing in
+ * a section that is mostly type. The viewBox is 1:1 with a 1440px window.
  */
 export function HeroBackdrop({
   className,
@@ -65,9 +106,9 @@ export function HeroBackdrop({
   idPrefix = "a",
 }: {
   className?: string
-  /** Which part of the figure survives the crop. */
+  /** Which part of the plate survives the crop. */
   anchor?: "xMidYMid" | "xMaxYMid"
-  /** slice fills its box and crops; meet shows the whole figure. */
+  /** slice fills its box and crops; meet shows the whole plate. */
   fit?: "slice" | "meet"
   /** Ids are global in SVG, so two instances must not share them. */
   idPrefix?: string
@@ -82,15 +123,15 @@ export function HeroBackdrop({
       preserveAspectRatio={`${anchor} ${fit}`}
       className={className}
       role="img"
-      aria-label="A diagram plotting the interview rounds from first contact to offer"
+      aria-label="A printed plate of abstract figures: a torn mass, a wedge, a fan of rings and a ladder"
     >
       <defs>
-        {/* Fades the figure out under the type. Without it a stroke runs
-            straight through the paragraph. */}
-        <radialGradient id={clearId} gradientUnits="userSpaceOnUse" cx="720" cy="250" r="640">
+        {/* Fades the plate out under the type, which otherwise has figures
+            running straight through it. */}
+        <radialGradient id={clearId} gradientUnits="userSpaceOnUse" cx="720" cy="250" r="660">
           <stop offset="0%" stopColor="#fff" stopOpacity="0" />
-          <stop offset="52%" stopColor="#fff" stopOpacity="0.3" />
-          <stop offset="82%" stopColor="#fff" stopOpacity="1" />
+          <stop offset="50%" stopColor="#fff" stopOpacity="0.22" />
+          <stop offset="80%" stopColor="#fff" stopOpacity="1" />
         </radialGradient>
         <mask id={maskId}>
           <rect width="1440" height="520" fill={`url(#${clearId})`} />
@@ -98,113 +139,124 @@ export function HeroBackdrop({
       </defs>
 
       <g mask={`url(#${maskId})`}>
-      {/* The climb itself, sweeping the full width. */}
-      <g className="text-foreground/35" stroke="currentColor" fill="none">
-        <path id={`${trackId}-a`} d="M-40 486C180 392 360 268 706 188 980 124 1210 108 1480 56" strokeWidth="1.3" strokeDasharray="6 9" />
-        <path id={`${trackId}-b`} d="M60 512C300 470 520 392 812 318 1060 254 1270 236 1480 196" strokeWidth="1.3" />
-        <path d="M96 444 96 486" strokeWidth="1.3" />
-        <path id={`${trackId}-c`} d="M96 444 402 214" strokeWidth="1.3" strokeDasharray="3 7" />
-        <path id={`${trackId}-d`} d="M402 214 1086 128" strokeWidth="1.3" strokeDasharray="3 7" />
-        <path d="M1086 128 1316 206" strokeWidth="1.3" />
-        <path d="M402 214 1316 206" strokeWidth="1.3" strokeDasharray="6 9" />
-      </g>
+        {/* The dashed lines that tie one figure to the next. */}
+        <g className="text-foreground/25" stroke="currentColor" fill="none">
+          <path
+            id={`${trackId}-a`}
+            d="M104 232C240 300 320 392 452 404 700 426 900 300 1236 196"
+            strokeWidth="1.2"
+            strokeDasharray="5 8"
+          />
+          <path
+            id={`${trackId}-b`}
+            d="M196 436C400 452 620 440 1040 118"
+            strokeWidth="1.2"
+            strokeDasharray="2 7"
+          />
+        </g>
 
-      {/* Dots walking the climb. Slow enough to be movement you notice only
-          once, and gone entirely for anyone who asked for less motion. */}
-      <g className="brand-travellers fill-brand/70">
-        {TRAVELLERS.map(({ track, dur, begin, r }) => (
-          <circle key={`${track}-${begin}`} r={r}>
-            <animateMotion dur={dur} begin={begin} repeatCount="indefinite" rotate="auto">
-              <mpath href={`#${trackId}-${track}`} />
-            </animateMotion>
-            {/* Fades in and out at the ends so a dot never pops. */}
-            <animate
-              attributeName="opacity"
-              dur={dur}
-              begin={begin}
-              repeatCount="indefinite"
-              values="0;1;1;0"
-              keyTimes="0;0.12;0.88;1"
+        <g className="brand-travellers fill-brand/60">
+          {TRAVELLERS.map(({ track, dur, begin, r }) => (
+            <circle key={track} r={r}>
+              <animateMotion dur={dur} begin={begin} repeatCount="indefinite">
+                <mpath href={`#${trackId}-${track}`} />
+              </animateMotion>
+              <animate
+                attributeName="opacity"
+                dur={dur}
+                begin={begin}
+                repeatCount="indefinite"
+                values="0;1;1;0"
+                keyTimes="0;0.12;0.88;1"
+              />
+            </circle>
+          ))}
+        </g>
+
+        {/* FIG. 1 — a torn mass, the shape everything else is measured off. */}
+        <g filter={`url(#${GRUNGE_FILTER_ID})`}>
+          <path
+            fill={`url(#${HALFTONE_ID})`}
+            d="M58 168c30-40 96-58 148-44 40 11 62 44 56 80-7 44-60 72-112 70-48-2-92-26-102-56-7-22 0-36 10-50Z"
+          />
+        </g>
+        <Splatter className="text-foreground/30" x={186} y={118} seed={3} count={18} spread={54} />
+        <Stars
+          className="text-foreground/45"
+          points={[
+            [42, 118, 15],
+            [212, 92, 10],
+            [96, 262, 8],
+            [250, 210, 12],
+          ]}
+        />
+        <g className="text-foreground/45" {...FIG_PROPS}>
+          <text x="64" y="296">FIG. 1</text>
+        </g>
+
+        {/* FIG. 2 — a wedge, thrown off axis. */}
+        <g filter={`url(#${GRUNGE_FILTER_ID})`}>
+          <path fill={`url(#${HALFTONE_ID})`} d="M214 486 330 330l96 166Z" />
+        </g>
+        <Splatter className="text-foreground/25" x={232} y={430} seed={11} count={24} spread={62} />
+        <g className="text-foreground/45" {...FIG_PROPS}>
+          <text x="348" y="512">FIG. 2</text>
+        </g>
+
+        {/* FIG. 3 — a fan of rings, the way a signal gets drawn. */}
+        <g className="text-foreground/30" stroke="currentColor" fill="none">
+          {[34, 52, 70, 90, 112, 136].map((r, index) => (
+            <path
+              key={r}
+              d={`M${1040 - r} 116A${r} ${r} 0 0 1 ${1040 + r} 116`}
+              strokeWidth={1.1}
+              strokeDasharray={index % 2 ? "3 5" : undefined}
             />
-          </circle>
-        ))}
+          ))}
+        </g>
+        <g filter={`url(#${GRUNGE_FILTER_ID})`}>
+          <path fill={`url(#${HALFTONE_ID})`} d="M1014 118h52l16 92h-84Z" />
+        </g>
+        <Splatter className="text-foreground/22" x={1096} y={68} seed={7} count={20} spread={56} />
+        <g className="text-foreground/45" {...FIG_PROPS}>
+          <text x="1096" y="216">FIG. 3</text>
+        </g>
+
+        {/* FIG. 4 — the ladder. The one figure that says outright what the
+            product is about, so it is drawn in line rather than in mass. */}
+        <g
+          className="text-brand/60"
+          stroke="currentColor"
+          strokeLinecap="round"
+          fill="none"
+          filter={`url(#${GRUNGE_FILTER_ID})`}
+        >
+          <path d="M1196 486 1332 212" strokeWidth="5" />
+          <path d="M1252 514 1388 240" strokeWidth="5" />
+          {[0, 1, 2, 3, 4, 5].map((i) => {
+            const t = i / 5
+            return (
+              <path
+                key={i}
+                d={`M${1196 + 136 * t} ${486 - 274 * t} ${1252 + 136 * t} ${514 - 274 * t}`}
+                strokeWidth="3.4"
+              />
+            )
+          })}
+        </g>
+        <Splatter className="text-foreground/25" x={1310} y={424} seed={19} count={22} spread={58} />
+        <Stars
+          className="text-foreground/45"
+          points={[
+            [1408, 150, 13],
+            [1372, 336, 9],
+            [1188, 176, 7],
+          ]}
+        />
+        <g className="text-foreground/45" {...FIG_PROPS}>
+          <text x="1350" y="184">FIG. 4</text>
+        </g>
       </g>
-
-      {/* Nodes spaced right across the width, not bunched at one end. */}
-      <g className="text-foreground/45" fill="currentColor">
-        {[
-          [96, 444],
-          [96, 486],
-          [402, 214],
-          [1086, 128],
-        ].map(([cx, cy]) => (
-          <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="4" />
-        ))}
-      </g>
-
-      <g className="text-foreground/50" {...LABEL_PROPS}>
-        <text x="48" y="438">R1</text>
-        <text x="392" y="196">R2</text>
-        <text x="1076" y="110">R3</text>
-        <text className="fill-brand" x="1330" y="212">offer</text>
-      </g>
-
-      {/* Scattered the whole way across. The ones under the type are the
-          faintest, so they read as texture rather than clutter. */}
-      <Stars
-        className="text-foreground/60"
-        points={[
-          [176, 372, 15],
-          [246, 462, 8],
-          [88, 268, 11],
-          [318, 300, 6],
-          [286, 116, 9],
-          [1214, 348, 14],
-          [1382, 288, 9],
-          [1160, 452, 7],
-          [1298, 92, 6],
-          [1420, 430, 11],
-        ]}
-      />
-      <Stars
-        className="text-foreground/22"
-        points={[
-          [520, 400, 10],
-          [640, 96, 7],
-          [828, 452, 12],
-          [960, 72, 8],
-          [740, 246, 6],
-          [1020, 392, 9],
-        ]}
-      />
-
-      </g>
-
-      {/* Where the climb arrives. A big solid mass shouted over a section
-          that is mostly type, so the brand shows up once, small, at the one
-          point in the figure that means anything. */}
-      <g>
-        <circle className="fill-brand" cx="1316" cy="206" r="6" opacity={0.18}>
-          <animate
-            attributeName="r"
-            values="6;15;6"
-            dur="6s"
-            repeatCount="indefinite"
-            calcMode="spline"
-            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"
-            keyTimes="0;0.5;1"
-          />
-          <animate
-            attributeName="opacity"
-            values="0.18;0;0.18"
-            dur="6s"
-            repeatCount="indefinite"
-            keyTimes="0;0.5;1"
-          />
-        </circle>
-        <circle className="fill-brand" cx="1316" cy="206" r="5" />
-      </g>
-
     </svg>
   )
 }
