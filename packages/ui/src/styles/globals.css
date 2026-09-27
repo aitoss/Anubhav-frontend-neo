@@ -20,72 +20,80 @@
 @source "../**/*.{ts,tsx}";
 
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
+    /* Paper, not white: warm and low-glare, so long reads do not buzz. */
+    --background: oklch(0.977 0.010 87.5);
+    --foreground: oklch(0.207 0.008 67.4);
+    --card: oklch(0.994 0.007 88.6);
+    --card-foreground: oklch(0.207 0.008 67.4);
+    --popover: oklch(0.994 0.007 88.6);
+    --popover-foreground: oklch(0.207 0.008 67.4);
+    /* Ink, not saffron: the accent earns attention by being rare. */
+    --primary: oklch(0.207 0.008 67.4);
+    --primary-foreground: oklch(0.977 0.010 87.5);
+    --secondary: oklch(0.938 0.014 84.6);
+    --secondary-foreground: oklch(0.207 0.008 67.4);
+    --muted: oklch(0.938 0.014 84.6);
+    --muted-foreground: oklch(0.499 0.020 67.3);
+    --accent: oklch(0.928 0.020 83);
+    --accent-foreground: oklch(0.207 0.008 67.4);
+    --destructive: oklch(0.546 0.206 27);
+    --border: oklch(0.893 0.019 83.1);
+    --input: oklch(0.893 0.019 83.1);
+    --ring: var(--brand);
+    --brand: oklch(0.666 0.157 58.3);
+    --brand-foreground: oklch(0.985 0.006 85);
+    --chart-1: var(--brand);
+    --chart-2: oklch(0.545 0.016 65);
+    --chart-3: oklch(0.435 0.016 62);
+    --chart-4: oklch(0.365 0.014 60);
+    --chart-5: oklch(0.265 0.014 60);
     --radius: 0.45rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+    --sidebar: oklch(0.966 0.012 86);
+    --sidebar-foreground: oklch(0.207 0.008 67.4);
+    --sidebar-primary: oklch(0.207 0.008 67.4);
+    --sidebar-primary-foreground: oklch(0.977 0.010 87.5);
+    --sidebar-accent: oklch(0.928 0.020 83);
+    --sidebar-accent-foreground: oklch(0.207 0.008 67.4);
+    --sidebar-border: oklch(0.893 0.019 83.1);
+    --sidebar-ring: var(--brand);
 }
 
 .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+    /* Warm near-black rather than neutral: the same paper, dimmed. */
+    --background: oklch(0.189 0.009 75.1);
+    --foreground: oklch(0.956 0.014 84.6);
+    --card: oklch(0.225 0.011 73.3);
+    --card-foreground: oklch(0.956 0.014 84.6);
+    --popover: oklch(0.225 0.011 73.3);
+    --popover-foreground: oklch(0.956 0.014 84.6);
+    --primary: oklch(0.956 0.014 84.6);
+    --primary-foreground: oklch(0.189 0.009 75.1);
+    --secondary: oklch(0.268 0.015 76.3);
+    --secondary-foreground: oklch(0.956 0.014 84.6);
+    --muted: oklch(0.268 0.015 76.3);
+    --muted-foreground: oklch(0.700 0.024 78.2);
+    --accent: oklch(0.298 0.017 70.8);
+    --accent-foreground: oklch(0.956 0.014 84.6);
+    --destructive: oklch(0.684 0.186 24);
+    --border: oklch(0.905 0.02 80 / 13%);
+    --input: oklch(0.905 0.02 80 / 17%);
+    --ring: var(--brand);
+    /* Lifted and slightly desaturated so it carries on a dark ground. */
+    --brand: oklch(0.780 0.133 66.3);
+    --brand-foreground: oklch(0.189 0.009 75.1);
+    --chart-1: var(--brand);
+    --chart-2: oklch(0.715 0.014 72);
+    --chart-3: oklch(0.585 0.014 68);
+    --chart-4: oklch(0.455 0.012 65);
+    --chart-5: oklch(0.335 0.010 62);
+    --sidebar: oklch(0.225 0.011 73.3);
+    --sidebar-foreground: oklch(0.956 0.014 84.6);
+    --sidebar-primary: var(--brand);
+    --sidebar-primary-foreground: oklch(0.189 0.009 75.1);
+    --sidebar-accent: oklch(0.298 0.017 70.8);
+    --sidebar-accent-foreground: oklch(0.956 0.014 84.6);
+    --sidebar-border: oklch(0.905 0.02 80 / 13%);
+    --sidebar-ring: var(--brand);
 }
 
 @theme inline {
@@ -107,6 +115,8 @@
     --color-border: var(--border);
     --color-input: var(--input);
     --color-ring: var(--ring);
+    --color-brand: var(--brand);
+    --color-brand-foreground: var(--brand-foreground);
     --color-chart-1: var(--chart-1);
     --color-chart-2: var(--chart-2);
     --color-chart-3: var(--chart-3);
@@ -129,6 +139,7 @@
     --color-sidebar-ring: var(--sidebar-ring);
     --font-sans: var(--font-sans);
     --font-heading: var(--font-heading);
+    --font-display: var(--font-display), Georgia, serif;
 }
 
 @layer base {
@@ -144,8 +155,8 @@
     }
 }
 
-::selection{
-  background: hsla(216, 0%, 50%, 0.2);
+::selection {
+  background: color-mix(in oklab, var(--brand) 28%, transparent);
 }
 /* Article bodies arrive as raw HTML from the API (p, h1-h3, ul/li, pre/code,
    blockquote, a, strong). Tailwind's reset strips all of it, so the reading
@@ -164,7 +175,10 @@
 .article-prose h2,
 .article-prose h3 {
   color: var(--foreground);
-  font-weight: 600;
+  /* Headings in the display serif, so a read looks like the brand rather than
+     like the admin UI around it. */
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 1.3;
   margin-top: 2em;
@@ -221,7 +235,7 @@
 }
 
 .article-prose blockquote {
-  border-left: 3px solid var(--border);
+  border-left: 3px solid var(--brand);
   padding-left: 1rem;
   font-style: italic;
 }

@@ -1,14 +1,16 @@
 import Link from "next/link"
 import { ButtonLink } from "@/components/button-link"
 import { SearchTrigger } from "@/components/search-trigger"
-import PartnersMarquee from "@/components/partners-marquee"
 import { BackgroundDots } from "@/components/background-dots"
+import PartnersMarquee from "@/components/partners-marquee"
 import { SendArrowIcon } from "@/components/send-arrow-icon"
 import { FeatureCardWithIcon } from "@/components/feature-card-with-icon"
 import { HowItWorks } from "@/components/how-it-works"
 import { StoryStack } from "@/components/story-stack"
 import { FeatureCards } from "@/components/feature-cards"
 import { AnnouncementPill } from "@/components/announcement-pill"
+import { BrandFilters, Grain } from "@/components/brand/marks"
+import { HeroCollage } from "@/components/brand/hero-collage"
 import { CommentBubble } from "@/components/comment-bubble"
 import { AvatarStack, type Avatar } from "@/components/avatar-stack"
 import { ChatBubbleOvalLeftIcon, VideoCameraIcon } from "@heroicons/react/24/solid"
@@ -89,45 +91,48 @@ const avatars: Avatar[] = [
 
 export default function Page() {
   return (
-    <main
-      className="min-h-screen bg-background text-foreground"
-      style={{
-        backgroundImage:
-          "radial-gradient(circle at top, hsl(var(--primary) / 0.08), transparent 34%), linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%)",
-      }}
-    >
+    <main className="bg-background text-foreground min-h-screen">
+      <BrandFilters />
 
-      <section className="relative isolate overflow-hidden px-4 pb-16 pt-10 sm:px-6 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-28 lg:pt-24">
-        <BackgroundDots
-          dotSize={1.8}
-          dotColor="#71717a"
-          backgroundColor="transparent"
-          gap={15}
-          className="pointer-events-none opacity-50"
-          fade
-        />
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center gap-3 text-center sm:gap-4">
+      <section className="relative isolate overflow-hidden px-4 pt-10 pb-4 sm:px-6 sm:pt-16 lg:px-8 lg:pt-20">
+        <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center gap-6 text-center">
           <AnnouncementPill />
-          <h1 className="max-w-xl font-heading text-3xl sm:text-4xl lg:text-6xl font-medium tracking-tight text-foreground">
-            Stories of success from the community
+
+          <h1 className="font-display text-5xl leading-[1.02] font-normal tracking-tight text-balance sm:text-6xl lg:text-7xl">
+            The rounds,
+            <br />
+            <span className="text-brand italic">as they happened</span>
           </h1>
-          <p className="max-w-md text-base leading-7 text-muted-foreground sm:max-w-xl sm:text-lg sm:leading-8">
-            Anubhav is a space for interview experiences, across placements, internships,
-            and career journeys.
+
+          <p className="text-muted-foreground max-w-xl text-lg leading-8 text-balance">
+            Every interview here was written by the student who sat it — the questions,
+            the mistakes, the verdict. Read the climb before you make it.
           </p>
 
-          <div className="mt-5 w-full max-w-3xl sm:mt-8">
+          <div className="w-full max-w-xl">
             <SearchTrigger />
           </div>
 
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-3 sm:mt-8">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <ButtonLink href="/article" size="lg">
-              Start Reading
+              Start reading
             </ButtonLink>
             <ButtonLink href="/create" variant="outline" size="lg">
-              Share Your Story
+              Share your story
             </ButtonLink>
           </div>
+        </div>
+
+        {/* The collage closes the hero rather than competing with it, so the
+            headline still owns the centre line. */}
+        <div className="relative mx-auto mt-4 w-full max-w-md sm:mt-8">
+          <HeroCollage className="w-full" />
+          <Grain className="pointer-events-none absolute inset-0 h-full w-full" />
+        </div>
+      </section>
+
+      <section className="px-4 pb-16 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl">
           {/* Partner logos bar */}
           <div className="mt-16 w-full sm:mt-24 lg:mt-32">
             {/* Moving partner logos marquee */}
@@ -143,7 +148,7 @@ export default function Page() {
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               What is Anubhav?
             </p>
-            <h2 className="mt-3 text-3xl sm:text-4xl font-heading font-medium tracking-tight text-foreground">
+            <h2 className="mt-3 text-4xl sm:text-5xl font-display font-normal tracking-tight text-foreground">
               Discover Anubhav
             </h2>
             <p className="mt-6 max-w-xl text-muted-foreground">
@@ -181,7 +186,7 @@ export default function Page() {
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Features
             </p>
-            <h2 className="mt-3 text-2xl sm:text-3xl font-heading font-medium tracking-tight text-foreground">
+            <h2 className="mt-3 text-3xl sm:text-4xl font-display font-normal tracking-tight text-foreground">
               Built for reading, writing, and sharing.
             </h2>
           </div>
@@ -266,7 +271,7 @@ export default function Page() {
           <p className="text-sm font-medium text-foreground/90 sm:text-base">
             What is Anubhav?
           </p>
-          <h2 className="mt-2 text-3xl font-heading font-medium tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+          <h2 className="mt-2 text-4xl font-display font-normal tracking-tight text-foreground sm:text-5xl lg:text-6xl">
             Anubhav is Open Source
           </h2>
 
@@ -306,7 +311,7 @@ export default function Page() {
       <section className="flex justify-center px-4 pb-12">
         <div className="border-border bg-card flex w-full max-w-7xl flex-col items-start justify-between gap-8 rounded-2xl border p-8 shadow-lg md:p-16 lg:flex-row lg:items-center">
           <div className="flex flex-col items-start gap-6">
-            <h2 className="font-heading text-left text-3xl leading-[1.15] sm:text-[2.6rem] sm:leading-[1.1] font-medium tracking-tight">
+            <h2 className="font-display text-left text-4xl leading-[1.15] sm:text-[3rem] sm:leading-[1.1] font-normal tracking-tight">
               Discover Our
               <br />
               Latest Insights

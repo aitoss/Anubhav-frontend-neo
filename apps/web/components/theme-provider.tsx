@@ -10,7 +10,9 @@ function ThemeProvider({
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme="system"
+      // Dark is the brand's default look; the light paper theme is still a
+      // keypress (d) or a system preference away.
+      defaultTheme="dark"
       enableSystem
       disableTransitionOnChange
       {...props}
