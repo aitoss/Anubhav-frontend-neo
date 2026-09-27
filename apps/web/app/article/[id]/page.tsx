@@ -21,6 +21,7 @@ import {
 import { Skeleton } from "@workspace/ui/components/skeleton"
 
 import { ArticleActions } from "@/components/article-actions"
+import { ArticleToc } from "@/components/article-toc"
 import { ArticleThumb } from "@/components/article-thumb"
 import { UserAvatar } from "@/components/user-avatar"
 import { TagBadgeLink } from "@/components/tag-badge"
@@ -65,6 +66,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
 
   const author = article ? getAuthor(article) : null
   const edited = editedDate(article?.createdAt, article?.updatedAt)
+  const bodyRef = React.useRef<HTMLDivElement | null>(null)
   const body = React.useMemo(
     () => highlightCodeBlocks(article?.description ?? ""),
     [article?.description],
@@ -190,9 +192,12 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
             ) : null}
 
             <div
+              ref={bodyRef}
               className="article-prose mt-8"
               dangerouslySetInnerHTML={{ __html: body }}
             />
+
+            <ArticleToc containerRef={bodyRef} body={body} />
 
             <section className="border-border mt-12 border-t pt-8">
               <h2 className="font-heading mb-4 text-xl font-medium">Similar articles</h2>
