@@ -10,8 +10,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { cn } from "@workspace/ui/lib/utils"
 
 import { useArticles } from "@/hooks/use-articles"
+import type { ArticleFilters } from "@/lib/articles"
 import { CompanyFilter } from "@/components/company-filter"
 import { CompanyFilterDialog } from "@/components/company-filter-dialog"
+import { ArticleFilterBar } from "@/components/article-filters"
 import {
   Empty,
   EmptyContent,
@@ -69,6 +71,37 @@ function ArticleContent() {
 
   const sortBy = sortFromUrl
 
+  // Filters live in the url alongside query and sort, so a filtered list is
+  // shareable and survives a refresh.
+  const filters = React.useMemo<ArticleFilters>(
+    () => ({
+      roles: searchParams.get("role")?.split(",").filter(Boolean) ?? [],
+      years: searchParams.get("year")?.split(",").filter(Boolean) ?? [],
+    }),
+    [searchParams],
+  )
+
+  const pushParams = React.useCallback(
+    (next: {
+      query?: string
+      sort?: string
+      filters?: ArticleFilters
+    }) => {
+      const params = new URLSearchParams()
+      const nextQuery = next.query ?? queryFromUrl
+      const nextSort = next.sort ?? sortBy
+      const nextFilters = next.filters ?? filters
+
+      if (nextQuery) params.set("query", nextQuery)
+      params.set("sort", nextSort)
+      if (nextFilters.roles.length > 0) params.set("role", nextFilters.roles.join(","))
+      if (nextFilters.years.length > 0) params.set("year", nextFilters.years.join(","))
+
+      router.push(`/article?${params.toString()}`)
+    },
+    [filters, queryFromUrl, router, sortBy],
+  )
+
   const {
     data,
     isLoading,
@@ -81,6 +114,7 @@ function ArticleContent() {
   } = useArticles({
     query: queryFromUrl,
     sortBy,
+    filters,
   })
 
   const articles = React.useMemo(
@@ -92,37 +126,16 @@ function ArticleContent() {
   const handleSubmit = React.useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault()
-      const nextQuery = searchValue.trim()
-      const params = new URLSearchParams()
-
-      if (nextQuery) {
-        params.set("query", nextQuery)
-      }
-
-      if (sortBy) {
-        params.set("sort", sortBy)
-      }
-
-      const nextUrl = params.toString() ? `/article?${params.toString()}` : "/article"
-      router.push(nextUrl)
+      pushParams({ query: searchValue.trim() })
     },
-    [router, searchValue, sortBy],
+    [pushParams, searchValue],
   )
 
   const handleSortChange = React.useCallback(
     (value: string | null) => {
-      const nextSort = value === "relevance" ? "relevance" : "date"
-      const params = new URLSearchParams()
-
-      if (queryFromUrl) {
-        params.set("query", queryFromUrl)
-      }
-
-      params.set("sort", nextSort)
-
-      router.push(`/article?${params.toString()}`)
+      pushParams({ sort: value === "relevance" ? "relevance" : "date" })
     },
-    [queryFromUrl, router],
+    [pushParams],
   )
 
   const handleLoadMore = React.useCallback(() => {
@@ -182,14 +195,13 @@ function ArticleContent() {
                 </SelectContent>
               </Select>
             </div>
+            <ArticleFilterBar
+              filters={filters}
+              onChange={(next) => pushParams({ filters: next })}
+            />
             <CompanyFilterDialog
               activeCompany={queryFromUrl}
-              onSelect={(company) => {
-                const params = new URLSearchParams()
-                params.set("query", company)
-                if (sortFromUrl !== "date") params.set("sort", sortFromUrl)
-                router.push(`/article?${params.toString()}`)
-              }}
+              onSelect={(company) => pushParams({ query: company })}
             />
             <div className="ml-auto text-sm text-muted-foreground">
               {queryFromUrl ? `${totalArticles} articles found` : "Latest articles"}
@@ -247,12 +259,7 @@ function ArticleContent() {
           <div className="hidden lg:block lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
             <CompanyFilter
               activeCompany={queryFromUrl}
-              onSelect={(company) => {
-                const params = new URLSearchParams()
-                params.set("query", company)
-                if (sortFromUrl !== "date") params.set("sort", sortFromUrl)
-                router.push(`/article?${params.toString()}`)
-              }}
+              onSelect={(company) => pushParams({ query: company })}
             />
           </div>
         </div>

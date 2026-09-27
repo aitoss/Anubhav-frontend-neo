@@ -38,10 +38,34 @@ export type ArticlesResponse = {
 
 export type ArticleSort = "relevance" | "date"
 
-export async function fetchArticlesPage(query: string, sortBy: ArticleSort, page: number) {
+/** The `typeOfArticle` values the backend accepts, in the order we show them. */
+export const ARTICLE_ROLES = [
+    "Internship",
+    "FullTime",
+    "Interview-experience",
+    "Hackathon",
+    "GSOC",
+    "Off Campus",
+] as const
+
+export type ArticleFilters = {
+    roles: string[]
+    years: string[]
+}
+
+export const EMPTY_FILTERS: ArticleFilters = {roles: [], years: []}
+
+export async function fetchArticlesPage(
+    query: string,
+    sortBy: ArticleSort,
+    page: number,
+    filters: ArticleFilters = EMPTY_FILTERS,
+) {
     const params = new URLSearchParams()
     params.set("page", String(page))
     params.set("sort", sortBy)
+    if (filters.roles.length > 0) params.set("role", filters.roles.join(","))
+    if (filters.years.length > 0) params.set("year", filters.years.join(","))
 
     const endpoint = query
         ? `/api/anubhav/search?${params.toString()}&q=${encodeURIComponent(query)}`
