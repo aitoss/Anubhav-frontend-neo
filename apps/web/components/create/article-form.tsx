@@ -28,6 +28,7 @@ import {
   type ArticleFormValues,
 } from "@/lib/article-form-validation"
 import type { Article } from "@/lib/articles"
+import { PagePlate } from "@/components/brand/page-plate"
 
 const POSITIONS = [
   { value: "Internship", label: "Internship" },
@@ -194,6 +195,16 @@ export function ArticleForm({ mode = "create", articleId, initialArticle }: Prop
 
   return (
     <>
+      {/* A band rather than a full header: the form already has a title and a
+          step counter, and a second heading over a form is just noise. */}
+      <div className="relative isolate -mb-6 overflow-hidden">
+        <PagePlate
+          variant="right"
+          className="pointer-events-none absolute inset-0 h-full w-full opacity-70"
+        />
+        <div className="h-20" />
+      </div>
+
       <main className="relative mx-auto w-full max-w-3xl px-4 py-6">
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-2xl font-medium tracking-tight sm:text-3xl">

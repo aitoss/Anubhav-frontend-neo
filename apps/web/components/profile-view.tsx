@@ -34,6 +34,7 @@ import { Tabs, TabsList, TabsTrigger } from "@workspace/ui/components/tabs"
 import { ArticleCard, formatArticleDate } from "@/components/article-card"
 import { LinkedInIcon } from "@/components/footer"
 import { ArticleOwnerActions } from "@/components/article-owner-actions"
+import { PagePlate } from "@/components/brand/page-plate"
 import { UserAvatar } from "@/components/user-avatar"
 import { useReactedArticles } from "@/hooks/use-profile"
 import { PROFILE_PAGE_SIZE, type Profile } from "@/lib/users"
@@ -86,7 +87,15 @@ export function ProfileSkeleton() {
 export function ProfileShell({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <main className="relative mx-auto h-full w-full max-w-[1440px] px-4 pt-24 pb-16 md:px-6 lg:px-14">
+      <div className="relative isolate overflow-hidden">
+        <PagePlate
+          variant="left"
+          className="pointer-events-none absolute inset-0 h-full w-full opacity-70"
+        />
+        <div className="h-24" />
+      </div>
+
+      <main className="relative mx-auto h-full w-full max-w-[1440px] px-4 pt-6 pb-16 md:px-6 lg:px-14">
         {children}
       </main>
     </>

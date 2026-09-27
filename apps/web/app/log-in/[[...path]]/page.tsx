@@ -11,6 +11,7 @@ import { Button } from "@workspace/ui/components/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@workspace/ui/components/card"
 import { Input } from "@workspace/ui/components/input"
 import { Label } from "@workspace/ui/components/label"
+import { PagePlate } from "@/components/brand/page-plate"
 
 type AuthMode = "signIn" | "signUp"
 const AUTH_USER_CACHE_KEY = "anubhav.auth.user"
@@ -139,8 +140,14 @@ export default function AuthRoutePage() {
     }
 
     return (
-        <main className="min-h-[calc(100vh-5rem)] flex w-full items-center justify-center">
-            <div className="mx-auto min-w-sm lg:min-w-md">
+        <main className="relative isolate min-h-[calc(100vh-5rem)] flex w-full items-center justify-center overflow-hidden">
+            {/* Behind the card and well back: signing in is not the moment to
+                put anything in front of the reader. */}
+            <PagePlate
+                variant="left"
+                className="pointer-events-none absolute inset-x-0 top-0 h-32 w-full opacity-60"
+            />
+            <div className="relative z-10 mx-auto min-w-sm lg:min-w-md">
                 <div className="flex justify-center items-center w-full">
                     <Card className="w-full shadow-lg shadow-black/5">
                         <CardHeader className="space-y-2">
