@@ -18,11 +18,12 @@ const STAGE = "0 0 320 200"
 /**
  * A torn field of brand behind each composition.
  *
- * Solid, it was the first thing the eye hit on a card whose job is to explain
- * three steps. Screened into halftone it still reads as printed colour and
- * still anchors the panel, without competing with the panel it sits behind.
+ * Screened into halftone and held back to match the hero plate, so the three
+ * cards and the section above them read as one piece of work rather than the
+ * cards shouting while the hero whispers. It anchors the panel; it is not the
+ * thing you are meant to look at.
  */
-function InkStrip({ d, opacity = 1 }: { d: string; opacity?: number }) {
+function InkStrip({ d, opacity = 0.5 }: { d: string; opacity?: number }) {
   return (
     <path
       fill={`url(#${HALFTONE_ID})`}
@@ -45,7 +46,7 @@ function Frame({ children }: { children: React.ReactNode }) {
 export function StepDetails() {
   return (
     <Frame>
-      <InkStrip d="M0 44 96 36 100 196 0 200Z" opacity={0.9} />
+      <InkStrip d="M0 44 96 36 100 196 0 200Z" />
 
       <g className="fill-card stroke-border" strokeWidth="1.5">
         <rect x="64" y="24" width="238" height="152" rx="10" />
@@ -88,7 +89,7 @@ export function StepDetails() {
         rx="8"
       />
       <path
-        className="fill-brand/70"
+        className="fill-brand/60"
         d="M250 88 238 106h7v12h10v-12h7L250 88Z"
       />
     </Frame>
@@ -99,7 +100,7 @@ export function StepDetails() {
 export function StepWrite() {
   return (
     <Frame>
-      <InkStrip d="M226 12 320 24 316 168 222 158Z" opacity={0.85} />
+      <InkStrip d="M226 12 320 24 316 168 222 158Z" />
 
       <g className="fill-card stroke-border" strokeWidth="1.5">
         <rect x="18" y="30" width="248" height="150" rx="10" />
@@ -115,7 +116,7 @@ export function StepWrite() {
 
       {/* A heading, a caret, and the lines that have not been written yet. */}
       <rect className="fill-foreground/70" x="34" y="84" width="96" height="9" rx="3" />
-      <rect className="fill-brand" x="136" y="80" width="2.5" height="17" rx="1.2">
+      <rect className="fill-brand/80" x="136" y="80" width="2.5" height="17" rx="1.2">
         <animate
           attributeName="opacity"
           values="1;1;0;0"
@@ -138,7 +139,7 @@ export function StepWrite() {
 export function StepPublish() {
   return (
     <Frame>
-      <InkStrip d="M0 128 320 112 320 200 0 200Z" opacity={0.85} />
+      <InkStrip d="M0 128 320 112 320 200 0 200Z" />
 
       {/* Two pages, the back one offset, so it reads as published rather than
           still being edited. */}
@@ -166,7 +167,7 @@ export function StepPublish() {
       <g>
         <rect className="fill-foreground" x="158" y="112" width="92" height="28" rx="14" />
         <rect className="fill-background" x="174" y="123" width="40" height="6" rx="3" />
-        <path className="fill-brand" d="M226 118 240 126 226 134 229 126Z" />
+        <path className="fill-brand/80" d="M226 118 240 126 226 134 229 126Z" />
       </g>
     </Frame>
   )
