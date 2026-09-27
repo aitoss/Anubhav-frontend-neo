@@ -6,6 +6,13 @@ import { cn } from "@workspace/ui/lib/utils"
 
 type Heading = { id: string; text: string; level: number }
 
+/** Honours the reader's motion preference rather than always animating. */
+function scrollBehavior(): ScrollBehavior {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ? "auto"
+    : "smooth"
+}
+
 function slugify(text: string) {
   return (
     text
@@ -124,6 +131,15 @@ export function ArticleToc({
           <li key={heading.id}>
             <a
               href={`#${heading.id}`}
+              onClick={(event) => {
+                const node = document.getElementById(heading.id)
+                if (!node) return
+                event.preventDefault()
+                node.scrollIntoView({ behavior: scrollBehavior(), block: "start" })
+                // preventDefault dropped the hash, so put it back for sharing
+                // and the back button.
+                history.replaceState(null, "", `#${heading.id}`)
+              }}
               className={cn(
                 "hover:text-foreground block truncate rounded-md px-2 py-1 text-sm transition-colors",
                 heading.level === 3 && "pl-5 text-xs",

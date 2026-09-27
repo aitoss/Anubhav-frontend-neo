@@ -22,11 +22,13 @@ import { Skeleton } from "@workspace/ui/components/skeleton"
 
 import { ArticleActions } from "@/components/article-actions"
 import { ArticleToc } from "@/components/article-toc"
+import { ReadingProgress } from "@/components/reading-progress"
 import { ArticleThumb } from "@/components/article-thumb"
 import { UserAvatar } from "@/components/user-avatar"
 import { TagBadgeLink } from "@/components/tag-badge"
 import { editedDate, formatArticleDate, readTime } from "@/components/article-card"
 import { useArticle } from "@/hooks/use-article"
+import { useCodeCopy } from "@/hooks/use-code-copy"
 import { useSimilarArticles } from "@/hooks/use-similar-articles"
 import { articleTagList, getAuthor } from "@/lib/articles"
 import { buildArticlePath, extractArticleIdFromRoute } from "@/lib/article-url"
@@ -71,6 +73,8 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
     () => highlightCodeBlocks(article?.description ?? ""),
     [article?.description],
   )
+
+  useCodeCopy(bodyRef, body)
 
   return (
     <main className="bg-background text-foreground min-h-screen">
@@ -198,6 +202,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
             />
 
             <ArticleToc containerRef={bodyRef} body={body} />
+            <ReadingProgress containerRef={bodyRef} />
 
             <section className="border-border mt-12 border-t pt-8">
               <h2 className="font-heading mb-4 text-xl font-medium">Similar articles</h2>
