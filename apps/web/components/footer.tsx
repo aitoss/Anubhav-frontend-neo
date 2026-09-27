@@ -1,6 +1,8 @@
 "use client"
 
-import Link from "next/link";
+import Link from "next/link"
+
+import { PagePlate } from "@/components/brand/page-plate";
 
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Logo } from "./logo";
@@ -44,8 +46,14 @@ function GitHubIcon({ className }: { className: string }) {
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-sidebar/50 backdrop-blur-sm">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <footer className="border-border bg-sidebar/50 relative isolate overflow-hidden border-t backdrop-blur-sm">
+      {/* The plate closes the page the same way it opened it. */}
+      <PagePlate
+        variant="right"
+        className="pointer-events-none absolute inset-x-0 top-0 h-24 w-full opacity-60"
+      />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         {/* Main footer content */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-5 md:gap-12 lg:gap-16">
           {/* Brand section */}

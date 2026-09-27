@@ -1,7 +1,6 @@
 import Link from "next/link"
 import { ButtonLink } from "@/components/button-link"
 import { SearchTrigger } from "@/components/search-trigger"
-import { BackgroundDots } from "@/components/background-dots"
 import PartnersMarquee from "@/components/partners-marquee"
 import { SendArrowIcon } from "@/components/send-arrow-icon"
 import { FeatureCardWithIcon } from "@/components/feature-card-with-icon"
@@ -10,7 +9,7 @@ import { StoryStack } from "@/components/story-stack"
 import { FeatureCards } from "@/components/feature-cards"
 import { AnnouncementPill } from "@/components/announcement-pill"
 import { HERO_STEP, Reveal } from "@/components/reveal"
-import { BrandFilters } from "@/components/brand/marks"
+import { PagePlate } from "@/components/brand/page-plate"
 import { HeroBackdrop } from "@/components/brand/hero-collage"
 import { CommentBubble } from "@/components/comment-bubble"
 import { AvatarStack, type Avatar } from "@/components/avatar-stack"
@@ -93,8 +92,6 @@ const avatars: Avatar[] = [
 export default function Page() {
   return (
     <main className="bg-background text-foreground min-h-screen">
-      <BrandFilters />
-
       <section className="relative isolate overflow-hidden px-4 pt-10 pb-28 sm:px-6 sm:pt-14 lg:px-8 lg:pt-16 lg:pb-14">
         {/* One figure spread across the whole section, behind the type. Narrow
             screens crop hard, so they get the right-hand end of the climb,
@@ -236,14 +233,10 @@ export default function Page() {
 
                 <AvatarStack avatars={avatars} />
 
-                <div className="absolute bottom-0 right-0 select-none opacity-60">
-                  <img
-                    src="/assets/images/world.png"
-                    alt=""
-                    className="w-40 max-w-none select-none sm:w-auto"
-                    draggable={false}
-                  />
-                </div>
+                <PagePlate
+                  variant="right"
+                  className="pointer-events-none absolute right-0 bottom-0 h-32 w-full opacity-70"
+                />
               </div>
             </div>
 
@@ -280,13 +273,10 @@ export default function Page() {
 
 
       <section className="relative isolate overflow-hidden px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
-        <BackgroundDots
-          dotSize={1.8}
-          dotColor="#cbcbcc"
-          backgroundColor="transparent"
-          gap={15}
-          className="pointer-events-none opacity-50"
-          fade
+        <PagePlate
+          variant="right"
+          fig="FIG. OS"
+          className="pointer-events-none absolute inset-0 h-full w-full"
         />
 
         <Reveal className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center text-center">

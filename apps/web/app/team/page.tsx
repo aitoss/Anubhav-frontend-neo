@@ -4,7 +4,7 @@ import Image from "next/image"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@workspace/ui/components/tabs"
 
-import { BackgroundDots } from "@/components/background-dots"
+import { PageHeader } from "@/components/brand/page-header"
 
 type Member = { name: string; imageSrc: string; githubId: string }
 
@@ -58,9 +58,14 @@ function MemberGrid({ members }: { members: Member[] }) {
 export default function TeamPage() {
   return (
     <>
-      <BackgroundDots dotSize={1.8} gap={15} fade />
-      <main className="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 pt-6">
-        <h1 className="mb-6 text-center text-3xl font-semibold sm:text-4xl">Dev Team</h1>
+      <PageHeader
+        title="Dev Team"
+        description="The students who build and maintain Anubhav, past and present."
+        fig="FIG. T"
+        variant="right"
+      />
+
+      <main className="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 pt-10">
         <Tabs defaultValue="current" className="w-full">
           <TabsList className="mx-auto">
             <TabsTrigger value="current">Current Team</TabsTrigger>

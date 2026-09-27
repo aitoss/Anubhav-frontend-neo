@@ -4,6 +4,7 @@ import { Geist_Mono, Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ReactQueryProvider } from "@/components/react-query-provider"
+import { BrandFilters } from "@/components/brand/marks"
 import { cn } from "@workspace/ui/lib/utils"
 import SearchShortcut from "@/components/search-shortcut"
 import { SuperTokensProvider } from "@/components/supertokens-provider"
@@ -76,6 +77,7 @@ export default function RootLayout({
       )}
     >
       <body>
+        <BrandFilters />
         <SuperTokensProvider>
           <ThemeProvider>
             <ReactQueryProvider>

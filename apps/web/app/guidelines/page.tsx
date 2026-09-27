@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 
+import { PageHeader } from "@/components/brand/page-header"
+
 
 export const metadata: Metadata = {
   title: "Guidelines",
@@ -12,8 +14,14 @@ export const metadata: Metadata = {
 export default function GuidelinesPage() {
   return (
     <>
-      <main className="mx-auto w-full max-w-3xl px-4 py-6">
-        <h1 className="mb-8 text-center text-3xl font-semibold sm:text-4xl">Guidelines</h1>
+      <PageHeader
+        title="Guidelines"
+        description="What makes a useful interview experience, and how review works before yours goes live."
+        fig="FIG. G"
+        variant="right"
+      />
+
+      <main className="mx-auto w-full max-w-3xl px-4 py-10">
 
         <p className="text-muted-foreground leading-7">
           Anubhav, the experience sharing platform, welcomes contributions from anyone at

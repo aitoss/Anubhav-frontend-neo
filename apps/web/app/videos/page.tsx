@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 
 import { TagBadge, TagBadgeLink } from "@/components/tag-badge"
 
-import { BackgroundDots } from "@/components/background-dots"
+import { PageHeader } from "@/components/brand/page-header"
 import videoData from "../../public/VideoData.json"
 
 export const metadata: Metadata = {
@@ -26,16 +26,19 @@ export default function VideosPage() {
 
   return (
     <>
-      <BackgroundDots dotSize={1.8} gap={15} fade />
-      <main className="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4">
-        <div className="mx-auto flex max-w-lg flex-col items-center justify-center py-6 text-center">
-          <h1 className="mb-4 text-3xl font-semibold sm:text-4xl tracking-tight">Videos</h1>
-          <div className="flex w-full flex-wrap justify-center gap-2">
-            {TAGS.map((tag) => (
-              <TagBadgeLink key={tag} label={tag} />
-            ))}
-          </div>
+      <PageHeader
+        title="Videos"
+        description="Seniors on camera: college life, the tech and non-tech routes out of it, and what they would tell a junior."
+        fig="FIG. V"
+      >
+        <div className="flex w-full flex-wrap justify-center gap-2">
+          {TAGS.map((tag) => (
+            <TagBadgeLink key={tag} label={tag} />
+          ))}
         </div>
+      </PageHeader>
+
+      <main className="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4">
 
         <div className="grid grid-cols-1 gap-6 py-8 sm:grid-cols-2 lg:grid-cols-3">
           {videos.map((video) => (

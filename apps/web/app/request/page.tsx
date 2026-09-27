@@ -7,7 +7,7 @@ import { Input } from "@workspace/ui/components/input"
 import { Label } from "@workspace/ui/components/label"
 import { Textarea } from "@workspace/ui/components/textarea"
 
-import { BackgroundDots } from "@/components/background-dots"
+import { PageHeader } from "@/components/brand/page-header"
 import protectedAxios from "@/lib/protectedAxios"
 
 const RATE_LIMIT_MS = 3 * 60 * 60 * 1000
@@ -79,13 +79,13 @@ export default function RequestArticlePage() {
 
   return (
     <>
-      {/* <BackgroundDots dotSize={1.8} gap={15} fade /> */}
-      <main className="relative mx-auto w-full max-w-2xl px-4 py-6">
-        <h1 className="text-2xl font-medium tracking-tight sm:text-3xl">Request an article</h1>
-        <p className="text-muted-foreground mt-2 text-sm">
-          Ask a senior to share their interview experience. We&apos;ll reach out on your
-          behalf.
-        </p>
+      <PageHeader
+        title="Request an article"
+        description="Ask a senior to share their interview experience. We'll reach out on your behalf."
+        fig="FIG. R"
+      />
+
+      <main className="relative mx-auto w-full max-w-2xl px-4 py-10">
 
         <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-5">
           <div className="flex flex-col gap-2">

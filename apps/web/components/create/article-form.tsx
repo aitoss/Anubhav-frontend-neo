@@ -15,7 +15,6 @@ import {
   SelectValue,
 } from "@workspace/ui/components/select"
 
-import { BackgroundDots } from "@/components/background-dots"
 import { BannerUpload } from "@/components/create/banner-upload"
 import { CompanyAutocomplete } from "@/components/create/company-autocomplete"
 import { RichEditor } from "@/components/create/rich-editor"
@@ -195,7 +194,6 @@ export function ArticleForm({ mode = "create", articleId, initialArticle }: Prop
 
   return (
     <>
-      {/* <BackgroundDots dotSize={1.8} gap={15} fade /> */}
       <main className="relative mx-auto w-full max-w-3xl px-4 py-6">
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-2xl font-medium tracking-tight sm:text-3xl">

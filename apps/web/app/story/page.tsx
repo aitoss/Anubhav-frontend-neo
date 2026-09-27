@@ -14,6 +14,8 @@ import {
 import Image from "next/image"
 import type { Metadata } from "next"
 
+import { PageHeader } from "@/components/brand/page-header"
+
 
 export const metadata: Metadata = {
   title: "Our Story",
@@ -96,8 +98,13 @@ const MILESTONES = [
 export default function StoryPage() {
   return (
     <>
+      <PageHeader
+        title="Our Story"
+        description="How Anubhav went from a club side project to the place AIT students check before an interview."
+        fig="FIG. S"
+      />
+
       <main className="mx-auto w-full max-w-4xl px-4 py-6">
-        <h1 className="py-6 text-center text-3xl font-semibold sm:text-4xl lg:py-8">Our Story</h1>
 
         <div className="border-border relative flex flex-col gap-12 border-l pl-6 sm:pl-10">
           {MILESTONES.map((milestone) => (

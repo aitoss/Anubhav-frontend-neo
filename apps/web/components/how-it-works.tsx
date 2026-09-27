@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 
-import { BrandFilters } from "@/components/brand/marks"
 import { StepDetails, StepPublish, StepWrite } from "@/components/brand/step-art"
 import { Reveal } from "@/components/reveal"
 
@@ -34,7 +33,6 @@ const STEPS = [
 export function HowItWorks() {
   return (
     <section className="flex flex-col items-center justify-center px-4 pt-20 pb-32">
-      <BrandFilters />
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center text-center">
         <Reveal className="flex flex-col items-center">
         <p className="text-muted-foreground text-sm font-semibold tracking-[0.2em] uppercase">

@@ -22,6 +22,7 @@ import {
 } from "@workspace/ui/components/empty"
 
 import { ArticleCard } from "@/components/article-card"
+import { PageHeader } from "@/components/brand/page-header"
 import { ErrorState } from "@/components/error-state"
 
 
@@ -151,8 +152,14 @@ function ArticleContent() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <PageHeader
+        title="The archive"
+        description="Every interview experience students have written up, searchable by company, role and year."
+        fig="FIG. A"
+        variant="right"
+      />
 
-      <section className="px-4 pt-2 sm:px-6 lg:px-8">
+      <section className="px-4 pt-8 sm:px-6 lg:px-8">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
           <form onSubmit={handleSubmit} className="flex w-full max-w-3xl gap-3">
             <div className="relative flex-1 max-w-sm">
