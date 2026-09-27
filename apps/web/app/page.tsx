@@ -114,7 +114,7 @@ export default function Page() {
         <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center gap-6 text-center">
           <AnnouncementPill />
 
-          <h1 className="font-heading text-4xl leading-[1.05] font-medium tracking-tight text-balance sm:text-5xl lg:text-6xl">
+          <h1 className="font-heading text-4xl leading-[0.9] font-medium tracking-tight text-balance sm:text-5xl lg:text-6xl">
             Stories of success <span className="text-brand">from the community</span>
           </h1>
 
