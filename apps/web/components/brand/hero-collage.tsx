@@ -190,7 +190,9 @@ export function HeroBackdrop({
         </g>
 
         {/* FIG. 2 — the ladder. The one figure that says outright what the
-            product is about, so it is drawn in line rather than in mass. */}
+            product is about, so it is drawn in line rather than in mass. Still
+            the stronger of the two, just no longer the first thing you see. */}
+        <g opacity={0.6}>
         <g
           className="text-brand/60"
           stroke="currentColor"
@@ -221,6 +223,7 @@ export function HeroBackdrop({
         />
         <g className="text-foreground/45" {...FIG_PROPS}>
           <text x="1350" y="184">FIG. 2</text>
+        </g>
         </g>
       </g>
     </svg>
