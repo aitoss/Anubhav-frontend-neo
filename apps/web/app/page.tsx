@@ -115,12 +115,12 @@ export default function Page() {
           <AnnouncementPill />
 
           <h1 className="font-heading text-4xl leading-[1.05] font-medium tracking-tight text-balance sm:text-5xl lg:text-6xl">
-            The rounds, <span className="text-brand">as they happened</span>
+            Stories of success <span className="text-brand">from the community</span>
           </h1>
 
-          <p className="text-muted-foreground max-w-xl text-lg leading-8 text-balance">
-            Every interview here was written by the student who sat it: the rounds,
-            the questions, the verdict. Read the climb before you make it.
+          <p className="text-muted-foreground max-w-xl text-sm md:text-lg leading-8 text-balance">
+            Anubhav is a space for interview experiences, across placements,
+            internships, and career journeys.
           </p>
 
           <div className="w-full max-w-xl">
