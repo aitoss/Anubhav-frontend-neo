@@ -9,6 +9,7 @@ import { HowItWorks } from "@/components/how-it-works"
 import { StoryStack } from "@/components/story-stack"
 import { FeatureCards } from "@/components/feature-cards"
 import { AnnouncementPill } from "@/components/announcement-pill"
+import { HERO_STEP, Reveal } from "@/components/reveal"
 import { BrandFilters } from "@/components/brand/marks"
 import { HeroBackdrop } from "@/components/brand/hero-collage"
 import { CommentBubble } from "@/components/comment-bubble"
@@ -111,49 +112,57 @@ export default function Page() {
           className="pointer-events-none absolute inset-0 hidden h-full w-full lg:block"
         />
 
+        {/* Staggered rather than animated as one block, so the eye is led down
+            the hero in the order it should read it. */}
         <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center gap-6 text-center">
-          <AnnouncementPill />
+          <Reveal>
+            <AnnouncementPill />
+          </Reveal>
 
-          <h1 className="font-heading text-4xl leading-[0.9] font-medium tracking-tight text-balance sm:text-5xl lg:text-6xl">
-            Stories of success <span className="text-brand">from the community</span>
-          </h1>
+          <Reveal delay={HERO_STEP}>
+            <h1 className="font-heading text-4xl leading-[0.9] font-medium tracking-tight text-balance sm:text-5xl lg:text-6xl">
+              Stories of success <span className="text-brand">from the community</span>
+            </h1>
+          </Reveal>
 
-          <p className="text-muted-foreground max-w-xl text-base md:text-lg md:leading-8 md:text-balance">
-            Anubhav is a space for interview experiences, across placements,
-            internships, and career journeys.
-          </p>
+          <Reveal delay={HERO_STEP * 2}>
+            <p className="text-muted-foreground max-w-xl text-base md:text-lg md:leading-8 md:text-balance">
+              Anubhav is a space for interview experiences, across placements,
+              internships, and career journeys.
+            </p>
+          </Reveal>
 
-          <div className="w-full max-w-xl">
+          <Reveal delay={HERO_STEP * 3} className="w-full max-w-xl">
             <SearchTrigger />
-          </div>
+          </Reveal>
 
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <ButtonLink href="/article" size="lg">
-              Start reading
-            </ButtonLink>
-            <ButtonLink href="/create" variant="outline" size="lg">
-              Share your story
-            </ButtonLink>
-          </div>
-
-
+          <Reveal delay={HERO_STEP * 4}>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <ButtonLink href="/article" size="lg">
+                Start reading
+              </ButtonLink>
+              <ButtonLink href="/create" variant="outline" size="lg">
+                Share your story
+              </ButtonLink>
+            </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="px-4 pb-16 sm:px-6 lg:px-8">
-        <div className="mx-auto w-full max-w-7xl">
+        <Reveal className="mx-auto w-full max-w-7xl">
           {/* Partner logos bar */}
           <div className="mt-16 w-full sm:mt-24 lg:mt-32">
             {/* Moving partner logos marquee */}
             <PartnersMarquee />
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* Discover Anubhav section */}
       <section className="px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl grid gap-8 lg:grid-cols-2 items-center">
-          <div>
+          <Reveal>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               What is Anubhav?
             </p>
@@ -182,24 +191,28 @@ export default function Page() {
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
 
-          <StoryStack />
+          <Reveal delay={0.1}>
+            <StoryStack />
+          </Reveal>
         </div>
       </section>
 
 
       <section className="px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto w-full max-w-7xl">
-          <div className="mb-8 text-center">
+          <Reveal className="mb-8 text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Features
             </p>
             <h2 className="mt-3 text-2xl sm:text-3xl font-heading font-medium tracking-tight text-foreground">
               Built for reading, writing, and sharing.
             </h2>
-          </div>
-          <FeatureCards />
+          </Reveal>
+          <Reveal delay={0.1}>
+            <FeatureCards />
+          </Reveal>
         </div>
       </section>
 
@@ -207,7 +220,7 @@ export default function Page() {
 
       <section className="relative flex flex-col items-center justify-center overflow-hidden bg-sidebar/50 px-4 pb-32 pt-20">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center text-left">
-          <div className="mx-auto flex h-auto w-full flex-col items-center justify-center border-b border-t lg:h-[500px] lg:flex-row">
+          <Reveal className="mx-auto flex h-auto w-full flex-col items-center justify-center border-b border-t lg:h-[500px] lg:flex-row">
             <div className="relative h-full w-full overflow-hidden lg:w-1/2">
               <FeatureCardWithIcon
                 icon={ChatBubbleOvalLeftIcon}
@@ -261,7 +274,7 @@ export default function Page() {
                 />
               </Link>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -276,7 +289,7 @@ export default function Page() {
           fade
         />
 
-        <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center text-center">
+        <Reveal className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center text-center">
           <p className="text-sm font-medium text-foreground/90 sm:text-base">
             What is Anubhav?
           </p>
@@ -314,11 +327,11 @@ export default function Page() {
               Star On Github
             </a>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section className="flex justify-center px-4 pb-12">
-        <div className="border-border bg-card flex w-full max-w-7xl flex-col items-start justify-between gap-8 rounded-2xl border p-8 shadow-lg md:p-16 lg:flex-row lg:items-center">
+        <Reveal className="border-border bg-card flex w-full max-w-7xl flex-col items-start justify-between gap-8 rounded-2xl border p-8 shadow-lg md:p-16 lg:flex-row lg:items-center">
           <div className="flex flex-col items-start gap-6">
             <h2 className="font-heading text-left text-3xl leading-[1.15] sm:text-[2.6rem] sm:leading-[1.1] font-medium tracking-tight">
               Discover Our
@@ -336,7 +349,7 @@ export default function Page() {
               Start Reading
             </ButtonLink>
           </div>
-        </div>
+        </Reveal>
       </section>
 
     </main>

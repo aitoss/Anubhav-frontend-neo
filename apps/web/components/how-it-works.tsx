@@ -1,10 +1,10 @@
 "use client"
 
 import Link from "next/link"
-import { motion } from "framer-motion"
 
 import { BrandFilters } from "@/components/brand/marks"
 import { StepDetails, StepPublish, StepWrite } from "@/components/brand/step-art"
+import { Reveal } from "@/components/reveal"
 
 const STEPS = [
   {
@@ -28,13 +28,15 @@ const STEPS = [
 ]
 
 // ponytail: the Vite version used MaskText/MaskWrapper/FadeWrapper (three
-// bespoke animation wrappers). One whileInView fade-and-rise covers the same
-// intent; add the character mask back only if that specific effect is wanted.
+// bespoke animation wrappers). Reveal covers the same intent, and now covers
+// the rest of the landing page too; add the character mask back only if that
+// specific effect is wanted.
 export function HowItWorks() {
   return (
     <section className="flex flex-col items-center justify-center px-4 pt-20 pb-32">
       <BrandFilters />
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center text-center">
+        <Reveal className="flex flex-col items-center">
         <p className="text-muted-foreground text-sm font-semibold tracking-[0.2em] uppercase">
           How It Works
         </p>
@@ -50,15 +52,13 @@ export function HowItWorks() {
           Our platform is designed to make the writing and publishing process as smooth as
           possible.
         </p>
+        </Reveal>
 
         <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3">
           {STEPS.map(({ title, description, Art }, index) => (
-            <motion.div
+            <Reveal
               key={title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.4, delay: index * 0.12, ease: [0.33, 1, 0.68, 1] }}
+              delay={index * 0.1}
               className="group border-border bg-card relative h-full w-full overflow-hidden rounded-2xl border shadow-sm"
             >
               <div className="h-full p-3">
@@ -68,7 +68,7 @@ export function HowItWorks() {
                 <h3 className="mt-3 mb-2 text-left text-xl font-medium">{title}</h3>
                 <p className="text-muted-foreground text-left text-base">{description}</p>
               </div>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>
