@@ -13,12 +13,17 @@
 
 /** Ids are global in SVG, so each filter is namespaced by where it is used. */
 export const ROUGH_FILTER_ID = "anubhav-rough"
+export const GRUNGE_FILTER_ID = "anubhav-grunge"
 
 /**
- * The filter that gives flat vectors a printed feel: it chews edges the way
- * ink bleeds into paper.
+ * The filters that give flat vectors a printed feel.
  *
- * Render once per page; the marks below reference it by id.
+ * `rough` only chews the outline. `grunge` also eats into the fill: a second,
+ * much finer noise is turned into an alpha mask and composited away, so ink
+ * drops out in speckles the way it does on a bad pull. A flat fill reads as a
+ * div with a background colour; this reads as something that was printed.
+ *
+ * Render once per page; the marks below reference them by id.
  */
 export function BrandFilters() {
   return (
@@ -39,6 +44,39 @@ export function BrandFilters() {
             xChannelSelector="R"
             yChannelSelector="G"
           />
+        </filter>
+
+        <filter id={GRUNGE_FILTER_ID} x="-12%" y="-12%" width="124%" height="124%">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.024"
+            numOctaves="4"
+            seed="7"
+            result="warp"
+          />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="warp"
+            scale="6"
+            xChannelSelector="R"
+            yChannelSelector="G"
+            result="rough"
+          />
+
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.16"
+            numOctaves="3"
+            seed="13"
+            result="speckle"
+          />
+          {/* A hard threshold, not a ramp. A ramp just makes the whole shape
+              semi-transparent; this keeps the ink solid and punches out the
+              occasional flake, which is what a bad pull actually looks like. */}
+          <feComponentTransfer in="speckle" result="holes">
+            <feFuncA type="discrete" tableValues="1 1 1 1 1 1 0 1 1 1" />
+          </feComponentTransfer>
+          <feComposite in="rough" in2="holes" operator="in" />
         </filter>
       </defs>
     </svg>

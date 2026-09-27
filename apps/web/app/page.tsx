@@ -10,7 +10,7 @@ import { StoryStack } from "@/components/story-stack"
 import { FeatureCards } from "@/components/feature-cards"
 import { AnnouncementPill } from "@/components/announcement-pill"
 import { BrandFilters } from "@/components/brand/marks"
-import { HeroArt } from "@/components/brand/hero-collage"
+import { HeroBackdrop } from "@/components/brand/hero-collage"
 import { CommentBubble } from "@/components/comment-bubble"
 import { AvatarStack, type Avatar } from "@/components/avatar-stack"
 import { ChatBubbleOvalLeftIcon, VideoCameraIcon } from "@heroicons/react/24/solid"
@@ -95,19 +95,13 @@ export default function Page() {
       <BrandFilters />
 
       <section className="relative isolate overflow-hidden px-4 pt-10 pb-10 sm:px-6 sm:pt-14 lg:px-8 lg:pt-16 lg:pb-14">
-        {/* The art lives in its own max-width track rather than being pinned to
-            the viewport, so it keeps the same gap from the type at every width
-            instead of drifting further out as the window grows. */}
-        <div className="pointer-events-none absolute inset-0 mx-auto hidden max-w-[84rem] xl:block">
-          <HeroArt
-            side="left"
-            className="absolute inset-y-0 left-0 h-full w-[13rem] 2xl:w-[15rem]"
-          />
-          <HeroArt
-            side="right"
-            className="absolute inset-y-0 right-0 h-full w-[13rem] 2xl:w-[15rem]"
-          />
-        </div>
+        {/* One figure spread across the whole section, behind the type. Narrow
+            screens crop hard, so they get the right-hand end of the climb,
+            where the ridge is, rather than the faint middle. */}
+        <HeroBackdrop
+          idPrefix="w"
+          className="pointer-events-none absolute inset-0 hidden h-full w-full lg:block"
+        />
 
         <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center gap-6 text-center">
           <AnnouncementPill />
@@ -134,8 +128,16 @@ export default function Page() {
             </ButtonLink>
           </div>
 
-          {/* Narrow screens get the landing half of the story rather than none. */}
-          <HeroArt side="right" className="mt-4 w-full max-w-[15rem] xl:hidden" />
+          {/* Narrow screens crop the backdrop to almost nothing, and what
+              survives lands on the paragraph, so they get the whole figure as
+              a strip below the buttons instead. */}
+          <HeroBackdrop
+            idPrefix="n"
+            fit="meet"
+            className="pointer-events-none mt-2 w-full lg:hidden"
+          />
+
+
         </div>
       </section>
 

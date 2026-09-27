@@ -154,6 +154,15 @@
     }
 }
 
+/* The dots drifting along the hero diagram. Plain CSS because the tailwind
+   motion-reduce variant was never emitted for it, and an animation that
+   ignores the preference is worse than no animation. */
+@media (prefers-reduced-motion: reduce) {
+  .brand-travellers {
+    display: none;
+  }
+}
+
 ::selection {
   background: color-mix(in oklab, var(--brand) 28%, transparent);
 }
