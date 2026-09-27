@@ -118,7 +118,7 @@ export default function Page() {
             Stories of success <span className="text-brand">from the community</span>
           </h1>
 
-          <p className="text-muted-foreground max-w-xl text-sm md:text-lg leading-8 text-balance">
+          <p className="text-muted-foreground max-w-xl text-base md:text-lg md:leading-8 md:text-balance">
             Anubhav is a space for interview experiences, across placements,
             internships, and career journeys.
           </p>
