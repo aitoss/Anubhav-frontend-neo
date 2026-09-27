@@ -1,4 +1,4 @@
-import { GRUNGE_FILTER_ID } from "@/components/brand/marks"
+import { GRUNGE_FILTER_ID, HALFTONE_ID } from "@/components/brand/marks"
 
 /**
  * The three steps of writing an article, drawn rather than screenshotted.
@@ -15,11 +15,17 @@ import { GRUNGE_FILTER_ID } from "@/components/brand/marks"
 
 const STAGE = "0 0 320 200"
 
-/** A torn strip of brand, used to anchor each composition. */
+/**
+ * A torn field of brand behind each composition.
+ *
+ * Solid, it was the first thing the eye hit on a card whose job is to explain
+ * three steps. Screened into halftone it still reads as printed colour and
+ * still anchors the panel, without competing with the panel it sits behind.
+ */
 function InkStrip({ d, opacity = 1 }: { d: string; opacity?: number }) {
   return (
     <path
-      className="fill-brand"
+      fill={`url(#${HALFTONE_ID})`}
       opacity={opacity}
       filter={`url(#${GRUNGE_FILTER_ID})`}
       d={d}

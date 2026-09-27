@@ -14,6 +14,7 @@
 /** Ids are global in SVG, so each filter is namespaced by where it is used. */
 export const ROUGH_FILTER_ID = "anubhav-rough"
 export const GRUNGE_FILTER_ID = "anubhav-grunge"
+export const HALFTONE_ID = "anubhav-halftone"
 
 /**
  * The filters that give flat vectors a printed feel.
@@ -90,6 +91,20 @@ export function BrandFilters() {
             <feMergeNode in="edge" />
           </feMerge>
         </filter>
+
+        {/* Brand as a printed screen rather than a flat area. A solid block of
+            this colour is the loudest thing on any page it lands on; broken
+            into dots it carries the same colour at a fraction of the weight. */}
+        <pattern
+          id={HALFTONE_ID}
+          width="7"
+          height="7"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(18)"
+        >
+          <circle className="fill-brand" cx="1.6" cy="1.6" r="1.25" />
+          <circle className="fill-brand" cx="5.1" cy="5.1" r="1.25" />
+        </pattern>
       </defs>
     </svg>
   )

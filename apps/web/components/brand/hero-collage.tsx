@@ -1,23 +1,6 @@
-import { GRUNGE_FILTER_ID } from "@/components/brand/marks"
-
-/** The wordmark's peak, reused as a shape. Local bounds are roughly 36..247 x 196..362. */
 const MASK_ID = "anubhav-hero-mask"
 const CLEAR_ID = "anubhav-hero-clear"
 const TRACK_ID = "anubhav-hero-track"
-
-const PEAK_PATH =
-  "M128 196 82 274l7.1 2.2-52.6 86.5h21c16.3 0 31.4-8.9 39.3-23l31.8-56.5 2.6 4.4 29.4 52.1c7.9 14.1 22.9 23 39.3 23h24.1l-54.6-86.8 6.6-2L128 196Z"
-
-/**
- * The ridgeline, as one silhouette rather than the wordmark stamped three
- * times. Repeating the logo read as a lockup; a single irregular horizon with
- * a paler range behind it reads as landscape, which is what the climb needs to
- * look like. Baselines sit at y 400 and the peaks are deliberately uneven.
- */
-const RIDGE_BACK =
-  "M1050 400 1118 288 1160 334 1216 210 1262 288 1312 238 1358 308 1402 266 1440 310 1440 400Z"
-const RIDGE_FRONT =
-  "M1086 400 1142 316 1172 352 1246 234 1288 302 1330 260 1372 332 1408 296 1440 342 1440 400Z"
 
 /**
  * The dots that walk the climb. Long durations and staggered starts, so the
@@ -154,7 +137,6 @@ export function HeroBackdrop({
           [96, 486],
           [402, 214],
           [1086, 128],
-          [1316, 206],
         ].map(([cx, cy]) => (
           <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="4" />
         ))}
@@ -164,7 +146,7 @@ export function HeroBackdrop({
         <text x="48" y="438">R1</text>
         <text x="392" y="196">R2</text>
         <text x="1076" y="110">R3</text>
-        <text x="1330" y="212">offer</text>
+        <text className="fill-brand" x="1330" y="212">offer</text>
       </g>
 
       {/* Scattered the whole way across. The ones under the type are the
@@ -198,20 +180,30 @@ export function HeroBackdrop({
 
       </g>
 
-      {/* The landscape the climb ends in. Two ranges, the far one paler, so
-          it has depth without repeating a shape. */}
-      <g filter={`url(#${GRUNGE_FILTER_ID})`}>
-        <path className="fill-brand" opacity={0.42} d={RIDGE_BACK} />
-        <path className="fill-brand" d={RIDGE_FRONT} />
+      {/* Where the climb arrives. A big solid mass shouted over a section
+          that is mostly type, so the brand shows up once, small, at the one
+          point in the figure that means anything. */}
+      <g>
+        <circle className="fill-brand" cx="1316" cy="206" r="6" opacity={0.18}>
+          <animate
+            attributeName="r"
+            values="6;15;6"
+            dur="6s"
+            repeatCount="indefinite"
+            calcMode="spline"
+            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"
+            keyTimes="0;0.5;1"
+          />
+          <animate
+            attributeName="opacity"
+            values="0.18;0;0.18"
+            dur="6s"
+            repeatCount="indefinite"
+            keyTimes="0;0.5;1"
+          />
+        </circle>
+        <circle className="fill-brand" cx="1316" cy="206" r="5" />
       </g>
-
-      {/* A far-off fragment of the same range at the other end, so the two
-          sides of the figure belong to one place. */}
-      <path
-        className="fill-brand/35"
-        filter={`url(#${GRUNGE_FILTER_ID})`}
-        d="M20 400 54 356 76 378 108 338 134 372 156 352 178 386 200 366 220 396 220 400Z"
-      />
 
     </svg>
   )
