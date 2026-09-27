@@ -1,4 +1,10 @@
-import { GRUNGE_FILTER_ID, HALFTONE_ID } from "@/components/brand/marks"
+import {
+  FIG_PROPS,
+  GRUNGE_FILTER_ID,
+  HALFTONE_ID,
+  Splatter,
+  Stars,
+} from "@/components/brand/marks"
 
 const MASK_ID = "anubhav-hero-mask"
 const CLEAR_ID = "anubhav-hero-clear"
@@ -12,79 +18,6 @@ const TRACK_ID = "anubhav-hero-track"
 const TRAVELLERS = [
   { track: "a", dur: "52s", begin: "0s", r: 2.6 },
 ] as const
-
-const STAR =
-  "M12 0c.9 6.6 4.5 10.2 12 12-7.5 1.8-11.1 5.4-12 12-.9-6.6-4.5-10.2-12-12C7.5 10.2 11.1 6.6 12 0Z"
-
-/** Scatters the four-point star without repeating the path every time. */
-function Stars({
-  points,
-  className,
-}: {
-  points: [number, number, number][]
-  className?: string
-}) {
-  return (
-    <g className={className} fill="currentColor">
-      {points.map(([x, y, size]) => (
-        <path
-          key={`${x}-${y}`}
-          transform={`translate(${x - size / 2} ${y - size / 2}) scale(${size / 24})`}
-          d={STAR}
-        />
-      ))}
-    </g>
-  )
-}
-
-/**
- * Ink thrown off the edge of a shape.
- *
- * Deterministic rather than random, so the plate is identical on the server
- * and the client and does not reshuffle itself on every render.
- */
-function Splatter({
-  x,
-  y,
-  seed,
-  count = 22,
-  spread = 70,
-  className,
-}: {
-  x: number
-  y: number
-  seed: number
-  count?: number
-  spread?: number
-  className?: string
-}) {
-  const dots = Array.from({ length: count }, (_, i) => {
-    const angle = (seed * 12.9898 + i * 78.233) % 6.283
-    const distance = ((seed * 437.585 + i * 127.1) % 100) / 100
-    const size = ((seed * 311.7 + i * 269.5) % 100) / 100
-    return {
-      cx: x + Math.cos(angle) * spread * distance,
-      cy: y + Math.sin(angle) * spread * distance * 0.7,
-      r: 0.7 + size * 2.4,
-    }
-  })
-
-  return (
-    <g className={className} fill="currentColor">
-      {dots.map((dot, index) => (
-        <circle key={index} cx={dot.cx} cy={dot.cy} r={dot.r} />
-      ))}
-    </g>
-  )
-}
-
-// Mono and small: the caption under a figure in a textbook, not copy.
-const FIG_PROPS = {
-  fill: "currentColor",
-  fontSize: 10,
-  letterSpacing: 1.6,
-  fontFamily: "var(--font-mono), ui-monospace, monospace",
-} as const
 
 /**
  * The hero backdrop, as a plate of figures.
