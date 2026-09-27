@@ -126,26 +126,30 @@ export function HeroArt({ side, className }: { side: "left" | "right"; className
         <text x="198" y="150">offer</text>
       </g>
 
-      {/* The peak breaks the top edge of the block, so the two read as one
-          print rather than a logo sitting on a square. */}
-      <g filter={`url(#${ROUGH_FILTER_ID})`} className="fill-brand">
-        <path d="M128 196 82 274l7.1 2.2-52.6 86.5h21c16.3 0 31.4-8.9 39.3-23l31.8-56.5 2.6 4.4 29.4 52.1c7.9 14.1 22.9 23 39.3 23h24.1l-54.6-86.8 6.6-2L128 196Z" />
-        <rect x="38" y="346" width="262" height="256" />
-      </g>
+      {/* Scaled down as a unit: at full size the printed half shouted over the
+          headline instead of answering the hairlines opposite. */}
+      <g transform="translate(78 104) scale(0.74)">
+        {/* The peak breaks the top edge of the block, so the two read as one
+            print rather than a logo sitting on a square. */}
+        <g filter={`url(#${ROUGH_FILTER_ID})`} className="fill-brand">
+          <path d="M128 196 82 274l7.1 2.2-52.6 86.5h21c16.3 0 31.4-8.9 39.3-23l31.8-56.5 2.6 4.4 29.4 52.1c7.9 14.1 22.9 23 39.3 23h24.1l-54.6-86.8 6.6-2L128 196Z" />
+          <rect x="38" y="346" width="262" height="256" />
+        </g>
 
-      <g className="fill-background">
-        <path d="M182 396 142 464l6.2 1.9-45.8 75.3h18.3c14.2 0 27.3-7.7 34.2-20l27.7-49.2 2.2 3.8 25.6 45.4c6.9 12.3 20 20 34.2 20h21l-47.5-75.5 5.7-1.8L182 396Z" />
-      </g>
+        <g className="fill-background">
+          <path d="M182 396 142 464l6.2 1.9-45.8 75.3h18.3c14.2 0 27.3-7.7 34.2-20l27.7-49.2 2.2 3.8 25.6 45.4c6.9 12.3 20 20 34.2 20h21l-47.5-75.5 5.7-1.8L182 396Z" />
+        </g>
 
-      <Stars
-        className="fill-background text-transparent"
-        points={[
-          [268, 392, 16],
-          [72, 420, 10],
-          [278, 556, 12],
-          [64, 570, 7],
-        ]}
-      />
+        <Stars
+          className="fill-background text-transparent"
+          points={[
+            [268, 392, 16],
+            [72, 420, 10],
+            [278, 556, 12],
+            [64, 570, 7],
+          ]}
+        />
+      </g>
       <Stars className="text-foreground/70" points={[[16, 300, 13]]} />
     </svg>
   )
