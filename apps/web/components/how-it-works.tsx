@@ -4,6 +4,7 @@ import Link from "next/link"
 
 import { StepDetails, StepPublish, StepWrite } from "@/components/brand/step-art"
 import { Reveal } from "@/components/reveal"
+import { PlateCard, SectionHeading } from "@/components/brand/section"
 
 const STEPS = [
   {
@@ -32,40 +33,34 @@ const STEPS = [
 // specific effect is wanted.
 export function HowItWorks() {
   return (
-    <section className="flex flex-col items-center justify-center px-4 pt-20 pb-32">
-      <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center text-center">
-        <Reveal className="flex flex-col items-center">
-        <p className="text-muted-foreground text-sm font-semibold tracking-[0.2em] uppercase">
-          How It Works
-        </p>
-        <h2 className="font-heading mt-3 text-3xl font-medium sm:text-4xl tracking-tight text-balance">
-          Get Started with Our Platform
-        </h2>
-        <p className="text-muted-foreground mt-4 mb-10 max-w-2xl text-pretty">
-          Go{" "}
-          <Link className="underline underline-offset-4" href="/create">
-            here
-          </Link>{" "}
-          and follow these simple steps to create and publish your blog posts with ease.
-          Our platform is designed to make the writing and publishing process as smooth as
-          possible.
-        </p>
-        </Reveal>
+    <section className="px-4 pt-20 pb-28 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-7xl">
+        <SectionHeading
+          fig="03"
+          eyebrow="How it works"
+          title="Three steps from an interview you sat to an article someone else reads."
+          description={
+            <>
+              Go{" "}
+              <Link className="underline underline-offset-4" href="/create">
+                here
+              </Link>{" "}
+              and follow these. The editor does the formatting; you supply what
+              actually happened in the room.
+            </>
+          }
+        />
 
-        <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="mt-12 grid w-full grid-cols-1 gap-px md:grid-cols-3">
           {STEPS.map(({ title, description, Art }, index) => (
-            <Reveal
-              key={title}
-              delay={index * 0.1}
-              className="group border-border bg-card relative h-full w-full overflow-hidden rounded-2xl border shadow-sm"
-            >
-              <div className="h-full p-3">
-                <div className="border-border bg-muted/40 relative w-full overflow-hidden rounded-xl border">
-                  <Art />
-                </div>
-                <h3 className="mt-3 mb-2 text-left text-xl font-medium">{title}</h3>
-                <p className="text-muted-foreground text-left text-base">{description}</p>
-              </div>
+            <Reveal key={title} delay={index * 0.1} className="h-full">
+              <PlateCard
+                fig={String(index + 1).padStart(2, "0")}
+                title={title}
+                description={description}
+              >
+                <Art />
+              </PlateCard>
             </Reveal>
           ))}
         </div>

@@ -101,7 +101,7 @@ export default function StoryPage() {
       <PageHeader
         title="Our Story"
         description="How Anubhav went from a club side project to the place AIT students check before an interview."
-        fig="FIG. S"
+        fig="S"
       />
 
       <main className="mx-auto w-full max-w-4xl px-4 py-6">

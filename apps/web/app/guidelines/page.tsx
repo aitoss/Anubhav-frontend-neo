@@ -17,7 +17,7 @@ export default function GuidelinesPage() {
       <PageHeader
         title="Guidelines"
         description="What makes a useful interview experience, and how review works before yours goes live."
-        fig="FIG. G"
+        fig="G"
         variant="right"
       />
 

@@ -82,7 +82,7 @@ export default function RequestArticlePage() {
       <PageHeader
         title="Request an article"
         description="Ask a senior to share their interview experience. We'll reach out on your behalf."
-        fig="FIG. R"
+        fig="R"
       />
 
       <main className="relative mx-auto w-full max-w-2xl px-4 py-10">

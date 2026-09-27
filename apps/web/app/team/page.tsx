@@ -61,7 +61,7 @@ export default function TeamPage() {
       <PageHeader
         title="Dev Team"
         description="The students who build and maintain Anubhav, past and present."
-        fig="FIG. T"
+        fig="T"
         variant="right"
       />
 

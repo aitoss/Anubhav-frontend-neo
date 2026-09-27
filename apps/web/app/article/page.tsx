@@ -155,7 +155,7 @@ function ArticleContent() {
       <PageHeader
         title="The archive"
         description="Every interview experience students have written up, searchable by company, role and year."
-        fig="FIG. A"
+        fig="A"
         variant="right"
       />
 

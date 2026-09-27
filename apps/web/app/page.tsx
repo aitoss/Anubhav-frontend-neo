@@ -10,6 +10,7 @@ import { FeatureCards } from "@/components/feature-cards"
 import { AnnouncementPill } from "@/components/announcement-pill"
 import { HERO_STEP, Reveal } from "@/components/reveal"
 import { PagePlate } from "@/components/brand/page-plate"
+import { SectionHeading } from "@/components/brand/section"
 import { HeroBackdrop } from "@/components/brand/hero-collage"
 import { CommentBubble } from "@/components/comment-bubble"
 import { AvatarStack, type Avatar } from "@/components/avatar-stack"
@@ -160,12 +161,11 @@ export default function Page() {
       <section className="px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl grid gap-8 lg:grid-cols-2 items-center">
           <Reveal>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              What is Anubhav?
-            </p>
-            <h2 className="mt-3 text-3xl sm:text-4xl font-heading font-medium tracking-tight text-foreground">
-              Discover Anubhav
-            </h2>
+            <SectionHeading
+              fig="01"
+              eyebrow="What is Anubhav"
+              title="The place AIT students check before an interview."
+            />
             <p className="mt-6 max-w-xl text-muted-foreground">
               Anubhav is a dedicated platform where AIT students can share and explore success
               stories related to placements and internships. It's a space where you can find real-life
@@ -199,14 +199,12 @@ export default function Page() {
 
       <section className="px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto w-full max-w-7xl">
-          <Reveal className="mb-8 text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Features
-            </p>
-            <h2 className="mt-3 text-2xl sm:text-3xl font-heading font-medium tracking-tight text-foreground">
-              Built for reading, writing, and sharing.
-            </h2>
-          </Reveal>
+          <SectionHeading
+            fig="02"
+            eyebrow="Features"
+            title="Built for reading, writing, and sharing."
+            className="mb-10"
+          />
           <Reveal delay={0.1}>
             <FeatureCards />
           </Reveal>
@@ -275,17 +273,16 @@ export default function Page() {
       <section className="relative isolate overflow-hidden px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
         <PagePlate
           variant="right"
-          fig="FIG. OS"
-          className="pointer-events-none absolute inset-0 h-full w-full"
+          className="pointer-events-none absolute inset-0 h-full w-full opacity-60"
         />
 
         <Reveal className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center text-center">
-          <p className="text-sm font-medium text-foreground/90 sm:text-base">
-            What is Anubhav?
-          </p>
-          <h2 className="mt-2 text-3xl font-heading font-medium tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            Anubhav is Open Source
-          </h2>
+          <SectionHeading
+            fig="04"
+            eyebrow="Open source"
+            title="Anubhav is built in the open."
+            align="center"
+          />
 
           <div className="mt-12 flex justify-center">
             <img
@@ -323,11 +320,11 @@ export default function Page() {
       <section className="flex justify-center px-4 pb-12">
         <Reveal className="border-border bg-card flex w-full max-w-7xl flex-col items-start justify-between gap-8 rounded-2xl border p-8 shadow-lg md:p-16 lg:flex-row lg:items-center">
           <div className="flex flex-col items-start gap-6">
-            <h2 className="font-heading text-left text-3xl leading-[1.15] sm:text-[2.6rem] sm:leading-[1.1] font-medium tracking-tight">
-              Discover Our
-              <br />
-              Latest Insights
-            </h2>
+            <SectionHeading
+              fig="05"
+              eyebrow="The archive"
+              title="Discover our latest insights"
+            />
             <p className="text-muted-foreground max-w-xl text-left">
               Dive into our blog to explore a variety of topics, from industry trends to
               practical tips. Whether you&rsquo;re looking for inspiration or knowledge,

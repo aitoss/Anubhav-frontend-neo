@@ -29,9 +29,9 @@ export default function VideosPage() {
       <PageHeader
         title="Videos"
         description="Seniors on camera: college life, the tech and non-tech routes out of it, and what they would tell a junior."
-        fig="FIG. V"
+        fig="V"
       >
-        <div className="flex w-full flex-wrap justify-center gap-2">
+        <div className="flex w-full flex-wrap gap-2">
           {TAGS.map((tag) => (
             <TagBadgeLink key={tag} label={tag} />
           ))}
