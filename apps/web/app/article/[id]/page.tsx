@@ -21,11 +21,15 @@ import {
 import { Skeleton } from "@workspace/ui/components/skeleton"
 
 import { ArticleActions } from "@/components/article-actions"
+import { ArticleToc } from "@/components/article-toc"
+import { LinkedInIcon } from "@/components/footer"
+import { ReadingProgress } from "@/components/reading-progress"
 import { ArticleThumb } from "@/components/article-thumb"
 import { UserAvatar } from "@/components/user-avatar"
 import { TagBadgeLink } from "@/components/tag-badge"
 import { editedDate, formatArticleDate, readTime } from "@/components/article-card"
 import { useArticle } from "@/hooks/use-article"
+import { useCodeCopy } from "@/hooks/use-code-copy"
 import { useSimilarArticles } from "@/hooks/use-similar-articles"
 import { articleTagList, getAuthor } from "@/lib/articles"
 import { buildArticlePath, extractArticleIdFromRoute } from "@/lib/article-url"
@@ -65,10 +69,13 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
 
   const author = article ? getAuthor(article) : null
   const edited = editedDate(article?.createdAt, article?.updatedAt)
+  const bodyRef = React.useRef<HTMLDivElement | null>(null)
   const body = React.useMemo(
     () => highlightCodeBlocks(article?.description ?? ""),
     [article?.description],
   )
+
+  useCodeCopy(bodyRef, body)
 
   return (
     <main className="bg-background text-foreground min-h-screen">
@@ -168,11 +175,6 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
                     {readTime(article.description)}
                     {article.createdAt ? ` • ${formatArticleDate(article.createdAt)}` : ""}
                   </p>
-                  {edited ? (
-                    <p className="text-muted-foreground text-xs">
-                      Last edited on {edited}
-                    </p>
-                  ) : null}
                 </div>
               </div>
 
@@ -190,9 +192,57 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
             ) : null}
 
             <div
+              ref={bodyRef}
               className="article-prose mt-8"
               dangerouslySetInnerHTML={{ __html: body }}
             />
+
+            <ArticleToc containerRef={bodyRef} body={body} />
+            <ReadingProgress containerRef={bodyRef} />
+
+            <section className="border-border mt-12 flex flex-wrap items-start gap-4 border-t pt-8">
+              <UserAvatar
+                name={author?.name}
+                src={author?.logoUrl}
+                size={56}
+                className="size-14 shrink-0"
+              />
+
+              <div className="flex min-w-[12rem] flex-1 flex-col gap-1">
+                <p className="font-heading text-xl font-medium">
+                  Written by {author?.name || "Anonymous"}
+                </p>
+                <p className="text-muted-foreground text-sm">
+                  Published {formatArticleDate(article.createdAt)}
+                  {edited ? ` · last edited ${edited}` : ""}
+                </p>
+                {author?.linkedinUrl ? (
+                  <a
+                    href={author.linkedinUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-1 flex w-fit items-center gap-1.5 text-sm font-medium hover:underline"
+                  >
+                    <LinkedInIcon className="size-4 shrink-0" />
+                    LinkedIn
+                  </a>
+                ) : null}
+              </div>
+
+              {author?._id ? (
+                // Wraps to its own row on a phone rather than squeezing the
+                // name onto two lines.
+                <Button
+                  variant="outline"
+                  className="w-full sm:ml-auto sm:w-auto"
+                  render={
+                    <Link href={profilePath({ _id: author._id, name: author.name })} />
+                  }
+                >
+                  View profile
+                </Button>
+              ) : null}
+            </section>
 
             <section className="border-border mt-12 border-t pt-8">
               <h2 className="font-heading mb-4 text-xl font-medium">Similar articles</h2>
